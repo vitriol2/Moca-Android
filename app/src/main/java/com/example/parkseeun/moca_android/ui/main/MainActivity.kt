@@ -1,7 +1,8 @@
-package com.example.parkseeun.moca_android
+package com.example.parkseeun.moca_android.ui.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.parkseeun.moca_android.R
 
 class MainActivity : AppCompatActivity() {
 
