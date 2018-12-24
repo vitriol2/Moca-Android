@@ -1,0 +1,71 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Light11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Regular11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Bold11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Light13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Regular13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Bold13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Light15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Regular15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Bold15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Extrabold25">
+        <item name="android:textSize">25sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>
