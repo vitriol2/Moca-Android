@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".ui.follow.FollowActivity">
         </activity>
+        <activity android:name=".ui.plus.PlusActivity">
+        </activity>
     </application>
 
 </manifest>
