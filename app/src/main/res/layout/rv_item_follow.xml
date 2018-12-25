@@ -10,18 +10,28 @@
             android:layout_width="46dp"
             android:layout_height="46dp"/>
     <TextView
+            android:id="@+id/tv_follow_name"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/civ_follow_profile"
             android:layout_marginLeft="20dp"
             android:text="정화니"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    <Button
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_b"
+            android:textColor="#101010"/>
+    <ImageButton
+            android:id="@+id/ib_follow_follow"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:background="#fff"
-            android:text="팔로잉"
-            android:layout_width="70dp"
-            android:layout_height="24dp"/>
+            android:background="@drawable/community_followinglist_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+        android:background="#bfbfbf"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="86dp"></RelativeLayout>
 </RelativeLayout>
