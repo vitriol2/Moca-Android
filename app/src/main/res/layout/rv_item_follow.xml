@@ -10,6 +10,7 @@
             android:layout_width="46dp"
             android:layout_height="46dp"/>
     <TextView
+            android:id="@+id/tv_follow_name"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/civ_follow_profile"
             android:layout_marginLeft="20dp"
@@ -19,6 +20,7 @@
             android:fontFamily="@font/nanum_b"
             android:textColor="#101010"/>
     <ImageButton
+            android:id="@+id/ib_follow_follow"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
