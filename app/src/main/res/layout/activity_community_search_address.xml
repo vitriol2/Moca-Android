@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <RelativeLayout
+            android:id="@+id/rl_community_search_address"
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+        <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/common_backbtn_black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="장소 검색"
+                style="@style/Bold15"
+                android:layout_centerInParent="true"
+        />
+    </RelativeLayout>
+    <View
+            android:id="@+id/view_line"
+            android:layout_below="@+id/rl_community_search_address"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#bfbfbf"
+    />
+    <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/rl_community_search_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_marginLeft="28dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/common_search_field"/>
+        <EditText
+                android:id="@+id/et_addreview_search_address"
+                android:background="@null"
+                style="@style/Light13"
+                android:textColorHint="@color/dark_gray"
+                android:layout_marginLeft="89dp"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:hint="장소를 검색해 주세요"/>
+        <android.support.v7.widget.RecyclerView
+                android:visibility="invisible"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/et_addreview_search_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/search_address_recycler_view"
+        ></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:id="@+id/img_addreview_complete"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:src="@drawable/community_addreview_beforefinish"
+                android:layout_centerHorizontal="true"/>
+
+        <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/dark_gray"
+                android:text="입력"
+                style="@style/Bold15"/>
+    </RelativeLayout>
+</RelativeLayout>
