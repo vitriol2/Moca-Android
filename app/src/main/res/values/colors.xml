@@ -6,6 +6,7 @@
     <color name="light_gray">#eaeaea</color>
     <color name="dark_gray">#707070</color>
     <color name="black">#101010</color>
+    <color name="black_two">#262626</color>
     <color name="point_pink">#e1b2a3</color>
     <color name="point_yellow">#ead6c1</color>
 </resources>
