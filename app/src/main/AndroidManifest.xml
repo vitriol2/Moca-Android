@@ -10,16 +10,24 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".ui.main.HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+        </activity>
+
+
+        <activity android:name=".ui.community.WriteReviewActivity">
+
         </activity>
         <activity android:name=".ui.follow.FollowActivity">
         </activity>
         <activity android:name=".ui.plus.PlusActivity">
         </activity>
+        <activity android:name=".ui.community.ReviewSearchLocationActivity">
+        </activity>
+
     </application>
 
 </manifest>

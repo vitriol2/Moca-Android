@@ -19,10 +19,10 @@ class CategoryPickAdapter(val ctx : Context, val posts: ArrayList<String>) : Rec
     override fun getItemCount(): Int = posts.size
 
     override fun onBindViewHolder(holder: CategoryPickAdapter.Holder, position: Int) {
-        holder.username.text = posts[position]
+        holder.cafename.text = posts[position]
     }
 
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val username : TextView = itemView.findViewById(R.id.tv_cat_pic_rv_item_text) as TextView
+        val cafename : TextView = itemView.findViewById(R.id.tv_cat_pic_rv_item_cafe_name) as TextView
     }
 }

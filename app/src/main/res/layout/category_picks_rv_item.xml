@@ -17,7 +17,8 @@
             <ImageView
                 android:id="@+id/iv_cat_pic_rv_item_image"
                 android:layout_width="match_parent"
-                android:layout_height="188dp" />
+                android:layout_height="188dp"
+                android:src="@drawable/ic_assignment"/>
 
             <TextView
                 android:id="@+id/tv_cat_pic_rv_item_cafe_name"

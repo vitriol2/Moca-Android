@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.SnapHelper
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.CafeListData
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -16,8 +17,9 @@ class HomeActivity : AppCompatActivity() {
 
         val posts : ArrayList<String> = ArrayList()
         for(i in 1..100) {
-            posts.add("$i")
+            posts.add("카페 $i")
         }
+
 
         rv_act_home_picks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_act_home_picks.adapter = CategoryPickAdapter(this, posts)
