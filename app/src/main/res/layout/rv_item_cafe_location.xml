@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    <RelativeLayout
+            android:id="@+id/rl_rv_item_cafe_location"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView
+            android:id="@+id/img_common_location"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/common_location"/>
+    <TextView
+            android:id="@+id/txt_search_location_name"
+            android:layout_toRightOf="@+id/img_common_location"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:textColor="@color/black_two"
+            style="@style/Bold13"
+            android:layout_height="24dp"
+            android:gravity="center_vertical"/>
+
+    <TextView
+            android:id="@+id/txt_search_location_address"
+            android:layout_below="@+id/txt_search_location_name"
+            android:layout_toRightOf="@+id/img_common_location"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:textColor="@color/dark_gray"
+            android:layout_marginBottom="14.5dp"
+            style="@style/Light11"
+            android:layout_marginTop="6dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"/>
+    <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:src="@drawable/common_yellowcircle"/>
+    </RelativeLayout>
+    <View
+            android:layout_marginBottom="10.5dp"
+            android:layout_below="@+id/rl_rv_item_cafe_location"
+            android:layout_marginLeft="24dp"
+            android:layout_width="match_parent" android:layout_height="0.3dp"
+            android:background="@color/light_gray"/>
+
+</RelativeLayout>
