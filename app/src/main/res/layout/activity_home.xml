@@ -55,7 +55,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#ffffff">
 
             <RelativeLayout style="@style/home_category_layout">
 
@@ -117,12 +118,34 @@
                         android:layout_marginTop="10dp"
                         android:id="@+id/rv_act_home_ranking"
                         android:layout_width="match_parent"
-                        android:layout_height="231dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="18dp">
 
                     </android.support.v7.widget.RecyclerView>
                 </LinearLayout>
             </RelativeLayout>
+            <RelativeLayout style="@style/home_category_layout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/home_category_title"
+                        android:text="Cafe Cloud Plus" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/rv_act_home_plus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="18dp">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+            </RelativeLayout>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>

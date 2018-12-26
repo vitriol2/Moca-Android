@@ -13,6 +13,7 @@ class HomeActivity : AppCompatActivity() {
     val pickposts : ArrayList<String> = ArrayList()
     val conceptPosts : ArrayList<String> = ArrayList()
     val rankingPosts : ArrayList<CategoryRankData> = ArrayList()
+    val plusPosts : ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,17 +37,25 @@ class HomeActivity : AppCompatActivity() {
         rv_act_home_concept.adapter = CategoryConceptAdapter(this, conceptPosts)
 
         //ranking
-        rv_act_home_ranking.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rv_act_home_ranking.adapter = CategoryRankingAdapter(this, conceptPosts)
+        rv_act_home_ranking.layoutManager = LinearLayoutManager(this)
+        rv_act_home_ranking.adapter = CategoryRankingAdapter(this, rankingPosts)
+
+        //plus
+        rv_act_home_plus.layoutManager = LinearLayoutManager(this)
+        rv_act_home_plus.adapter = CategoryPlusAdapter(this, plusPosts)
     }
 
     private fun makeData() {
         for (i in 1..15) {
             pickposts.add("카페 $i")
             conceptPosts.add("컨셉 $i")
-            rankingPosts.add(i-1, CategoryRankData("cafe $i", "location $i"))
-        }
 
+        }
+        for(i in 1..3) {
+            rankingPosts.add(CategoryRankData("cafe $i", "location $i"))
+            plusPosts.add("image $i")
+
+        }
     }
 
 
