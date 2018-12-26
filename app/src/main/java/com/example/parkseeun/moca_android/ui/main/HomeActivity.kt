@@ -10,21 +10,39 @@ import com.example.parkseeun.moca_android.model.CafeListData
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
+    val pickposts : ArrayList<String> = ArrayList()
+    val conceptPosts : ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val posts : ArrayList<String> = ArrayList()
-        for(i in 1..100) {
-            posts.add("카페 $i")
-        }
+        makeData()
 
-
-        rv_act_home_picks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rv_act_home_picks.adapter = CategoryPickAdapter(this, posts)
+        recyclerView()
 
         val snapHelper : SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(rv_act_home_picks)
     }
+
+    private fun recyclerView() {
+        //cafecloud pick
+        rv_act_home_picks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rv_act_home_picks.adapter = CategoryPickAdapter(this, pickposts)
+
+        //concept
+        rv_act_home_concept.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rv_act_home_concept.adapter = CategoryConceptAdapter(this, conceptPosts)
+    }
+
+    private fun makeData() {
+        for (i in 1..15) {
+            pickposts.add("카페 $i")
+            conceptPosts.add("컨셉 $i")
+        }
+
+    }
+
+
+
 }

@@ -72,6 +72,7 @@
     </style>
 
     <style name="Extrabold25">
+        <item name="android:fontFamily">@font/nanum_b</item>
         <item name="android:textSize">25sp</item>
         <item name="android:lineSpacingExtra">3sp</item>
         <item name="android:textColor">@color/black</item>
@@ -90,9 +91,14 @@
         <item name = "android:layout_marginTop">20dp</item>
         <item name = "android:layout_marginBottom">18dp</item>
     </style>
+    <style name="home_category_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
     <style name="home_category_title">
         <item name = "android:layout_width">wrap_content</item>
         <item name = "android:layout_height">wrap_content</item>
+        <item name = "android:layout_marginTop">15dp</item>
         <item name = "android:layout_marginLeft">20dp</item>
         <item name="android:fontFamily">@font/nanum_b</item>
         <item name="android:textSize">20sp</item>
