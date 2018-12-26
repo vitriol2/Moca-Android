@@ -95,7 +95,7 @@
                     android:id="@+id/img_addreview_rating2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/common_star_gray"/>
+                    android:src="@drawable/common_star_yellow"/>
 
             <ImageView
                     android:id="@+id/img_addreview_rating3"
