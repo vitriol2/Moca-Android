@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
     val pickposts : ArrayList<String> = ArrayList()
     val conceptPosts : ArrayList<String> = ArrayList()
+    val rankingPosts : ArrayList<CategoryRankData> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +34,17 @@ class HomeActivity : AppCompatActivity() {
         //concept
         rv_act_home_concept.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_act_home_concept.adapter = CategoryConceptAdapter(this, conceptPosts)
+
+        //ranking
+        rv_act_home_ranking.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rv_act_home_ranking.adapter = CategoryRankingAdapter(this, conceptPosts)
     }
 
     private fun makeData() {
         for (i in 1..15) {
             pickposts.add("카페 $i")
             conceptPosts.add("컨셉 $i")
+            rankingPosts.add(i-1, CategoryRankData("cafe $i", "location $i"))
         }
 
     }
