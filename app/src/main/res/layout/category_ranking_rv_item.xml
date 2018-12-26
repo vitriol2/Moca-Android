@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="77dp"
+    android:layout_marginLeft="46dp"
+    android:background="@drawable/home_ranking_divider">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ranking_mark"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="1dp"/>
+        
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginVertical="11dp"
+            android:layout_marginLeft="22dp"
+            android:src="@drawable/ic_launcher_background"/>
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginVertical="23dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_cat_ran_rv_item_cafename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Bold13"
+                android:text="C27"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/common_location" />
+                <TextView
+                    android:id="@+id/tv_cat_ran_rv_item_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Light11"
+                    android:text="서울 강남구"
+                    android:layout_marginLeft="7dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:src="@drawable/rating_bar_layer"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <RatingBar
+            android:minHeight="9dp"
+            android:minWidth="9dp"
+            android:id="@+id/rb_ranking_rv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="14dp"
+            android:progressDrawable="@drawable/rating_bar_layer"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
