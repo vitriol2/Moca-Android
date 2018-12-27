@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.follow.FollowActivity">
+        tools:context=".ui.community.follow.FollowActivity">
 
     <RelativeLayout
         android:id="@+id/relative_follow_search"

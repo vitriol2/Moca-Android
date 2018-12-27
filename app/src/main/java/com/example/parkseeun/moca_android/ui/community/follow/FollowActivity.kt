@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.follow
+package com.example.parkseeun.moca_android.ui.community.follow
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

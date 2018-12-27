@@ -18,14 +18,14 @@
         </activity>
 
 
-        <activity android:name=".ui.community.WriteReviewActivity">
+        <activity android:name=".ui.community.review_write.WriteReviewActivity">
 
         </activity>
-        <activity android:name=".ui.follow.FollowActivity">
+        <activity android:name=".ui.community.follow.FollowActivity">
         </activity>
         <activity android:name=".ui.plus.PlusActivity">
         </activity>
-        <activity android:name=".ui.community.ReviewSearchLocationActivity">
+        <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
         </activity>
 
     </application>
