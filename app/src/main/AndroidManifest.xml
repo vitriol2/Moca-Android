@@ -18,10 +18,10 @@
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
         <activity android:name=".ui.main.HomeActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN"/>
 
-            <category android:name="android.intent.category.LAUNCHER"/>
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
         </activity>
@@ -29,8 +29,6 @@
         </activity>
         <activity android:name=".ui.plus.PlusActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
-        </activity>
-        <activity android:name=".ui.community.review_write.albumPracticeActivity">
         </activity>
     </application>
 
