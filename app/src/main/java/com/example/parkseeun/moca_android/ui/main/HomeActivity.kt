@@ -16,7 +16,29 @@ import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.CafeListData
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener{
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (p0.itemId) {
+            R.id.nav_camera -> {
+                // Handle the camera action
+            }
+            R.id.nav_gallery -> {
+
+            }
+            R.id.nav_slideshow -> {
+
+            }
+            R.id.nav_manage -> {
+
+            }
+
+        }
+
+        dl_act_home.closeDrawer(GravityCompat.START)
+        return true
+    }
+
     private lateinit var mToggle: ActionBarDrawerToggle
 
     val pickposts: ArrayList<String> = ArrayList()
@@ -50,18 +72,23 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (dl.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (dl_act_home.isDrawerOpen(GravityCompat.START)) {
+            dl_act_home.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
+    }
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mToggle.syncState()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(mToggle.onOptionsItemSelected(item)){
             return true
+        }else {
+            return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
 
     }
 
