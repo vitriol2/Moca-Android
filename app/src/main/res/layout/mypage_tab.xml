@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/point_yellow"
+    android:gravity="bottom"
+    android:paddingLeft="20dp"
+    android:paddingBottom="20dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_launcher_background" />
+
+        <ImageView
+            android:id="@+id/iv_mypage_tab_barcode"
+            android:layout_width="43dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="103dp"
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="fitXY"/>
+        <RelativeLayout
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="9dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_launcher_background"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:layout_marginRight="6dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_launcher_background"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/home_category_title"
+        android:text="정화니"
+        android:layout_marginLeft="0dp"/>
+
+    <TextView
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/nanum_l"
+        android:textSize="7sp"
+        android:lineSpacingExtra="4dp"
+        android:text="상태메시지는 여기에 작성되는데 너무 길면 어떻게 바뀔까용 요렇게!"/>
+
+</LinearLayout>
