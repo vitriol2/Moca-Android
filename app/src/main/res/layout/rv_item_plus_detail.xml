@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="533dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_plus_detail_item_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서울 강남구"
+        android:textSize="11sp"
+        android:textColor="#101010"
+        android:fontFamily="@font/nanum_l"
+
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_plus_detail_item_cafeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="빔밤카페"
+        android:textColor="#101010"
+        android:textSize="25sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nanumsquareextrabold"
+        android:includeFontPadding="false"/>
+
+    <TextView
+        android:id="@+id/tv_plus_detail_item_contents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="북한강을 바라보다 어느새 시간이 훌쩍, 복잡하고 어지럽게 움직이는 서울에서 도망치듯 빠져나와 따듯한 커피 한 잔 그리고 담백하고 촉촉한 베이커리까지 즐기며 한 껏 여유를 찾을 수 있던 이 곳. 웅장해 보이던 외관 안에는 오히려, 아늑하고 섬세한 손길이 가득했다."
+        android:textSize="13sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/nanumsquareregular"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="12sp"/>
+
+    <RelativeLayout
+        android:id="@+id/relative_plus_detail_item_goToCafe"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+                android:id="@+id/tv_plus_detail_item_cafeName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="빔밤카페"
+                android:textSize="15sp"
+                android:textColor="#101010"
+                android:fontFamily="@font/nanumsquarebold"
+                android:includeFontPadding="false"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="1dp"/>
+
+        <ImageView
+                android:layout_toRightOf="@id/tv_plus_detail_item_cafeName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ranking_rightarrow"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"/>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignStart="@id/tv_plus_detail_item_cafeName2"
+                android:layout_alignEnd="@id/tv_plus_detail_item_cafeName2"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="8.5dp"
+                android:background="#101010">
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_plus_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/progressBar_plus_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
+        android:layout_marginLeft="67dp"
+        android:layout_marginTop="10dp"
+        android:progress="1"/>
+
+</LinearLayout>
