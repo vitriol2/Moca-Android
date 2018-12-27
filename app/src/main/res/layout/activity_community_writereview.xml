@@ -7,14 +7,6 @@
             android:id="@+id/rl_community_addreview"
             android:layout_width="match_parent"
             android:layout_height="54dp">
-        <ImageView
-                android:id="@+id/img_common_cancel"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/common_cancel_black"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-        />
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

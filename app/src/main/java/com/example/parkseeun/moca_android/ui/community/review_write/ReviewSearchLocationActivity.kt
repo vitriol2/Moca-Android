@@ -40,8 +40,6 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
     }
 
     fun setOnClickListener() {
-        img_back.setOnClickListener {
-            finish()
-        }
+
     }
 }

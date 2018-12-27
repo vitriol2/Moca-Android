@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="56dp"
-                        android:layout_marginTop="21dp"
+                        android:layout_marginTop="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:textSize="11sp"
@@ -176,15 +176,15 @@
                         tools:text="이름"
                         />
                     <RatingBar
+                        style="@style/SmallRatingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:rating="3"
+                        android:progressDrawable="@drawable/small_rating_bar_layer"
                         android:layout_marginStart="54dp"
                         android:layout_marginTop="35dp"
-                        android:numStars="5"
-                        android:scaleX="0.3"
-                        android:scaleY="0.3"
-                        android:rating="3"
-                        android:transformPivotX="0dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
                     <TextView
