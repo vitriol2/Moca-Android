@@ -12,18 +12,23 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.plus.plusDetail.PlusDetailActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
+        <activity android:name=".ui.main.HomeActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
         </activity>
-        <activity android:name=".ui.follow.FollowActivity">
+
+
+        <activity android:name=".ui.community.review_write.WriteReviewActivity">
+
         </activity>
-        <activity android:name=".ui.plus.PlusActivity">
+        <activity android:name=".ui.community.follow.FollowActivity">
         </activity>
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.plus.PlusActivity"/>
+        <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
         </activity>
     </application>
 
