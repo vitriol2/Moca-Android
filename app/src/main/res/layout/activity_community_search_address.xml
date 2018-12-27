@@ -6,14 +6,6 @@
             android:id="@+id/rl_community_search_address"
             android:layout_width="match_parent"
             android:layout_height="54dp">
-        <ImageView
-                android:id="@+id/img_back"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/common_backbtn_black"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-        />
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
