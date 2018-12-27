@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
@@ -28,10 +29,16 @@ class PlusRecyclerViewAdapter(val context : Context, val dataList : ArrayList<Pl
         Glide.with(context).load(dataList[position].profileImageUrl).into(holder.civ_plus_profile)
         holder.tv_plus_title.text = dataList[position].title
         holder.tv_plus_editorName.text = dataList[position].editorName
+
+        // 클릭
+        holder.linearLayout_plus_item.setOnClickListener {
+
+        }
     }
 
     // View Holder
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        val linearLayout_plus_item : LinearLayout = itemView.findViewById(R.id.linearLayout_plus_item) as LinearLayout
         val iv_plus_contentsImage : ImageView = itemView.findViewById(R.id.iv_plus_contentsImage) as ImageView
         val civ_plus_profile : CircleImageView = itemView.findViewById(R.id.civ_plus_profile) as CircleImageView
         val tv_plus_title : TextView = itemView.findViewById(R.id.tv_plus_title) as TextView

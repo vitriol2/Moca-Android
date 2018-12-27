@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.plus.plusDetail.PlusDetailActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+            <ImageButton
+                android:id="@+id/ib_plus_detail_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_back_black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/tv_plus_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="게시물 제목"
+                android:textColor="#101010"
+                android:textSize="15sp"
+                android:fontFamily="@font/nanum_b"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="360dp"
+                        android:background="@color/dark_gray">
+
+                    <TextView
+                            android:id="@+id/tv_plus_detail_contentsTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="크리스마스,\n여기라면 충분할 거에요!"
+                            android:textSize="25sp"
+                            android:textColor="#FFFFFF"
+                            android:fontFamily="@font/nanum_b"
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginTop="39dp"
+                            android:lineSpacingExtra="3sp"/>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_plus_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+
+</LinearLayout>

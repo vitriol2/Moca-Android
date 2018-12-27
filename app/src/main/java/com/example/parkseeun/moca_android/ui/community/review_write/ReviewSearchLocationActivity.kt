@@ -1,17 +1,13 @@
-package com.example.parkseeun.moca_android.ui.community
+package com.example.parkseeun.moca_android.ui.community.review_write
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.CafeListData
-import com.example.parkseeun.moca_android.ui.community.adapter.SearchLocationListAdapter
+import com.example.parkseeun.moca_android.ui.community.review_write.adapter.SearchLocationListAdapter
 import kotlinx.android.synthetic.main.activity_community_search_address.*
-import kotlinx.android.synthetic.main.activity_community_writereview.*
-import kotlinx.android.synthetic.main.rv_item_cafe_location.*
-import org.jetbrains.anko.db.NULL
 
 class ReviewSearchLocationActivity : AppCompatActivity() {
 

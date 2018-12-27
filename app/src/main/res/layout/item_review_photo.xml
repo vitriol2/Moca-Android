@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="112dp"
+        android:layout_height="98dp"
+        android:layout_margin="5dp"
+        android:layout_marginRight="15dp">
+
+    <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView
+                android:id="@+id/img_photo_review"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/community_addreview_addimage"
+        />
+        <ImageView
+                android:id="@+id/btn_cancel_photo"
+                android:layout_alignParentRight="true"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

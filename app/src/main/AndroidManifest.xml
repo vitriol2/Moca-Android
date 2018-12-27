@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.parkseeun.moca_android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -9,26 +11,27 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
+        <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
         <activity android:name=".ui.main.HomeActivity">
+        </activity>
+
+
+        <activity android:name=".ui.community.review_write.WriteReviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <action android:name="luminous.ACTION_MULTIPLE_PICK"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-
-
-        <activity android:name=".ui.community.WriteReviewActivity">
 
         </activity>
-        <activity android:name=".ui.follow.FollowActivity">
+        <activity android:name=".ui.community.follow.FollowActivity">
         </activity>
-        <activity android:name=".ui.plus.PlusActivity">
+        <activity android:name=".ui.plus.PlusActivity"/>
+        <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
         </activity>
-        <activity android:name=".ui.community.ReviewSearchLocationActivity">
+        <activity android:name=".ui.community.review_write.albumPracticeActivity">
         </activity>
-
     </application>
 
 </manifest>
