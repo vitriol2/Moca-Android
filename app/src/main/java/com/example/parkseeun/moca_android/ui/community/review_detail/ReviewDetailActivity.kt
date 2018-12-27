@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.review_detail
+package com.example.parkseeun.moca_android.ui.community.review_detail
 
 
 import android.support.v7.app.AppCompatActivity

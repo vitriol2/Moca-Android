@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.follow
+package com.example.parkseeun.moca_android.ui.community.follow
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.rv_item_follow.view.*
 
 class FollowRecyclerViewAdapter(val context : Context, val dataList : ArrayList<FollowData>) : RecyclerView.Adapter<FollowRecyclerViewAdapter.Holder>() {
 

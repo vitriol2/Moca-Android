@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.community
+package com.example.parkseeun.moca_android.ui.community.review_write
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_community_writereview.*
 import org.jetbrains.anko.startActivity
 import android.widget.RatingBar
 import android.widget.TextView
+import com.example.parkseeun.moca_android.ui.community.review_write.ReviewSearchLocationActivity
 
 
 class WriteReviewActivity : AppCompatActivity() {
