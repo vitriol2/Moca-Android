@@ -13,11 +13,6 @@
             android:theme="@style/AppTheme">
 
         <activity android:name=".ui.community.review_comment.ReviewCommentActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
         <activity android:name=".ui.main.HomeActivity">
@@ -34,6 +29,8 @@
         </activity>
         <activity android:name=".ui.plus.PlusActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
+        </activity>
+        <activity android:name=".ui.community.review_write.albumPracticeActivity">
         </activity>
     </application>
 </manifest>
