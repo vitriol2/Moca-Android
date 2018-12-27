@@ -16,10 +16,8 @@ import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.CafeListData
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
-    val drawerToggle by lazy {
-        ActionBarDrawerToggle(this, dl_act_home, toolbar, R.string.open, R.string.close)
-    }
+class HomeActivity : AppCompatActivity() {
+    private lateinit var mToggle: ActionBarDrawerToggle
 
     val pickposts: ArrayList<String> = ArrayList()
     val conceptPosts: ArrayList<String> = ArrayList()
@@ -30,8 +28,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        setNavigation()
 
+        setNavigation()
         makeData()
 
         recyclerView()
@@ -40,48 +38,34 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         snapHelper.attachToRecyclerView(rv_act_home_picks)
     }
 
-    // 왼쪽상단 마이페이지탭 열기
     private fun setNavigation() {
         setSupportActionBar(toolbar)
-        dl_act_home.addDrawerListener(drawerToggle)
+
+        mToggle = ActionBarDrawerToggle(this, dl_act_home, toolbar, R.string.open, R.string.close)
+        dl_act_home.addDrawerListener(mToggle)
+        mToggle.syncState()
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
     }
 
     override fun onBackPressed() {
-        if (dl_act_home.isDrawerOpen(GravityCompat.START)) {
-            dl_act_home.closeDrawer(GravityCompat.START)
+        if (dl.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.mypage_menu, menu)
-        return true
-    }
-
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true
         }
+        return super.onOptionsItemSelected(item)
 
-        dl_act_home.closeDrawer(GravityCompat.START)
-        return true
     }
+
+
     private fun recyclerView() {
         //cafecloud pick
         rv_act_home_picks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
