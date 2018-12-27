@@ -164,10 +164,92 @@
 
             </LinearLayout>
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
-            ></RelativeLayout>
+            android:background="@color/light_gray"></RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:orientation="vertical">
+            <TextView
+                style="@style/mypage_tab_menu_title"
+                android:text="찜한 카페"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="17dp">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/light_gray"></RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mypage_tab_menu_title"
+                    android:text="음료 쿠폰"
+                    />
+                <TextView
+                    style="@style/mypage_tab_menu_title"
+                    android:layout_marginLeft="186dp"
+                    android:text="3"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="9dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/mypage_arrow_right"
+                    android:scaleType="fitCenter"/>
+            </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/light_gray"></RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/mypage_tab_menu_title"
+                android:text="멤버십"
+                />
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="9dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="9dp"
+                android:src="@drawable/mypage_arrow_down"
+                android:scaleType="fitCenter"/>
+        </RelativeLayout>
+
+
     </LinearLayout>
 
 
