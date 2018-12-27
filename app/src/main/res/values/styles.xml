@@ -77,20 +77,7 @@
         <item name="android:lineSpacingExtra">3sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
-    
-    <style name="common_menu">
-        <item name = "android:layout_width">24dp</item>
-        <item name = "android:layout_height">24dp</item>
-        <item name = "android:layout_marginTop">16dp</item>
-        <item name = "android:layout_marginBottom">15dp</item>
-        <item name = "android:scaleType">fitXY</item>
-    </style>
-    <style name="pid_title" parent="Bold15">
-        <item name = "android:layout_width">wrap_content</item>
-        <item name = "android:layout_height">wrap_content</item>
-        <item name = "android:layout_marginTop">20dp</item>
-        <item name = "android:layout_marginBottom">18dp</item>
-    </style>
+
     <style name="home_category_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -112,6 +99,11 @@
     <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:minHeight">24dp</item>
         <item name="android:maxHeight">24dp</item>
+    </style>
+
+    <style name="SmallRatingBar" parent="@android:style/Widget.Holo.RatingBar.Small">
+        <item name="android:minHeight">14dp</item>
+        <item name="android:maxHeight">14dp</item>
     </style>
 
 </resources>
