@@ -35,7 +35,6 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
 
         }
 
-        dl_act_home.closeDrawer(GravityCompat.START)
         return true
     }
 
