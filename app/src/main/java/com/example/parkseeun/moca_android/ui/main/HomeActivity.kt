@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
     private fun makeData() {
         for (i in 1..15) {
             pickposts.add("카페 $i")
-            conceptPosts.add("컨셉 $i")d
+            conceptPosts.add("컨셉 $i")
 
         }
         for(i in 1..3) {
