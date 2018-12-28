@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
     val pickposts : ArrayList<String> = ArrayList()
-    val conceptPosts : ArrayList<String> = ArrayList()
+    val conceptPosts : AㄴrrayList<String> = ArrayList()
     val rankingPosts : ArrayList<CategoryRankData> = ArrayList()
     val plusPosts : ArrayList<String> = ArrayList()
 
