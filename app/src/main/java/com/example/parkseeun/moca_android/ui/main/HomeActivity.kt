@@ -52,6 +52,7 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
 
 
         setNavigation()
+
         makeData()
 
         recyclerView()
