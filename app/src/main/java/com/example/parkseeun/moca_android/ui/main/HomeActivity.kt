@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
     val pickposts : ArrayList<String> = ArrayList()
-    val conceptPosts : AㄴrrayList<String> = ArrayList()
+    val conceptPosts : ArrayList<String> = ArrayList()
     val rankingPosts : ArrayList<CategoryRankData> = ArrayList()
     val plusPosts : ArrayList<String> = ArrayList()
 
@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
     private fun makeData() {
         for (i in 1..15) {
             pickposts.add("카페 $i")
-            conceptPosts.add("컨셉 $i")
+            conceptPosts.add("컨셉 $i")d
 
         }
         for(i in 1..3) {
