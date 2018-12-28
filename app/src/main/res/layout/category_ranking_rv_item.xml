@@ -5,7 +5,7 @@
     android:layout_marginLeft="46dp"
     android:background="@drawable/home_ranking_divider">
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <ImageView
@@ -62,20 +62,21 @@
             </LinearLayout>
 
         </LinearLayout>
-        <RatingBar
-            android:minHeight="9dp"
-            android:minWidth="9dp"
-            android:id="@+id/rb_ranking_rv_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="14dp"
-            android:progressDrawable="@drawable/rating_bar_layer"
-            android:layout_gravity="center_vertical"/>
-    </LinearLayout>
 
+    </LinearLayout>
+    <RatingBar
+        style="@style/MyRatingBar"
+        android:id="@+id/ratingBarCust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1"
+        android:progressDrawable="@drawable/rating_bar_layer"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="34dp"
+        />
 
 
 </RelativeLayout>
