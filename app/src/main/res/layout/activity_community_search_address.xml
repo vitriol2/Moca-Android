@@ -2,36 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
     <RelativeLayout
-            android:id="@+id/rl_community_search_address"
-            android:layout_width="match_parent"
-            android:layout_height="54dp">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="카페 검색"
-                style="@style/Bold15"
-                android:layout_centerInParent="true"
-        />
-    </RelativeLayout>
-    <View
-            android:id="@+id/view_line"
-            android:layout_below="@+id/rl_community_search_address"
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="#bfbfbf"
-    />
-    <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/rl_community_search_address"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+                   android:layout_marginTop="6dp"
+                   android:layout_marginLeft="16dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/common_back_black"/>
         <ImageView
-                android:layout_marginLeft="28dp"
+                android:id="@+id/img_common_search_field"
+                android:layout_marginLeft="53dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/common_search_field"/>
+        <View
+                android:layout_marginTop="9dp"
+                android:layout_below="@+id/img_common_search_field"
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="#bfbfbf"
+        />
         <EditText
                 android:id="@+id/et_addreview_search_address"
                 android:background="@null"
@@ -42,10 +38,9 @@
                 android:layout_height="37dp"
                 android:hint="장소를 검색해 주세요"/>
         <android.support.v7.widget.RecyclerView
-                android:visibility="invisible"
                 android:layout_marginLeft="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_below="@id/et_addreview_search_address"
+                android:layout_marginTop="14dp"
+                android:layout_below="@id/view_line"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/search_address_recycler_view"

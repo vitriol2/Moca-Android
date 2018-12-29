@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.parkseeun.moca_android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="cb620091669ce5936f0fd4dd2766a760"/>
 
     <application
             android:allowBackup="true"
@@ -15,22 +20,25 @@
         </activity>
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
         <activity android:name=".ui.main.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
 
         </activity>
+        <activity android:name=".ui.location.HashKeyActivity">
+        </activity>
         <activity android:name=".ui.community.follow.FollowActivity">
+
         </activity>
         <activity android:name=".ui.plus.PlusActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
         </activity>
-<activity android:name=".ui.location.LocationMainActivity">
-    <intent-filter>
-    <action android:name="android.intent.action.MAIN"/>
-
-    <category android:name="android.intent.category.LAUNCHER"/>
-</intent-filter>
-</activity>
+        <activity android:name=".ui.location.LocationMainActivity">
+        </activity>
     </application>
 
 </manifest>

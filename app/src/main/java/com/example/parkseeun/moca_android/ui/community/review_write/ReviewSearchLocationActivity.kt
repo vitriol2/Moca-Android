@@ -33,6 +33,13 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
         var dataList : ArrayList<CafeListData> = ArrayList()
         dataList.add(CafeListData("카페이름", "주소"))
         dataList.add(CafeListData("카페이름1", "주소1"))
+        dataList.add(CafeListData("카페이름1", "주소1"))
+        dataList.add(CafeListData("카페이름1", "주소1"))
+        dataList.add(CafeListData("카페이름1", "주소1"))
+        dataList.add(CafeListData("카페이름1", "주소1"))
+        dataList.add(CafeListData("카페이름1", "주소1"))
+        dataList.add(CafeListData("카페이름1", "주소1"))
+        dataList.add(CafeListData("카페이름1", "주소1"))
 
         searchLocationListAdapter = SearchLocationListAdapter(applicationContext!!, dataList)
         search_address_recycler_view.adapter = searchLocationListAdapter

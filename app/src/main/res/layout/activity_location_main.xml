@@ -48,8 +48,22 @@
             android:id="@+id/map_view"
             android:layout_below="@+id/rl_location_main_toolbar"
             android:layout_width="match_parent"
-            android:background="#bdbdbd"
-            android:layout_height="match_parent"></RelativeLayout>
+            android:background="#000000"
+            android:layout_height="match_parent">
+
+    </RelativeLayout>
+    <ImageView android:layout_width="500dp" android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:src="@drawable/location_whitegradation"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="주변카페"
+            style="@style/Bold15"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="165dp"
+    />
     <android.support.v7.widget.RecyclerView
             android:layout_marginLeft="6dp"
             android:layout_alignParentBottom="true"

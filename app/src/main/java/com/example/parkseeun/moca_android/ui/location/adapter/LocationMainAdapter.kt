@@ -1,26 +1,25 @@
 package com.example.parkseeun.moca_android.ui.location.adapter
 
-import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.R.id.rv_act_location_main
+import com.example.parkseeun.moca_android.ui.location.LocationMainActivity
+import com.example.parkseeun.moca_android.ui.location.LocationMainDialog
 import com.example.parkseeun.moca_android.ui.location.data.LocationMainData
 import com.example.parkseeun.moca_android.ui.plus.PlusData
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_location_main.*
 
 class LocationMainAdapter(val context : Context, val dataList : ArrayList<LocationMainData>) : RecyclerView.Adapter<LocationMainAdapter.Holder>() {
-
+    private val mListener: RecyclerView.RecyclerListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 뷰 인플레이트
         val view : View = LayoutInflater.from(context).inflate(R.layout.rv_item_nearby_cafe, parent, false)
@@ -36,10 +35,9 @@ class LocationMainAdapter(val context : Context, val dataList : ArrayList<Locati
         holder.tv_nearby_cafe_name.text = dataList[position].name
         holder.txt_nearby_how_close.text = dataList[position].address
         holder.rl_dialog_location_main.setOnClickListener{
-            val dialog_location_main = Dialog(context)
-            dialog_location_main.setContentView(R.layout.dialog_location_main)
-            dialog_location_main.setTitle("Location Main Dialog")
-            dialog_location_main.show()
+            val dialog : LocationMainDialog = LocationMainDialog(context)
+            //val dialog : LocationMainDialog = LocationMainDialog(context as LocationMainActivity)
+            dialog.show()
         }
 
 
