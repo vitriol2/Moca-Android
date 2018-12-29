@@ -39,6 +39,8 @@
         </activity>
         <activity android:name=".ui.location.LocationMainActivity">
         </activity>
+        <activity android:name=".ui.community.feed.FeedActivity">
+        </activity>
     </application>
 
 </manifest>
