@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".ui.community.review_write.albumPracticeActivity">
         </activity>
+        <activity android:name=".ui.community.feed.FeedActivity">
+        </activity>
     </application>
 
 </manifest>
