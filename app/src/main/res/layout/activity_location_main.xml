@@ -2,5 +2,62 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+    <RelativeLayout
+            android:id="@+id/rl_location_main_toolbar"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <View
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+        />
+        <ImageView
+                android:layout_marginLeft="16dp"
+                android:id="@+id/img_location_main_menu"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/common_menu"/>
+        <ImageView
+                android:id="@+id/img_location_main_edit"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/img_location_main_menu"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_community_location"
+                android:layout_marginLeft="14dp"/>
+        <TextView
+                android:id="@+id/txt_location_main_address"
+                android:layout_toRightOf="@+id/img_location_main_edit"
+                android:layout_width="wrap_content" android:layout_height="17dp"
+                style="@style/Bold15"
+                android:singleLine="true"
+                android:text="주소주소주소주소주소주소주소주소주소주소주소주소주소주소"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="74dp"
+                android:layout_centerVertical="true"/>
+        <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/common_search"/>
+    </RelativeLayout>
+    <RelativeLayout
+            android:id="@+id/map_view"
+            android:layout_below="@+id/rl_location_main_toolbar"
+            android:layout_width="match_parent"
+            android:background="#bdbdbd"
+            android:layout_height="match_parent"></RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="6dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/rv_act_location_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:nestedScrollingEnabled="false">
 
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

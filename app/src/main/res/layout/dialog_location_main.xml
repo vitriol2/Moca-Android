@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="292dp"
+        android:layout_height="316dp">
+    <View
+
+            android:layout_width="292dp"
+            android:layout_height="316dp"
+            android:background="@drawable/round_square_white"
+            android:backgroundTint="#ffffff"
+    />
+    <ImageView
+            android:id="@+id/img_common_cancel_black"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/common_cancel_black"/>
+
+    <TextView
+            android:id="@+id/tv_dialog_nearby_cafe_name"
+            android:layout_below="@+id/img_common_cancel_black"
+            android:layout_marginTop="17dp"
+            android:layout_width="168dp" android:layout_height="17dp"
+            android:singleLine="true"
+            style="@style/Bold15"
+            android:layout_centerHorizontal="true"
+            android:text="C27C27C277777777777"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_below="@+id/tv_dialog_nearby_cafe_name"
+            android:id="@+id/circle_dialog_nearby_cafe"
+            android:layout_width="106dp"
+            android:layout_height="106dp"
+            android:src="@color/colorPrimary"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+    <RelativeLayout
+            android:id="@+id/rl_dialog_nearby_how_close"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/circle_dialog_nearby_cafe"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageView
+                android:id="@+id/img_common_location"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:src="@drawable/common_location"/>
+        <TextView
+                android:id="@+id/txt_dialog_nearby_how_close"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="10m 이내"
+                style="@style/Bold11"
+                android:textColor="@color/dark_gray"
+                android:layout_toRightOf="@+id/img_common_location"/>
+    </RelativeLayout>
+    <RatingBar
+            android:id="@+id/rating_dialog_location_main"
+            android:layout_below="@+id/rl_dialog_nearby_how_close"
+            style="@style/SmallRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_centerHorizontal="true"
+            android:progressDrawable="@drawable/small_rating_bar_layer"
+            android:layout_marginTop="6dp"/>
+    <ImageView
+            android:id="@+id/btn_dialog_location_detail"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+               android:src="@drawable/location_showdetail"
+               android:layout_alignParentBottom="true"
+               android:layout_alignParentLeft="true"
+               android:layout_marginBottom="16dp"
+               android:layout_marginLeft="16dp"/>
+    <ImageView
+            android:id="@+id/btn_dialog_location_navi"
+            android:src="@drawable/location_getdirection"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 
 </RelativeLayout>

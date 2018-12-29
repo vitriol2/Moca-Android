@@ -1,3 +1,3 @@
-package com.example.parkseeun.moca_android.ui.community.review_write.data
+package com.example.parkseeun.moca_android.ui.location.data
 
-data class CafeListData( var name: String, var address: String)
+data class LocationMainData(var cafeImageUrl: String, var name: String, var address: String)
