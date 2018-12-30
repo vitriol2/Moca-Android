@@ -41,7 +41,7 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
         dataList.add(CafeListData("카페이름1", "주소1"))
         dataList.add(CafeListData("카페이름1", "주소1"))
 
-        searchLocationListAdapter = SearchLocationListAdapter(applicationContext!!, dataList)
+        searchLocationListAdapter = SearchLocationListAdapter(this, dataList)
         search_address_recycler_view.adapter = searchLocationListAdapter
         search_address_recycler_view.layoutManager = LinearLayoutManager(applicationContext)
     }

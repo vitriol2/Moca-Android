@@ -2,5 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent" android:layout_height="match_parent">
+        <ImageView
+                android:id="@+id/img_location_common_backbtn_black"
+                android:layout_width="24dp" android:layout_height="24dp"
+                android:src="@drawable/common_backbtn_black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="오늘은"
+                  android:layout_marginTop="16dp"
+                  android:layout_marginLeft="40dp"
+                  style="@style/Extrabold25"
+                  android:textColor="#e67854"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="어디로 갈까요?"
+                  android:layout_marginLeft="40dp"
+                  style="@style/Extrabold25"
+                  android:textColor="#e67854"/>
+        <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+            <ImageView
+                    android:id="@+id/img_common_search_field"
+                    android:layout_marginLeft="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/common_search_field"/>
+
+            <EditText
+                    android:id="@+id/et_addreview_search_address"
+                    android:background="@null"
+                    style="@style/Regular13"
+                    android:textColorHint="@color/dark_gray"
+                    android:layout_marginLeft="76dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:hint="위치를 검색하세요"/>
+            <android.support.v7.widget.RecyclerView
+                    android:layout_marginLeft="51dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_below="@id/img_common_search_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rv_act_location_search"
+            ></android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

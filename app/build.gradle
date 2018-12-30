@@ -51,5 +51,8 @@ dependencies {
     implementation 'org.jetbrains.anko:anko:0.10.7'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation files('libs/libDaumMapAndroid.jar')
-    implementation files('libs/libDaumMapEngineApi.jar')
+    implementation files('C:/Users/SAMSUNG/AndroidStudioProjects/Moca-Android/app/libs/libDaumMapAndroid.jar')
+    implementation files('C:/Users/SAMSUNG/AndroidStudioProjects/Moca-Android/app/libs/libDaumMapEngineApi.jar')
+    implementation files('C:/Users/SAMSUNG/AndroidStudioProjects/Moca-Android/app/src/main/jniLibs/libDaumMapEngineApi.jar')
 }
+
