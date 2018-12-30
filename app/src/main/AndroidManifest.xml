@@ -14,7 +14,6 @@
         <activity android:name=".ui.community.review_comment.ReviewCommentActivity">
         </activity>
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
-
         <activity android:name=".ui.community.feed.FeedActivity"/>
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
         </activity>
@@ -32,6 +31,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.main.ScrapCafeActivity">
+        </activity>
+        <activity android:name=".ui.main.CouponActivity">
         </activity>
     </application>
 

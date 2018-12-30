@@ -82,13 +82,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="home_category_title">
+    <style name="home_category_title" parent="Bold15">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:fontFamily">@font/nanum_b</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:lineSpacingExtra">3sp</item>
+
         <item name="android:textColor">@color/home_title_black</item>
     </style>
     <style name="home_category_look_entire" parent="Regular11">
@@ -116,6 +114,12 @@
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="mypage_tab_menu_num" parent="Bold11">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
     <style name="mypage_tab_menu_zzim_image">
         <item name="android:layout_width">42dp</item>
         <item name="android:layout_height">42dp</item>
@@ -134,5 +138,12 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="toolbar_left_icon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:titleMarginBottom">16dp</item>
+    </style>
 
 </resources>

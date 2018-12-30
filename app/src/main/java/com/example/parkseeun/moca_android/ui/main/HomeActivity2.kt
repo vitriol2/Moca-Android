@@ -6,13 +6,14 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearSnapHelper
-import android.support.v7.widget.SnapHelper
+import android.support.v7.widget.*
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
@@ -29,6 +30,9 @@ class HomeActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
     val plusPosts: ArrayList<String> = ArrayList()
 
+    private lateinit var headerView : View
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home2)
@@ -38,15 +42,12 @@ class HomeActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         recyclerView()
 
-        val snapHelper: SnapHelper = LinearSnapHelper()
+        setHeader()
+
+        val snapHelper= LinearSnapHelper()
         snapHelper.attachToRecyclerView(rv_act_home_picks)
 
-        val headerView = nav_view.getHeaderView(0)
-        val image : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_home) as LinearLayout
-        image.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            startActivity<PlusActivity>()
-        }
+
 
 
         val toggle = ActionBarDrawerToggle(
@@ -56,6 +57,28 @@ class HomeActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+
+    private fun setHeader() {
+
+        headerView = nav_view.getHeaderView(0)
+
+        val image : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_home) as LinearLayout
+        image.setOnClickListener {
+            Log.v("vvvvv", "vvvvv")
+            startActivity<PlusActivity>()
+        }
+
+        val scrapCafe : ImageView = headerView.findViewById(R.id.iv_mypage_tab_scrapcafe_more) as ImageView
+        scrapCafe.setOnClickListener {
+            startActivity<ScrapCafeActivity>()
+        }
+
+        val membershipRv : RecyclerView = headerView.findViewById(R.id.rv_act_home_membership) as RecyclerView
+        membershipRv.layoutManager = GridLayoutManager(this, 4)
+        membershipRv.adapter = MypageTabAdapter(this, pickposts)
+
     }
 
     override fun onBackPressed() {
@@ -76,26 +99,7 @@ class HomeActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
 
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
@@ -117,6 +121,8 @@ class HomeActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         //plus
         rv_act_home_plus.layoutManager = LinearLayoutManager(this)
         rv_act_home_plus.adapter = CategoryPlusAdapter(this, plusPosts)
+
+        //
     }
 
     private fun makeData() {

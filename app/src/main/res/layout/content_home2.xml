@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +13,8 @@
             android:id="@+id/nested_act_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
+            android:layout_below="@id/toolbar" tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -39,9 +40,9 @@
 
                             <TextView
                                     style="@style/home_category_title"
-                                    android:text="Moca Picks" />
+                                    android:text="Moca Picks"/>
 
-                            <TextView style="@style/home_category_look_entire" />
+                            <TextView style="@style/home_category_look_entire"/>
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -75,9 +76,9 @@
 
                             <TextView
                                     style="@style/home_category_title"
-                                    android:text="Moca Picks" />
+                                    android:text="Moca Picks"/>
 
-                            <TextView style="@style/home_category_look_entire" />
+                            <TextView style="@style/home_category_look_entire"/>
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -113,9 +114,9 @@
 
                             <TextView
                                     style="@style/home_category_title"
-                                    android:text="Moca Picks" />
+                                    android:text="Moca Picks"/>
 
-                            <TextView style="@style/home_category_look_entire" />
+                            <TextView style="@style/home_category_look_entire"/>
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -148,9 +149,9 @@
 
                             <TextView
                                     style="@style/home_category_title"
-                                    android:text="Moca Picks" />
+                                    android:text="Moca Picks"/>
 
-                            <TextView style="@style/home_category_look_entire" />
+                            <TextView style="@style/home_category_look_entire"/>
                         </RelativeLayout>
                     </RelativeLayout>
                     <android.support.v7.widget.RecyclerView
@@ -167,4 +168,4 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -19,8 +19,8 @@
             android:layout_width="289dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/mypage_tab"
-            app:menu="@menu/activity_home2_drawer"/>
+            android:fitsSystemWindows="false"
+            android:background="@drawable/mypage_tab_bg"
+            app:headerLayout="@layout/mypage_tab"/>
 
 </android.support.v4.widget.DrawerLayout>
