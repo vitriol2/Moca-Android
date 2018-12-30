@@ -12,6 +12,7 @@ import com.example.parkseeun.moca_android.ui.location.adapter.LocationMainAdapte
 import com.example.parkseeun.moca_android.ui.location.data.LocationMainData
 import kotlinx.android.synthetic.main.activity_location_main.*
 import net.daum.mf.map.api.MapView
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class LocationMainActivity : AppCompatActivity() {
@@ -40,6 +41,9 @@ class LocationMainActivity : AppCompatActivity() {
     }
 
     private fun setOnBtnClickListener() {
+        img_location_main_hamberger.setOnClickListener {
+            startActivity<LocationSearchActivity>()
+        }
     }
 
     // RecyclerView 설정

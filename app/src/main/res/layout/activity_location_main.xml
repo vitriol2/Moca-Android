@@ -14,7 +14,7 @@
         />
         <ImageView
                 android:layout_marginLeft="16dp"
-                android:id="@+id/img_location_main_menu"
+                android:id="@+id/img_location_main_hamberger"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -22,7 +22,7 @@
         <ImageView
                 android:id="@+id/img_location_main_edit"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/img_location_main_menu"
+                android:layout_toRightOf="@+id/img_location_main_hamberger"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_community_location"
                 android:layout_marginLeft="14dp"/>
