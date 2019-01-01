@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.activity_coupon.*
+import kotlinx.android.synthetic.main.rv_coupon_item.*
 
 class CouponActivity : AppCompatActivity() {
 
@@ -18,6 +19,7 @@ class CouponActivity : AppCompatActivity() {
         setRecyclerView()
 
         setOnBtnClickListeners()
+
     }
 
     private fun setRecyclerView() {
@@ -26,7 +28,7 @@ class CouponActivity : AppCompatActivity() {
     }
 
     private fun makeList() {
-        for(i in 1..15) {
+        for (i in 1..15) {
             dataList.add("$i$i$i$i.$i$i.$i$i")
         }
     }
@@ -36,6 +38,7 @@ class CouponActivity : AppCompatActivity() {
             finish()
         }
 
-
     }
+
+
 }
