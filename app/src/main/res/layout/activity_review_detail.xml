@@ -20,14 +20,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="카페이름"/>
-        <Button
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/common_back_black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
@@ -100,61 +92,17 @@
                 <ImageView
                     android:id="@+id/review_detail_pic_iv"
                     android:layout_width="match_parent"
-                    android:layout_height="223dp"
+                    android:layout_height="320dp"
                     android:background="@color/colorPrimary"
                     app:layout_constraintTop_toBottomOf="@+id/review_detail_info_const"/>
-                <ImageView
-                    android:id="@+id/review_detail_heart2_iv"
-                    android:layout_width="15dp"
-                    android:layout_height="13dp"
-                    android:background="@drawable/common_heart_white"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginBottom="28dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/review_detail_pic_iv"
-                    />
-                <TextView
-                    android:id="@+id/review_detail_heart2Num_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_b"
-                    android:textSize="9sp"
-                    android:textColor="#ffffff"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="30dp"
-                    app:layout_constraintStart_toEndOf="@id/review_detail_heart2_iv"
-                    app:layout_constraintBottom_toBottomOf="@id/review_detail_pic_iv"
-                    tools:text="200"
-                    />
-                <ImageView
-                    android:id="@+id/review_detail_comment_iv"
-                    android:layout_width="15dp"
-                    android:layout_height="13dp"
-                    android:background="@drawable/common_comment_white"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginBottom="28dp"
-                    app:layout_constraintStart_toEndOf="@id/review_detail_heart2Num_iv"
-                    app:layout_constraintBottom_toBottomOf="@id/review_detail_pic_iv"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_b"
-                    android:textSize="9sp"
-                    android:textColor="#ffffff"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="30dp"
-                    app:layout_constraintStart_toEndOf="@id/review_detail_comment_iv"
-                    app:layout_constraintBottom_toBottomOf="@id/review_detail_pic_iv"
-                    tools:text="200"
-                    />
+
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/review_detail_post_const"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_top_square_white"
                     app:layout_constraintTop_toBottomOf="@+id/review_detail_info_const"
-                    android:layout_marginTop="210dp">
+                    android:layout_marginTop="310dp">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -255,7 +203,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/review_detail_bottom_const"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="#fff">
         <View
@@ -264,9 +212,15 @@
             android:background="@color/dark_gray"/>
         <EditText
             android:layout_width="0dp"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/round_square_lightgray"
             android:hint="댓글을 입력해 주세요"
+            android:isScrollContainer="true"
+            android:minHeight="39dp"
+            android:maxHeight="84dp"
+            android:inputType="textMultiLine"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:textSize="13sp"
             android:fontFamily="@font/nanum_r"
             android:textColor="@color/dark_gray"
