@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.parkseeun.moca_android">
-    <uses-permission android:name="android.permission.INTERNET">
-    </uses-permission>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:allowBackup="true"
@@ -30,15 +28,17 @@
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
         </activity>
         <activity android:name=".ui.location.LocationMainActivity">
+        </activity>
+        <activity android:name=".ui.location.LocationSearchActivity">
+        </activity>
+        <activity android:name=".ui.community.feed.FeedActivity">
+        </activity>
+        <activity android:name=".ui.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.location.LocationSearchActivity">
-        </activity>
-        <activity android:name=".ui.community.feed.FeedActivity">
         </activity>
     </application>
 
