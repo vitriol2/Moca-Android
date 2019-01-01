@@ -34,7 +34,7 @@
         </activity>
         <activity android:name=".ui.main.ScrapCafeActivity">
         </activity>
-        <activity android:name=".ui.main.CouponActivity">
+        <activity android:name=".ui.main.coupon.CouponActivity">
         </activity>
     </application>
 

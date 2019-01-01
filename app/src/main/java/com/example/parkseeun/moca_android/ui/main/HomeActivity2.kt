@@ -1,26 +1,23 @@
 package com.example.parkseeun.moca_android.ui.main
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.*
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.app_bar_home2.*
-import kotlinx.android.synthetic.main.mypage_tab.*
 import org.jetbrains.anko.startActivity
 
 class HomeActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -75,6 +72,11 @@ class HomeActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             startActivity<ScrapCafeActivity>()
         }
 
+        val coupon : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_coupon) as LinearLayout
+        coupon.setOnClickListener {
+            startActivity<CouponActivity>()
+        }
+
         val membershipRv : RecyclerView = headerView.findViewById(R.id.rv_act_home_membership) as RecyclerView
         membershipRv.layoutManager = GridLayoutManager(this, 4)
         membershipRv.adapter = MypageTabAdapter(this, pickposts)
@@ -126,7 +128,7 @@ class HomeActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     private fun makeData() {
-        for (i in 1..15) {
+        for (i in 1..12) {
             pickposts.add("카페 $i")
             conceptPosts.add("컨셉 $i")
 

@@ -210,6 +210,7 @@
                 android:background="@color/light_gray"></RelativeLayout>
 
         <LinearLayout
+                android:id="@+id/ll_mypage_tab_coupon"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:orientation="horizontal">
@@ -252,7 +253,7 @@
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_act_home_membership"
                     android:layout_width="match_parent"
-                    android:layout_height="171dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_below="@id/tv_act_home_membership"
             ></android.support.v7.widget.RecyclerView>
