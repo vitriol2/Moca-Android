@@ -1,19 +1,15 @@
 package com.example.parkseeun.moca_android.ui.main
 
-import android.content.res.Configuration
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.SnapHelper
-import android.view.Menu
 import android.view.MenuItem
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.CafeListData
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener{

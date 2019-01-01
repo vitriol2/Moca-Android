@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
           package="com.example.parkseeun.moca_android">
-
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -13,6 +12,9 @@
             android:supportsRtl="true"
             tools:node="replace"
             android:theme="@style/AppTheme">
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
         <activity android:name=".ui.community.review_comment.ReviewCommentActivity">
         </activity>
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
@@ -20,17 +22,20 @@
         </activity>
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
         </activity>
+        <activity android:name=".ui.location.HashKeyActivity">
+        </activity>
         <activity android:name=".ui.community.follow.FollowActivity">
         </activity>
         <activity android:name=".ui.plus.PlusActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
         </activity>
-        <activity android:name=".ui.community.review_write.albumPracticeActivity">
+        <activity android:name=".ui.location.LocationMainActivity">
+        </activity>
+        <activity android:name=".ui.location.LocationSearchActivity">
         </activity>
         <activity android:name=".ui.community.feed.FeedActivity">
         </activity>
         <activity android:name=".ui.SearchActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.community.review_write.adapter
+package com.example.parkseeun.moca_android.ui.location.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.community.review_write.data.CafeListData
 
-class SearchLocationListAdapter(val context : Context, val dataList : ArrayList<CafeListData>) : RecyclerView.Adapter<SearchLocationListAdapter.Holder>() {
+class LocationSearchAdapter(val context : Context, val dataList : ArrayList<CafeListData>) : RecyclerView.Adapter<LocationSearchAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 뷰 인플레이트
