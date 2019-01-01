@@ -95,14 +95,18 @@
                     android:layout_height="320dp"
                     android:background="@color/colorPrimary"
                     app:layout_constraintTop_toBottomOf="@+id/review_detail_info_const"/>
+                <View
+                    android:id="@+id/review_detail_space_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:layout_constraintTop_toBottomOf="@+id/review_detail_info_const"/>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/review_detail_post_const"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_top_square_white"
-                    app:layout_constraintTop_toBottomOf="@+id/review_detail_info_const"
-                    android:layout_marginTop="310dp">
+                    app:layout_constraintTop_toBottomOf="@+id/review_detail_space_view">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"

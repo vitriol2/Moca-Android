@@ -1,10 +1,12 @@
 package com.example.parkseeun.moca_android.ui.ranking
 
 import android.content.Context
+import android.graphics.Point
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -28,6 +30,11 @@ class RankingViewAdapter(val context : Context, val dataList : ArrayList<Ranking
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: RankingViewAdapter.Holder, position: Int) {
+        // 스크린 너비에 따른 이미지 길이 설정
+        val width = getScreenWidth()
+        holder.pic.layoutParams.width = ((width-dpToPx(26.toFloat()))/2).toInt()
+        holder.pic.layoutParams.height = holder.pic.layoutParams.width
+
         Glide.with(context).load(dataList[position].pic).into(holder.pic)
         holder.cafename.text = dataList[position].cafename
         holder.rank.text = dataList[position].rank.toString()
@@ -42,5 +49,15 @@ class RankingViewAdapter(val context : Context, val dataList : ArrayList<Ranking
         val cafename : TextView = itemView.findViewById(R.id.rank_item_cafename_tv) as TextView
         val location : TextView = itemView.findViewById(R.id.rank_item_location_tv) as TextView
         val rating : RatingBar = itemView.findViewById(R.id.rank_item_rate_rating) as RatingBar
+    }
+    private fun dpToPx(dp:Float):Float{
+        return (dp * context.resources.displayMetrics.density)
+    }
+    private fun getScreenWidth():Int{
+        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = wm.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        return size.x
     }
 }
