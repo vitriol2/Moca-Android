@@ -1,13 +1,24 @@
 package com.example.parkseeun.moca_android.ui.ranking
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.view.View
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import kotlinx.android.synthetic.main.activity_ranking.*
 
-class RankingActivity : AppCompatActivity() {
+class RankingActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var rankingViewAdapter : RankingViewAdapter
+
+    override fun onClick(v: View?) {
+        val idx: Int = ranking_cafe_rv.getChildAdapterPosition(v!!)
+        val nextIntent = Intent(this, FeedActivity::class.java)
+        nextIntent.putExtra("rank idx", idx)
+        startActivity(nextIntent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ranking)
@@ -34,6 +45,7 @@ class RankingActivity : AppCompatActivity() {
         dataList.add(RankingData(15,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페 이름이긔", 4, "서울시 우리집"))
 
         rankingViewAdapter = RankingViewAdapter(applicationContext!!, dataList)
+        rankingViewAdapter.setOnItemClickListener(this)
         ranking_cafe_rv.adapter = rankingViewAdapter
         ranking_cafe_rv.layoutManager = GridLayoutManager(applicationContext,2)
     }

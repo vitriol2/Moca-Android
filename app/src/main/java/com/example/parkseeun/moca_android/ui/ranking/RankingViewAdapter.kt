@@ -12,10 +12,16 @@ import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 
 class RankingViewAdapter(val context : Context, val dataList : ArrayList<RankingData>) : RecyclerView.Adapter<RankingViewAdapter.Holder>() {
+    private lateinit var onItemClick : View.OnClickListener
+
+    fun setOnItemClickListener(l : View.OnClickListener){
+        onItemClick = l
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewAdapter.Holder {
         // 뷰 인플레이트
         val view : View = LayoutInflater.from(context).inflate(R.layout.rv_item_ranking, parent, false)
-
+        view.setOnClickListener(onItemClick)
         return Holder(view)
     }
 
