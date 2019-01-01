@@ -1,6 +1,8 @@
 package com.example.parkseeun.moca_android.ui.community.feed
 
 import android.content.Context
+import android.content.Intent
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +16,8 @@ import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.community.review_comment.ReviewCommentActivity
+import com.example.parkseeun.moca_android.ui.community.review_detail.ReviewDetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<ReviewData>) : RecyclerView.Adapter<ReviewRecyclerViewAdapter.Holder>() {
@@ -38,6 +42,12 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
             holder.heartLt.setAnimation("heart.json")
             holder.heartLt.playAnimation()
         }
+        holder.commentBtn.setOnClickListener{
+            context.startActivity(Intent(context, ReviewCommentActivity::class.java))
+        }
+        holder.more.setOnClickListener {
+            context.startActivity(Intent(context, ReviewDetailActivity::class.java))
+        }
         Glide.with(context).load(dataList[position].pic).into(holder.pic)
         holder.heartNum.text = dataList[position].heartNum.toString()
         holder.commentNum.text = dataList[position].commentNum.toString()
@@ -53,6 +63,7 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         val name : TextView = itemView.findViewById(R.id.review_item_name_tv) as TextView
         val rating : RatingBar = itemView.findViewById(R.id.review_item_rating_rating) as RatingBar
         val heart : ImageView = itemView.findViewById(R.id.review_item_heart_iv) as ImageView
+        val commentBtn : ImageView = itemView.findViewById(R.id.review_item_comment_iv) as ImageView
         val heartLt : LottieAnimationView = itemView.findViewById(R.id.review_item_heart_lt) as LottieAnimationView
         val pic : ImageView = itemView.findViewById(R.id.review_item_pic_iv) as ImageView
         val heartNum : TextView = itemView.findViewById(R.id.review_item_heart2Num_iv) as TextView
@@ -61,5 +72,6 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         val time : TextView = itemView.findViewById(R.id.review_item_time_tv) as TextView
         val cafeLocation : TextView = itemView.findViewById(R.id.review_item_cafelocation_tv) as TextView
         val comment : TextView = itemView.findViewById(R.id.review_item_comment_tv) as TextView
+        val more : ConstraintLayout = itemView.findViewById(R.id.review_item_more_const) as ConstraintLayout
     }
 }
