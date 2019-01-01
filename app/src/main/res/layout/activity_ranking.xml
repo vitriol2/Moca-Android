@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ranking_actionbar_const"
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+        <TextView
+            android:id="@+id/ranking_cafename_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Bold15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="카페이름"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/dark_gray"/>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ranking_cafe_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.constraint.ConstraintLayout>
