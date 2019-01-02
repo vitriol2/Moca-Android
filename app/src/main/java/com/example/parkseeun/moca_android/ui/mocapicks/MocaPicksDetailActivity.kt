@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.util.ImageAdapter
 import kotlinx.android.synthetic.main.activity_moca_picks_detail.*
 
 class MocaPicksDetailActivity : AppCompatActivity() {
