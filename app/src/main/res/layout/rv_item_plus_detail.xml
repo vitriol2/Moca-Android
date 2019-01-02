@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="533dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ffffff">
 
     <TextView
         android:id="@+id/tv_plus_detail_item_location"
@@ -83,20 +84,25 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_plus_detail_item"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_mocaPlusDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp">
+        android:layout_height="208dp"
+        android:layout_marginLeft="20dp"
+        android:paddingRight="10dp">
 
-    </android.support.v7.widget.RecyclerView>
+        <ImageView
+            android:layout_width="208dp"
+            android:layout_height="208dp" />
+
+    </android.support.v4.view.ViewPager>
 
     <ProgressBar
         android:id="@+id/progressBar_plus_detail_item"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
+        android:progressDrawable="@drawable/custom_progressbar_gray"
         android:layout_marginLeft="67dp"
         android:layout_marginTop="10dp"
         android:progress="1"/>

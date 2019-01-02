@@ -23,18 +23,21 @@
         <activity android:name=".ui.community.review_write.WriteReviewActivity"/>
         <activity android:name=".ui.location.HashKeyActivity"/>
         <activity android:name=".ui.community.follow.FollowActivity"/>
-        <activity android:name=".ui.plus.PlusActivity"/>
+        <activity android:name=".ui.plus.PlusActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity"/>
         <activity android:name=".ui.location.LocationMainActivity"/>
         <activity android:name=".ui.location.LocationSearchActivity"/>
         <activity android:name=".ui.community.feed.FeedActivity"/>
         <activity android:name=".ui.main.SearchActivity"/>
         <activity android:name=".ui.mocapicks.MocaPicksListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".ui.mocapicks.MocaPicksDetailActivity">
         </activity>
