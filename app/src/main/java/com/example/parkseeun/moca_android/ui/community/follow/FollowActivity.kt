@@ -14,6 +14,10 @@ class FollowActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_follow)
+        if(intent.getStringExtra("flag")=="follower")
+            et_follow_search.hint = "팔로워"
+        else if(intent.getStringExtra("flag")=="following")
+            et_follow_search.hint = "팔로잉"
 
         setRecyclerView()
     }
