@@ -1,16 +1,41 @@
 package com.example.parkseeun.moca_android.ui.community.feed
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.community.follow.FollowActivity
 import kotlinx.android.synthetic.main.activity_other_user.*
 
-class OtherUserActivity : AppCompatActivity() {
+class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var reviewRecyclerViewAdapter : ReviewRecyclerViewAdapter
+
+    override fun onClick(v: View?) {
+        when(v){
+            other_follower_tv -> {
+                Intent(this, FollowActivity::class.java).apply {
+                    this.putExtra("flag","follower")
+                    startActivity(this)
+                }
+            }
+            other_following_tv -> {
+                Intent(this, FollowActivity::class.java).apply {
+                    putExtra("flag","following")
+                    startActivity(this)
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other_user)
+
+        other_follower_tv.setOnClickListener(this)
+        other_following_tv.setOnClickListener(this)
+
         setRecyclerView()
     }
     // RecyclerView 설정
