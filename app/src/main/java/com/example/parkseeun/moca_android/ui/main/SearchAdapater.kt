@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui
+package com.example.parkseeun.moca_android.ui.main
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
