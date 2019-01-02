@@ -1,15 +1,10 @@
 package com.example.parkseeun.moca_android.ui.main
 
-<<<<<<< HEAD:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity2.kt
 import com.example.parkseeun.moca_android.NavigationActivity
 
-=======
 import android.content.Intent
-import android.view.View
-import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import com.example.parkseeun.moca_android.ui.ranking.RankingActivity
 import android.support.v7.app.AppCompatActivity
->>>>>>> 1ec80d1f91b3f6c761fe515078c16ea1fb3db561:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity.kt
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -33,19 +28,17 @@ import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.app_bar_home2.*
 import org.jetbrains.anko.startActivity
 
-<<<<<<< HEAD:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity2.kt
-class HomeActivity2 : NavigationActivity(){
-=======
-class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+class HomeActivity2 : NavigationActivity(), View.OnClickListener {
+
     private lateinit var mToggle: ActionBarDrawerToggle
 
-    val pickposts: ArrayList<String> = ArrayList()
+    val pickposts : ArrayList<String> = ArrayList()
     val conceptPosts: ArrayList<String> = ArrayList()
     val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
     val plusPosts: ArrayList<String> = ArrayList()
 
     override fun onClick(v: View?) {
-        when(v){
+        when (v) {
             home_picks_tv -> {
 //                to moca picks
             }
@@ -63,48 +56,22 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (p0.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
 
-            }
-            R.id.nav_slideshow -> {
 
-            }
-            R.id.nav_manage -> {
-
-            }
-
-        }
->>>>>>> 1ec80d1f91b3f6c761fe515078c16ea1fb3db561:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity.kt
+        return true
+    }
 
     private val TAG = "HomeActivity2 onCreate"
-
-<<<<<<< HEAD:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity2.kt
-
-    val pickposts: ArrayList<String> = ArrayList()
-    val conceptPosts: ArrayList<String> = ArrayList()
-    val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
-    val plusPosts: ArrayList<String> = ArrayList()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home2)
         setSupportActionBar(toolbar)
-=======
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
         home_picks_tv.setOnClickListener(this)
         home_concept_tv.setOnClickListener(this)
         home_ranking_tv.setOnClickListener(this)
         home_plus_tv.setOnClickListener(this)
->>>>>>> 1ec80d1f91b3f6c761fe515078c16ea1fb3db561:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity.kt
 
         Log.v(TAG, "onCreate")
 
@@ -114,10 +81,8 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
 
         setHeader(nav_view)
 
-        val snapHelper= LinearSnapHelper()
+        val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(rv_act_home_picks)
-
-
 
 
         val toggle = ActionBarDrawerToggle(
@@ -128,8 +93,6 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
     }
-
-
 
 
     private fun recyclerView() {
@@ -165,3 +128,5 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
         }
     }
 }
+
+
