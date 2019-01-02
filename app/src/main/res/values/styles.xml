@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
@@ -82,18 +82,16 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="home_category_title">
-        <item name = "android:layout_width">wrap_content</item>
-        <item name = "android:layout_height">wrap_content</item>
-        <item name = "android:layout_marginLeft">20dp</item>
-        <item name="android:fontFamily">@font/nanum_b</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:lineSpacingExtra">3sp</item>
+    <style name="home_category_title" parent="Bold15">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+
         <item name="android:textColor">@color/home_title_black</item>
     </style>
     <style name="home_category_look_entire" parent="Regular11">
-        <item name = "android:layout_width">wrap_content</item>
-        <item name = "android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/dark_gray</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginRight">16dp</item>
@@ -111,15 +109,21 @@
     </style>
 
     <style name="mypage_tab_menu_title" parent="Regular11">
-        <item name = "android:layout_width">wrap_content</item>
-        <item name = "android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="mypage_tab_menu_num" parent="Bold11">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="mypage_tab_menu_zzim_image">
-        <item name = "android:layout_width">42dp</item>
-        <item name = "android:layout_height">42dp</item>
-        <item name = "android:layout_marginRight">10dp</item>
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:layout_marginRight">10dp</item>
     </style>
 
 
@@ -132,5 +136,53 @@
         <item name="android:minHeight">14dp</item>
         <item name="android:maxHeight">14dp</item>
     </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="toolbar_left_icon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:titleMarginBottom">16dp</item>
+    </style>
+
+    <style name="toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">55dp</item>
+    </style>
+    <style name="toolbar_title" parent="Bold15">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="editProfileCategoryName" parent="Regular11">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:layout_marginLeft">30dp</item>
+    </style>
+
+    <style name="editProfileCategoryContent" parent="Regular13">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">45dp</item>
+    </style>
+
+    <style name="editProfileUnderLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/point_pink</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+
+    </style>
+
+    <style name="editProfileComplete" parent="Bold15">
+        <item name="android:background">@drawable/edit_profile_btn_bg</item>
+        <item name="android:textColor">@drawable/edit_profile_btn_color</item>
+
+    </style>
+
 
 </resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.ScrapCafeActivity"
+        android:background="#ffffff">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            app:contentInsetStart="0dp">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:paddingLeft="16dp"
+                        android:background="@drawable/home_ranking_divider">
+
+            <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                       android:layout_marginTop="15dp"
+                       android:layout_marginBottom="16dp"
+                       android:src="@drawable/common_back_black"
+                       android:id="@+id/iv_act_scrap_cafe_back"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      style="@style/Bold15"
+                      android:text="찜한 카페"
+                      android:layout_centerInParent="true"
+            />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:layout_below="@id/toolbar"
+                    android:paddingHorizontal="16dp">
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_act_scrap_cafe" android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="9.5dp"
+        ></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+
+</RelativeLayout>

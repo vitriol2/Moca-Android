@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="328dp"
+                android:layout_height="141dp"
+                android:layout_marginBottom="6dp"
+android:layout_centerHorizontal="true">
+
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="fitXY"
+        />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="97dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="10dp">
+            <TextView
+                    android:id="@+id/tv_rv_zzim_item_name"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="서울리즘"
+            style="@style/Bold15"
+            android:textColor="@color/white"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <ImageView android:layout_width="12dp" android:layout_height="13dp"
+                android:src="@drawable/common_location"/>
+                <TextView
+                        android:id="@+id/tv_rv_zzim_item_location"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="서울시 강동구 명일동"
+                android:textColor="@color/white"
+                style="@style/Light11"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+</RelativeLayout>
