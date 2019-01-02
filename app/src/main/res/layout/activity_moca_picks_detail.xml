@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context=".ui.mocapicks.MocaPicksDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/common_back_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"/>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(카페 이름)"
+            android:textSize="15sp"
+            android:textColor="#101010"
+            android:fontFamily="@font/nanum_b"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#707070"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/tv_mocaPicksDetail_cafeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="C27"
+                        android:textSize="13sp"
+                        android:textColor="#101010"
+                        android:fontFamily="@font/nanum_b"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_below="@id/tv_mocaPicksDetail_cafeName">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/common_location"/>
+
+                        <TextView
+                            android:id="@+id/tv_mocaPicksDetail_cafeLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="서울 강남구"
+                            android:textSize="11sp"
+                            android:textColor="#707070"
+                            android:fontFamily="@font/nanum_l"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ToggleButton
+                    android:id="@+id/tb_mocaPicksList"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/like_toggle_button_gray"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    android:textOn=""
+                    android:textOff=""
+                    android:layout_centerVertical="true"
+                    android:checked="false"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="270dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_mocaPicksDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"
+                    android:background="#101010"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBar_mocaPicksDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:progress="1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressDrawable="@drawable/custom_progressbar"
+                    android:max="5"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="34dp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="-14dp"
+                android:background="@drawable/mocapicks_rounded_top">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="모카 검증위원"
+                        android:textColor="#101010"
+                        android:textSize="15dp"
+                        android:fontFamily="@font/nanum_b"
+                        android:layout_marginLeft="20dp"/>
+
+                    <RatingBar
+                        android:id="@+id/rating_mocaPicksList_total"
+                        style="@style/SmallRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:progressDrawable="@drawable/small_rating_bar_layer"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:background="#707070"
+                        android:layout_alignParentTop="true"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_baristaImage1"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:src="#111111"
+                        android:layout_centerVertical="true"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@id/civ_baristaImage1"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_baristaName1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="김정환"
+                                android:textColor="#101010"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/nanum_b"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="바리스타"
+                                android:textColor="#101010"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/nanum_r"
+                                android:layout_marginLeft="3dp"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_baristaSpec1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="World Latte Art Battle 심사위원"
+                            android:textColor="#101010"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/nanum_r"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/ib_baristaEvaluate1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/mocapicks_more"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:background="#707070"
+                        android:layout_alignParentTop="true"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_baristaImage2"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:src="#111111"
+                        android:layout_centerVertical="true"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@id/civ_baristaImage2"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_baristaName2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="김정환"
+                                android:textColor="#101010"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/nanum_b"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="바리스타"
+                                android:textColor="#101010"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/nanum_r"
+                                android:layout_marginLeft="3dp"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_baristaSpec2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="World Latte Art Battle 심사위원"
+                            android:textColor="#101010"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/nanum_r"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/ib_baristaEvaluate2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/mocapicks_more"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:background="#707070"
+                        android:layout_alignParentTop="true"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_baristaImage3"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:src="#111111"
+                        android:layout_centerVertical="true"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@id/civ_baristaImage3"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_baristaName3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="김정환"
+                                android:textColor="#101010"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/nanum_b"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="바리스타"
+                                android:textColor="#101010"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/nanum_r"
+                                android:layout_marginLeft="3dp"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_baristaSpec3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="World Latte Art Battle 심사위원"
+                            android:textColor="#101010"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/nanum_r"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/ib_baristaEvaluate3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/mocapicks_more"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:background="#707070"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="평가 항목"
+                    android:textColor="#101010"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_b"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="원두 품질 및 상태"
+                        android:textColor="#707070"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/nanum_r"/>
+
+                    <RatingBar
+                        android:id="@+id/rating_mocaPicksList_item1"
+                        style="@style/SmallRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:progressDrawable="@drawable/small_rating_bar_layer"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="로스팅 실력"
+                        android:textColor="#707070"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/nanum_r"/>
+
+                    <RatingBar
+                        android:id="@+id/rating_mocaPicksList_item2"
+                        style="@style/SmallRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:progressDrawable="@drawable/small_rating_bar_layer"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="창의성"
+                        android:textColor="#707070"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/nanum_r"/>
+
+                    <RatingBar
+                        android:id="@+id/rating_mocaPicksList_item3"
+                        style="@style/SmallRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:progressDrawable="@drawable/small_rating_bar_layer"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="가격에 합당한 가치"
+                        android:textColor="#707070"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/nanum_r"/>
+
+                    <RatingBar
+                        android:id="@+id/rating_mocaPicksList_item4"
+                        style="@style/SmallRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:progressDrawable="@drawable/small_rating_bar_layer"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="맛 유지력"
+                        android:textColor="#707070"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/nanum_r"/>
+
+                    <RatingBar
+                        android:id="@+id/rating_mocaPicksList_item5"
+                        style="@style/SmallRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:progressDrawable="@drawable/small_rating_bar_layer"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="총평"
+                    android:textColor="#101010"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_b"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="북한강을 바라보다 어느새 시간이 훌쩍, 복잡하고 어지럽게 움직이는 서울에서 도망치듯 빠져나와 따듯한 커피 한 잔 그리고 담백하고 촉촉한 베이커리까지
+즐기며 한 껏 여유를 찾을 수 있던 이 곳. 웅장해 보이던 외관 안에는 오히려, 아늑하고 섬세한 손길이 가득했다. "
+                    android:textColor="#000000"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/nanum_l"
+                    android:lineSpacingExtra="14sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="30dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

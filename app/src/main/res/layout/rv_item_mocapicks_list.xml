@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative_mocaPicks_rv_item"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+
+    <ImageView
+        android:id="@+id/iv_mocaPicksList_cafeImage"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginLeft="40dp"
+        android:layout_alignParentEnd="true"
+        android:background="#111111"
+        android:scaleType="centerCrop"/>
+
+    <ToggleButton
+        android:id="@+id/tb_mocaPicksList"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/like_toggle_button_white"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:textOn=""
+        android:textOff=""
+        android:layout_marginTop="10dp"
+        android:checked="false"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="40dp">
+
+        <TextView
+            android:id="@+id/tv_mocaPicksList_cafeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C27"
+            android:textColor="#101010"
+            android:textSize="13sp"
+            android:fontFamily="@font/nanum_b"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_below="@id/tv_mocaPicksList_cafeName"
+            android:layout_marginTop="3dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mocapicks_location"/>
+
+            <TextView
+                android:id="@+id/tv_mocaPicksList_cafeLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="서울 강남구"
+                android:textColor="#707070"
+                android:textSize="11sp"
+                android:layout_marginLeft="6dp"/>
+
+        </LinearLayout>
+
+        <RatingBar
+            android:id="@+id/rating_mocaPicksList"
+            style="@style/SmallRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:progressDrawable="@drawable/small_rating_bar_layer"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
