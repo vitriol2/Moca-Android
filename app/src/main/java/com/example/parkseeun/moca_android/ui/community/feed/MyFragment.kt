@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.ui.community.feed
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -7,12 +8,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.community.follow.FollowActivity
+import kotlinx.android.synthetic.main.fragment_my.*
 import kotlinx.android.synthetic.main.fragment_my.view.*
 
-class MyFragment :Fragment(){
+class MyFragment :Fragment(), View.OnClickListener{
     lateinit var reviewRecyclerViewAdapter : ReviewRecyclerViewAdapter
+
+    override fun onClick(v: View?) {
+        when(v){
+            my_follower_tv -> {
+                Intent(context, FollowActivity::class.java).apply {
+                    putExtra("flag","follower")
+                    startActivity(this)
+                }
+            }
+            my_following_tv -> {
+                Intent(context, FollowActivity::class.java).apply {
+                    putExtra("flag","following")
+                    startActivity(this)
+                }
+            }
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_my,container,false)
+
+        v.my_follower_tv.setOnClickListener(this)
+        v.my_following_tv.setOnClickListener(this)
 
         setRecyclerView(v)
         return v
