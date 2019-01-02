@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android
 
+import android.content.Intent
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
@@ -11,7 +12,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.main.CategoryRankData
+import com.example.parkseeun.moca_android.ui.main.HomeActivity2
 import com.example.parkseeun.moca_android.ui.main.MypageTabAdapter
 import com.example.parkseeun.moca_android.ui.main.ScrapCafeActivity
 import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
@@ -25,17 +28,41 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
     lateinit var headerView : View
     val membershipList = ArrayList<String>()
 
-    fun setHeader() {
+    fun setHeader(view_navi : NavigationView) {
 
         makeData()
 
-        headerView = nav_view.getHeaderView(0)
+        headerView = view_navi.getHeaderView(0)
 
-        val image : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_home) as LinearLayout
-        image.setOnClickListener {
+
+        val home : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_home) as LinearLayout
+        home.setOnClickListener {
+            Log.v("vvvvv", "vvvvv")
+            val intent = Intent(this, HomeActivity2::class.java)
+            startActivity(intent)
+        }
+
+        val category : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_category) as LinearLayout
+        category.setOnClickListener {
             Log.v("vvvvv", "vvvvv")
             startActivity<PlusActivity>()
         }
+
+        val location : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_loaction) as LinearLayout
+        location.setOnClickListener {
+            Log.v("vvvvv", "vvvvv")
+            startActivity<PlusActivity>()
+        }
+
+        val community : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_community) as LinearLayout
+        community.setOnClickListener {
+            Log.v("vvvvv", "vvvvv")
+            val intent = Intent(this, FeedActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
 
         val scrapCafe : ImageView = headerView.findViewById(R.id.iv_mypage_tab_scrapcafe_more) as ImageView
         scrapCafe.setOnClickListener {
@@ -47,7 +74,7 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
             startActivity<CouponActivity>()
         }
 
-        val membershipRv : RecyclerView = headerView.findViewById(R.id.rv_act_home_membership) as RecyclerView
+        val membershipRv : RecyclerView = headerView.findViewById(R.id.rv_act_home_membership)
         membershipRv.layoutManager = GridLayoutManager(this, 4)
         membershipRv.adapter = MypageTabAdapter(this, membershipList)
 

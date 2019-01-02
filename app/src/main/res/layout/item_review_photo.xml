@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginRight="10dp">
+
+    <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="104dp"
+            android:layout_height="104dp">
+        <ImageView
+                android:layout_centerInParent="true"
+                android:background="@drawable/round_square_white"
+                android:id="@+id/img_photo_review"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                android:scaleType="centerCrop"
+        />
+        <ImageView
+                android:id="@+id/btn_cancel_photo"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

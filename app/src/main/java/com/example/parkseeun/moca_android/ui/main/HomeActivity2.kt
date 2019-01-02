@@ -1,18 +1,22 @@
 package com.example.parkseeun.moca_android.ui.main
 
+import com.example.parkseeun.moca_android.NavigationActivity
+
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.*
 import android.util.Log
 import android.view.Menu
+
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearSnapHelper
+import android.support.v7.widget.SnapHelper
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.example.parkseeun.moca_android.NavigationActivity
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
@@ -22,6 +26,9 @@ import kotlinx.android.synthetic.main.app_bar_home2.*
 import org.jetbrains.anko.startActivity
 
 class HomeActivity2 : NavigationActivity(){
+
+    private val TAG = "HomeActivity2 onCreate"
+
 
     val pickposts: ArrayList<String> = ArrayList()
     val conceptPosts: ArrayList<String> = ArrayList()
@@ -35,11 +42,13 @@ class HomeActivity2 : NavigationActivity(){
         setContentView(R.layout.activity_home2)
         setSupportActionBar(toolbar)
 
+        Log.v(TAG, "onCreate")
+
         makeData()
 
         recyclerView()
 
-        setHeader()
+        setHeader(nav_view)
 
         val snapHelper= LinearSnapHelper()
         snapHelper.attachToRecyclerView(rv_act_home_picks)

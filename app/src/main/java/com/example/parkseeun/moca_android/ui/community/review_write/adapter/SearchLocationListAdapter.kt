@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.CafeListData
+import com.example.parkseeun.moca_android.ui.community.review_write.data.CafeListData
 
 class SearchLocationListAdapter(val context : Context, val dataList : ArrayList<CafeListData>) : RecyclerView.Adapter<SearchLocationListAdapter.Holder>() {
 
