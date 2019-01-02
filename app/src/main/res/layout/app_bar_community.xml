@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.HomeActivity2">
+
+    <android.support.design.widget.AppBarLayout
+            android:layout_height="55dp"
+            android:layout_width="match_parent"
+    >
+
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentInsetStart="0dp">
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/feed_actionbar_const"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp">
+                <ImageView
+                        android:id="@+id/feed_cancel_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/common_cancel_black"
+                        android:visibility="gone"/>
+
+
+                <TextView
+                        android:id="@+id/feed_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/nanum_b"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="소셜 피드"/>
+                <ImageView
+                        android:id="@+id/feed_title_iv"
+                        android:layout_toRightOf="@id/feed_title_tv"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/feed_title_tv"
+                        android:src="@drawable/community_under"/>
+                <ImageView
+                        android:id="@+id/feed_search_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/common_search"/>
+                <ImageView
+                        android:id="@+id/feed_dm_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/common_dm"
+                        android:visibility="gone"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:background="@color/dark_gray"/>
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_feed"/>
+
+
+</android.support.design.widget.CoordinatorLayout>

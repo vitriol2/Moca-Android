@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="77dp"
     android:layout_marginLeft="46dp"
     android:background="@drawable/home_ranking_divider">
@@ -63,20 +63,7 @@
         </LinearLayout>
 
     </LinearLayout>
-    <RatingBar
-        style="@style/MyRatingBar"  
-        android:id="@+id/ratingBarCust"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="1"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:progressDrawable="@drawable/rating_bar_layer"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp"
-        android:layout_centerVertical="true"
-        />
+
 
 
 </RelativeLayout>
