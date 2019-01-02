@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui
+package com.example.parkseeun.moca_android.ui.main
 
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity

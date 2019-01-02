@@ -28,23 +28,23 @@ import java.io.FileNotFoundException
 import java.io.InputStream
 
 class WriteReviewActivity : AppCompatActivity() {
-//    var PICK_IMAGE_MULTIPLE = 1
+    //    var PICK_IMAGE_MULTIPLE = 1
 //    var imageEncoded: String? = null
 //    var imagesEncodedList = ArrayList<String>()
-private val REQ_CODE_SELECT_IMAGE = 100
-    lateinit var data : Uri
+    private val REQ_CODE_SELECT_IMAGE = 100
+    lateinit var data: Uri
     var btn_num = 0
 
 
-    lateinit var photoItems : ArrayList<PhotoData>
-    lateinit var totalItems : ArrayList<PhotoData>
+    lateinit var photoItems: ArrayList<PhotoData>
+    lateinit var totalItems: ArrayList<PhotoData>
     lateinit var PhotoAdapter: PhotoAdapter
     lateinit var requestManager: RequestManager
     lateinit var reviewImageItems: ArrayList<ReviewImageData>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_writereview)
-        reviewImageItems=ArrayList()
+        reviewImageItems = ArrayList()
         var flag = 0
 
         requestManager = Glide.with(this)
@@ -55,14 +55,7 @@ private val REQ_CODE_SELECT_IMAGE = 100
         var height = displayMetrics.heightPixels
 
         img_addreview_image.setOnClickListener {
-            //            val intent = Intent()
-//            intent.type = "image/*"
-//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-//            intent.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE)
-            img_addreview_image.visibility=View.GONE
-                changeImage()
-
+            changeImage()
         }
 
 
@@ -77,7 +70,7 @@ private val REQ_CODE_SELECT_IMAGE = 100
                 try {
                     //if(ApplicationController.getInstance().is)
                     this.data = data!!.data //그이미지의Uri를 가져옴
-                    Log.v("이미지", this.data.toString())
+                    Log.v("이미지1", this.data.toString())
 
                     val options = BitmapFactory.Options()
 
@@ -101,12 +94,14 @@ private val REQ_CODE_SELECT_IMAGE = 100
                     //이거 서버에 보내줄때 필요 image = MultipartBody.Part.createFormData("photo", photo.name, photoBody) //여기의 photo는 키값의 이름하고 같아야함
 
                     //body = MultipartBody.Part.createFormData("image", photo.getName(), profile_pic);
-
-                    photoItems.add(PhotoData(data.data))
-                    reviewImageItems.add(ReviewImageData(data.data.toString()))
-
-                    PhotoAdapter = PhotoAdapter(photoItems,requestManager)
-                    rv_photo_review.layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+                    if (photoItems.size < 10) {
+                        photoItems.add(PhotoData(data.data))
+                        reviewImageItems.add(ReviewImageData(data.data.toString()))
+                    } else {
+                        img_addreview_image.visibility = View.GONE
+                    }
+                    PhotoAdapter = PhotoAdapter(photoItems, requestManager)
+                    rv_photo_review.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     rv_photo_review.adapter = PhotoAdapter
 
                 } catch (e: Exception) {
@@ -118,12 +113,13 @@ private val REQ_CODE_SELECT_IMAGE = 100
     }
 
 
-fun changeImage(){
-    var intent = Intent(Intent.ACTION_PICK)
-    intent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
-    intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-    startActivityForResult(intent,REQ_CODE_SELECT_IMAGE)
-}
+    fun changeImage() {
+        var intent = Intent(Intent.ACTION_PICK)
+        intent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
+        intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        startActivityForResult(intent, REQ_CODE_SELECT_IMAGE)
+    }
+
     fun ratingBar() {
         val ratingBarCustom = findViewById<View>(R.id.ratingBarCustom) as RatingBar
         ratingBarCustom.onRatingBarChangeListener = object : RatingBar.OnRatingBarChangeListener {
@@ -143,7 +139,7 @@ fun changeImage(){
 
     }
 
- //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        try {
 //            // When an Image is picked
 //            if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == Activity.RESULT_OK && null != data) {
@@ -205,5 +201,5 @@ fun changeImage(){
 //
 //        super.onActivityResult(requestCode, resultCode, data)
 //    }
-  //  }
+    //  }
 }
