@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.ui.mocapicks
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
@@ -31,6 +32,23 @@ class MocaPicksDetailActivity : AppCompatActivity() {
 
         vp_mocaPicksDetail.adapter = ImageAdapter(this, urlList)
 
+        // 평가보기 버튼 리스너
+        ib_baristaEvaluate1.setOnClickListener {
+            val intent : Intent = Intent(this@MocaPicksDetailActivity, MocaPicksBaristaActivity::class.java)
 
+            startActivity(intent)
+        }
+
+        ib_baristaEvaluate2.setOnClickListener {
+            val intent : Intent = Intent(this@MocaPicksDetailActivity, MocaPicksBaristaActivity::class.java)
+
+            startActivity(intent)
+        }
+
+        ib_baristaEvaluate3.setOnClickListener {
+            val intent : Intent = Intent(this@MocaPicksDetailActivity, MocaPicksBaristaActivity::class.java)
+
+            startActivity(intent)
+        }
     }
 }
