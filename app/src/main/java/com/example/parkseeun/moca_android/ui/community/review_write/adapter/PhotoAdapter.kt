@@ -1,7 +1,9 @@
 package com.example.parkseeun.moca_android.ui.community.review_write.adapter
 
 
+import android.app.Activity
 import android.app.PendingIntent.getActivity
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,8 +25,7 @@ class PhotoAdapter(private var photoItems : ArrayList<PhotoData>, var requestMan
 
         requestManager
             .load(photoItems[position].review_img)
-            //.fitCenter()
-          //  .centerCrop()
+            //.centerCrop()
             .into(holder.review_photo)
       //  holder.cancel_btn.setOnClickListener{
    //         photoItems.removeAt(position)
