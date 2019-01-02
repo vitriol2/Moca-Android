@@ -146,4 +146,15 @@
         <item name="android:titleMarginBottom">16dp</item>
     </style>
 
+    <style name="toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">55dp</item>
+    </style>
+    <style name="toolbar_title" parent="Bold15">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+
 </resources>
