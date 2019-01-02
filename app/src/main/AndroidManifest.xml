@@ -3,7 +3,12 @@
         xmlns:tools="http://schemas.android.com/tools"
           package="com.example.parkseeun.moca_android">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+    <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="cb620091669ce5936f0fd4dd2766a760"/>
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -15,14 +20,14 @@
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
+        <meta-data android:name="com.google.android.gms.version"
+                   android:value="@integer/google_play_services_version" />
         <activity android:name=".ui.community.review_comment.ReviewCommentActivity">
         </activity>
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
         <activity android:name=".ui.main.HomeActivity">
         </activity>
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
-        </activity>
-        <activity android:name=".ui.location.HashKeyActivity">
         </activity>
         <activity android:name=".ui.community.follow.FollowActivity">
         </activity>
@@ -31,16 +36,18 @@
         </activity>
         <activity android:name=".ui.location.LocationMainActivity">
         </activity>
-        <activity android:name=".ui.location.LocationSearchActivity">
-        </activity>
-        <activity android:name=".ui.community.feed.FeedActivity">
-        </activity>
-        <activity android:name=".ui.SearchActivity">
+        <activity android:name=".ui.location.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.location.LocationSearchActivity">
+        </activity>
+        <activity android:name=".ui.community.feed.FeedActivity">
+        </activity>
+        <activity android:name=".ui.SearchActivity">
         </activity>
     </application>
 
