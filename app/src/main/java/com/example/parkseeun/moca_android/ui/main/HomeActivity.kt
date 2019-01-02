@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.SnapHelper
 import android.view.MenuItem
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
@@ -27,7 +28,7 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
     override fun onClick(v: View?) {
         when(v){
             home_picks_tv -> {
-//                to moca picks
+                startActivity(Intent(this, MocaPicksListActivity::class.java))
             }
             home_concept_tv -> {
 //                to category
