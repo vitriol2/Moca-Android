@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
