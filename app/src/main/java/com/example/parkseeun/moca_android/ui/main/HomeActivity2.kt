@@ -1,27 +1,24 @@
 package com.example.parkseeun.moca_android.ui.main
 
 import android.content.Intent
-import android.view.View
-import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import com.example.parkseeun.moca_android.ui.ranking.RankingActivity
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
-import android.support.v7.widget.SnapHelper
 import android.view.MenuItem
+import android.view.View
+import com.example.parkseeun.moca_android.NavigationActivity
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
-import kotlinx.android.synthetic.main.activity_home.*
+import com.example.parkseeun.moca_android.ui.plus.PlusActivity
+import kotlinx.android.synthetic.main.activity_home2.*
+import kotlinx.android.synthetic.main.app_bar_home.*
+import kotlinx.android.synthetic.main.content_home2.*
 
-class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
-    private lateinit var mToggle: ActionBarDrawerToggle
-
-    val pickposts: ArrayList<String> = ArrayList()
-    val conceptPosts: ArrayList<String> = ArrayList()
+class HomeActivity2 : NavigationActivity(), View.OnClickListener{
+    private val pickposts: ArrayList<String> = ArrayList()
+    private val conceptPosts: ArrayList<String> = ArrayList()
     val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
     val plusPosts: ArrayList<String> = ArrayList()
 
@@ -59,60 +56,40 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
             }
 
         }
-
-        return true
+        return false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_home2)
 
         home_picks_tv.setOnClickListener(this)
         home_concept_tv.setOnClickListener(this)
         home_ranking_tv.setOnClickListener(this)
         home_plus_tv.setOnClickListener(this)
 
-        setNavigation()
-
         makeData()
 
         recyclerView()
 
-        val snapHelper: SnapHelper = LinearSnapHelper()
+        setHeader(nav_view)
+
+        val snapHelper= LinearSnapHelper()
         snapHelper.attachToRecyclerView(rv_act_home_picks)
+
+
+
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        nav_view.setNavigationItemSelectedListener(this)
     }
 
-    private fun setNavigation() {
-        setSupportActionBar(toolbar)
 
-        mToggle = ActionBarDrawerToggle(this, dl_act_home, toolbar, R.string.open, R.string.close)
-        dl_act_home.addDrawerListener(mToggle)
-        mToggle.syncState()
-
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-    }
-
-    override fun onBackPressed() {
-        if (dl_act_home.isDrawerOpen(GravityCompat.START)) {
-            dl_act_home.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        mToggle.syncState()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(mToggle.onOptionsItemSelected(item)){
-            return true
-        }else {
-            return super.onOptionsItemSelected(item)
-        }
-
-    }
 
 
     private fun recyclerView() {
@@ -131,10 +108,12 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
         //plus
         rv_act_home_plus.layoutManager = LinearLayoutManager(this)
         rv_act_home_plus.adapter = CategoryPlusAdapter(this, plusPosts)
+
+        //
     }
 
     private fun makeData() {
-        for (i in 1..15) {
+        for (i in 1..12) {
             pickposts.add("카페 $i")
             conceptPosts.add("컨셉 $i")
 
@@ -146,9 +125,3 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
         }
     }
 }
-
-
-
-
-
-
