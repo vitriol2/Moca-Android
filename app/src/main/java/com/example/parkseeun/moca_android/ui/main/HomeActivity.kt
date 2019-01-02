@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.ui.main
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,11 +13,38 @@ import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.SnapHelper
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.CafeListData
+import com.example.parkseeun.moca_android.ui.plus.PlusActivity
+import com.example.parkseeun.moca_android.ui.ranking.RankingActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener{
+class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+    private lateinit var mToggle: ActionBarDrawerToggle
+
+    val pickposts: ArrayList<String> = ArrayList()
+    val conceptPosts: ArrayList<String> = ArrayList()
+    val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
+    val plusPosts: ArrayList<String> = ArrayList()
+
+    override fun onClick(v: View?) {
+        when(v){
+            home_picks_tv -> {
+//                to moca picks
+            }
+            home_concept_tv -> {
+//                to category
+            }
+            home_ranking_tv -> {
+                startActivity(Intent(this, RankingActivity::class.java))
+            }
+            home_plus_tv -> {
+                startActivity(Intent(this, PlusActivity::class.java))
+            }
+        }
+    }
+
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (p0.itemId) {
@@ -38,17 +66,14 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private lateinit var mToggle: ActionBarDrawerToggle
-
-    val pickposts: ArrayList<String> = ArrayList()
-    val conceptPosts: ArrayList<String> = ArrayList()
-    val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
-    val plusPosts: ArrayList<String> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        home_picks_tv.setOnClickListener(this)
+        home_concept_tv.setOnClickListener(this)
+        home_ranking_tv.setOnClickListener(this)
+        home_plus_tv.setOnClickListener(this)
 
         setNavigation()
 

@@ -86,7 +86,8 @@
                                 style="@style/home_category_title"
                                 android:text="Moca Picks" />
 
-                            <TextView style="@style/home_category_look_entire" />
+                            <TextView
+                                android:id="@+id/home_picks_tv" style="@style/home_category_look_entire" />
                             </RelativeLayout>
                         </RelativeLayout>
 
@@ -120,9 +121,11 @@
 
                                 <TextView
                                     style="@style/home_category_title"
-                                    android:text="Moca Picks" />
+                                    android:text="Concept" />
 
-                                <TextView style="@style/home_category_look_entire" />
+                                <TextView
+                                    android:id="@+id/home_concept_tv"
+                                    style="@style/home_category_look_entire" />
                             </RelativeLayout>
                         </RelativeLayout>
 
@@ -156,9 +159,11 @@
 
                                 <TextView
                                     style="@style/home_category_title"
-                                    android:text="Moca Picks" />
+                                    android:text="Ranking" />
 
-                                <TextView style="@style/home_category_look_entire" />
+                                <TextView
+                                    android:id="@+id/home_ranking_tv"
+                                    style="@style/home_category_look_entire" />
                             </RelativeLayout>
                         </RelativeLayout>
 
@@ -191,9 +196,11 @@
 
                                 <TextView
                                     style="@style/home_category_title"
-                                    android:text="Moca Picks" />
+                                    android:text="Moca Plus" />
 
-                                <TextView style="@style/home_category_look_entire" />
+                                <TextView
+                                    android:id="@+id/home_plus_tv"
+                                    style="@style/home_category_look_entire" />
                             </RelativeLayout>
                         </RelativeLayout>
                         <android.support.v7.widget.RecyclerView
