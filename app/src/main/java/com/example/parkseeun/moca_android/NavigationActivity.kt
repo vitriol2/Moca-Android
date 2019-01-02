@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
+import com.example.parkseeun.moca_android.ui.main.EditProfileActivity
 import com.example.parkseeun.moca_android.ui.main.HomeActivity2
 import com.example.parkseeun.moca_android.ui.main.MypageTabAdapter
 import com.example.parkseeun.moca_android.ui.main.notice.NoticeActivity
@@ -22,6 +23,7 @@ import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import kotlinx.android.synthetic.main.activity_home2.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 
 abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
@@ -39,6 +41,12 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
         val notice : RelativeLayout = headerView.findViewById(R.id.iv_mypage_tab_notice) as RelativeLayout
         notice.setOnClickListener {
             val intent = Intent(this, NoticeActivity::class.java)
+            startActivity(intent)
+        }
+
+        val profile : ImageView = headerView.findViewById(R.id.iv_mypage_tab_profile) as ImageView
+        profile.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
         }
 

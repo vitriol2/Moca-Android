@@ -5,6 +5,7 @@
                 android:id="@+id/rl_frag_dia_coupon"
 >
     <ImageView android:layout_width="24dp" android:layout_height="24dp"
+        android:layout_margin="16dp"
                android:src="@drawable/common_cancel_black"
     />
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"

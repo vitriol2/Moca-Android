@@ -1,35 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".ui.main.EditProfileActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.EditProfileActivity">
 
     <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_edit_profile"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:gravity="center_vertical"
-            app:contentInsetStart="0dp">
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                        android:paddingLeft="16dp"
-                        android:background="@drawable/home_ranking_divider">
+        android:id="@+id/toolbar_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center_vertical"
+        app:contentInsetStart="0dp">
 
-            <ImageView android:layout_width="24dp" android:layout_height="24dp"
-                       android:layout_marginTop="15dp"
-                       android:layout_marginBottom="16dp"
-                       android:src="@drawable/common_back_black"
-                       android:id="@+id/iv_act_notice_back"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      style="@style/Bold15"
-                      android:text="알림"
-                      android:layout_centerInParent="true"
-            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_ranking_divider"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/iv_act_notice_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/common_back_black" />
+
+            <TextView
+                style="@style/Bold15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="프로필 수정" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
-    android:layout_below="@id/toolbar_edit_profile"></RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/sv_act_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_edit_profile"
+        android:scrollbars="none"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="210dp"
+                    android:layout_marginTop="64dp"
+                    android:src="@drawable/mypage_edit_image" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="35dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/editProfileCategoryName"
+                        android:text="닉네임" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_ect_edit_prof_nick"
+                            style="@style/editProfileCategoryContent"
+                            android:layout_centerVertical="true"
+                            android:text="정화니"
+                            android:background="@android:color/transparent"/>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="20dp"
+                            android:src="@drawable/mypage_clear_textfield" />
+                    </RelativeLayout>
+
+                    <RelativeLayout style="@style/editProfileUnderLine"></RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/editProfileCategoryName"
+                            android:text="상태 메시지" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/et_ect_edit_prof_status"
+                                style="@style/editProfileCategoryContent"
+                                android:layout_centerVertical="true"
+                                android:text="안녕하세요"
+                                android:background="@android:color/transparent"/>
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="20dp"
+                                android:src="@drawable/mypage_clear_textfield" />
+                        </RelativeLayout>
+
+                        <RelativeLayout style="@style/editProfileUnderLine"></RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/editProfileCategoryName"
+                            android:text="휴대폰 번호" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical">
+
+                            <EditText
+                                android:id="@+id/et_ect_edit_prof_phone"
+                                style="@style/editProfileCategoryContent"
+                                android:layout_centerVertical="true"
+                                android:text="정화니"
+                                android:background="@android:color/transparent"/>
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="20dp"
+                                android:src="@drawable/mypage_clear_textfield" />
+                        </RelativeLayout>
+
+                        <RelativeLayout style="@style/editProfileUnderLine"></RelativeLayout>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/editProfileCategoryContent"
+                                android:layout_centerVertical="true"
+                                android:text="푸쉬 알람" />
+
+
+                            <ToggleButton
+                                android:layout_width="44dp"
+                                android:layout_height="25dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="20dp"
+                                android:background="@drawable/alarm_toggle_button"
+                                android:textOff=""
+                                android:textOn="" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            style="@style/editProfileUnderLine"
+                            android:layout_alignParentBottom="true"></RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/editProfileCategoryContent"
+                                android:layout_centerVertical="true"
+                                android:text="로그아웃" />
+
+                            <ImageView
+                                android:id="@+id/iv_act_edit_prof_logout"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/mypage_arrow_right"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="20dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            style="@style/editProfileUnderLine"
+                            android:layout_alignParentBottom="true"></RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/editProfileCategoryContent"
+                                android:layout_centerVertical="true"
+                                android:text="계정삭제" />
+
+                            <ImageView
+                                android:id="@+id/iv_act_edit_prof_delete"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/mypage_arrow_right"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="20dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            style="@style/editProfileUnderLine"
+                            android:layout_alignParentBottom="true"></RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_act_edit_prof_complete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:text="완료"
+        style="@style/editProfileComplete"/>
 </RelativeLayout>
