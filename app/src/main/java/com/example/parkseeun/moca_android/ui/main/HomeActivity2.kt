@@ -36,6 +36,9 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
             home_plus_tv -> {
                 startActivity(Intent(this, PlusActivity::class.java))
             }
+            home_menu_iv -> {
+                drawer_layout.openDrawer(nav_view)
+            }
         }
     }
 
@@ -67,6 +70,7 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         home_concept_tv.setOnClickListener(this)
         home_ranking_tv.setOnClickListener(this)
         home_plus_tv.setOnClickListener(this)
+        home_menu_iv.setOnClickListener(this)
 
         makeData()
 
@@ -80,11 +84,11 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
 
 
 
-        val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
+//        val toggle = ActionBarDrawerToggle(
+//            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+//        )
+//        drawer_layout.addDrawerListener(toggle)
+//        toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
     }
