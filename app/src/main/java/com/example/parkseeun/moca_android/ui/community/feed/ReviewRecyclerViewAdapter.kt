@@ -14,7 +14,9 @@ import com.example.parkseeun.moca_android.ui.community.review_comment.ReviewComm
 import com.example.parkseeun.moca_android.ui.community.review_detail.ReviewDetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import android.graphics.Point
+import android.support.v4.view.ViewPager
 import android.view.*
+import com.example.parkseeun.moca_android.util.ImageAdapter
 
 class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<ReviewData>) : RecyclerView.Adapter<ReviewRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -29,6 +31,21 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         val width = getScreenWidth()
         holder.pic.layoutParams.width = (width-dpToPx(41.toFloat())).toInt()
         holder.pic.layoutParams.height = holder.pic.layoutParams.width
+
+        // image viewpager setting
+        holder.page.text = "1/10"
+        holder.pic.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(p0: Int) {
+            }
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                holder.page.text = (position+1).toString()+"/10"
+            }
+        })
+        holder.pic.adapter = ImageAdapter(context, arrayOf("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4"))
 
         // view binding
         Glide.with(context).load(dataList[position].profileImg).into(holder.profile)
@@ -50,7 +67,6 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         holder.more.setOnClickListener {
             context.startActivity(Intent(context, ReviewDetailActivity::class.java))
         }
-        Glide.with(context).load(dataList[position].pic).into(holder.pic)
         holder.heartNum.text = dataList[position].heartNum.toString()
         holder.commentNum.text = dataList[position].commentNum.toString()
         holder.cafeName.text = dataList[position].cafeName
@@ -67,7 +83,7 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         val heart : ImageView = itemView.findViewById(R.id.review_item_heart_iv) as ImageView
         val commentBtn : ImageView = itemView.findViewById(R.id.review_item_comment_iv) as ImageView
         val heartLt : LottieAnimationView = itemView.findViewById(R.id.review_item_heart_lt) as LottieAnimationView
-        val pic : ImageView = itemView.findViewById(R.id.review_item_pic_iv) as ImageView
+        val pic : ViewPager = itemView.findViewById(R.id.review_item_pic_vp) as ViewPager
         val heartNum : TextView = itemView.findViewById(R.id.review_item_heart2Num_iv) as TextView
         val commentNum : TextView = itemView.findViewById(R.id.review_item_comment2_tv) as TextView
         val cafeName : TextView = itemView.findViewById(R.id.review_item_cafename_tv) as TextView
@@ -75,6 +91,7 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         val cafeLocation : TextView = itemView.findViewById(R.id.review_item_cafelocation_tv) as TextView
         val comment : TextView = itemView.findViewById(R.id.review_item_comment_tv) as TextView
         val more : ConstraintLayout = itemView.findViewById(R.id.review_item_more_const) as ConstraintLayout
+        val page : TextView = itemView.findViewById(R.id.review_item_page_tv) as TextView
     }
     private fun dpToPx(dp:Float):Float{
         return (dp * context.resources.displayMetrics.density)
