@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android
+package com.example.parkseeun.moca_android.util
 
 import android.content.Intent
 import android.support.design.widget.NavigationView
@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.main.EditProfileActivity
 import com.example.parkseeun.moca_android.ui.main.HomeActivity2
