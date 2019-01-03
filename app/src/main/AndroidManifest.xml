@@ -29,7 +29,17 @@
         <activity android:name=".ui.community.review_comment.ReviewCommentActivity">
         </activity>
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
-        <activity android:name=".ui.community.feed.FeedActivity"/>
+        <activity android:name=".ui.community.feed.image.ImageActivity"/>
+        <activity android:name=".ui.community.review_detail.ReviewDetailActivity"/>
+        <activity android:name=".ui.ranking.RankingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.community.feed.FeedActivity">
+        </activity>
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
         </activity>
         <activity android:name=".ui.community.follow.FollowActivity">
@@ -38,13 +48,9 @@
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
         </activity>
         <activity android:name=".ui.location.LocationMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
+        <activity android:name=".ui.location.MainActivity"></activity>
         <activity android:name=".ui.main.HomeActivity2">
-
         </activity>
         <activity android:name=".ui.location.LocationSearchActivity">
         </activity>

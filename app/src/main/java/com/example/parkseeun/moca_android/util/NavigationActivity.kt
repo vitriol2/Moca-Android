@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android
+package com.example.parkseeun.moca_android.util
 
 import android.content.Intent
 import android.support.design.widget.NavigationView
@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.main.EditProfileActivity
 import com.example.parkseeun.moca_android.ui.main.HomeActivity2
@@ -23,7 +24,6 @@ import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import kotlinx.android.synthetic.main.activity_home2.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
 
 abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
@@ -110,7 +110,7 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.home_activity2, menu)
+//        menuInflater.inflate(R.menu.home_activity2, menu)
         return true
     }
 

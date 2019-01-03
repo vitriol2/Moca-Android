@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.view.MenuItem
 import android.view.View
-import com.example.parkseeun.moca_android.NavigationActivity
+import com.example.parkseeun.moca_android.util.NavigationActivity
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity

@@ -53,6 +53,8 @@ android {
         implementation "com.airbnb.android:lottie:2.1.0"
         // 다음 맵 api
         implementation files('libs/libDaumMapAndroid.jar')
+        // image zoom
+        implementation 'com.github.chrisbanes:PhotoView:2.1.0'
     }
 }
 
