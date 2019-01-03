@@ -66,16 +66,7 @@ class FeedActivity : NavigationActivity(), View.OnClickListener{
         setContentView(R.layout.activity_feed2)
         addFragment(SocialFragment())
 
-//        setSupportActionBar(toolbar_feed)
-
         setHeader(nav_view_feed)
-
-//        val toggle = ActionBarDrawerToggle(
-//            this, drawer_layout_feed, toolbar_feed, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-//
-
-//        drawer_layout_feed.addDrawerListener(toggle)
-//        toggle.syncState()
 
         nav_view_feed.setNavigationItemSelectedListener(this)
 

@@ -14,7 +14,6 @@ import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.app_bar_home.*
-import kotlinx.android.synthetic.main.content_home2.*
 
 class HomeActivity2 : NavigationActivity(), View.OnClickListener{
     private val pickposts: ArrayList<String> = ArrayList()

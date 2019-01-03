@@ -1,62 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="310dp" android:layout_height="350dp"
-                android:background="#ffffff"
-                android:id="@+id/rl_frag_dia_coupon"
->
+    android:layout_width="292dp"
+    android:layout_height="316dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/round_square_white"
+    android:id="@+id/rl_frag_dia_coupon">
     <ImageView android:layout_width="24dp" android:layout_height="24dp"
         android:layout_margin="16dp"
-               android:src="@drawable/common_cancel_black"
+        android:src="@drawable/common_cancel_black"
     />
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:layout_centerHorizontal="true"
-              android:layout_marginTop="89dp"
-              android:text="카페 사장님께 인증번호를 보여주세요!"
+        android:layout_centerHorizontal="true"
+        style="@style/Regular11"
+        android:layout_marginTop="89dp"
+        android:text="카페 사장님께 인증번호를 보여주세요!"
     />
 
 
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:layout_centerHorizontal="true"
-                  android:layout_marginTop="157dp"
-                  android:id="@+id/ll_frag_dia_bar_num">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="147dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/ll_frag_dia_bar_num">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Extrabold25"
+            android:text="1"
+            app:layout_constraintStart_toStartOf="@id/iv_frag_dia_bar_num1"
+            app:layout_constraintEnd_toEndOf="@id/iv_frag_dia_bar_num1"
+            android:id="@+id/tv_frag_dia_bar_num1"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  style="@style/Extrabold25"
-                  android:text="1"
-                  android:layout_marginRight="44dp"
-                  android:id="@+id/tv_frag_dia_bar_num1"/>
+            style="@style/Extrabold25"
+            android:text="1"
+            app:layout_constraintStart_toStartOf="@id/iv_frag_dia_bar_num2"
+            app:layout_constraintEnd_toEndOf="@id/iv_frag_dia_bar_num2"
+            android:id="@+id/tv_frag_dia_bar_num2"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  style="@style/Extrabold25"
-                  android:text="1"
-                  android:layout_marginRight="44dp"
-                  android:id="@+id/tv_frag_dia_bar_num2"/>
+            style="@style/Extrabold25"
+            android:text="1"
+            app:layout_constraintStart_toStartOf="@id/iv_frag_dia_bar_num3"
+            app:layout_constraintEnd_toEndOf="@id/iv_frag_dia_bar_num3"
+            android:id="@+id/tv_frag_dia_bar_num3"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  style="@style/Extrabold25"
-                  android:text="1"
-                  android:layout_marginRight="44dp"
-                  android:id="@+id/tv_frag_dia_bar_num3"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  style="@style/Extrabold25"
-                  android:text="1"
-                  android:id="@+id/tv_frag_dia_bar_num4"/>
+            style="@style/Extrabold25"
+            android:text="1"
+            app:layout_constraintStart_toStartOf="@id/iv_frag_dia_bar_num4"
+            app:layout_constraintEnd_toEndOf="@id/iv_frag_dia_bar_num4"
+            android:id="@+id/tv_frag_dia_bar_num4"/>
 
-    </LinearLayout>
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:layout_centerHorizontal="true"
-                  android:layout_below="@id/ll_frag_dia_bar_num"
-                  android:paddingLeft="3dp">
-        <ImageView android:layout_width="30dp" android:layout_height="12dp"
-                   android:src="@drawable/mypage_underbar"
-                   android:layout_marginRight="29dp"/>
-        <ImageView android:layout_width="30dp" android:layout_height="12dp"
-                   android:src="@drawable/mypage_underbar"
-                   android:layout_marginRight="29dp"/>
-        <ImageView android:layout_width="30dp" android:layout_height="12dp"
-                   android:src="@drawable/mypage_underbar"
-                   android:layout_marginRight="29dp"/>
-        <ImageView android:layout_width="30dp" android:layout_height="12dp"
-                   android:src="@drawable/mypage_underbar"/>
-    </LinearLayout>
-
+        <ImageView
+            android:id="@+id/iv_frag_dia_bar_num1"
+            android:layout_width="30dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_frag_dia_bar_num1"
+            android:src="@drawable/mypage_underbar"/>
+        <ImageView
+            android:id="@+id/iv_frag_dia_bar_num2"
+            android:layout_width="30dp"
+            android:layout_height="12dp"
+            android:src="@drawable/mypage_underbar"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_frag_dia_bar_num2"
+            app:layout_constraintStart_toEndOf="@id/iv_frag_dia_bar_num1"/>
+        <ImageView
+            android:id="@+id/iv_frag_dia_bar_num3"
+            android:layout_width="30dp"
+            android:layout_height="12dp"
+            android:src="@drawable/mypage_underbar"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_frag_dia_bar_num3"
+            app:layout_constraintStart_toEndOf="@id/iv_frag_dia_bar_num2"/>
+        <ImageView
+            android:id="@+id/iv_frag_dia_bar_num4"
+            android:layout_width="30dp"
+            android:layout_height="12dp"
+            android:src="@drawable/mypage_underbar"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_frag_dia_bar_num4"
+            app:layout_constraintStart_toEndOf="@id/iv_frag_dia_bar_num3"/>
+    </android.support.constraint.ConstraintLayout>
 </RelativeLayout>
