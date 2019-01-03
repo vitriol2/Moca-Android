@@ -23,7 +23,6 @@ import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import kotlinx.android.synthetic.main.activity_home2.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
 
 abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
@@ -110,7 +109,7 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.home_activity2, menu)
+//        menuInflater.inflate(R.menu.home_activity2, menu)
         return true
     }
 
