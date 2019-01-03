@@ -1,13 +1,15 @@
 package com.example.parkseeun.moca_android.util
 
 import android.content.Context
+import android.content.Intent
 import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.example.parkseeun.moca_android.ui.community.feed.image.ImageActivity
 
-class ImageAdapter(private val mContext : Context, private var mImgItem : Array<String>) : PagerAdapter() {
+class ImageAdapter(private val mContext : Context, private var mImgItem : Array<String>, private val clickable : Boolean = false) : PagerAdapter() {
     override fun isViewFromObject(p0: View, p1: Any): Boolean {
         return p0==p1
     }
@@ -17,7 +19,18 @@ class ImageAdapter(private val mContext : Context, private var mImgItem : Array<
         img.scaleType = ImageView.ScaleType.CENTER_CROP
         Glide.with(mContext).load(mImgItem[position]).into(img)
         container.addView(img, 0)
+        if(clickable)
+            img.setOnClickListener {
+                Intent(mContext, ImageActivity::class.java).apply{
+                    putExtra("page",position)
+                    mContext.startActivity(this)
+                }
+            }
         return img
+    }
+
+    override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+        super.setPrimaryItem(container, position, `object`)
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {

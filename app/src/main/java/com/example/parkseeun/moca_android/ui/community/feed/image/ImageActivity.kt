@@ -35,6 +35,13 @@ class ImageActivity : AppCompatActivity() {
             }
         })
         image_img_vp.adapter = ImageAdapter(this, arrayOf("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4"))
+
+        // 몇 번째 페이지에서 눌렀는지 반영
+        val page = intent.getIntExtra("page", -1)
+        if(page!=-1){
+            image_index_tv.text = (page+1).toString() + "/10"
+            image_img_vp.currentItem = page
+        }
     }
     private fun getScreenWidth(): Int {
         val display = windowManager.defaultDisplay
