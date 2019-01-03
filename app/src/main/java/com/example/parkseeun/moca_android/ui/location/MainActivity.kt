@@ -44,17 +44,18 @@ import java.io.IOException
 import java.util.Locale
 
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
+    GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
 
     // RecyclerView 설정
     lateinit var locationMainAdapter: LocationMainAdapter
-
     private var mMap: GoogleMap? = null
     //private var currentMarker: Marker? = null
     internal var needRequest = false
-    private var flag : Boolean = false
-    private var markerflag : Boolean = false
-    private var mSelectedMarker : Marker? =null
+    private var flag: Boolean = false
+    private var markerflag: Boolean = false
+    private var mSelectedMarker: Marker? = null
+    var markerlist: ArrayList<MarkerItem> = ArrayList()
 
 
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
@@ -99,8 +100,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
 
                 mCurrentLocatiion = location
             }
-
-
         }
 
     }
@@ -110,19 +109,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_main)
-setOnBtnClickListener()
+        setOnBtnClickListener()
+        recyclerconnect()
 //        window.setFlags(
 //            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 //            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
 //        )
-        setRecyclerView()
         mLayout = findViewById(R.id.rl_location_main_toolbar)
         Log.d(TAG, "onCreate")
 
         locationRequest = LocationRequest()
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY) //create a location request
             .setInterval(UPDATE_INTERVAL_MS.toLong()) //이 메소드는 앱에서 위치 업데이트 수신간격을 밀리초단위로 설정한다.
-       //     .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS.toLong()) //이 메소드는 앱에서 위치 업데이트를 가장 빠르게 처리할 수 있도록 밀리초 단위로 설정한다.
+        //     .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS.toLong()) //이 메소드는 앱에서 위치 업데이트를 가장 빠르게 처리할 수 있도록 밀리초 단위로 설정한다.
 
 
         val builder = LocationSettingsRequest.Builder()
@@ -134,15 +133,36 @@ setOnBtnClickListener()
         val mapFragment = supportFragmentManager // 프래그먼트에 구글 맵 띄우기
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
+
+        setRecyclerView()
+    }
+
+    private fun recyclerconnect() {
+//
+//        for (i in 0..markerlist.size) {
+//            if (markerlist[i].getmarker() == true) { //리사이클러뷰가 눌리면 그 마커에 포커스..
+//                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
+//                val selectedmarkerLatLng =
+//                    CameraUpdateFactory.newLatLng(LatLng(markerlist.get(i).lat, markerlist.get(i).lon))
+//                mMap!!.moveCamera(selectedmarkerLatLng)
+////}
+//            }
+//        }
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
-       // if (null != mSelectedMarker) {
-         //   mSelectedMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
+        // if (null != mSelectedMarker) {
+        //   mSelectedMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
         //}
         mSelectedMarker = marker
-        markerflag= true
-        if(markerflag == true){
+        markerflag = true
+        for (i in 0..markerlist.size) {
+//            if(markerlist[i].lat==marker!!.position.latitude && markerlist[i].lon==marker.position.longitude){
+
+            //}
+        }
+
+        if (markerflag == true) {
             mSelectedMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
         }
         //mSelectedMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point))
@@ -150,7 +170,7 @@ setOnBtnClickListener()
     }
 
     override fun onMapClick(latLng: LatLng) {
-        if(markerflag == false) {
+        if (markerflag == false) {
             mSelectedMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point))
         }
         mSelectedMarker = null
@@ -159,16 +179,18 @@ setOnBtnClickListener()
     private fun setRecyclerView() {
 // 임시 데이터
         var dataList: ArrayList<LocationMainData> = ArrayList()
-        dataList.add(LocationMainData("", "카페1", "1m 이내",false))
-        dataList.add(LocationMainData("", "카페2", "10m 이내",false))
+        dataList.add(LocationMainData("", "카페1", "1m 이내", 0))
+        dataList.add(LocationMainData("", "카페2", "10m 이내", 0))
 
-        locationMainAdapter = LocationMainAdapter(this, dataList)
+        locationMainAdapter = LocationMainAdapter(this, dataList, markerlist)
         rv_act_location_main.adapter = locationMainAdapter
         rv_act_location_main.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
-private fun setOnBtnClickListener(){
 
-}
+    private fun setOnBtnClickListener() {
+
+    }
+
     private fun startLocationUpdates() {
         if (!checkLocationServicesStatus()) { //gps 꺼져있으면
             Log.d(TAG, "startLocationUpdates : call showDialogForLocationServiceSetting")
@@ -182,48 +204,43 @@ private fun setOnBtnClickListener(){
                 this,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
-
-
-
             if (hasFineLocationPermission != PackageManager.PERMISSION_GRANTED || hasCoarseLocationPermission != PackageManager.PERMISSION_GRANTED) {
-
                 Log.d(TAG, "startLocationUpdates : 퍼미션 안가지고 있음")
                 return
             }
-
-
             Log.d(TAG, "startLocationUpdates : call mFusedLocationClient.requestLocationUpdates")
-
             mFusedLocationClient!!.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
-
             if (checkPermission())
                 mMap!!.isMyLocationEnabled = true
-
         }
-
     }
-
 
     override fun onMapReady(googleMap: GoogleMap) {
 
         Log.d(TAG, "onMapReady :")
 
         mMap = googleMap
-        var markerlist : ArrayList<MarkerItem> = ArrayList()
-        markerlist.add(MarkerItem(37.558553039064286, 127.04255064005082))
-        markerlist.add(MarkerItem(37.55724150280182, 127.03836384152798))
-        markerlist.add(MarkerItem(37.564685851074195, 127.0427905587432))
-        markerlist.add(MarkerItem(37.56260260091479, 127.04483008120098))
 
-        for (i in markerlist.indices ){
+        markerlist.add(MarkerItem(37.558553039064286, 127.04255064005082, 0, false))
+        markerlist.add(MarkerItem(37.55724150280182, 127.03836384152798, 0, false))
+        markerlist.add(MarkerItem(37.564685851074195, 127.0427905587432, 0, false))
+        markerlist.add(MarkerItem(37.56260260091479, 127.04483008120098, 0, false))
+
+        for (i in markerlist.indices) {
             mMap!!.addMarker(
-                MarkerOptions().position(LatLng(markerlist.get(i).lat,markerlist.get(i).lon)).title("Marker"+(i+1)+" in Seoul")
+                MarkerOptions().position(
+                    LatLng(
+                        markerlist.get(i).lat,
+                        markerlist.get(i).lon
+                    )
+                ).title("Marker" + (i + 1) + " in Seoul")
                     .icon(
                         BitmapDescriptorFactory.fromBitmap(
                             BitmapFactory.decodeResource(resources, R.drawable.location_point)
                         )
                     )
             )
+            markerlist[i].setPosition(i)
         }
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
@@ -282,15 +299,10 @@ private fun setOnBtnClickListener(){
 
         }
 
-
-
         mMap!!.uiSettings.isMyLocationButtonEnabled = false
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
         mMap!!.setOnMapClickListener { Log.d(TAG, "onMapClick :") }
-
-
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -361,6 +373,7 @@ private fun setOnBtnClickListener(){
             LocationManager.NETWORK_PROVIDER
         )
     }
+
     fun setCurrentLocation(location: Location?, markerTitle: String, markerSnippet: String) {
         //if (currentMarker != null) currentMarker!!.remove()
         val currentLatLng = LatLng(location!!.latitude, location.longitude)
@@ -371,17 +384,18 @@ private fun setOnBtnClickListener(){
         markerOptions.snippet(markerSnippet)
         markerOptions.draggable(true)
 
-       // currentMarker = mMap!!.addMarker(markerOptions)
-            if (flag == false) { //실행 처음에만 자신의 위치로 포커스
-                val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
-                mMap!!.moveCamera(cameraUpdate)
-                flag = true
-        }
-        img_mylocation_btn.setOnClickListener {
-                val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
-                mMap!!.moveCamera(cameraUpdate)
+        // currentMarker = mMap!!.addMarker(markerOptions)
+        if (flag == false) { //실행 처음에만 자신의 위치로 포커스
+            val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
+            mMap!!.moveCamera(cameraUpdate)
             flag = true
-            }
+        }
+
+        img_mylocation_btn.setOnClickListener {
+            val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
+            mMap!!.moveCamera(cameraUpdate)
+            flag = true
+        }
     }
 
 
@@ -391,9 +405,9 @@ private fun setOnBtnClickListener(){
         val markerTitle = "위치정보 가져올 수 없음"
         val markerSnippet = "위치 퍼미션과 GPS 활성 여부 확인하세요"
 
-    //    if (currentMarker != null) currentMarker!!.remove()
+        //    if (currentMarker != null) currentMarker!!.remove()
 
-        val markerOptions = MarkerOptions()
+        var markerOptions = MarkerOptions()
         markerOptions.position(DEFAULT_LOCATION)
         markerOptions.title(markerTitle)
         markerOptions.snippet(markerSnippet)
@@ -466,6 +480,7 @@ private fun setOnBtnClickListener(){
 
         }
     }
+
     //여기부터는 GPS 활성화를 위해 다이얼로그 띄우기
     private fun showDialogForLocationServiceSetting() {
         val builder = AlertDialog.Builder(this@MainActivity)
@@ -499,7 +514,7 @@ private fun setOnBtnClickListener(){
         private val TAG = "LocationMainActivity "
         private val GPS_ENABLE_REQUEST_CODE = 2001
         private val UPDATE_INTERVAL_MS = 1000  // 1초
-      //  private val FASTEST_UPDATE_INTERVAL_MS = 500 // 0.5초마다 현재위치로 이동
+        //  private val FASTEST_UPDATE_INTERVAL_MS = 500 // 0.5초마다 현재위치로 이동
 
 
         // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
