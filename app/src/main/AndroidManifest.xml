@@ -37,11 +37,9 @@
         <activity android:name=".ui.plus.PlusActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
         </activity>
-        <activity android:name=".ui.location.MainActivity">
-
+        <activity android:name=".ui.location.LocationMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

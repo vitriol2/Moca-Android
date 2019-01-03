@@ -4,9 +4,7 @@ package com.example.parkseeun.moca_android.ui.location
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.util.Log
-import android.view.Window
 
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.location.data.LocationMainData
@@ -23,7 +21,7 @@ class LocationMainDialog(val ctx : Context, val data : LocationMainData) : Dialo
     override fun onBackPressed() {
         super.onBackPressed()
 
-        data.flag = 0
+        data.selected = false
         dismiss()
     }
 
@@ -31,7 +29,7 @@ class LocationMainDialog(val ctx : Context, val data : LocationMainData) : Dialo
 
 
         btn_dialog_location_detail.setOnClickListener {
-            if (ctx is MainActivity) {
+            if (ctx is LocationMainActivity) {
 //                ctx.showLocationMainActToastMessage()
             }
 //            data.flag = 0
@@ -39,9 +37,9 @@ class LocationMainDialog(val ctx : Context, val data : LocationMainData) : Dialo
         }
 
         img_common_cancel_black.setOnClickListener {
-            Log.v("플래그 (다이얼로그, 바꾸기 전)", "" + data.flag)
-            data.flag = 0
-            Log.v("플래그 (다이얼로그, 바꾼 후)", "" + data.flag)
+            Log.v("플래그 (다이얼로그, 바꾸기 전)", "" + data.selected)
+            data.selected = false
+            Log.v("플래그 (다이얼로그, 바꾼 후)", "" + data.selected)
             dismiss()
         }
     }

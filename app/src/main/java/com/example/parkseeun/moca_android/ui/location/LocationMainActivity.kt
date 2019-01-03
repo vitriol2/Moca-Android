@@ -20,7 +20,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 
 import com.example.parkseeun.moca_android.R
@@ -44,8 +43,8 @@ import java.io.IOException
 import java.util.Locale
 
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
-    GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
+class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
+    GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener, View.OnClickListener {
 
     // RecyclerView 설정
     lateinit var locationMainAdapter: LocationMainAdapter
@@ -56,6 +55,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
     private var markerflag: Boolean = false
     private var mSelectedMarker: Marker? = null
     var markerlist: ArrayList<MarkerItem> = ArrayList()
+    var dataList: ArrayList<LocationMainData> = ArrayList()
 
 
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
@@ -137,6 +137,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
         setRecyclerView()
     }
 
+    override fun onClick(v: View?) {
+        if (rv_act_location_main.indexOfChild(v) != -1) { // 리사이클러뷰의 자식뷰 이면  !
+            // column 선택시 색상 변경
+            val idx: Int = rv_act_location_main.getChildAdapterPosition(v!!)  //선택된 자식뷰
+            for ( i in 0 until dataList.size) {
+                dataList[i].selected = false
+                Log.v("나 잘 되고 있다!!",i.toString()+ " : "+ dataList[i].selected.toString())
+            }
+            dataList[idx].selected = true
+            locationMainAdapter.notifyDataSetChanged() // 어댑터에 바뀐거를 알려서 다시 뿌려라..
+        }
+    }
+
     private fun recyclerconnect() {
 //
 //        for (i in 0..markerlist.size) {
@@ -178,11 +191,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
 
     private fun setRecyclerView() {
 // 임시 데이터
-        var dataList: ArrayList<LocationMainData> = ArrayList()
-        dataList.add(LocationMainData("", "카페1", "1m 이내", 0))
-        dataList.add(LocationMainData("", "카페2", "10m 이내", 0))
+        dataList.add(LocationMainData("", "카페1", "1m 이내", false))
+        dataList.add(LocationMainData("", "카페2", "10m 이내", false))
 
         locationMainAdapter = LocationMainAdapter(this, dataList, markerlist)
+        locationMainAdapter.setOnItemClickListener(this)
         rv_act_location_main.adapter = locationMainAdapter
         rv_act_location_main.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
@@ -190,6 +203,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
     private fun setOnBtnClickListener() {
 
     }
+
 
     private fun startLocationUpdates() {
         if (!checkLocationServicesStatus()) { //gps 꺼져있으면
@@ -282,7 +296,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
                 ).setAction("확인") {
                     // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                     ActivityCompat.requestPermissions(
-                        this@MainActivity, REQUIRED_PERMISSIONS,
+                        this@LocationMainActivity, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE
                     )
                 }.show()
@@ -483,7 +497,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
 
     //여기부터는 GPS 활성화를 위해 다이얼로그 띄우기
     private fun showDialogForLocationServiceSetting() {
-        val builder = AlertDialog.Builder(this@MainActivity)
+        val builder = AlertDialog.Builder(this@LocationMainActivity)
         builder.setTitle("위치 서비스 비활성화")
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n" + "위치 설정을 수정하실래요?")
         builder.setCancelable(true)
@@ -515,8 +529,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnR
         private val GPS_ENABLE_REQUEST_CODE = 2001
         private val UPDATE_INTERVAL_MS = 1000  // 1초
         //  private val FASTEST_UPDATE_INTERVAL_MS = 500 // 0.5초마다 현재위치로 이동
-
-
         // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
         private val PERMISSIONS_REQUEST_CODE = 100
     }
