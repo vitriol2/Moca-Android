@@ -175,13 +175,11 @@
         <item name="android:background">@color/point_pink</item>
         <item name="android:layout_marginLeft">40dp</item>
         <item name="android:layout_marginTop">5dp</item>
-
     </style>
 
     <style name="editProfileComplete" parent="Bold15">
         <item name="android:background">@drawable/edit_profile_btn_bg</item>
         <item name="android:textColor">@drawable/edit_profile_btn_color</item>
-
     </style>
 
 

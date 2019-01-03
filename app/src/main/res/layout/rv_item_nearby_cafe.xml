@@ -2,17 +2,15 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/rl_dialog_location_main"
-        android:layout_width="118dp"
+        android:layout_width="wrap_content"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/round_square_white"
-        android:backgroundTint="@color/dark_gray"
-        android:layout_height="128dp">
+        android:layout_height="wrap_content">
     <RelativeLayout
-            android:layout_centerInParent="true"
-            android:backgroundTint="#ffffff"
-            android:background="@drawable/round_square_white"
-            android:layout_width="117dp" android:layout_height="127dp">
+            android:id="@+id/rl_dialog_location_main"
+            android:background="@drawable/boarder_darkgray"
+             android:layout_centerInParent="true"
+            android:layout_width="117dp"
+            android:layout_height="127dp">
         <ImageView
                 android:id="@+id/circle_nearby_cafe"
                 android:layout_width="match_parent"

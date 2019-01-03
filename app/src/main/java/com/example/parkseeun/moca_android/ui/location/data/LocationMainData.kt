@@ -4,5 +4,5 @@ data class LocationMainData(
     var cafeImageUrl: String,
     var name: String,
     var address: String,
-var flag: Boolean
+    var selected: Boolean
 )
