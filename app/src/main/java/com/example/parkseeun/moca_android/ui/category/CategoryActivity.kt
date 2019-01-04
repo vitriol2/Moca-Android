@@ -8,10 +8,15 @@ import android.view.View
 import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.activity_category.*
 import android.support.constraint.ConstraintSet
+import android.support.v4.view.GravityCompat
 import android.widget.TextView
+import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
+import com.example.parkseeun.moca_android.util.NavigationActivity
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 
-class CategoryActivity : AppCompatActivity(), View.OnClickListener {
+class CategoryActivity : NavigationActivity(), View.OnClickListener {
     private lateinit var menuViewAdapter : ButtonViewAdapter
     private lateinit var conceptViewAdapter : ButtonViewAdapter
     private var menuList : ArrayList<ButtonData> = ArrayList()
@@ -22,10 +27,13 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when(v){
+            cate_menu_iv -> drawer_layout_category.openDrawer(nav_view_category)
             // 다음 버튼
             cate_next_iv -> {
-//                if(isChecked())
-//                    Intent(this, )
+                if(isChecked())
+                    startActivity<FeedActivity>()
+                else
+                    toast("지역을 선택해주세요")
             }
             // 지도, 컨셉, 메뉴
             else -> {
@@ -48,12 +56,23 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
+        setHeader(nav_view_category)
+
         initRegion()
         setClickListener()
 
+        cate_menu_iv.setOnClickListener(this)
         cate_next_iv.setOnClickListener(this)
 
         setRecyclerView()
+    }
+
+    override fun onBackPressed() {
+        if (drawer_layout_category.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout_category.closeDrawer(GravityCompat.START)
+        } else {
+            finishAfterTransition()
+        }
     }
 
     // RecyclerView 설정
@@ -64,7 +83,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         menuList.add(ButtonData(R.drawable.menu_bakery_line, R.drawable.menu_bakery_pink, false))
         menuList.add(ButtonData(R.drawable.menu_fruit_line, R.drawable.menu_fruit_pink, false))
         menuList.add(ButtonData(R.drawable.menu_dessert_line, R.drawable.menu_dessert_pink, false))
-        menuList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.menu_etc_pink, false))
+        menuList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.concept_etc_pink, false))
 
         menuViewAdapter = ButtonViewAdapter(this, menuList)
         menuViewAdapter.setOnItemClickListener(this)
@@ -79,7 +98,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         conceptList.add(ButtonData(R.drawable.concept_book_line, R.drawable.concept_book_pink, false))
         conceptList.add(ButtonData(R.drawable.concept_flower_line, R.drawable.concept_flower_pink, false))
         conceptList.add(ButtonData(R.drawable.concept_rooftop_line, R.drawable.concept_rooftop_pink, false))
-        conceptList.add(ButtonData(R.drawable.concept_etc_line, R.drawable.concept_etc_pink, false))
+        conceptList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.concept_etc_pink, false))
 
         conceptViewAdapter = ButtonViewAdapter(this, conceptList)
         conceptViewAdapter.setOnItemClickListener(this)
@@ -98,14 +117,6 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         // 지도 체크
         if(regionSelected != -1)
             return true
-        // 메뉴 체크
-        for(item in menuList)
-            if(item.flag)
-                return true
-        // 컨셉 체크
-        for(item in conceptList)
-            if(item.flag)
-                return true
         return false
     }
     // 지역 관련 변수 초기화
