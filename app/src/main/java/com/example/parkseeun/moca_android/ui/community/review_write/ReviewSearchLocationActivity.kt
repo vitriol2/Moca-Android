@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.community.review_write.data.CafeListData
 import com.example.parkseeun.moca_android.ui.community.review_write.adapter.SearchLocationListAdapter
 import kotlinx.android.synthetic.main.activity_community_search_address.*
+import org.jetbrains.anko.startActivity
 
 class ReviewSearchLocationActivity : AppCompatActivity() {
 
@@ -46,7 +48,13 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
         search_address_recycler_view.layoutManager = LinearLayoutManager(applicationContext)
     }
 
-    fun setOnClickListener() {
+    fun setOnClickListener(){
+        img_addreview_location_complete.setOnClickListener {
+            finish()
+        }
+        img_search_location_back.setOnClickListener {
+            finish()
+        }
 
     }
 }

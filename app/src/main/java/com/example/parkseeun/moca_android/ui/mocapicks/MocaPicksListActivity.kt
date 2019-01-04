@@ -17,6 +17,9 @@ class MocaPicksListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_moca_picks_list)
 
+        ib_mocaPicks_back.setOnClickListener {
+            finish()
+        }
 
         setRecyclerView() // RecyclerView 설정
     }

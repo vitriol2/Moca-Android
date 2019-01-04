@@ -1,53 +1,30 @@
 package com.example.parkseeun.moca_android.ui.main
 
-<<<<<<< HEAD:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity2.kt
-import com.example.parkseeun.moca_android.NavigationActivity
-
-=======
 import android.content.Intent
-import android.view.View
-import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import com.example.parkseeun.moca_android.ui.ranking.RankingActivity
-import android.support.v7.app.AppCompatActivity
->>>>>>> 1ec80d1f91b3f6c761fe515078c16ea1fb3db561:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity.kt
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.*
-import android.util.Log
-import android.view.Menu
-
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
-import android.support.v7.widget.SnapHelper
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
+import com.example.parkseeun.moca_android.util.NavigationActivity
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
+import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home2.*
-import kotlinx.android.synthetic.main.app_bar_home2.*
-import org.jetbrains.anko.startActivity
+import kotlinx.android.synthetic.main.app_bar_home.*
 
-<<<<<<< HEAD:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity2.kt
-class HomeActivity2 : NavigationActivity(){
-=======
-class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
-    private lateinit var mToggle: ActionBarDrawerToggle
-
-    val pickposts: ArrayList<String> = ArrayList()
-    val conceptPosts: ArrayList<String> = ArrayList()
+class HomeActivity2 : NavigationActivity(), View.OnClickListener{
+    private val pickposts: ArrayList<String> = ArrayList()
+    private val conceptPosts: ArrayList<String> = ArrayList()
     val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
     val plusPosts: ArrayList<String> = ArrayList()
 
     override fun onClick(v: View?) {
         when(v){
             home_picks_tv -> {
-//                to moca picks
+                startActivity(Intent(this, MocaPicksListActivity::class.java))
             }
             home_concept_tv -> {
 //                to category
@@ -57,6 +34,9 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
             }
             home_plus_tv -> {
                 startActivity(Intent(this, PlusActivity::class.java))
+            }
+            home_menu_iv -> {
+                drawer_layout.openDrawer(nav_view)
             }
         }
     }
@@ -78,35 +58,18 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
             }
 
         }
->>>>>>> 1ec80d1f91b3f6c761fe515078c16ea1fb3db561:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity.kt
-
-    private val TAG = "HomeActivity2 onCreate"
-
-<<<<<<< HEAD:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity2.kt
-
-    val pickposts: ArrayList<String> = ArrayList()
-    val conceptPosts: ArrayList<String> = ArrayList()
-    val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
-    val plusPosts: ArrayList<String> = ArrayList()
-
-
+        return false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home2)
-        setSupportActionBar(toolbar)
-=======
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
         home_picks_tv.setOnClickListener(this)
         home_concept_tv.setOnClickListener(this)
         home_ranking_tv.setOnClickListener(this)
         home_plus_tv.setOnClickListener(this)
->>>>>>> 1ec80d1f91b3f6c761fe515078c16ea1fb3db561:app/src/main/java/com/example/parkseeun/moca_android/ui/main/HomeActivity.kt
-
-        Log.v(TAG, "onCreate")
+        home_menu_iv.setOnClickListener(this)
 
         makeData()
 
@@ -120,11 +83,11 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
 
 
 
-        val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
+//        val toggle = ActionBarDrawerToggle(
+//            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+//        )
+//        drawer_layout.addDrawerListener(toggle)
+//        toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
     }

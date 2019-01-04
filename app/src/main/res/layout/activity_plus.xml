@@ -11,7 +11,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="55dp"
         android:background="#FFFFFF">
 
         <ImageButton
@@ -25,21 +25,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="모카 플러스"
+            android:text="Moca Plus"
             android:textSize="15sp"
             android:fontFamily="@font/nanum_b"
             android:textColor="#101010"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_gray"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_plus_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp">
-
-    </android.support.v7.widget.RecyclerView>
-
+        android:id="@+id/rv_plus_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
