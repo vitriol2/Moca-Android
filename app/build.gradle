@@ -55,6 +55,8 @@ android {
         implementation files('libs/libDaumMapAndroid.jar')
         // image zoom
         implementation 'com.github.chrisbanes:PhotoView:2.1.0'
+        // zoom layout for map
+        implementation 'com.otaliastudios:zoomlayout:1.4.0'
     }
 }
 
