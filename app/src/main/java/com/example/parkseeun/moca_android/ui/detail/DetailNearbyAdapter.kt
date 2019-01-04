@@ -37,9 +37,6 @@ class DetailNearbyAdapter(val context : Context, val dataList : ArrayList<Detail
             context.startActivity(intent)
         }
 
-        val width = getScreenWidth()
-        holder.pic.layoutParams.width = ((width-dpToPx(40.toFloat()))/2).toInt()
-        holder.pic.layoutParams.height = holder.pic.layoutParams.width
 
         holder.item.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)

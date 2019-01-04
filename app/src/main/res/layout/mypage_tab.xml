@@ -42,8 +42,8 @@
                     android:gravity="center">
 
                 <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:src="@drawable/ic_launcher_background"/>
             </RelativeLayout>
 
@@ -56,8 +56,8 @@
                     android:gravity="center">
 
                 <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:src="@drawable/ic_launcher_background"/>
             </RelativeLayout>
 
@@ -99,75 +99,31 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="13dp"
                     android:orientation="horizontal">
-                <LinearLayout
-                        android:id="@+id/ll_mypage_tab_home"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginRight="27dp"
-                        android:gravity="center_horizontal">
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_launcher_background"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/mypage_tab_navi_name"
-                            android:text="홈"/>
-                </LinearLayout>
-                <LinearLayout
-                        android:id="@+id/ll_mypage_tab_category"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginRight="27dp"
-                        android:gravity="center_horizontal">
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_launcher_background"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="카테고리"
-                            style="@style/mypage_tab_navi_name"/>
-                </LinearLayout>
-                <LinearLayout
-                        android:id="@+id/ll_mypage_tab_loaction"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginRight="27dp"
-                        android:gravity="center_horizontal">
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_launcher_background"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="위치"
-                            style="@style/mypage_tab_navi_name"/>
-                </LinearLayout>
-                <LinearLayout
-                        android:id="@+id/ll_mypage_tab_community"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginRight="27dp"
-                        android:gravity="center_horizontal">
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_launcher_background"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="커뮤니티"
-                            style="@style/mypage_tab_navi_name"/>
-                </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/iv_mypage_tab_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mypage_home"
+                    android:layout_marginRight="27dp"/>
+                <ImageView
+                    android:id="@+id/iv_mypage_tab_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mypage_category"
+                    android:layout_marginRight="27dp"/>
+                <ImageView
+                    android:id="@+id/iv_mypage_tab_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mypage_location"
+                    android:layout_marginRight="27dp"/>
+                <ImageView
+                    android:id="@+id/iv_mypage_tab_community"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mypage_community"
+                    android:layout_marginRight="27dp"/>
 
             </LinearLayout>
         </RelativeLayout>

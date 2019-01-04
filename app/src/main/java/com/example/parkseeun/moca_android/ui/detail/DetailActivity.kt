@@ -108,7 +108,6 @@ class DetailActivity : AppCompatActivity() {
         //주변카페
         rv_act_detail_nearby.layoutManager = GridLayoutManager(this, 2)
         rv_act_detail_nearby.adapter = DetailNearbyAdapter(this, nearbyList)
-        rv_act_detail_nearby.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
 

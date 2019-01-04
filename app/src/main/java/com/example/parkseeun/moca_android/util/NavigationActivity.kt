@@ -15,22 +15,21 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
-import com.example.parkseeun.moca_android.ui.main.EditProfileActivity
-import com.example.parkseeun.moca_android.ui.main.HomeActivity2
-import com.example.parkseeun.moca_android.ui.main.MypageTabAdapter
+import com.example.parkseeun.moca_android.ui.main.*
 import com.example.parkseeun.moca_android.ui.main.notice.NoticeActivity
-import com.example.parkseeun.moca_android.ui.main.ScrapCafeActivity
 import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import kotlinx.android.synthetic.main.activity_home2.*
+import kotlinx.android.synthetic.main.mypage_tab.*
 import org.jetbrains.anko.startActivity
 
 abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
     private val TAG = "NavigationActivity"
 
+    private var mem_num : Int = 5
     lateinit var headerView : View
-    val membershipList = ArrayList<String>()
+    val membershipList = ArrayList<Boolean>()
 
     fun setHeader(view_navi : NavigationView) {
 
@@ -51,10 +50,28 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
         }
 
 
-        val home : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_home) as LinearLayout
+        val home : ImageView = headerView.findViewById(R.id.iv_mypage_tab_home) as ImageView
         home.setOnClickListener {
             Log.v("vvvvv", "vvvvv")
             val intent = Intent(this, HomeActivity2::class.java)
+            startActivity(intent)
+        }
+        val category : ImageView = headerView.findViewById(R.id.iv_mypage_tab_category) as ImageView
+        category.setOnClickListener {
+            Log.v("vvvvv", "vvvvv")
+            startActivity<PlusActivity>()
+        }
+
+        val location : ImageView = headerView.findViewById(R.id.iv_mypage_tab_location) as ImageView
+        location.setOnClickListener {
+            Log.v("vvvvv", "vvvvv")
+            startActivity<PlusActivity>()
+        }
+
+        val community : ImageView = headerView.findViewById(R.id.iv_mypage_tab_community) as ImageView
+        community.setOnClickListener {
+            Log.v("vvvvv", "vvvvv")
+            val intent = Intent(this, FeedActivity::class.java)
             startActivity(intent)
         }
 
@@ -70,34 +87,14 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
         }
 
 
-        val category : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_category) as LinearLayout
-        category.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            startActivity<PlusActivity>()
-        }
-
-        val location : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_loaction) as LinearLayout
-        location.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            startActivity<PlusActivity>()
-        }
-
-        val community : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_community) as LinearLayout
-        community.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            val intent = Intent(this, FeedActivity::class.java)
-            startActivity(intent)
-        }
-
 
         val membershipRv : RecyclerView = headerView.findViewById(R.id.rv_act_home_membership)
         membershipRv.layoutManager = GridLayoutManager(this, 4)
         membershipRv.adapter = MypageTabAdapter(this, membershipList)
 
 
-
-
-
+        // 멤버십 개수
+        tv_act_home_membership_num.text = "$mem_num/12"
     }
 
     override fun onBackPressed() {
@@ -125,9 +122,10 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
     }
 
     private fun makeData() {
-        for (i in 1..12) {
-            membershipList.add("카페 $i")
+        for (i in 1..mem_num) {
+            membershipList.add(true)
         }
-
+        for (i in mem_num+1..12)
+            membershipList.add(false)
     }
 }
