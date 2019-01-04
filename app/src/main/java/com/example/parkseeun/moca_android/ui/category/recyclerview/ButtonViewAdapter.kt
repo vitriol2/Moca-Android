@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.category
+package com.example.parkseeun.moca_android.ui.category.recyclerview
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
