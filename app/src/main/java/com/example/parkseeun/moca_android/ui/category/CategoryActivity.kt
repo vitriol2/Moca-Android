@@ -137,7 +137,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
                     constraintSet.clone(cate_map_const)
                     constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.START, regionIds[i], ConstraintSet.START)
                     constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.END, regionIds[i], ConstraintSet.END)
-                    constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.BOTTOM , regionIds[i], ConstraintSet.TOP)
+                    constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.BOTTOM , regionIds[i], ConstraintSet.BOTTOM)
                     constraintSet.applyTo(cate_map_const)
                     cate_marker_iv.visibility = View.VISIBLE
                 }

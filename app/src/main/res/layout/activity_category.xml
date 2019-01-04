@@ -88,18 +88,19 @@
                         android:id="@+id/gangseo_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.083"
+                        app:layout_constraintGuide_percent="0.0541"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/gangseo_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.48"
+                        app:layout_constraintGuide_percent="0.4447"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/gangseo_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="10dp"
                         app:layout_constraintStart_toEndOf="@id/gangseo_x"
                         app:layout_constraintTop_toBottomOf="@id/gangseo_y"
                         style="@style/Regular11"
@@ -108,18 +109,19 @@
                         android:id="@+id/guro_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.144"
+                        app:layout_constraintGuide_percent="0.115"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/guro_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.75"
+                        app:layout_constraintGuide_percent="0.715"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/guro_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="10dp"
                         app:layout_constraintStart_toEndOf="@id/guro_x"
                         app:layout_constraintTop_toBottomOf="@id/guro_y"
                         style="@style/Regular11"
@@ -128,18 +130,22 @@
                         android:id="@+id/yangcheon_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.179"
+                        app:layout_constraintGuide_percent="0.15"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/yangcheon_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.65"
+                        app:layout_constraintGuide_percent="0.615"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/yangcheon_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/yangcheon_x"
                         app:layout_constraintTop_toBottomOf="@id/yangcheon_y"
                         style="@style/Regular11"
@@ -148,18 +154,22 @@
                         android:id="@+id/goldcheon_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.289"
+                        app:layout_constraintGuide_percent="0.26"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/goldcheon_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.827"
+                        app:layout_constraintGuide_percent="0.792"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/goldcheon_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/goldcheon_x"
                         app:layout_constraintTop_toBottomOf="@id/goldcheon_y"
                         style="@style/Regular11"
@@ -168,18 +178,22 @@
                         android:id="@+id/zeropo_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.296"
+                        app:layout_constraintGuide_percent="0.267"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/zeropo_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.637"
+                        app:layout_constraintGuide_percent="0.602"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/zeropo_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/zeropo_x"
                         app:layout_constraintTop_toBottomOf="@id/zeropo_y"
                         style="@style/Regular11"
@@ -188,18 +202,22 @@
                         android:id="@+id/mapo_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.306"
+                        app:layout_constraintGuide_percent="0.277"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/mapo_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.505"
+                        app:layout_constraintGuide_percent="0.469"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/mapo_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/mapo_x"
                         app:layout_constraintTop_toBottomOf="@id/mapo_y"
                         style="@style/Regular11"
@@ -208,18 +226,19 @@
                         android:id="@+id/silver_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.347"
+                        app:layout_constraintGuide_percent="0.328"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/silver_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.301"
+                        app:layout_constraintGuide_percent="0.266"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/silver_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="10dp"
                         app:layout_constraintStart_toEndOf="@id/silver_x"
                         app:layout_constraintTop_toBottomOf="@id/silver_y"
                         style="@style/Regular11"
@@ -234,12 +253,16 @@
                         android:id="@+id/seodaemoon_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.4481"
+                        app:layout_constraintGuide_percent="0.4131"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/seodaemoon_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="3dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="2dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/seodaemoon_x"
                         app:layout_constraintTop_toBottomOf="@id/seodaemoon_y"
                         style="@style/Regular11"
@@ -248,18 +271,22 @@
                         android:id="@+id/pipe_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.395"
+                        app:layout_constraintGuide_percent="0.366"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/pipe_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.842"
+                        app:layout_constraintGuide_percent="0.807"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/pipe_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="19dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/pipe_x"
                         app:layout_constraintTop_toBottomOf="@id/pipe_y"
                         style="@style/Regular11"
@@ -268,18 +295,22 @@
                         android:id="@+id/action_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.406"
+                        app:layout_constraintGuide_percent="0.377"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/action_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.711"
+                        app:layout_constraintGuide_percent="0.693"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/action_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/action_x"
                         app:layout_constraintTop_toBottomOf="@id/action_y"
                         style="@style/Regular11"
@@ -288,18 +319,22 @@
                         android:id="@+id/jongro_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.474"
+                        app:layout_constraintGuide_percent="0.459"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/jongro_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.414"
+                        app:layout_constraintGuide_percent="0.379"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/jongro_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="5dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="7dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/jongro_x"
                         app:layout_constraintTop_toBottomOf="@id/jongro_y"
                         style="@style/Regular11"
@@ -308,18 +343,22 @@
                         android:id="@+id/dragon_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.485"
+                        app:layout_constraintGuide_percent="0.456"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/dragon_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.604"
+                        app:layout_constraintGuide_percent="0.569"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/dragon_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/dragon_x"
                         app:layout_constraintTop_toBottomOf="@id/dragon_y"
                         style="@style/Regular11"
@@ -334,12 +373,16 @@
                         android:id="@+id/midnine_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.505"
+                        app:layout_constraintGuide_percent="0.465"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/midnine_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="2dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/midnine_x"
                         app:layout_constraintTop_toBottomOf="@id/midnine_y"
                         style="@style/Regular11"
@@ -348,18 +391,22 @@
                         android:id="@+id/gangbook_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.545"
+                        app:layout_constraintGuide_percent="0.515"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/gangbook_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.2"
+                        app:layout_constraintGuide_percent="0.165"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/gangbook_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="3dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/gangbook_x"
                         app:layout_constraintTop_toBottomOf="@id/gangbook_y"
                         style="@style/Regular11"
@@ -368,18 +415,22 @@
                         android:id="@+id/seocho_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.545"
+                        app:layout_constraintGuide_percent="0.516"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/seocho_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.77"
+                        app:layout_constraintGuide_percent="0.72"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/seocho_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="13dp"
+                        android:paddingTop="13dp"
+                        android:paddingEnd="13dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/seocho_x"
                         app:layout_constraintTop_toBottomOf="@id/seocho_y"
                         style="@style/Regular11"
@@ -388,18 +439,22 @@
                         android:id="@+id/seongbook_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.570"
+                        app:layout_constraintGuide_percent="0.540"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/seongbook_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.354"
+                        app:layout_constraintGuide_percent="0.32"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/seongbook_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/seongbook_x"
                         app:layout_constraintTop_toBottomOf="@id/seongbook_y"
                         style="@style/Regular11"
@@ -408,18 +463,22 @@
                         android:id="@+id/dobong_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.613"
+                        app:layout_constraintGuide_percent="0.604"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/dobong_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.12"
+                        app:layout_constraintGuide_percent="0.05"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/dobong_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="7dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/dobong_x"
                         app:layout_constraintTop_toBottomOf="@id/dobong_y"
                         style="@style/Regular11"
@@ -428,18 +487,22 @@
                         android:id="@+id/seongdong_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.631"
+                        app:layout_constraintGuide_percent="0.62"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/seongdong_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.537"
+                        app:layout_constraintGuide_percent="0.502"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/seongdong_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/seongdong_x"
                         app:layout_constraintTop_toBottomOf="@id/seongdong_y"
                         style="@style/Regular11"
@@ -448,18 +511,22 @@
                         android:id="@+id/dongdae_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.648"
+                        app:layout_constraintGuide_percent="0.638"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/dongdae_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.425"
+                        app:layout_constraintGuide_percent="0.41"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/dongdae_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/dongdae_x"
                         app:layout_constraintTop_toBottomOf="@id/dongdae_y"
                         style="@style/Regular11"
@@ -468,18 +535,22 @@
                         android:id="@+id/gangnam_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.689"
+                        app:layout_constraintGuide_percent="0.66"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/gangnam_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.769"
+                        app:layout_constraintGuide_percent="0.734"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/gangnam_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/gangnam_x"
                         app:layout_constraintTop_toBottomOf="@id/gangnam_y"
                         style="@style/Regular11"
@@ -488,18 +559,22 @@
                         android:id="@+id/noone_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.72"
+                        app:layout_constraintGuide_percent="0.69"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/noone_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.202"
+                        app:layout_constraintGuide_percent="0.053"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/noone_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="45dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/noone_x"
                         app:layout_constraintTop_toBottomOf="@id/noone_y"
                         style="@style/Regular11"
@@ -508,18 +583,22 @@
                         android:id="@+id/gwangjin_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.735"
+                        app:layout_constraintGuide_percent="0.715"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/gwangjin_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.566"
+                        app:layout_constraintGuide_percent="0.52"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/gwangjin_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/gwangjin_x"
                         app:layout_constraintTop_toBottomOf="@id/gwangjin_y"
                         style="@style/Regular11"
@@ -534,12 +613,16 @@
                         android:id="@+id/midrang_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.36"
+                        app:layout_constraintGuide_percent="0.32"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/midrang_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="3dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/midrang_x"
                         app:layout_constraintTop_toBottomOf="@id/midrang_y"
                         style="@style/Regular11"
@@ -548,18 +631,22 @@
                         android:id="@+id/songpa_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.815"
+                        app:layout_constraintGuide_percent="0.786"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/songpa_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.712"
+                        app:layout_constraintGuide_percent="0.677"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/songpa_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/songpa_x"
                         app:layout_constraintTop_toBottomOf="@id/songpa_y"
                         style="@style/Regular11"
@@ -568,18 +655,22 @@
                         android:id="@+id/gangdong_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.863"
+                        app:layout_constraintGuide_percent="0.833"
                         android:orientation="vertical"/>
                     <android.support.constraint.Guideline
                         android:id="@+id/gangdong_y"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.556"
+                        app:layout_constraintGuide_percent="0.521"
                         android:orientation="horizontal"/>
                     <TextView
                         android:id="@+id/gangdong_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
                         app:layout_constraintStart_toEndOf="@id/gangdong_x"
                         app:layout_constraintTop_toBottomOf="@id/gangdong_y"
                         style="@style/Regular11"
@@ -589,7 +680,7 @@
                         android:id="@+id/cate_marker_iv"
                         android:layout_width="31.3dp"
                         android:layout_height="39.1dp"
-                        android:layout_marginBottom="3.7dp"
+                        android:layout_marginBottom="25.7dp"
                         android:background="@drawable/location_point_big"
                         android:visibility="gone"/>
                 </android.support.constraint.ConstraintLayout>
