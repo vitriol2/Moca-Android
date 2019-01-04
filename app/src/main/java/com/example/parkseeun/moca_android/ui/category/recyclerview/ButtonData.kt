@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.category
+package com.example.parkseeun.moca_android.ui.category.recyclerview
 
 data class ButtonData (
         val off: Int,

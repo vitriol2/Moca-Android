@@ -1,7 +1,5 @@
 package com.example.parkseeun.moca_android.ui.category
 
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -10,6 +8,8 @@ import kotlinx.android.synthetic.main.activity_category.*
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.GravityCompat
 import android.widget.TextView
+import com.example.parkseeun.moca_android.ui.category.recyclerview.ButtonData
+import com.example.parkseeun.moca_android.ui.category.recyclerview.ButtonViewAdapter
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.util.NavigationActivity
 import org.jetbrains.anko.startActivity
@@ -31,7 +31,7 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
             // 다음 버튼
             cate_next_iv -> {
                 if(isChecked())
-                    startActivity<FeedActivity>()
+                    startActivity<CafeListActivity>()
                 else
                     toast("지역을 선택해주세요")
             }
