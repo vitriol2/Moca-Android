@@ -10,7 +10,10 @@ import kotlinx.android.synthetic.main.activity_category.*
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.GravityCompat
 import android.widget.TextView
+import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.util.NavigationActivity
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 
 class CategoryActivity : NavigationActivity(), View.OnClickListener {
@@ -27,8 +30,10 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
             cate_menu_iv -> drawer_layout_category.openDrawer(nav_view_category)
             // 다음 버튼
             cate_next_iv -> {
-//                if(isChecked())
-//                    Intent(this, )
+                if(isChecked())
+                    startActivity<FeedActivity>()
+                else
+                    toast("지역을 선택해주세요")
             }
             // 지도, 컨셉, 메뉴
             else -> {
@@ -112,14 +117,6 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
         // 지도 체크
         if(regionSelected != -1)
             return true
-        // 메뉴 체크
-        for(item in menuList)
-            if(item.flag)
-                return true
-        // 컨셉 체크
-        for(item in conceptList)
-            if(item.flag)
-                return true
         return false
     }
     // 지역 관련 변수 초기화

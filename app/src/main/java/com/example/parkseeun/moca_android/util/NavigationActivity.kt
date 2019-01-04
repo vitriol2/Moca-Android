@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.category.CategoryActivity
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.main.EditProfileActivity
 import com.example.parkseeun.moca_android.ui.main.HomeActivity2
@@ -72,8 +73,7 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 
         val category : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_category) as LinearLayout
         category.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            startActivity<PlusActivity>()
+            startActivity<CategoryActivity>()
         }
 
         val location : LinearLayout = headerView.findViewById(R.id.ll_mypage_tab_loaction) as LinearLayout
