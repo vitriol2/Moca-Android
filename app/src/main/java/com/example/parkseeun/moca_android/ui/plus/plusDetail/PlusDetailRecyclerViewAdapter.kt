@@ -14,13 +14,9 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
-<<<<<<< HEAD
-import com.example.parkseeun.moca_android.ui.gravitySnapHelper.GravitySnapHelper
 import com.example.parkseeun.moca_android.util.ImageAdapter
 import kotlinx.android.synthetic.main.activity_moca_picks_detail.*
-=======
 import com.example.parkseeun.moca_android.util.gravitySnapHelper.GravitySnapHelper
->>>>>>> 2528be48ac75f2d77d899e5407743859075f11f9
 
 
 class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayList<PlusDetailData>) : RecyclerView.Adapter<PlusDetailRecyclerViewAdapter.Holder>() {
