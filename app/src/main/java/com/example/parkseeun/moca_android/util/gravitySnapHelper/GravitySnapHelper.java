@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.gravitySnapHelper;
+package com.example.parkseeun.moca_android.util.gravitySnapHelper;
 
 import android.graphics.PointF;
 import android.support.annotation.NonNull;

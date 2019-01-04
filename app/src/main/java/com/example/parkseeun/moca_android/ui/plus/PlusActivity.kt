@@ -15,7 +15,9 @@ class PlusActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plus)
-
+        ib_plus_back.setOnClickListener {
+            finish()
+        }
         setRecyclerView()
     }
 

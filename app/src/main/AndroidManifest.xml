@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:node="replace">
-        <activity android:name=".ui.community.review_comment.ReviewCommentActivity"></activity>
+        <activity android:name=".ui.community.review_comment.ReviewCommentActivity" />
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity" />
         <activity android:name=".ui.community.feed.FeedActivity" />
 
@@ -21,12 +21,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
 
-        <activity android:name=".ui.community.review_write.WriteReviewActivity"></activity>
-        <activity android:name=".ui.location.HashKeyActivity"></activity>
-        <activity android:name=".ui.community.follow.FollowActivity"></activity>
+        <activity android:name=".ui.community.review_write.WriteReviewActivity" />
+        <activity android:name=".ui.location.HashKeyActivity" />
+        <activity android:name=".ui.community.follow.FollowActivity" />
         <activity android:name=".ui.plus.PlusActivity" />
-        <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity"></activity>
-        <activity android:name=".ui.main.HomeActivity2" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -35,21 +33,29 @@
         <activity android:name=".ui.location.LocationMainActivity" />
         <activity android:name=".ui.location.LocationSearchActivity" />
         <activity android:name=".ui.main.SearchActivity" />
-        <activity android:name=".ui.mocapicks.MocaPicksListActivity">
+        <activity android:name=".ui.mocapicks.MocaPicksListActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
+
+        <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity"></activity>
+        <activity android:name=".ui.main.HomeActivity2"></activity>
+        <activity android:name=".ui.main.ScrapCafeActivity" />
+        <activity android:name=".ui.main.coupon.CouponActivity" />
+        <activity android:name=".ui.main.notice.NoticeActivity" />
+        <activity
+            android:name=".ui.main.EditProfileActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".ui.mocapicks.MocaPicksDetailActivity" />
+        <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity" />
+        <activity android:name=".ui.detail.DetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.ScrapCafeActivity"></activity>
-        <activity android:name=".ui.main.coupon.CouponActivity"></activity>
-        <activity android:name=".ui.main.notice.NoticeActivity"></activity>
-        <activity
-            android:name=".ui.main.EditProfileActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
-        <activity android:name=".ui.mocapicks.MocaPicksDetailActivity"></activity>
-        <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity"></activity>
     </application>
 
 </manifest>

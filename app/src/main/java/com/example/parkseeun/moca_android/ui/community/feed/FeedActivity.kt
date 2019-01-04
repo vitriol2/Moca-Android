@@ -11,7 +11,7 @@ import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.activity_feed2.*
 import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.app_bar_community.*
-import kotlinx.android.synthetic.main.app_bar_home2.*
+import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.content_feed.*
 
 class FeedActivity : NavigationActivity(), View.OnClickListener{

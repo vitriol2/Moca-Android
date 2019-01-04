@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_rv_act_detail_nearby">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/iv_rv_act_datail_nearby_photo"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_launcher_background"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <TextView
+                android:id="@+id/tv_rv_act_detail_nearby_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C27"
+                style="@style/Bold15"
+                android:layout_centerVertical="true"/>
+            <RatingBar
+                android:id="@+id/rb_rv_act_detail_nearby_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dp"
+                android:numStars="5"
+                android:rating="3"
+                android:stepSize="1"
+                android:progressDrawable="@drawable/small_rating_bar_layer"
+                style="@style/SmallRatingBar"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_community_location"/>
+            <TextView
+                android:id="@+id/tv_rv_act_detail_nearby_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="서울 강남구"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
