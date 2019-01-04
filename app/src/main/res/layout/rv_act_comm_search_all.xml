@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="66dp"
+    android:id="@+id/rl_rv_act_comm_sear">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_comm_search_profile"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:src="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/iv_comm_search_profile"
+        >
+
+        <TextView
+            android:id="@+id/tv_rv_act_comm_sear_all_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/nanum_b"
+            android:text="정화니"
+            android:textColor="#101010" />
+        <TextView
+            android:id="@+id/tv_act_comm_sear_all_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            style="@style/Light11"
+            android:textColor="@color/dark_gray"
+            android:text="상태메세지~~"/>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_act_comm_sear_all_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/community_followinglist_follow" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="86dp"
+        android:background="#bfbfbf"></RelativeLayout>
+</RelativeLayout>

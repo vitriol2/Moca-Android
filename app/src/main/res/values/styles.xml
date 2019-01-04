@@ -203,4 +203,8 @@
         <item name="android:layout_marginTop">30dp</item>
     </style>
 
+    <style name="tab_text_comm_sear_act" parent="Regular13">
+        <item name="android:color">@color/dark_gray</item>
+    </style>
+
 </resources>

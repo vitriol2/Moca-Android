@@ -43,11 +43,7 @@
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity" />
         <activity android:name=".ui.location.LocationMainActivity" />
         <activity android:name=".ui.main.HomeActivity2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.location.LocationSearchActivity" />
         <activity android:name=".ui.main.SearchActivity" />
@@ -60,14 +56,15 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".ui.mocapicks.MocaPicksDetailActivity" />
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity" />
-        <activity android:name=".ui.detail.detailReviewAll.ReviewAllActivity">
+        <activity android:name=".ui.detail.detailReviewAll.ReviewAllActivity"></activity>
+        <activity android:name=".ui.detail.nearbyList.NearbyListActivity"></activity>
+        <activity android:name=".ui.detail.DetailActivity"></activity>
+        <activity android:name=".ui.communitySearch.CommunitySearchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        </activity>
-        <activity android:name=".ui.detail.nearbyList.NearbyListActivity">
-
-        </activity>
-        <activity android:name=".ui.detail.DetailActivity">
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
