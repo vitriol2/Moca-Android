@@ -10,7 +10,8 @@
             android:id="@+id/iv_rv_act_datail_nearby_photo"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

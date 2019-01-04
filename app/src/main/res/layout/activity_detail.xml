@@ -299,8 +299,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     style="@style/Extrabold15"
@@ -376,32 +376,37 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp">
+
                     <TextView
+                        style="@style/Extrabold15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="카페리뷰"
-                        style="@style/Extrabold15"
-                        android:layout_centerVertical="true"/>
+                        android:layout_centerVertical="true"
+                        android:text="카페리뷰" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/detailview_review_write"
-                        android:layout_alignParentRight="true"/>
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/detailview_review_write" />
                 </RelativeLayout>
+
                 <TextView
+                    style="@style/Regular11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Regular11"
-                    android:text="인기리뷰"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="6dp"/>
+                    android:layout_marginTop="6dp"
+                    android:text="인기리뷰" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_act_detail_cafe_review"
                     android:layout_width="match_parent"
@@ -412,14 +417,15 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_act_detail_review_all"
+                style="@style/Regular13"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="15dp"
                 android:background="@drawable/community_addreview_beforefinish"
                 android:text="카페 리뷰 전체보기"
-                style="@style/Regular13"
-                android:textColor="@color/light_gray"/>
-            
+                android:textColor="@color/light_gray" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"
@@ -429,36 +435,43 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginHorizontal="16dp">
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp">
+
                     <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                        android:text="주변 카페"
-                        style="@style/Extrabold15"/>
-                    <LinearLayout
+                        style="@style/Extrabold15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:text="주변 카페" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_act_detail_nearbyList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:gravity="center_vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="더보기"
-                        style="@style/Regular11"/>
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/Regular11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="더보기" />
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/mypage_arrow_right"/>
+                            android:src="@drawable/mypage_arrow_right" />
                     </LinearLayout>
                 </RelativeLayout>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_act_detail_nearby"
                     android:layout_width="match_parent"

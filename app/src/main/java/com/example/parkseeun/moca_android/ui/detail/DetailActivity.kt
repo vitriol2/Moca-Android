@@ -10,11 +10,14 @@ import android.view.View
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.community.feed.ReviewData
 import com.example.parkseeun.moca_android.ui.community.feed.ReviewRecyclerViewAdapter
+import com.example.parkseeun.moca_android.ui.detail.detailReviewAll.ReviewAllActivity
+import com.example.parkseeun.moca_android.ui.detail.nearbyList.NearbyListActivity
 import com.example.parkseeun.moca_android.ui.ranking.RankingData
 import com.example.parkseeun.moca_android.util.ImageAdapter
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_moca_picks_detail.*
 import kotlinx.android.synthetic.main.fragment_social.view.*
+import org.jetbrains.anko.startActivity
 
 class DetailActivity : AppCompatActivity() {
 
@@ -36,7 +39,18 @@ class DetailActivity : AppCompatActivity() {
 
         pageChangeListener()
 
+        setOnBtnClickListeners()
 
+    }
+
+    private fun setOnBtnClickListeners() {
+        btn_act_detail_review_all.setOnClickListener {
+            startActivity<ReviewAllActivity>()
+        }
+
+        ll_act_detail_nearbyList.setOnClickListener {
+            startActivity<NearbyListActivity>()
+        }
     }
 
     private fun makeList() {

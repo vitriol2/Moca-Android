@@ -17,9 +17,11 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.community.review_write.adapter.PhotoAdapter
 import com.example.parkseeun.moca_android.ui.community.review_write.data.PhotoData
 import com.example.parkseeun.moca_android.ui.community.review_write.data.ReviewImageData
+import kotlinx.android.synthetic.main.activity_community_search_address.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
@@ -45,14 +47,14 @@ class WriteReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_writereview)
         reviewImageItems = ArrayList()
-        var flag = 0
+
 
         requestManager = Glide.with(this)
         photoItems = ArrayList()
 
         var displayMetrics = applicationContext.resources.displayMetrics //화면 해상도를 구함
-        var width = displayMetrics.widthPixels
-        var height = displayMetrics.heightPixels
+        //var width = displayMetrics.widthPixels
+        //var height = displayMetrics.heightPixels
 
         img_addreview_image.setOnClickListener {
             changeImage()
@@ -136,7 +138,9 @@ class WriteReviewActivity : AppCompatActivity() {
         txt_addreview_cafeaddress.setOnClickListener {
             startActivity<ReviewSearchLocationActivity>()
         }
-
+        img_addreview_complete.setOnClickListener {
+            startActivity<FeedActivity>()
+        }
     }
 
     //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

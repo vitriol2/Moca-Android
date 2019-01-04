@@ -15,6 +15,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.community.review_detail.ReviewDetailActivity
+import com.example.parkseeun.moca_android.ui.detail.nearbyList.NearbyListActivity
 import org.jetbrains.anko.find
 
 class DetailNearbyAdapter(val context : Context, val dataList : ArrayList<DetailNearbyData>) : RecyclerView.Adapter<DetailNearbyAdapter.Holder>() {
@@ -29,8 +31,14 @@ class DetailNearbyAdapter(val context : Context, val dataList : ArrayList<Detail
 
     override fun onBindViewHolder(holder: DetailNearbyAdapter.Holder, position: Int) {
         // 스크린 너비에 따른 이미지 길이 설정
+
+        holder.item.setOnClickListener {
+            val intent = Intent(context, ReviewDetailActivity::class.java)
+            context.startActivity(intent)
+        }
+
         val width = getScreenWidth()
-        holder.pic.layoutParams.width = ((width-dpToPx(26.toFloat()))/2).toInt()
+        holder.pic.layoutParams.width = ((width-dpToPx(40.toFloat()))/2).toInt()
         holder.pic.layoutParams.height = holder.pic.layoutParams.width
 
         holder.item.setOnClickListener {
@@ -39,6 +47,8 @@ class DetailNearbyAdapter(val context : Context, val dataList : ArrayList<Detail
         }
 
         Glide.with(context).load(dataList[position].pic).into(holder.pic)
+
+
         holder.cafename.text = dataList[position].cafename
         holder.location.text = dataList[position].location
         holder.rating.rating = dataList[position].rating.toFloat()
