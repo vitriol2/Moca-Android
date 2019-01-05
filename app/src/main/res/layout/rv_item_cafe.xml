@@ -20,7 +20,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:src="@color/colorPrimary"
+                app:layout_constraintDimensionRatio="328:146"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:background="#48000000"
                 app:layout_constraintDimensionRatio="328:146"/>
 
             <TextView

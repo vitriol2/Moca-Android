@@ -36,7 +36,12 @@ class CafeListActivity : AppCompatActivity() {
         cafelist_option_rv.adapter = optionViewAdapter
         cafelist_option_rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        cafeList.add(CafeListData("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
+        cafeList.add(CafeListData("http://img.lifestyler.co.kr/uploads/channel/channel/cheditor/2012/05/3u19eqrt1z9bqz92ckf9.jpg", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
+        cafeList.add(CafeListData("http://img.lifestyler.co.kr/uploads/channel/channel/cheditor/2012/05/3u19eqrt1z9bqz92ckf9.jpg", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
+        cafeList.add(CafeListData("http://img.lifestyler.co.kr/uploads/channel/channel/cheditor/2012/05/3u19eqrt1z9bqz92ckf9.jpg", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
+        cafeList.add(CafeListData("http://img.lifestyler.co.kr/uploads/channel/channel/cheditor/2012/05/3u19eqrt1z9bqz92ckf9.jpg", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
+        cafeList.add(CafeListData("http://img.lifestyler.co.kr/uploads/channel/channel/cheditor/2012/05/3u19eqrt1z9bqz92ckf9.jpg", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
+        cafeList.add(CafeListData("http://img.lifestyler.co.kr/uploads/channel/channel/cheditor/2012/05/3u19eqrt1z9bqz92ckf9.jpg", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
         cafeList.add(CafeListData("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
         cafeList.add(CafeListData("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
         cafeList.add(CafeListData("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "아이스베어 하우스", "북극", 4, arrayListOf("한옥", "드라이브", "커피")))
@@ -49,9 +54,9 @@ class CafeListActivity : AppCompatActivity() {
     }
 
     private fun getRegionId(selected: Int):String{
-        when(selected){
-            0 -> return "강동구"
-        }
+        val regionData = arrayOf("강서구", "구로구", "양천구", "금천구", "영등포구", "마포구", "은평구", "서대문구", "관악구", "동작구", "종로구", "용산구", "중구구", "서초구", "강북구", "성북구", "도봉구", "성동구", "동대문구", "강남구", "노원구", "광진구", "중랑구", "송파구", "강동")
+        if (selected in 0..24)
+            return regionData[selected]
         return "[잘못된 접근]"
     }
 
