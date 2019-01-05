@@ -74,8 +74,15 @@ class CommunitySearchActivity : AppCompatActivity() {
         tabLayout!!.getTabAt(1)!!.setCustomView(linearLayout2)
         tabLayout!!.getTabAt(2)!!.setCustomView(linearLayout3)
 
+        setOnBtnClickListeners()
+
     }
 
+    private fun setOnBtnClickListeners() {
+        ib_act_comm_sear_back.setOnClickListener {
+            finish()
+        }
+    }
 
 
     private fun setupViewPager(viewPager: ViewPager) {

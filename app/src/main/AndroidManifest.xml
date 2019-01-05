@@ -23,10 +23,11 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
-        <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
+
         <activity android:name=".ui.community.review_write.WriteReviewActivity" />
         <activity android:name=".ui.community.follow.FollowActivity" />
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity" />
+
         <activity android:name=".ui.main.HomeActivity2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +35,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="cb620091669ce5936f0fd4dd2766a760" />
@@ -57,7 +60,8 @@
         <activity android:name=".ui.category.CategoryActivity"></activity>
         <activity android:name=".ui.mocapicks.MocaPicksListActivity" />
         <activity android:name=".ui.location.LocationSearchActivity" />
-        <activity android:name=".ui.main.SearchActivity" >
+        <activity android:name=".ui.main.SearchActivity">
+
         </activity>
         <activity android:name=".ui.main.ScrapCafeActivity" />
         <activity android:name=".ui.main.coupon.CouponActivity" />
@@ -69,11 +73,17 @@
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity" />
         <activity android:name=".ui.loginJoin.JoinActivity" />
         <activity android:name=".ui.loginJoin.LoginActivity">
+
         </activity>
         <activity android:name=".ui.category.CafeListActivity" />
         <activity android:name=".ui.detail.DetailActivity">
 
         </activity>
+        <activity android:name=".ui.communitySearch.CommunitySearchActivity">
+
+        </activity>
+        <activity android:name=".ui.community.feed.other_user.OtherUserActivity"></activity>
+
     </application>
 
-    </manifest>
+</manifest>
