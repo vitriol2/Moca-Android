@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".network.ApplicationController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,11 +30,6 @@
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity" />
 
         <activity android:name=".ui.main.HomeActivity2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
@@ -73,7 +69,11 @@
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity" />
         <activity android:name=".ui.loginJoin.JoinActivity" />
         <activity android:name=".ui.loginJoin.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.category.CafeListActivity" />
         <activity android:name=".ui.communitySearch.CommunitySearchActivity">

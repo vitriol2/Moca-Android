@@ -9,10 +9,20 @@ import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import android.os.Build
-
+import com.example.parkseeun.moca_android.model.post.PostLoginData
+import com.example.parkseeun.moca_android.model.post.PostLoginResponse
+import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.ui.main.HomeActivity2
+import com.example.parkseeun.moca_android.util.User
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
+    val networkService  = ApplicationController.instance.networkService
+    lateinit var postProjResponse : Call<PostLoginResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +62,22 @@ class LoginActivity : AppCompatActivity() {
                     iv_pw_yellowCircle.visibility = View.INVISIBLE
                 }
             }
+        }
+
+        btn_login.setOnClickListener {
+            postProjResponse = networkService.postLogin(PostLoginData(et_login_id.text.toString(),et_login_pw.text.toString()))
+            postProjResponse.enqueue(object : Callback<PostLoginResponse> {
+                override fun onFailure(call: Call<PostLoginResponse>?, t: Throwable?) {
+                    toast(t.toString())
+                }
+
+                override fun onResponse(call: Call<PostLoginResponse>?, response: Response<PostLoginResponse>?) {
+                    if(response!!.body()!!.status==200) {
+                        User.token = response.body()!!.data.token!!
+                        startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
+                    }
+                }
+            })
         }
     }
 }
