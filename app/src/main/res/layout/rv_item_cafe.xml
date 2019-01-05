@@ -7,7 +7,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cafe_item_card"
         android:layout_width="match_parent"
-        android:layout_height="146dp"
+        android:layout_height="wrap_content"
         app:cardElevation="0dp"
         app:cardCornerRadius="5dp">
 
@@ -19,7 +19,7 @@
                 android:id="@+id/cafe_item_img_iv"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@color/colorPrimary"
                 app:layout_constraintDimensionRatio="328:146"/>
 

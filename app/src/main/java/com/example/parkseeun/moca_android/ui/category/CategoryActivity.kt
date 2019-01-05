@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.ui.category
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -30,7 +31,12 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
             // 다음 버튼
             cate_next_iv -> {
                 if(isChecked())
-                    startActivity<CafeListActivity>()
+                    Intent(this, CafeListActivity::class.java).apply {
+                        putExtra("regionSelected", regionSelected)
+                        putExtra("menu", menuList)
+                        putExtra("concept", conceptList)
+                        startActivity(this)
+                    }
                 else
                     toast("지역을 선택해주세요")
             }
@@ -77,12 +83,12 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
     // RecyclerView 설정
     private fun setRecyclerView() {
         // menu data
-        menuList.add(ButtonData(R.drawable.menu_coffee_line, R.drawable.menu_coffee_pink, false))
-        menuList.add(ButtonData(R.drawable.menu_tea_line, R.drawable.menu_tea_pink, false))
-        menuList.add(ButtonData(R.drawable.menu_bakery_line, R.drawable.menu_bakery_pink, false))
-        menuList.add(ButtonData(R.drawable.menu_fruit_line, R.drawable.menu_fruit_pink, false))
-        menuList.add(ButtonData(R.drawable.menu_dessert_line, R.drawable.menu_dessert_pink, false))
-        menuList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.concept_etc_pink, false))
+        menuList.add(ButtonData(R.drawable.menu_coffee_line, R.drawable.menu_coffee_pink, "커피",false))
+        menuList.add(ButtonData(R.drawable.menu_tea_line, R.drawable.menu_tea_pink, "차",false))
+        menuList.add(ButtonData(R.drawable.menu_bakery_line, R.drawable.menu_bakery_pink,"베이커리", false))
+        menuList.add(ButtonData(R.drawable.menu_fruit_line, R.drawable.menu_fruit_pink, "생과일",false))
+        menuList.add(ButtonData(R.drawable.menu_dessert_line, R.drawable.menu_dessert_pink, "디저트",false))
+        menuList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.concept_etc_pink, "기타",false))
 
         menuViewAdapter = ButtonViewAdapter(this, menuList)
         menuViewAdapter.setOnItemClickListener(this)
@@ -90,14 +96,14 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
         cate_menu_rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // concept data
-        conceptList.add(ButtonData(R.drawable.concept_mood_line, R.drawable.concept_mood_pink, false))
-        conceptList.add(ButtonData(R.drawable.concept_pet_line, R.drawable.concept_pet_pink, false))
-        conceptList.add(ButtonData(R.drawable.concept_hanok_line, R.drawable.concept_hanok_pink, false))
-        conceptList.add(ButtonData(R.drawable.concept_drive_line, R.drawable.concept_drive_pink, false))
-        conceptList.add(ButtonData(R.drawable.concept_book_line, R.drawable.concept_book_pink, false))
-        conceptList.add(ButtonData(R.drawable.concept_flower_line, R.drawable.concept_flower_pink, false))
-        conceptList.add(ButtonData(R.drawable.concept_rooftop_line, R.drawable.concept_rooftop_pink, false))
-        conceptList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.concept_etc_pink, false))
+        conceptList.add(ButtonData(R.drawable.concept_mood_line, R.drawable.concept_mood_pink, "감성",false))
+        conceptList.add(ButtonData(R.drawable.concept_pet_line, R.drawable.concept_pet_pink, "펫카페",false))
+        conceptList.add(ButtonData(R.drawable.concept_hanok_line, R.drawable.concept_hanok_pink, "한옥",false))
+        conceptList.add(ButtonData(R.drawable.concept_drive_line, R.drawable.concept_drive_pink, "드라이브",false))
+        conceptList.add(ButtonData(R.drawable.concept_book_line, R.drawable.concept_book_pink, "북카페",false))
+        conceptList.add(ButtonData(R.drawable.concept_flower_line, R.drawable.concept_flower_pink, "플라워",false))
+        conceptList.add(ButtonData(R.drawable.concept_rooftop_line, R.drawable.concept_rooftop_pink, "루프탑",false))
+        conceptList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.concept_etc_pink, "기타",false))
 
         conceptViewAdapter = ButtonViewAdapter(this, conceptList)
         conceptViewAdapter.setOnItemClickListener(this)

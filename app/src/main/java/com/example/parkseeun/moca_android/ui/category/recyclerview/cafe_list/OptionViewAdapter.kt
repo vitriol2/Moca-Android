@@ -1,6 +1,8 @@
 package com.example.parkseeun.moca_android.ui.category.recyclerview.cafe_list
 
 import android.content.Context
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ class OptionViewAdapter(val context: Context, val dataList: ArrayList<OptionData
 
     override fun getItemCount(): Int = dataList.size
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.opt_tv.text = dataList[position].name
         // flag(지역값인지)에 따라 배경과 텍스트 색상 결정
@@ -24,6 +27,7 @@ class OptionViewAdapter(val context: Context, val dataList: ArrayList<OptionData
         if(dataList[position].isRegion) {
             holder.opt_tv.setBackgroundResource(R.drawable.square_region)
             holder.opt_tv.setTextColor(context.resources.getColor(R.color.point_pink))
+            holder.opt_tv.typeface = context.resources.getFont(R.font.nanum_b)
         }
     }
 
