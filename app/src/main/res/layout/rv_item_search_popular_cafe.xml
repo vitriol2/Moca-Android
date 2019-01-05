@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/rv_item_search_popular_cafe_relative"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="200dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/boarder_darkgray">
+
+        <ImageView
+            android:id="@+id/iv_popular_cafe"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:background="#eaeaea"/>
+
+        <TextView
+            android:id="@+id/tv_popular_cafe_name"
+            android:layout_below="@id/iv_popular_cafe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="서울리즘"
+            android:textColor="#101010"
+            android:textSize="11sp"
+            android:fontFamily="@font/nanum_b"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btn_popular_cafe_scrap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_search_scarp_ic"/>
+
+            <TextView
+                android:id="@+id/tv_popular_cafe_scrap_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="124"
+                android:textColor="#bfbfbf"
+                android:textSize="11sp"
+                android:fontFamily="@font/nanum_b"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
