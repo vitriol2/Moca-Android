@@ -71,6 +71,9 @@
         <activity android:name=".ui.loginJoin.LoginActivity">
         </activity>
         <activity android:name=".ui.category.CafeListActivity" />
+        <activity android:name=".ui.detail.DetailActivity">
+
+        </activity>
     </application>
 
     </manifest>

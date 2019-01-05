@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.main
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
 class SearchAdapater(val context : Context, val dataList : ArrayList<SearchResultData>) : RecyclerView.Adapter<SearchAdapater.Holder>() {
@@ -30,7 +32,9 @@ class SearchAdapater(val context : Context, val dataList : ArrayList<SearchResul
 
         // 클릭 리스너
         holder.relative_search_result.setOnClickListener {
+            val intent : Intent = Intent(context, DetailActivity::class.java)
 
+            context.startActivity(intent)
 
         }
     }

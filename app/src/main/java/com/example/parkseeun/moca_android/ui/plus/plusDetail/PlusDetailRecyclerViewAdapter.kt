@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.plus.plusDetail
 
 import android.content.Context
+import android.content.Intent
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,6 +15,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import com.example.parkseeun.moca_android.util.ImageAdapter
 import kotlinx.android.synthetic.main.activity_moca_picks_detail.*
 import com.example.parkseeun.moca_android.util.gravitySnapHelper.GravitySnapHelper
@@ -62,7 +64,9 @@ class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayL
         // 클릭
         holder.relative_plus_detail_item_goToCafe.setOnClickListener {
             // 해당 카페 상세 페이지로 이동
+            val intent : Intent = Intent(context, DetailActivity::class.java)
 
+            context.startActivity(intent)
         }
     }
 
