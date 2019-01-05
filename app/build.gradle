@@ -53,4 +53,12 @@ android {
         // image zoom
         implementation 'com.github.chrisbanes:PhotoView:2.1.0'
     }
+<<<<<<< HEAD
 }
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+=======
+}
+>>>>>>> 33325391ddfa6536820f7045a623526713aad88f

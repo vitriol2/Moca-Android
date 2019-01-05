@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170dp"
+    android:layout_height="170dp">
+    <ImageView
+        android:id="@+id/iv_rv_act_review_all_popular_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_marginRight="8dp"/>
+
+</RelativeLayout>
