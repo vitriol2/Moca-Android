@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.plus
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.plus.plusDetail.PlusDetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
 class PlusRecyclerViewAdapter(val context : Context, val dataList : ArrayList<PlusData>) : RecyclerView.Adapter<PlusRecyclerViewAdapter.Holder>() {
@@ -32,7 +34,9 @@ class PlusRecyclerViewAdapter(val context : Context, val dataList : ArrayList<Pl
 
         // 클릭
         holder.linearLayout_plus_item.setOnClickListener {
+            val intent : Intent = Intent(context, PlusDetailActivity::class.java)
 
+            context.startActivity(intent)
         }
     }
 

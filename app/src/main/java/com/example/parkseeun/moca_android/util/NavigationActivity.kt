@@ -14,8 +14,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.category.CategoryActivity
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.main.*
+import com.example.parkseeun.moca_android.ui.location.LocationSearchActivity
+import com.example.parkseeun.moca_android.ui.main.EditProfileActivity
+import com.example.parkseeun.moca_android.ui.main.HomeActivity2
+import com.example.parkseeun.moca_android.ui.main.MypageTabAdapter
 import com.example.parkseeun.moca_android.ui.main.notice.NoticeActivity
 import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
@@ -39,40 +44,32 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 
         val notice : RelativeLayout = headerView.findViewById(R.id.iv_mypage_tab_notice) as RelativeLayout
         notice.setOnClickListener {
-            val intent = Intent(this, NoticeActivity::class.java)
-            startActivity(intent)
+            startActivity<NoticeActivity>()
         }
 
         val profile : ImageView = headerView.findViewById(R.id.iv_mypage_tab_profile) as ImageView
         profile.setOnClickListener {
-            val intent = Intent(this, EditProfileActivity::class.java)
-            startActivity(intent)
+            startActivity<EditProfileActivity>()
         }
 
 
         val home : ImageView = headerView.findViewById(R.id.iv_mypage_tab_home) as ImageView
         home.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            val intent = Intent(this, HomeActivity2::class.java)
-            startActivity(intent)
+            startActivity<HomeActivity2>()
         }
         val category : ImageView = headerView.findViewById(R.id.iv_mypage_tab_category) as ImageView
         category.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            startActivity<PlusActivity>()
+            startActivity<CategoryActivity>()
         }
 
         val location : ImageView = headerView.findViewById(R.id.iv_mypage_tab_location) as ImageView
         location.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            startActivity<PlusActivity>()
+            startActivity<LocationSearchActivity>()
         }
 
         val community : ImageView = headerView.findViewById(R.id.iv_mypage_tab_community) as ImageView
         community.setOnClickListener {
-            Log.v("vvvvv", "vvvvv")
-            val intent = Intent(this, FeedActivity::class.java)
-            startActivity(intent)
+            startActivity<FeedActivity>()
         }
 
 

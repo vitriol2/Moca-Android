@@ -4,53 +4,164 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.KeyEvent
 import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.activity_search.*
+import android.view.KeyEvent.KEYCODE_ENTER
+import android.view.View
+import android.widget.*
+import java.security.Key
+import android.R.attr.host
+import android.widget.TextView
+import android.support.v4.view.MarginLayoutParamsCompat.setMarginEnd
+import android.support.v4.view.MarginLayoutParamsCompat.setMarginStart
+import android.os.Build
+import android.view.ViewGroup
+import android.support.design.widget.TabLayout
+
+
+
+
+
 
 class SearchActivity : AppCompatActivity() {
 
+    // 탭
+    private var tabHost: TabHost? = null
+    private var tabWidget: TabWidget? = null
+    private var frameLayout: FrameLayout? = null
+
+    private var tab1: TabHost.TabSpec? = null
+    private var tab2: TabHost.TabSpec? = null
+    private var tab3: TabHost.TabSpec? = null
+
     // RecyclerView 설정
     lateinit var searchResultAdapter : SearchAdapater
+    lateinit var beforeSearchPopularCafeAdapter: BeforeSearchPopularCafeAdapter
+    lateinit var beforeSearchRecommendPlaceAdapter: BeforeSearchRecommendPlaceAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
         setRecyclerView()
-        categoryBtnListener()
+//        categoryBtnListener()
+        setUpTab()
+        setUpBeforeSearchRecyclerView()
+        setTabSelected()
+
+        // 뒤로 가기 버튼
+        ib_backBtn_act_search.setOnClickListener {
+            finish()
+        }
+
+
+        // 엔터키 처리
+        et_search.setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
+                //Enter key Action
+                return if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    linear_before_search_all.visibility = View.GONE
+
+                    true
+                } else false
+            }
+        })
     }
 
-    private fun categoryBtnListener() {
-        btn_all_category.setOnClickListener {
-            btn_all_category.setTextColor(Color.parseColor("#e1b2a3"))
-            btn_cafe_category.setTextColor(Color.parseColor("#707070"))
-            btn_location_category.setTextColor(Color.parseColor("#707070"))
+    // 탭 처리
+    private fun setUpTab() {
+        tabWidget = TabWidget(this)
+        frameLayout = FrameLayout(this)
 
-            view_all.setBackgroundColor(Color.parseColor("#e1b2a3"))
-            view_cafe.setBackgroundColor(Color.parseColor("#ffffff"))
-            view_location.setBackgroundColor(Color.parseColor("#ffffff"))
+        tabHost = findViewById(R.id.tabHost)
+
+        tabHost!!.setup()
+
+        tab1 = tabHost!!.newTabSpec("1").setContent(R.id.content1)
+            .setIndicator("전체")
+        tab2 = tabHost!!.newTabSpec("2").setContent(R.id.content2)
+            .setIndicator("카페명")
+        tab3 = tabHost!!.newTabSpec("3").setContent(R.id.content3)
+            .setIndicator("위치")
+
+
+
+        tabHost!!.addTab(tab1)
+        tabHost!!.addTab(tab2)
+        tabHost!!.addTab(tab3)
+
+
+        for (i in 0 until tabHost!!.tabWidget.childCount) {
+            val tv = tabHost!!.tabWidget.getChildAt(i).findViewById(android.R.id.title) as TextView
+            if (i == 0) {
+                tv.setTextColor(Color.parseColor("#e1b2a3"))
+            }
+
+            tv.setTextColor(Color.parseColor("#e1b2a3"))
+        }
+
+
+    }
+
+    // tab 눌러질 때 처리
+    fun setTabSelected() {
+        frameLayout = findViewById<View>(android.R.id.tabcontent) as FrameLayout
+
+        tabHost!!.setOnTabChangedListener {
+            val tab = tabHost!!.currentTab
+            for (i in 0 until tabHost!!.tabWidget.childCount) {
+                // When tab is not selected
+                val tv = tabHost!!.tabWidget.getChildAt(i).findViewById(android.R.id.title) as TextView
+                tv.setTextColor(Color.parseColor("#707070"))
+            }
+
+            var tv = tabHost!!.tabWidget.getChildAt(tabHost!!.currentTab).findViewById(android.R.id.title) as TextView
+            tv.setTextColor(Color.parseColor("#e1b2a3"))
 
         }
 
-        btn_cafe_category.setOnClickListener {
-            btn_all_category.setTextColor(Color.parseColor("#707070"))
-            btn_cafe_category.setTextColor(Color.parseColor("#e1b2a3"))
-            btn_location_category.setTextColor(Color.parseColor("#707070"))
 
-            view_all.setBackgroundColor(Color.parseColor("#ffffff"))
-            view_cafe.setBackgroundColor(Color.parseColor("#e1b2a3"))
-            view_location.setBackgroundColor(Color.parseColor("#ffffff"))
-        }
+    }
 
-        btn_location_category.setOnClickListener {
-            btn_all_category.setTextColor(Color.parseColor("#707070"))
-            btn_cafe_category.setTextColor(Color.parseColor("#707070"))
-            btn_location_category.setTextColor(Color.parseColor("#e1b2a3"))
+    // 검색 전 리사이클러뷰 설정
+    private fun setUpBeforeSearchRecyclerView() {
+        // 인기 카페
+        var dataList : ArrayList<PopularCafeData> = ArrayList()
+        dataList.add(PopularCafeData("", "C127", 1, 24))
+        dataList.add(PopularCafeData("", "C127", 1, 24))
+        dataList.add(PopularCafeData("", "C127", 1, 24))
+        dataList.add(PopularCafeData("", "C127", 1, 24))
+        beforeSearchPopularCafeAdapter = BeforeSearchPopularCafeAdapter(this, dataList)
 
-            view_all.setBackgroundColor(Color.parseColor("#ffffff"))
-            view_cafe.setBackgroundColor(Color.parseColor("#ffffff"))
-            view_location.setBackgroundColor(Color.parseColor("#e1b2a3"))
-        }
+        // 모카 추천 플레이스
+        var dataList_recommend_place : ArrayList<RecommendPlaceData> = ArrayList()
+        dataList_recommend_place.add(RecommendPlaceData("", "#연남동"))
+        dataList_recommend_place.add(RecommendPlaceData("", "#연남동"))
+        dataList_recommend_place.add(RecommendPlaceData("", "#연남동"))
+        dataList_recommend_place.add(RecommendPlaceData("", "#연남동"))
+        beforeSearchRecommendPlaceAdapter = BeforeSearchRecommendPlaceAdapter(this, dataList_recommend_place)
+
+        // 첫 번째 탭
+        rv_search_popularCafe_all.adapter = beforeSearchPopularCafeAdapter
+        rv_search_popularCafe_all.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        rv_search_recommendPlace_all.adapter = beforeSearchRecommendPlaceAdapter
+        rv_search_recommendPlace_all.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // 두 번째 탭
+        rv_search_popularCafe_cafe.adapter = beforeSearchPopularCafeAdapter
+        rv_search_popularCafe_cafe.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        rv_search_recommendPlace_cafe.adapter = beforeSearchRecommendPlaceAdapter
+        rv_search_recommendPlace_cafe.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // 세 번째 탭
+        rv_search_popularCafe_location.adapter = beforeSearchPopularCafeAdapter
+        rv_search_popularCafe_location.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        rv_search_recommendPlace_location.adapter = beforeSearchRecommendPlaceAdapter
+        rv_search_recommendPlace_location.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun setRecyclerView() {
@@ -62,7 +173,17 @@ class SearchActivity : AppCompatActivity() {
         dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
 
         searchResultAdapter = SearchAdapater(this, dataList)
-        rv_searchResult_list.adapter = searchResultAdapter
-        rv_searchResult_list.layoutManager = LinearLayoutManager(applicationContext)
+
+        // 첫 번째 탭
+        rv_searchResult_list_all.adapter = searchResultAdapter
+        rv_searchResult_list_all.layoutManager = LinearLayoutManager(this)
+
+        // 두 번째 탭
+        rv_searchResult_list_cafe.adapter = searchResultAdapter
+        rv_searchResult_list_cafe.layoutManager = LinearLayoutManager(this)
+
+        // 세 번째 탭
+        rv_searchResult_list_location.adapter = searchResultAdapter
+        rv_searchResult_list_location.layoutManager = LinearLayoutManager(this)
     }
 }

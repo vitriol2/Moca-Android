@@ -22,6 +22,7 @@
             android:layout_marginLeft="16dp"/>
 
         <EditText
+            android:id="@+id/et_act_comm_sear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/ib_act_comm_sear_back"

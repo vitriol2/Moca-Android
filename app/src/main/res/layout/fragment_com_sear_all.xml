@@ -2,11 +2,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_frag_com_sear_all"
+    <LinearLayout
+        android:id="@+id/ll_frag_com_sear_all"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/ll_frag_com_sear_all_nothing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이번주 인기 카페"
+                android:textColor="#101010"
+                android:textSize="15sp"
+                android:fontFamily="@font/nanum_b"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_frag_com_sear_all_thisweek"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="모카 추천 플레이스"
+                android:textColor="#101010"
+                android:textSize="15sp"
+                android:fontFamily="@font/nanum_b"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_frag_comm_sear_all_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="172dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
+                android:paddingRight="10dp">
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_frag_comm_sear_all_all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -24,9 +24,14 @@ class ComSearAllFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+
         makeList()
         setRecycler()
 
+    }
+
+    private fun setScreenConvert() {
     }
 
     private fun makeList() {
@@ -36,8 +41,8 @@ class ComSearAllFragment : Fragment() {
     }
 
     private fun setRecycler() {
-        rv_frag_com_sear_all.layoutManager = LinearLayoutManager(activity)
-        rv_frag_com_sear_all.adapter = ComSearAllAdapter(activity!!, searchList)
+        rv_frag_comm_sear_all_all.layoutManager = LinearLayoutManager(activity)
+        rv_frag_comm_sear_all_all.adapter = ComSearAllAdapter(activity!!, searchList)
 
 
 
