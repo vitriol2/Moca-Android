@@ -60,7 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="서울 강남구"
-                android:textColor="#707070"
+                android:fontFamily="@font/nanum_l"
+                android:textColor="@color/dark_gray"
                 android:textSize="11sp"
                 android:layout_marginLeft="6dp"/>
 

@@ -1,69 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.parkseeun.moca_android">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.parkseeun.moca_android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="cb620091669ce5936f0fd4dd2766a760"/>
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:usesCleartextTraffic="true"
-            android:supportsRtl="true"
-            tools:node="replace"
-            android:theme="@style/AppTheme">
-        <uses-library android:name="org.apache.http.legacy"
-                      android:required="false" />
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:node="replace">
+        <activity android:name=".ui.community.review_comment.ReviewCommentActivity" />
+        <activity android:name=".ui.plus.plusDetail.PlusDetailActivity" />
+        <activity android:name=".ui.community.feed.FeedActivity" />
+
         <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
-        <meta-data android:name="com.google.android.gms.version"
-                   android:value="@integer/google_play_services_version" />
-        <activity android:name=".ui.community.review_comment.ReviewCommentActivity">
-        </activity>
-        <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
-        <activity android:name=".ui.community.feed.FeedActivity"/>
-        <activity android:name=".ui.community.review_write.WriteReviewActivity">
-        </activity>
-        <activity android:name=".ui.community.follow.FollowActivity">
-        </activity>
-        <activity android:name=".ui.plus.PlusActivity"/>
-        <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity">
-        </activity>
-        <activity android:name=".ui.location.LocationMainActivity">
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
+        <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
+        <activity android:name=".ui.community.review_write.WriteReviewActivity" />
+        <activity android:name=".ui.community.follow.FollowActivity" />
+        <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity" />
+        <activity android:name=".ui.main.HomeActivity2">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.HomeActivity2">
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="cb620091669ce5936f0fd4dd2766a760" />
 
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".ui.plus.PlusActivity" />
+        <activity android:name=".ui.community.feed.image.ImageActivity" />
+        <activity android:name=".ui.community.review_detail.ReviewDetailActivity" />
+        <activity android:name=".ui.ranking.RankingActivity" />
+        <activity android:name=".ui.location.LocationMainActivity" />
+        <activity android:name=".ui.category.CategoryActivity"></activity>
+        <activity android:name=".ui.mocapicks.MocaPicksListActivity" />
+        <activity android:name=".ui.location.LocationSearchActivity" />
+        <activity android:name=".ui.main.SearchActivity" >
         </activity>
-        <activity android:name=".ui.location.LocationSearchActivity">
+        <activity android:name=".ui.main.ScrapCafeActivity" />
+        <activity android:name=".ui.main.coupon.CouponActivity" />
+        <activity android:name=".ui.main.notice.NoticeActivity" />
+        <activity
+            android:name=".ui.main.EditProfileActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".ui.mocapicks.MocaPicksDetailActivity" />
+        <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity" />
+        <activity android:name=".ui.loginJoin.JoinActivity" />
+        <activity android:name=".ui.loginJoin.LoginActivity">
         </activity>
-        <activity android:name=".ui.main.SearchActivity"/>
-        <activity android:name=".ui.mocapicks.MocaPicksListActivity">
-        </activity>
-        <activity android:name=".ui.main.ScrapCafeActivity">
-        </activity>
-        <activity android:name=".ui.main.coupon.CouponActivity">
-        </activity>
-        <activity android:name=".ui.main.notice.NoticeActivity">
-        </activity>
-        <activity android:name=".ui.main.EditProfileActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-        </activity>
-        <activity android:name=".ui.mocapicks.MocaPicksDetailActivity">
-        </activity>
-        <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity">
-        </activity>
+        <activity android:name=".ui.category.CafeListActivity" />
     </application>
 
-</manifest>
+    </manifest>

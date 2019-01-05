@@ -44,9 +44,11 @@ class RankingActivity : AppCompatActivity(), View.OnClickListener {
         dataList.add(RankingData(14,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페 이름이긔", 4, "서울시 우리집"))
         dataList.add(RankingData(15,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페 이름이긔", 4, "서울시 우리집"))
 
+        ranking_back_iv.setOnClickListener { finish() }
+
         rankingViewAdapter = RankingViewAdapter(applicationContext!!, dataList)
         rankingViewAdapter.setOnItemClickListener(this)
         ranking_cafe_rv.adapter = rankingViewAdapter
-        ranking_cafe_rv.layoutManager = GridLayoutManager(applicationContext,2)
+        ranking_cafe_rv.layoutManager= GridLayoutManager(applicationContext,2)
     }
 }

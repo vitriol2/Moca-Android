@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="6dp">
+    <TextView
+        android:id="@+id/option_item_item_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3dp"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="5dp"
+        android:fontFamily="@font/nanum_eb"
+        android:background="@drawable/square_option_item"
+        android:textSize="11sp"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="1sp"
+        android:text="커피"/>
+</android.support.constraint.ConstraintLayout>

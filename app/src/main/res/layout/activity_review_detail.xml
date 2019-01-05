@@ -89,8 +89,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
-                <ImageView
-                    android:id="@+id/review_detail_pic_iv"
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/review_detail_pic_vp"
                     android:layout_width="match_parent"
                     android:layout_height="320dp"
                     android:background="@color/colorPrimary"
@@ -194,6 +194,7 @@
                     app:layout_constraintEnd_toEndOf="@id/review_detail_post_const"
                     app:layout_constraintBottom_toTopOf="@id/review_detail_post_const"/>
                 <TextView
+                    android:id="@+id/review_detail_page_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="11sp"

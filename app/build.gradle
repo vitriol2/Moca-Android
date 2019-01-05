@@ -27,7 +27,6 @@ android {
     } // INSTALL_FAILED_NO_MATCHING_ABIS 방지
 
 
-
     dependencies {
         implementation fileTree(include: ['*.jar'], dir: 'libs')
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -51,8 +50,7 @@ android {
         implementation 'com.google.android.gms:play-services-maps:16.0.0'
         implementation 'com.google.android.gms:play-services-location:16.0.0'
         implementation "com.airbnb.android:lottie:2.1.0"
-        // 다음 맵 api
-        implementation files('libs/libDaumMapAndroid.jar')
+        // image zoom
+        implementation 'com.github.chrisbanes:PhotoView:2.1.0'
     }
 }
-

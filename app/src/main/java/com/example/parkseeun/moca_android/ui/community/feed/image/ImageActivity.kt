@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.util.ImageAdapter
+import com.example.parkseeun.moca_android.util.PhotoViewAdapter
 import kotlinx.android.synthetic.main.activity_image.*
 
 class ImageActivity : AppCompatActivity() {
@@ -34,7 +35,14 @@ class ImageActivity : AppCompatActivity() {
                 image_index_tv.text = (position+1).toString()+"/10"
             }
         })
-        image_img_vp.adapter = ImageAdapter(this, arrayOf("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4"))
+        image_img_vp.adapter = PhotoViewAdapter(this, arrayOf("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4"))
+
+        // 몇 번째 페이지에서 눌렀는지 반영
+        val page = intent.getIntExtra("page", -1)
+        if(page!=-1){
+            image_index_tv.text = (page+1).toString() + "/10"
+            image_img_vp.currentItem = page
+        }
     }
     private fun getScreenWidth(): Int {
         val display = windowManager.defaultDisplay

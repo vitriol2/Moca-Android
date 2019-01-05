@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.plus.plusDetail
 
 import android.content.Context
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SnapHelper
@@ -13,22 +14,19 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.util.ImageAdapter
+import kotlinx.android.synthetic.main.activity_moca_picks_detail.*
 import com.example.parkseeun.moca_android.util.gravitySnapHelper.GravitySnapHelper
 
 
 class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayList<PlusDetailData>) : RecyclerView.Adapter<PlusDetailRecyclerViewAdapter.Holder>() {
 
     // Image RecyclerView
-    lateinit var plusDetailImageRecyclerViewAdapter: PlusDetailImageRecyclerViewAdapter
-//    var snapHelper = LinearSnapHelper()
-    lateinit var snapHelper: SnapHelper
     lateinit var linearLayoutManager:LinearLayoutManager
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 뷰 인플레이트
         val view : View = LayoutInflater.from(context).inflate(R.layout.rv_item_plus_detail, parent, false)
-
-        setImageRecyclerView(Holder(view))
 
         return Holder(view)
     }
@@ -43,7 +41,23 @@ class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayL
         holder.tv_plus_detail_item_contents.text = dataList[position].contents
 
         // ㅜ-ㅜ
+        holder.vp_mocaPlusDetail.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(p0: Int) {
 
+            }
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+
+            }
+
+            override fun onPageSelected(p0: Int) { // 이미지 넘길 떄 하는 일은 여기서,,
+                holder.progressBar_plus_detail_item.progress = p0 + 1
+            }
+        })
+        var urlList = arrayOf("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG","http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
+        holder.progressBar_plus_detail_item.max = urlList.size
+
+        holder.vp_mocaPlusDetail.adapter = ImageAdapter(context, urlList)
 
         // 클릭
         holder.relative_plus_detail_item_goToCafe.setOnClickListener {
@@ -52,62 +66,13 @@ class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayL
         }
     }
 
-    private fun setImageRecyclerView(holder: Holder) {
-        // 임시 데이터,,,
-        var dataList : ArrayList<String> = ArrayList()
-
-        dataList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
-        dataList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
-        dataList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
-        dataList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
-
-        plusDetailImageRecyclerViewAdapter = PlusDetailImageRecyclerViewAdapter(context!!, dataList)
-        holder.rv_plus_detail_item.adapter = plusDetailImageRecyclerViewAdapter
-        linearLayoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
-        holder.rv_plus_detail_item.layoutManager = linearLayoutManager
-
-        snapHelper = GravitySnapHelper(Gravity.START)
-        snapHelper.attachToRecyclerView(holder.rv_plus_detail_item)
-
-        holder.progressBar_plus_detail_item.max = dataList.size
-
-        //
-        var firstVisibleInListview = linearLayoutManager.findFirstVisibleItemPosition()
-
-//        holder.rv_plus_detail_item.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//
-//                var currentFirstVisible = linearLayoutManager.findFirstVisibleItemPosition()
-//
-//                if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
-//                    Log.v("hihi", "first : " + firstVisibleInListview)
-//                    Log.v("hihi", "current : " + currentFirstVisible)
-//
-//                    if(currentFirstVisible > firstVisibleInListview) {
-//                        Log.v("dd", "up")
-//                        holder.progressBar_plus_detail_item.progress += 1
-//                    }
-//                    else {
-//                        Log.v("dd", "down")
-//                        holder.progressBar_plus_detail_item.progress -= 1
-//                    }
-//                    firstVisibleInListview = currentFirstVisible
-////                    holder.progressBar_plus_detail_item.progress += 1
-//                }
-//            }
-//        })
-
-    }
-
     // View Holder
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val tv_plus_detail_item_location : TextView = itemView.findViewById(R.id.tv_plus_detail_item_location) as TextView
         val tv_plus_detail_item_cafeName : TextView = itemView.findViewById(R.id.tv_plus_detail_item_cafeName) as TextView
         val tv_plus_detail_item_contents : TextView = itemView.findViewById(R.id.tv_plus_detail_item_contents) as TextView
         val tv_plus_detail_item_cafeName2 : TextView = itemView.findViewById(R.id.tv_plus_detail_item_cafeName2) as TextView
-        val rv_plus_detail_item : RecyclerView = itemView.findViewById(R.id.rv_plus_detail_item) as RecyclerView
+        val vp_mocaPlusDetail : ViewPager = itemView.findViewById(R.id.vp_mocaPlusDetail) as ViewPager
         val progressBar_plus_detail_item : ProgressBar = itemView.findViewById(R.id.progressBar_plus_detail_item) as ProgressBar
         val relative_plus_detail_item_goToCafe : RelativeLayout = itemView.findViewById(R.id.relative_plus_detail_item_goToCafe) as RelativeLayout
     }

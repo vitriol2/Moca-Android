@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
@@ -76,6 +76,13 @@
         <item name="android:textSize">25sp</item>
         <item name="android:lineSpacingExtra">3sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="Extrabold20" parent="Extrabold25">
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="Extrabold15" parent="Extrabold25">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">2sp</item>
     </style>
 
     <style name="home_category_layout">
@@ -182,5 +189,22 @@
         <item name="android:textColor">@drawable/edit_profile_btn_color</item>
     </style>
 
+    <style name="detailActivityDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.3dp</item>
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:layout_marginTop">30dp</item>
+
+    </style>
+
+    <style name="detailActivityCategoryName" parent="Extrabold15">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">30dp</item>
+    </style>
+
+    <style name="tab_text_comm_sear_act" parent="Regular13">
+        <item name="android:color">@color/dark_gray</item>
+    </style>
 
 </resources>

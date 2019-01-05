@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="310dp"
+    android:paddingHorizontal="25dp"
+    android:layout_marginBottom="10dp">
+    <ImageView
+        android:id="@+id/iv_rv_act_nearby_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="centerCrop"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp">
+        <TextView
+            android:id="@+id/tv_rv_act_nearby_list_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Bold15"
+            android:text="서울리즘"
+            android:textColor="@color/white"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:layout_centerVertical="true">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/common_location_white"/>
+                <TextView
+                    android:id="@+id/tv_rv_act_nearby_list_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="서울시 강동구 명일동"
+                    style="@style/Regular11"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+            <RatingBar
+                android:id="@+id/rb_rv_act_nearby_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="6dp"
+                android:numStars="5"
+                android:rating="3"
+                android:stepSize="1"
+                android:progressDrawable="@drawable/small_rating_bar_layer"
+                style="@style/SmallRatingBar"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
