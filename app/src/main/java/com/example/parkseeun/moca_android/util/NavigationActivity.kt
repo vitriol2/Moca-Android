@@ -91,7 +91,7 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 
 
         // 멤버십 개수
-        tv_act_home_membership_num.text = "$mem_num/12"
+        tv_act_home_membership_num!!.text = "$mem_num/12"
     }
 
     override fun onBackPressed() {

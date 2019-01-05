@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/rl_frag_com_sear_all_pop_user"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="136dp"
+    android:layout_height="173dp"
+    android:background="@drawable/boarder_darkgray"
+    android:layout_marginRight="10dp">
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_rv_frag_com_sear_all_pop_user_photo"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_rv_frag_com_sear_all_pop_user_name"
+            android:layout_below="@id/iv_rv_frag_com_sear_all_pop_user_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="서울리즘"
+            style="@style/Regular11"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageButton
+            android:id="@+id/ib_rv_frag_com_sear_all_pop_user_name"
+            android:layout_width="70dp"
+            android:layout_height="24dp"
+            android:background="@drawable/community_followinglist_follow"
+            android:layout_below="@id/tv_rv_frag_com_sear_all_pop_user_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
+
+
+</RelativeLayout>
