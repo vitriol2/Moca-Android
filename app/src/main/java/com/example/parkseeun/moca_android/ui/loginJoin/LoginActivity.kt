@@ -1,18 +1,28 @@
 package com.example.parkseeun.moca_android.ui.loginJoin
 
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
+import android.os.Build
+
+
 
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+            window.statusBarColor = Color.parseColor("#e1b2a3")
+        }
+
 
         // 회원가입 > 버튼
         btn_goToJoin.setOnClickListener {
