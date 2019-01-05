@@ -80,7 +80,12 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         val snapHelper= LinearSnapHelper()
         snapHelper.attachToRecyclerView(rv_act_home_picks)
 
+        // 수민 추가 (홈에서 검색 화면으로)
+        home_search_iv.setOnClickListener {
+            val intent : Intent = Intent(this@HomeActivity2, SearchActivity::class.java)
 
+            startActivity(intent)
+        }
 
 
 //        val toggle = ActionBarDrawerToggle(
