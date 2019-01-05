@@ -49,6 +49,6 @@ class RankingActivity : AppCompatActivity(), View.OnClickListener {
         rankingViewAdapter = RankingViewAdapter(applicationContext!!, dataList)
         rankingViewAdapter.setOnItemClickListener(this)
         ranking_cafe_rv.adapter = rankingViewAdapter
-        ranking_cafe_rv.layoutManager = GridLayoutManager(applicationContext,2)
+        ranking_cafe_rv.layoutManager= GridLayoutManager(applicationContext,2)
     }
 }
