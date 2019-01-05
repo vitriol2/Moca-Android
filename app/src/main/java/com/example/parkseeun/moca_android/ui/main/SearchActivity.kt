@@ -78,16 +78,21 @@ class SearchActivity : AppCompatActivity() {
         tab3 = tabHost!!.newTabSpec("3").setContent(R.id.content3)
             .setIndicator("위치")
 
-        for (i in 0 until tabHost!!.tabWidget.childCount) {
-            val tv = tabHost!!.tabWidget.getChildAt(i).findViewById(android.R.id.title) as TextView
-            tv.setTextColor(Color.parseColor("#707070"))
-        }
-
 
 
         tabHost!!.addTab(tab1)
         tabHost!!.addTab(tab2)
         tabHost!!.addTab(tab3)
+
+
+        for (i in 0 until tabHost!!.tabWidget.childCount) {
+            val tv = tabHost!!.tabWidget.getChildAt(i).findViewById(android.R.id.title) as TextView
+            if (i == 0) {
+                tv.setTextColor(Color.parseColor("#e1b2a3"))
+            }
+
+            tv.setTextColor(Color.parseColor("#e1b2a3"))
+        }
     }
 
     // tab 눌러질 때 처리
