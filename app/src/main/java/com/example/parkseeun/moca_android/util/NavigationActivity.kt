@@ -39,6 +39,7 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 
     fun setHeader(view_navi : NavigationView) {
 
+        val intent : Intent
         makeData()
 
         headerView = view_navi.getHeaderView(0)
@@ -48,29 +49,38 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
             startActivity<NoticeActivity>()
         }
 
-        val profile : ImageView = headerView.findViewById(R.id.iv_mypage_tab_profile) as ImageView
-        profile.setOnClickListener {
+        val setting : ImageView = headerView.findViewById(R.id.iv_mypage_tab_setting) as ImageView
+        setting.setOnClickListener {
+
             startActivity<EditProfileActivity>()
         }
 
-
         val home : ImageView = headerView.findViewById(R.id.iv_mypage_tab_home) as ImageView
         home.setOnClickListener {
-            startActivity<HomeActivity2>()
+
+            val intent = Intent(this, HomeActivity2::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
         val category : ImageView = headerView.findViewById(R.id.iv_mypage_tab_category) as ImageView
         category.setOnClickListener {
-            startActivity<CategoryActivity>()
+            val intent = Intent(this, CategoryActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
 
         val location : ImageView = headerView.findViewById(R.id.iv_mypage_tab_location) as ImageView
         location.setOnClickListener {
-            startActivity<LocationSearchActivity>()
+            val intent = Intent(this, LocationSearchActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
 
         val community : ImageView = headerView.findViewById(R.id.iv_mypage_tab_community) as ImageView
         community.setOnClickListener {
-            startActivity<FeedActivity>()
+            val intent = Intent(this, FeedActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
 
 
