@@ -67,8 +67,12 @@
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:background="#ffffff"
-                    android:tabStripEnabled="true"/>
+                    android:background="#ffffff"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#707070"/>
 
             </LinearLayout>
 
@@ -77,6 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
+
 
                 <!-- 첫 번째 탭(전체) -->
                 <LinearLayout
