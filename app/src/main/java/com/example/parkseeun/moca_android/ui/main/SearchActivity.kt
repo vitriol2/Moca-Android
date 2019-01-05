@@ -13,6 +13,13 @@ import android.widget.*
 import java.security.Key
 import android.R.attr.host
 import android.widget.TextView
+import android.support.v4.view.MarginLayoutParamsCompat.setMarginEnd
+import android.support.v4.view.MarginLayoutParamsCompat.setMarginStart
+import android.os.Build
+import android.view.ViewGroup
+import android.support.design.widget.TabLayout
+
+
 
 
 
@@ -67,7 +74,7 @@ class SearchActivity : AppCompatActivity() {
         tabWidget = TabWidget(this)
         frameLayout = FrameLayout(this)
 
-        tabHost = findViewById(R.id.tabHost) as TabHost
+        tabHost = findViewById(R.id.tabHost)
 
         tabHost!!.setup()
 
@@ -93,6 +100,8 @@ class SearchActivity : AppCompatActivity() {
 
             tv.setTextColor(Color.parseColor("#e1b2a3"))
         }
+
+
     }
 
     // tab 눌러질 때 처리
