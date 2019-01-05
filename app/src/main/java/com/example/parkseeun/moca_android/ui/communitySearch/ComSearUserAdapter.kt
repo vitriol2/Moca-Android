@@ -2,15 +2,20 @@ package com.example.parkseeun.moca_android.ui.communitySearch
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.community.feed.other_user.OtherUserActivity
 import de.hdodenhof.circleimageview.CircleImageView
+import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 
 class ComSearUserAdapter(val context: Context, val dataList: ArrayList<ComSearUserData>) :
     RecyclerView.Adapter<ComSearUserAdapter.Holder>() {
@@ -28,6 +33,10 @@ class ComSearUserAdapter(val context: Context, val dataList: ArrayList<ComSearUs
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
+        holder.item.setOnClickListener {
+            context!!.startActivity<OtherUserActivity>()
+        }
+
         Glide.with(context).load(dataList[position].photo).into(holder.photo) // 이게 맞을깡
 
         holder.name.text = dataList[position].name
@@ -51,6 +60,7 @@ class ComSearUserAdapter(val context: Context, val dataList: ArrayList<ComSearUs
 
     // View Holder
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val item : RelativeLayout = itemView.findViewById(R.id.rl_rv_frag_comm_sear_user) as RelativeLayout
         val photo: CircleImageView = itemView.findViewById(R.id.iv_comm_search_profile) as CircleImageView
         val name: TextView = itemView.findViewById(R.id.tv_rv_act_comm_sear_user_name) as TextView
         val state: TextView = itemView.findViewById(R.id.tv_act_comm_sear_user_state) as TextView

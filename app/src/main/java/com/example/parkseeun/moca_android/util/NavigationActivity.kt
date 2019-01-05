@@ -26,6 +26,7 @@ import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.mypage_tab.*
+import kotlinx.android.synthetic.main.mypage_tab.view.*
 import org.jetbrains.anko.startActivity
 
 abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
@@ -91,7 +92,9 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 
 
         // 멤버십 개수
-        tv_act_home_membership_num!!.text = "$mem_num/12"
+        headerView.iv_act_home_membership.setOnClickListener {
+
+        }
     }
 
     override fun onBackPressed() {

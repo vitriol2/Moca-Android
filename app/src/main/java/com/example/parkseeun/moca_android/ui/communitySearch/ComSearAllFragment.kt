@@ -36,7 +36,10 @@ class ComSearAllFragment : Fragment() {
         makeList()
         setRecycler()
 
+
     }
+
+
 
     private fun setScreenConvert() {
         activity!!.et_act_comm_sear.addTextChangedListener(object : TextWatcher{
@@ -82,7 +85,7 @@ class ComSearAllFragment : Fragment() {
         rv_frag_com_sear_all_reviewtop.adapter = ComSearAllReviewTopAdapter(activity!!, reviewTopList)
 
         rv_frag_comm_sear_all_popularuser.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        rv_frag_comm_sear_all_popularuser.adapter
+        rv_frag_comm_sear_all_popularuser.adapter = ComSearAllPopUserAdapter(activity!!, popularList)
 
     }
 

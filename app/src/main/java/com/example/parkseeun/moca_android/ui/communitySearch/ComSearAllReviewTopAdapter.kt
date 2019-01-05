@@ -30,7 +30,7 @@ class ComSearAllReviewTopAdapter(val context : Context, val dataList : ArrayList
         holder.item.setOnClickListener {
             context!!.startActivity<DetailActivity>()
         }
-        Glide.with(context).load(dataList[position].cafeImage).into(holder.image!!)
+        Glide.with(context).load(dataList[position].cafeImage!!).into(holder.image!!)
         holder.cafename!!.text = dataList[position].cafeName
 
         holder.reviewNum!!.text = dataList[position].reviewNum.toString()
@@ -40,7 +40,7 @@ class ComSearAllReviewTopAdapter(val context : Context, val dataList : ArrayList
     // View Holder
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val item : RelativeLayout = itemView.findViewById(R.id.rl_frag_com_sear_all_reviewtop) as RelativeLayout
-        val image : ImageView? = itemView.findViewById(R.id.iv_rv_act_review_all_recent_image) as ImageView?
+        val image : ImageView? = itemView.findViewById(R.id.iv_rv_frag_com_sear_all_reviewtop) as ImageView?
         val cafename : TextView = itemView.findViewById(R.id.tv_rv_frag_com_sear_all_reviewtop) as TextView
         val reviewNum : TextView = itemView.findViewById(R.id.tv_rv_frag_com_sear_all_reviewtop_reviewnum) as TextView
     }
