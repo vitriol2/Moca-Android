@@ -54,7 +54,7 @@ class CafeListActivity : AppCompatActivity() {
     }
 
     private fun getRegionId(selected: Int):String{
-        val regionData = arrayOf("강서구", "구로구", "양천구", "금천구", "영등포구", "마포구", "은평구", "서대문구", "관악구", "동작구", "종로구", "용산구", "중구구", "서초구", "강북구", "성북구", "도봉구", "성동구", "동대문구", "강남구", "노원구", "광진구", "중랑구", "송파구", "강동")
+        val regionData = arrayOf("강서구", "구로구", "양천구", "금천구", "영등포구", "마포구", "은평구", "서대문구", "관악구", "동작구", "종로구", "용산구", "중구구", "서초구", "강북구", "성북구", "도봉구", "성동구", "동대문구", "강남구", "노원구", "광진구", "중랑구", "송파구", "강동구")
         if (selected in 0..24)
             return regionData[selected]
         return "[잘못된 접근]"

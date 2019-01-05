@@ -25,6 +25,7 @@
             android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA" />
 
         <activity android:name=".ui.community.review_write.WriteReviewActivity" />
+        <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
         <activity android:name=".ui.community.follow.FollowActivity" />
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity" />
         <activity android:name=".ui.main.HomeActivity2">
