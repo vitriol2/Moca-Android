@@ -8,9 +8,8 @@ import kotlinx.android.synthetic.main.activity_category.*
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.GravityCompat
 import android.widget.TextView
-import com.example.parkseeun.moca_android.ui.category.recyclerview.ButtonData
-import com.example.parkseeun.moca_android.ui.category.recyclerview.ButtonViewAdapter
-import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
+import com.example.parkseeun.moca_android.ui.category.recyclerview.category.ButtonData
+import com.example.parkseeun.moca_android.ui.category.recyclerview.category.ButtonViewAdapter
 import com.example.parkseeun.moca_android.util.NavigationActivity
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast

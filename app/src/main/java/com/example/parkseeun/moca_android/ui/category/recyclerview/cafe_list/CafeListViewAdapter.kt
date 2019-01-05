@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.category.recyclerview
+package com.example.parkseeun.moca_android.ui.category.recyclerview.cafe_list
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
