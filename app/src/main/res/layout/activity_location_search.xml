@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent" android:layout_height="match_parent">
@@ -22,28 +23,33 @@
                   android:layout_marginLeft="40dp"
                   style="@style/Extrabold25"
                   android:textColor="#e67854"/>
-        <RelativeLayout
+
+        <android.support.constraint.ConstraintLayout
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp">
 
             <ImageView
                     android:id="@+id/img_common_search_field"
-                    android:layout_marginLeft="40dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/common_search_field"/>
+                    android:src="@drawable/common_search_field"
+                app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="centerCrop"/>
 
             <EditText
                     android:id="@+id/et_addreview_search_address"
+                app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="37dp"
                     android:background="@null"
                     style="@style/Regular13"
                     android:textColorHint="@color/dark_gray"
-                    android:layout_marginLeft="76dp"
                     android:layout_width="wrap_content"
                     android:layout_height="37dp"
                     android:hint="위치를 검색하세요"/>
+
+        </android.support.constraint.ConstraintLayout>
             <android.support.v7.widget.RecyclerView
                     android:layout_marginLeft="51dp"
                     android:layout_marginTop="19dp"
@@ -52,6 +58,6 @@
                     android:layout_height="match_parent"
                     android:id="@+id/rv_act_location_search"
             ></android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
+
     </LinearLayout>
 </RelativeLayout>
