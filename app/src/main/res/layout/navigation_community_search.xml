@@ -14,6 +14,12 @@
             android:text="전체"
             android:textColor="@color/point_pink"
             android:layout_centerInParent="true"/>
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_centerInParent="true"
+            />
 
     </RelativeLayout>
 

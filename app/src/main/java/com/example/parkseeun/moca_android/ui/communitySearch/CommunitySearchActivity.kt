@@ -1,10 +1,18 @@
 package com.example.parkseeun.moca_android.ui.communitySearch
 
+import android.content.Context
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.main.SearchAdapater
@@ -18,7 +26,7 @@ class CommunitySearchActivity : AppCompatActivity() {
     private val cafeData = ArrayList<CommunitySearchAllData>()
     private val userData = ArrayList<CommunitySearchAllData>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /* override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_search)
 
@@ -27,12 +35,6 @@ class CommunitySearchActivity : AppCompatActivity() {
     }
 
     private fun setNavigation() {
-
-
-
-        tl_act_comm_sear.addTab(tl_act_comm_sear.newTab().setText("전체"))
-        tl_act_comm_sear.addTab(tl_act_comm_sear.newTab().setText("카페명"))
-        tl_act_comm_sear.addTab(tl_act_comm_sear.newTab().setText("사용자"))
 
         vp_act_comm_sear.adapter = CommunitySearchPagerAdapter(supportFragmentManager, 3)
 
@@ -46,5 +48,65 @@ class CommunitySearchActivity : AppCompatActivity() {
 
 
     }
+    */
+
+    private var tabLayout: TabLayout? = null
+    var viewPager: ViewPager? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_community_search)
+
+        viewPager = findViewById(R.id.vp_act_comm_sear) as ViewPager
+        setupViewPager(viewPager!!)
+
+        tabLayout = findViewById(R.id.tl_act_comm_sear) as TabLayout
+        tabLayout!!.setupWithViewPager(viewPager)
+
+        val headerView = (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+            .inflate(R.layout.navigation_community_search2, null, false)
+
+        val linearLayoutOne = headerView.findViewById(R.id.ll) as LinearLayout
+        val linearLayout2 = headerView.findViewById(R.id.ll2) as LinearLayout
+        val linearLayout3 = headerView.findViewById(R.id.ll3) as LinearLayout
+
+        tabLayout!!.getTabAt(0)!!.setCustomView(linearLayoutOne)
+        tabLayout!!.getTabAt(1)!!.setCustomView(linearLayout2)
+        tabLayout!!.getTabAt(2)!!.setCustomView(linearLayout3)
+
+    }
+
+
+
+    private fun setupViewPager(viewPager: ViewPager) {
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(ComSearAllFragment(), "")
+        adapter.addFragment(ComSearCafeFragment(), "")
+        adapter.addFragment(ComSearUserFragment(), "")
+        viewPager.adapter = adapter
+    }
+
+    internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
+        private val mFragmentList = ArrayList<Fragment>()
+        private val mFragmentTitleList = ArrayList<String>()
+
+        override fun getItem(position: Int): Fragment {
+            return mFragmentList[position]
+        }
+
+        override fun getCount(): Int {
+            return mFragmentList.size
+        }
+
+        fun addFragment(fragment: Fragment, title: String) {
+            mFragmentList.add(fragment)
+            mFragmentTitleList.add(title)
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return mFragmentTitleList[position]
+        }
+    }
 
 }
+

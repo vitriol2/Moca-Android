@@ -10,6 +10,7 @@
         android:layout_height="46dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
+        android:scaleType="centerCrop"
         android:src="@color/colorPrimary" />
 
     <LinearLayout
@@ -21,7 +22,7 @@
         >
 
         <TextView
-            android:id="@+id/tv_rv_act_comm_sear_all_name"
+            android:id="@+id/tv_rv_act_comm_sear_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -30,7 +31,7 @@
             android:text="정화니"
             android:textColor="#101010" />
         <TextView
-            android:id="@+id/tv_act_comm_sear_all_state"
+            android:id="@+id/tv_act_comm_sear_user_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -40,7 +41,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/ib_act_comm_sear_all_follow"
+        android:id="@+id/ib_act_comm_sear_user_follow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

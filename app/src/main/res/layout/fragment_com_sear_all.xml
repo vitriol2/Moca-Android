@@ -3,7 +3,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rl_frag_com_sear_all"
+        android:id="@+id/rv_frag_com_sear_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

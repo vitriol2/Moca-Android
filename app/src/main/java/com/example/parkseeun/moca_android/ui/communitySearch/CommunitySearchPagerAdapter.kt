@@ -14,12 +14,4 @@ class CommunitySearchPagerAdapter(fm:FragmentManager, val FragmentCount : Int) :
 
     override fun getCount(): Int = FragmentCount
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        when(position) {
-            0 -> return "전체"
-            1 -> return "카페명"
-            2 -> return "사용자"
-            else -> return null
-        }
-    }
 }

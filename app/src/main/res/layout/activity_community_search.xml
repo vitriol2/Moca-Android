@@ -50,20 +50,7 @@
         app:tabIndicatorColor="@color/point_pink"
         app:tabTextAppearance="@style/tab_text_comm_sear_act"
         app:tabTextColor="@color/dark_gray"
-        >
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="전체" />
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="카페명" />
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="사용자"
-            />
+        app:tabSelectedTextColor="@color/point_pink">
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager

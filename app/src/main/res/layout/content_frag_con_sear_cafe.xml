@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,7 +29,7 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_frag_com_sear_cafe_popular"
+                    android:id="@+id/rv_act_review_all_popular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -55,13 +53,10 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_frag_com_sear_cafe_recent"
+                    android:id="@+id/rv_act_review_all_recent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-
-</RelativeLayout>
