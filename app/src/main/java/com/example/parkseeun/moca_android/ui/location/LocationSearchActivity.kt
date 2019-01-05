@@ -18,6 +18,14 @@ class LocationSearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_search)
         setRecyclerView()
+
+        setOnBtnClickListeners()
+    }
+
+    private fun setOnBtnClickListeners() {
+        img_location_common_backbtn_black.setOnClickListener {
+            finish()
+        }
     }
 
     fun setRecyclerView() {

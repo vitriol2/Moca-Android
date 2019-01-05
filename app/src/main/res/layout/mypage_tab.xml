@@ -66,6 +66,7 @@
                 android:gravity="center">
 
                 <ImageView
+                    android:id="@+id/iv_mypage_tab_setting"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/mypage_setting" />
@@ -186,9 +187,23 @@
                         android:id="@+id/iv_mypage_tab_scrapcafe_more"
                         style="@style/mypage_tab_menu_zzim_image"
                         android:src="@drawable/ic_launcher_background" />
+
                     <RelativeLayout
                         android:layout_width="42dp"
-                        android:layout_height="42dp"></RelativeLayout>
+                        android:layout_height="42dp"
+                        android:background="@drawable/mypage_tab_scrap_more_bg">
+
+                        <TextView
+                            style="@style/Bold11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="+5
+더보기"
+                            android:textColor="#ffffff"
+                            android:textSize="9sp" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
             </LinearLayout>
@@ -231,27 +246,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <TextView
-                android:id="@+id/tv_act_home_membership"
-                style="@style/mypage_tab_menu_title"
-                android:text="멤버십" />
-
-            <ImageView
-                android:id="@+id/iv_act_home_membership"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="9dp"
-                android:layout_marginRight="9dp"
-                android:src="@drawable/mypage_arrow_right" />
+                android:id="@+id/iv_act_home_membership">
+
+                <TextView
+                    android:id="@+id/tv_act_home_membership"
+                    style="@style/mypage_tab_menu_title"
+                    android:text="멤버십"/>
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="9dp"
+                    android:src="@drawable/mypage_arrow_right" />
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_act_home_membership"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_act_home_membership"
-                android:layout_marginTop="15dp"></android.support.v7.widget.RecyclerView>
+                android:layout_below="@id/iv_act_home_membership"
+                android:layout_marginTop="12dp"></android.support.v7.widget.RecyclerView>
 
 
         </RelativeLayout>
