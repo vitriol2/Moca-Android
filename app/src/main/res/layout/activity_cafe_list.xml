@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".ui.category.CafeListActivity">
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cafelist_actionbar_const"
