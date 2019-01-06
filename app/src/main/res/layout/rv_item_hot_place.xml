@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/relative_rv_item_hot_place"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="278dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_hot_place"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/civ_hot_place"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp">
+
+            <TextView
+                android:id="@+id/tv_hot_place_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C27"
+                android:textColor="#101010"
+                android:textSize="13sp"
+                android:fontFamily="@font/nanum_b"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/hotplace_footprint"/>
+
+                <TextView
+                    android:id="@+id/tv_hot_place_explain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="망원역에서 도보 3분"
+                    android:textColor="#707070"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/nanum_r"
+                    android:layout_marginLeft="2dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RatingBar
+            android:id="@+id/rating_rv_item_hot_place"
+            style="@style/SmallRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_centerVertical="true"
+            android:progressDrawable="@drawable/small_rating_bar_layer"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="16dp"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_hot_place_img"
+        android:layout_below="@id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="22dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#bfbfbf"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"/>
+
+</RelativeLayout>

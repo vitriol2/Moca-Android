@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.main
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 
 class BeforeSearchPopularCafeAdapter(val context : Context, val dataList : ArrayList<PopularCafeData>) : RecyclerView.Adapter<BeforeSearchPopularCafeAdapter.Holder>() {
 
@@ -30,9 +32,9 @@ class BeforeSearchPopularCafeAdapter(val context : Context, val dataList : Array
 
         // 클릭
         holder.rv_item_search_popular_cafe_relative.setOnClickListener {
-//            val intent : Intent = Intent(context, PlusDetailActivity::class.java)
-//
-//            context.startActivity(intent)
+            val intent = Intent(context, DetailActivity::class.java)
+
+            context.startActivity(intent)
         }
 
         // 스크랩 버튼

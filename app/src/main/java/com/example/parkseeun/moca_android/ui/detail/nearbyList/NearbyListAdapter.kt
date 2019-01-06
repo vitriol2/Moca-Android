@@ -29,7 +29,7 @@ class NearbyListAdapter(val context : Context, val dataList : ArrayList<NearbyLi
         val width = getScreenWidth()
         holder.pic.layoutParams.width = ((width-dpToPx(40.toFloat()))).toInt()
         holder.pic.layoutParams.height = holder.pic.layoutParams.width-20
-
+        holder.pic.clipToOutline = true
         Glide.with(context).load(dataList[position].photo).into(holder.pic)
         holder.cafename.text = dataList[position].cafename
         holder.location.text = dataList[position].location

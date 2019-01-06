@@ -7,12 +7,15 @@
     android:orientation="vertical"
     tools:context=".ui.loginJoin.LoginActivity"
     >
-
-    <ImageView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="284dp"
-        android:src="@drawable/login_bg"
-        android:scaleType="fitXY"/>
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/login_bg"
+            app:layout_constraintDimensionRatio="360:284"/>
+    </android.support.constraint.ConstraintLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,9 +38,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="moca"
-            android:textColor="#101010"
             android:textSize="13sp"
+            android:textColor="#101010"
+            android:fontFamily="@font/nanum_b"
             android:background="#00000000"
+            android:maxLines="1"
+            android:singleLine="true"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/iv_id_yellowCircle"/>
 
@@ -78,10 +84,12 @@
             android:id="@+id/et_login_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="moca"
-            android:textColor="#101010"
-            android:textSize="13sp"
+            android:hint="***********"
+            android:inputType="textPassword"
             android:background="#00000000"
+            android:textSize="13sp"
+            android:textColor="#101010"
+            android:maxLines="1"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/iv_pw_yellowCircle"/>
 
@@ -110,6 +118,7 @@
         android:layout_marginRight="48dp"
         android:layout_marginTop="55dp"
         android:text="로그인"
+        style="?android:attr/borderlessButtonStyle"
         android:textColor="#ffffff"
         android:textSize="13sp"
         android:fontFamily="@font/nanum_b"
