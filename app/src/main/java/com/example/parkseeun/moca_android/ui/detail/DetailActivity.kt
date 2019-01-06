@@ -51,6 +51,10 @@ class DetailActivity : AppCompatActivity() {
         ll_act_detail_nearbyList.setOnClickListener {
             startActivity<NearbyListActivity>()
         }
+
+        ib_detail_back.setOnClickListener {
+            finish()
+        }
     }
 
     private fun makeList() {

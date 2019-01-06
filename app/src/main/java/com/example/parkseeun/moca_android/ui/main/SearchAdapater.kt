@@ -35,7 +35,6 @@ class SearchAdapater(val context : Context, val dataList : ArrayList<SearchResul
             val intent : Intent = Intent(context, DetailActivity::class.java)
 
             context.startActivity(intent)
-
         }
     }
 
