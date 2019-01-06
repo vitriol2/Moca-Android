@@ -308,7 +308,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
         mMap!!.setOnMapClickListener { Log.d(TAG, "onMapClick :") }
         mMap!!.setOnMarkerClickListener {
-             var idx: Int =-1
+            var idx: Int =-1
             for (i in 0 until markerlist.size) {
                 markerlist[i].tag = markerlist[i] == it
                 if(markerlist[i].tag==true){
@@ -534,7 +534,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         val builder = AlertDialog.Builder(this@LocationMainActivity)
         builder.setTitle("위치 서비스 비활성화")
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다\n" + "위치 설정을 허용해 주세요")
-        builder.setCancelable(true)
+        builder.setCancelable(false)
         builder.setPositiveButton("설정") { dialog, id ->
             val callGPSSettingIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS) //gps설정으로 감
             startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE)

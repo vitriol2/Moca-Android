@@ -1,223 +1,277 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="289dp"
-                android:layout_height="match_parent">
+    android:layout_width="289dp"
+    android:layout_height="match_parent">
 
 
     <LinearLayout
-            android:id="@+id/ll_mypage_tab_above"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/mypage_tab_bg_top"
-            android:gravity="bottom"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingBottom="10dp">
+        android:id="@+id/ll_mypage_tab_above"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mypage_tab_bg_top"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_mypage_tab_profile"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/ic_launcher_background"/>
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_launcher_background" />
 
             <ImageView
-                    android:id="@+id/iv_mypage_tab_barcode"
-                    android:layout_width="43dp"
-                    android:layout_height="14dp"
-                    android:layout_marginLeft="103dp"
-                    android:layout_marginTop="11dp"/>
+                android:id="@+id/iv_mypage_tab_barcode"
+                android:layout_width="43dp"
+                android:layout_height="14dp"
+                android:layout_marginLeft="103dp"
+                android:layout_marginTop="11dp" />
 
             <RelativeLayout
-                    android:id="@+id/iv_mypage_tab_notice"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginTop="6dp"
-                    android:gravity="center">
+                android:id="@+id/iv_mypage_tab_notice"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="6dp"
+                android:gravity="center">
 
                 <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_launcher_background"/>
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/mypage_alarm" />
+
+                <ImageView
+                    android:id="@+id/iv_mypage_tab_alarm_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="7dp"
+                    android:src="@drawable/mypage_alram_circle" />
             </RelativeLayout>
 
             <RelativeLayout
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginRight="6dp"
-                    android:layout_marginTop="6dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="6dp"
 
-                    android:gravity="center">
+                android:gravity="center">
 
                 <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_launcher_background"/>
+                    android:id="@+id/iv_mypage_tab_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/mypage_setting" />
             </RelativeLayout>
 
 
         </LinearLayout>
 
         <TextView
-                style="@style/home_category_title"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="0dp"
-                android:text="정화니"/>
+            style="@style/home_category_title"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:text="정화니" />
 
         <TextView
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/nanum_l"
-                android:lineSpacingExtra="4dp"
-                android:text="상태메시지는 여기에 작성되는데 너무 길면 어떻게 바뀔까용 요렇게!"
-                android:textSize="7sp"/>
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/nanum_l"
+            android:lineSpacingExtra="4dp"
+            android:text="상태메시지는 여기에 작성되는데 너무 길면 어떻게 바뀔까용 요렇게!"
+            android:textSize="7sp" />
 
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/ll_mypage_tab_above"
-            android:background="@drawable/mypage_tab_bg_below"
-            android:orientation="vertical"
-            android:paddingLeft="20dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_mypage_tab_above"
+        android:background="@drawable/mypage_tab_bg_below"
+        android:orientation="vertical"
+        android:paddingLeft="20dp">
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="13dp"
-                    android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="13dp"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/iv_mypage_tab_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/mypage_home"
-                    android:layout_marginRight="27dp"/>
+                    android:layout_marginRight="27dp"
+                    android:src="@drawable/mypage_home" />
+
                 <ImageView
                     android:id="@+id/iv_mypage_tab_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/mypage_category"
-                    android:layout_marginRight="27dp"/>
+                    android:layout_marginRight="27dp"
+                    android:src="@drawable/mypage_category" />
+
                 <ImageView
                     android:id="@+id/iv_mypage_tab_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/mypage_location"
-                    android:layout_marginRight="27dp"/>
+                    android:layout_marginRight="27dp"
+                    android:src="@drawable/mypage_location" />
+
                 <ImageView
                     android:id="@+id/iv_mypage_tab_community"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/mypage_community"
-                    android:layout_marginRight="27dp"/>
+                    android:layout_marginRight="27dp"
+                    android:src="@drawable/mypage_community" />
 
             </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"
-                android:background="@color/light_gray"></RelativeLayout>
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/light_gray"></RelativeLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:orientation="vertical">
+
             <TextView
-                    style="@style/mypage_tab_menu_title"
-                    android:text="찜한 카페"/>
+                style="@style/mypage_tab_menu_title"
+                android:text="찜한 카페" />
+
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="17dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    style="@style/mypage_tab_menu_zzim_image"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="17dp">
-                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_mypage_tab_scrapcafe_more"
                         style="@style/mypage_tab_menu_zzim_image"
-                        android:src="@drawable/ic_launcher_background"/>
-                <de.hdodenhof.circleimageview.CircleImageView
-                        style="@style/mypage_tab_menu_zzim_image"
-                        android:src="@drawable/ic_launcher_background"/>
-                <de.hdodenhof.circleimageview.CircleImageView
-                        style="@style/mypage_tab_menu_zzim_image"
-                        android:src="@drawable/ic_launcher_background"/>
-                <de.hdodenhof.circleimageview.CircleImageView
-                        style="@style/mypage_tab_menu_zzim_image"
-                        android:src="@drawable/ic_launcher_background"/>
-                <de.hdodenhof.circleimageview.CircleImageView
-                        style="@style/mypage_tab_menu_zzim_image"
-                        android:src="@drawable/ic_launcher_background"
-                android:id="@+id/iv_mypage_tab_scrapcafe_more"/>
+                        android:src="@drawable/ic_launcher_background" />
+
+                    <RelativeLayout
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/mypage_tab_scrap_more_bg">
+
+                        <TextView
+                            style="@style/Bold11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="+5
+더보기"
+                            android:textColor="#ffffff"
+                            android:textSize="9sp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
             </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"
-                android:background="@color/light_gray"></RelativeLayout>
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/light_gray"></RelativeLayout>
 
         <LinearLayout
-                android:id="@+id/ll_mypage_tab_coupon"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:orientation="horizontal">
+            android:id="@+id/ll_mypage_tab_coupon"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal">
+
             <TextView
-                    style="@style/mypage_tab_menu_title"
-                    android:text="음료 쿠폰"
-            />
+                style="@style/mypage_tab_menu_title"
+                android:text="음료 쿠폰" />
+
             <TextView
-                    style="@style/mypage_tab_menu_num"
-                    android:layout_marginLeft="186dp"
-                    android:text="3"/>
+                style="@style/mypage_tab_menu_num"
+                android:layout_marginLeft="186dp"
+                android:text="3" />
+
             <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="9dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/mypage_arrow_right"/>
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="9dp"
+                android:src="@drawable/mypage_arrow_right" />
         </LinearLayout>
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"
-                android:background="@color/light_gray"></RelativeLayout>
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/light_gray"></RelativeLayout>
 
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_act_home_membership">
+
+                <TextView
                     android:id="@+id/tv_act_home_membership"
                     style="@style/mypage_tab_menu_title"
-                    android:text="멤버십"
-            />
-            <TextView
-                    android:id="@+id/tv_act_home_membership_num"
-                    style="@style/mypage_tab_menu_num"
-                    android:text="0/12"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-            />
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_act_home_membership"
-                    android:layout_width="match_parent"
+                    android:text="멤버십"/>
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_below="@id/tv_act_home_membership"
-            ></android.support.v7.widget.RecyclerView>
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="9dp"
+                    android:src="@drawable/mypage_arrow_right" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_act_home_membership"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_act_home_membership"
+                android:layout_marginTop="12dp"></android.support.v7.widget.RecyclerView>
 
 
         </RelativeLayout>

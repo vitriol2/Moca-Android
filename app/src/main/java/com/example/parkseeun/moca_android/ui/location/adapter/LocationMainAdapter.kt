@@ -48,26 +48,6 @@ class LocationMainAdapter(
         } else {
             holder.rl_dialog_location_main.setBackgroundResource(R.drawable.boarder_pointpink)
         }
-
-//
-//        holder.rl_dialog_location_main.setOnClickListener {
-//            if (dataList[position].selected == false) {
-//                for (i in dataList) {
-//                    i.selected = false
-//                }
-//                notifyDataSetChanged()
-//                markerItem.get(position).setmarker(true)
-//                dataList[position].selected = true
-//            } else if (dataList[position].selected == true) {
-//                for (i in dataList) {
-//                    i.selected = false
-//                }
-//                notifyDataSetChanged()
-//                val dialog: LocationMainDialog = LocationMainDialog(context, dataList[position],markerItem)
-//                Log.v("플래그 (어댑터)", "" + dataList[position].selected)
-//                dialog.show()
-//            }
-//        }
     }
 
     // View Holder
