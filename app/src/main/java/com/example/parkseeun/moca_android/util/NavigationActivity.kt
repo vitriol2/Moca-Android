@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -23,6 +24,7 @@ import com.example.parkseeun.moca_android.ui.main.HomeActivity2
 import com.example.parkseeun.moca_android.ui.main.MypageTabAdapter
 import com.example.parkseeun.moca_android.ui.main.notice.NoticeActivity
 import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
+import com.example.parkseeun.moca_android.ui.mypage.coupon.HistoryActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.mypage_tab.*
@@ -105,6 +107,13 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 //        headerView.tv_act_home_membership_num!!.text = "$mem_num/12"
         headerView.iv_act_home_membership.setOnClickListener {
 
+        }
+
+        val iv_go_to_membership_history : ImageView = headerView.findViewById(R.id.iv_go_to_membership_history)
+        iv_go_to_membership_history.setOnClickListener {
+            val intent = Intent(this@NavigationActivity, HistoryActivity::class.java)
+
+            startActivity(intent)
         }
     }
 

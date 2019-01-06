@@ -31,7 +31,7 @@ class BeforeSearchRecommendPlaceAdapter(val context : Context, val dataList : Ar
 
         // 클릭
         holder.rv_item_search_recommend_place_relative.setOnClickListener {
-            val intent = Intent(context, PlusDetailActivity::class.java) // 
+            val intent = Intent(context, HotPlaceActivity::class.java) //
 
             context.startActivity(intent)
         }

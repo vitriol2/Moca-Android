@@ -28,7 +28,15 @@
         <activity android:name=".ui.community.review_write.WriteReviewActivity" />
         <activity android:name=".ui.community.follow.FollowActivity" />
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity" />
-        <activity android:name=".ui.main.HomeActivity2"></activity>
+        <activity android:name=".ui.main.HomeActivity2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -49,8 +57,10 @@
         <activity android:name=".ui.community.feed.image.ImageActivity" />
         <activity android:name=".ui.community.review_detail.ReviewDetailActivity" />
         <activity android:name=".ui.ranking.RankingActivity" />
-        <activity android:name=".ui.location.LocationMainActivity" />
         <activity android:name=".ui.category.CategoryActivity" />
+        <activity android:name=".ui.location.LocationMainActivity" >
+
+        </activity>
         <activity android:name=".ui.mocapicks.MocaPicksListActivity" />
         <activity android:name=".ui.location.LocationSearchActivity" />
         <activity android:name=".ui.main.SearchActivity"></activity>
@@ -64,11 +74,6 @@
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity" />
         <activity android:name=".ui.loginJoin.JoinActivity" />
         <activity android:name=".ui.loginJoin.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.category.CafeListActivity" />
         <activity android:name=".ui.detail.DetailActivity"></activity>
@@ -77,6 +82,9 @@
         <activity android:name=".ui.main.HotPlaceActivity">
 
         </activity>
+        <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
+        <activity android:name=".ui.detail.detailReviewAll.ReviewAllActivity"/>
+        <activity android:name=".ui.detail.nearbyList.NearbyListActivity"/>
     </application>
 
 </manifest>
