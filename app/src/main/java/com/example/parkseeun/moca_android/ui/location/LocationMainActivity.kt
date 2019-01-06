@@ -17,11 +17,9 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 
 import com.example.parkseeun.moca_android.R
@@ -37,14 +35,12 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_location_main.*
-import org.jetbrains.anko.notificationManager
-
 import java.io.IOException
 import java.util.Locale
 
 
 class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
-     View.OnClickListener {
+    View.OnClickListener {
 
     // RecyclerView 설정
     lateinit var locationMainAdapter: LocationMainAdapter
@@ -54,7 +50,6 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     private var flag: Boolean = false
     var LngList: ArrayList<MarkerItem> = ArrayList()
     var dataList: ArrayList<LocationMainData> = ArrayList()
-
     var markerlist: ArrayList<Marker> = ArrayList()
 
 
@@ -62,18 +57,12 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     internal var REQUIRED_PERMISSIONS =
         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)  // 외부 저장소
 
-
     internal var mCurrentLocatiion: Location? = null
     internal var currentPosition: LatLng? = null
-
-
     private var mFusedLocationClient: FusedLocationProviderClient? = null
     private var locationRequest: LocationRequest? = null
     private var location: Location? = null
-
-
     private var mLayout: View? = null  // Snackbar 사용하기 위해서는 View가 필요합니다.
-
 
     internal var locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
@@ -87,29 +76,24 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
                 currentPosition = LatLng(location!!.latitude, location!!.longitude) // 최근위치.
 
-
                 val markerTitle = getCurrentAddress(currentPosition!!) //뒤에 있는 함수 (currentPosition 최근위치를 보냄)
                 val markerSnippet = ("위도:" + location!!.latitude.toString()
                         + " 경도:" + location!!.longitude.toString()) //현재위치의 위도와 경도를 나타내는 말풍선
 
                 Log.d(TAG, "onLocationResult : $markerSnippet")
 
-
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet)
-
                 mCurrentLocatiion = location
             }
         }
-
     }
-    // (참고로 Toast에서는 Context가 필요했습니다.)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_main)
         setOnBtnClickListener()
+        rv_act_location_main.setOnClickListener(this)
 //        recyclerconnect()
 //        window.setFlags(
 //            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
@@ -121,7 +105,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         locationRequest = LocationRequest()
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY) //create a location request
             .setInterval(UPDATE_INTERVAL_MS.toLong()) //이 메소드는 앱에서 위치 업데이트 수신간격을 밀리초단위로 설정한다.
-        //     .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS.toLong()) //이 메소드는 앱에서 위치 업데이트를 가장 빠르게 처리할 수 있도록 밀리초 단위로 설정한다.
+            .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS.toLong()) //이 메소드는 앱에서 위치 업데이트를 가장 빠르게 처리할 수 있도록 밀리초 단위로 설정한다.
 
         val builder = LocationSettingsRequest.Builder()
 
@@ -137,17 +121,50 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         setRecyclerView()
     }
 
+
     override fun onClick(v: View?) {
         if (rv_act_location_main.indexOfChild(v) != -1) { // 리사이클러뷰의 자식뷰 이면  !
-            // column 선택시 색상 변경
-            val idx: Int = rv_act_location_main.getChildAdapterPosition(v!!)  //선택된 자식뷰
-            for (i in 0 until dataList.size) {
-                dataList[i].selected = false
-                Log.v("나 잘 되고 있다!!", i.toString() + " : " + dataList[i].selected.toString())
-            }
-            dataList[idx].selected = true
-            locationMainAdapter.notifyDataSetChanged() // 어댑터에 바뀐거를 알려서 다시 뿌려라..
+            val idx: Int = rv_act_location_main.getChildAdapterPosition(v!!) // 선택된 자식뷰
+            cameraToMarker(idx)
+            connectToMarkerAndShowDialog(idx)
         }
+    }
+
+    private fun connectToMarkerAndShowDialog(idx: Int) {
+        var idx: Int = idx
+
+        if (dataList[idx].selected == false) {
+            for (i in dataList) {
+                i.selected = false
+            }
+            locationMainAdapter.notifyDataSetChanged()
+            LngList.get(idx).setmarker(true)
+            dataList[idx].selected = true
+        } else if (dataList[idx].selected == true) {
+            for (i in dataList) {
+                i.selected = false
+            }
+            locationMainAdapter.notifyDataSetChanged()
+
+            val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx], LngList)
+            Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
+            dialog.show()
+
+        }
+    }
+
+    private fun cameraToMarker(idx: Int) {
+        Log.v("LocationMainActivity: ", "cameraToMarker()")
+        var idx: Int = idx
+        val selectedRecyclerLatLng =
+            CameraUpdateFactory.newLatLng(LatLng(LngList[idx].lat, LngList[idx].lon))
+
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
+        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        mMap!!.animateCamera(selectedRecyclerLatLng)
+        Log.v("<RECYCLER VIEW CLICKED>", idx.toString())
+        locationMainAdapter.notifyDataSetChanged() // 어댑터에 바뀐거를 알려서 다시 뿌려라..
+        setMarkerIcon(idx)
     }
 
     private fun recyclerconnect() {
@@ -168,6 +185,8 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     private fun setRecyclerView() {
 // 임시 데이터
         dataList.add(LocationMainData("", "카페1", "1m 이내", false))
+        dataList.add(LocationMainData("", "카페2", "10m 이내", false))
+        dataList.add(LocationMainData("", "카페2", "10m 이내", false))
         dataList.add(LocationMainData("", "카페2", "10m 이내", false))
 
         locationMainAdapter = LocationMainAdapter(this, dataList, LngList)
@@ -224,10 +243,10 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                         LngList[i].lon
                     )
                 ).icon(
-                        BitmapDescriptorFactory.fromBitmap(
-                            BitmapFactory.decodeResource(resources, R.drawable.location_point)
-                        )
+                    BitmapDescriptorFactory.fromBitmap(
+                        BitmapFactory.decodeResource(resources, R.drawable.location_point)
                     )
+                )
             )
             markerlist.add(i, marker)
 
@@ -255,11 +274,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
-
-
             startLocationUpdates() // 3. 위치 업데이트 시작
-
-
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
 
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
@@ -289,30 +304,47 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
         }
         mMap!!.uiSettings.isMyLocationButtonEnabled = false
-        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
+        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
         mMap!!.setOnMapClickListener { Log.d(TAG, "onMapClick :") }
         mMap!!.setOnMarkerClickListener {
+             var idx: Int =-1
             for (i in 0 until markerlist.size) {
                 markerlist[i].tag = markerlist[i] == it
+                if(markerlist[i].tag==true){
+                    idx=i
+                }
                 Log.v("마커 클릭 ", i.toString() + " 는 " + markerlist[i].tag)
             }
-
-            setMarkerIcon()
+            setMarkerIcon(-1)
+            connectToMarkerAndShowDialog(idx)
             return@setOnMarkerClickListener false
 
         }
 
     }
-fun setMarkerIcon(){
-    for (i in 0 until markerlist.size) {
-        if (markerlist[i].tag as Boolean) {
-            markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
+
+    fun setMarkerIcon(idx: Int) {
+        var idx: Int = idx
+        Log.v("setMarkerIcon idx>-1 :", idx.toString())
+        if (idx == -1) {
+            for (i in 0 until markerlist.size) {
+                if (markerlist[i].tag as Boolean) {
+                    markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
+                } else {
+                    markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point))
+                }
+            }
         } else {
-            markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point))
+            for (i in 0 until markerlist.size) {
+                markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point))
+                if (i == idx) {
+                    markerlist[idx].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
+                }
+            }
         }
 
     }
-}
 
     override fun onStart() {
         super.onStart()
@@ -387,7 +419,6 @@ fun setMarkerIcon(){
     fun setCurrentLocation(location: Location?, markerTitle: String, markerSnippet: String) {
         if (currentMarker != null) currentMarker!!.remove()
         val currentLatLng = LatLng(location!!.latitude, location.longitude)
-
         val markerOptions = MarkerOptions()
         markerOptions.position(currentLatLng)
         markerOptions.title(markerTitle)
@@ -395,17 +426,21 @@ fun setMarkerIcon(){
         markerOptions.draggable(true)
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_now))
 
-         currentMarker = mMap!!.addMarker(markerOptions)
+        currentMarker = mMap!!.addMarker(markerOptions)
 
         if (flag == false) { //실행 처음에만 자신의 위치로 포커스
             val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
-            mMap!!.moveCamera(cameraUpdate)
+            mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
+            mMap!!.animateCamera(cameraUpdate)
             flag = true
         }
 
         img_mylocation_btn.setOnClickListener {
             val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
-            mMap!!.moveCamera(cameraUpdate)
+            mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+            mMap!!.animateCamera(CameraUpdateFactory.zoomIn(), 500, null)
+            mMap!!.animateCamera(cameraUpdate)
             flag = true
         }
     }
@@ -417,7 +452,7 @@ fun setMarkerIcon(){
         val markerTitle = "위치정보 가져올 수 없음"
         val markerSnippet = "GPS를 활성화 해주세요"
 
-           if (currentMarker != null) currentMarker!!.remove()
+        if (currentMarker != null) currentMarker!!.remove()
 
         var markerOptions = MarkerOptions()
         markerOptions.position(DEFAULT_LOCATION)
@@ -428,12 +463,13 @@ fun setMarkerIcon(){
         currentMarker = mMap!!.addMarker(markerOptions)
 
         val cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15f)
-        mMap!!.moveCamera(cameraUpdate)
+        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
+        mMap!!.animateCamera(cameraUpdate)
     }
 
     //여기부터는 런타임 퍼미션 처리을 위한 메소드들
     private fun checkPermission(): Boolean {
-
         val hasFineLocationPermission = ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -523,10 +559,10 @@ fun setMarkerIcon(){
     }
 
     companion object {
-        private val TAG = "LocationMainActivity "
+        private val TAG = "LocationMainActivity"
         private val GPS_ENABLE_REQUEST_CODE = 2001
         private val UPDATE_INTERVAL_MS = 1000  // 1초
-        //  private val FASTEST_UPDATE_INTERVAL_MS = 500 // 0.5초마다 현재위치로 이동
+        private val FASTEST_UPDATE_INTERVAL_MS = 500 // 0.5초마다 위치 업데이트
         // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
         private val PERMISSIONS_REQUEST_CODE = 100
     }

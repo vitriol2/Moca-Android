@@ -28,11 +28,6 @@
         <activity android:name=".ui.community.follow.FollowActivity" />
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity" />
         <activity android:name=".ui.main.HomeActivity2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -53,7 +48,13 @@
         <activity android:name=".ui.community.feed.image.ImageActivity" />
         <activity android:name=".ui.community.review_detail.ReviewDetailActivity" />
         <activity android:name=".ui.ranking.RankingActivity" />
-        <activity android:name=".ui.location.LocationMainActivity" />
+        <activity android:name=".ui.location.LocationMainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.category.CategoryActivity"></activity>
         <activity android:name=".ui.mocapicks.MocaPicksListActivity" />
         <activity android:name=".ui.location.LocationSearchActivity" />
