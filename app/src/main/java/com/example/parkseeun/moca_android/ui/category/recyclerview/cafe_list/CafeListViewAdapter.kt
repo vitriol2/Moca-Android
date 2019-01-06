@@ -11,8 +11,9 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetCafeListResponseData
 
-class CafeListViewAdapter(val context: Context, val dataList: ArrayList<CafeListData>) : RecyclerView.Adapter<CafeListViewAdapter.Holder>() {
+class CafeListViewAdapter(val context: Context, val dataList: ArrayList<GetCafeListResponseData>) : RecyclerView.Adapter<CafeListViewAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 뷰 인플레이트
         val view: View = LayoutInflater.from(context).inflate(R.layout.rv_item_cafe, parent, false)
@@ -22,12 +23,12 @@ class CafeListViewAdapter(val context: Context, val dataList: ArrayList<CafeList
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        Glide.with(context).load(dataList[position].img).into(holder.img)
-        holder.name.text = dataList[position].name
-        holder.location.text = dataList[position].location
-        holder.rating.rating = dataList[position].rating.toFloat()
+        Glide.with(context).load(dataList[position].cafe_menu_img_url).into(holder.img)
+        holder.name.text = dataList[position].cafe_name
+        holder.location.text = dataList[position].cafe_address_detail
+        holder.rating.rating = dataList[position].cafe_rating_avg.toFloat()
 
-        holder.optionItems.adapter = OptionItemViewAdapter(context, dataList[position].optionList)
+        holder.optionItems.adapter = OptionItemViewAdapter(context, arrayListOf(dataList[position].cafe_main_menu_name, dataList[position].cafe_concept_name))
         holder.optionItems.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
     }
