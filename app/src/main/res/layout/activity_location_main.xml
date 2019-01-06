@@ -94,12 +94,14 @@
             android:layout_marginBottom="165dp"
     />
     <android.support.v7.widget.RecyclerView
-            android:layout_marginLeft="6dp"
             android:layout_alignParentBottom="true"
             android:id="@+id/rv_act_location_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:clipToPadding="false"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="16dp"
             android:nestedScrollingEnabled="false">
 
     </android.support.v7.widget.RecyclerView>

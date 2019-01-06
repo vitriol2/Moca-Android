@@ -126,30 +126,35 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         if (rv_act_location_main.indexOfChild(v) != -1) { // 리사이클러뷰의 자식뷰 이면  !
             val idx: Int = rv_act_location_main.getChildAdapterPosition(v!!) // 선택된 자식뷰
             cameraToMarker(idx)
-            connectToMarkerAndShowDialog(idx)
+            floatDialog(idx)
         }
     }
 
-    private fun connectToMarkerAndShowDialog(idx: Int) {
-        var idx: Int = idx
-
-        if (dataList[idx].selected == false) {
+    private fun setRvColor(idx: Int): Boolean{
+        if(!dataList[idx].selected){
             for (i in dataList) {
                 i.selected = false
             }
             locationMainAdapter.notifyDataSetChanged()
-            LngList.get(idx).setmarker(true)
+            LngList[idx].setmarker(true)
             dataList[idx].selected = true
-        } else if (dataList[idx].selected == true) {
-            for (i in dataList) {
-                i.selected = false
+            rv_act_location_main.smoothScrollToPosition(idx)
+            return true
+        }
+        return false
+    }
+    private fun floatDialog(idx: Int){
+        if(!setRvColor(idx)) {
+            if (dataList[idx].selected) {
+                for (i in dataList) {
+                    i.selected = false
+                }
+                locationMainAdapter.notifyDataSetChanged()
+
+                val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx], LngList)
+                Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
+                dialog.show()
             }
-            locationMainAdapter.notifyDataSetChanged()
-
-            val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx], LngList)
-            Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
-            dialog.show()
-
         }
     }
 
@@ -309,6 +314,9 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         mMap!!.setOnMapClickListener { Log.d(TAG, "onMapClick :") }
         mMap!!.setOnMarkerClickListener {
             var idx: Int =-1
+            if(it == currentMarker)
+                return@setOnMarkerClickListener false
+
             for (i in 0 until markerlist.size) {
                 markerlist[i].tag = markerlist[i] == it
                 if(markerlist[i].tag==true){
@@ -317,7 +325,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                 Log.v("마커 클릭 ", i.toString() + " 는 " + markerlist[i].tag)
             }
             setMarkerIcon(-1)
-            connectToMarkerAndShowDialog(idx)
+            setRvColor(idx)
             return@setOnMarkerClickListener false
 
         }
@@ -463,9 +471,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         currentMarker = mMap!!.addMarker(markerOptions)
 
         val cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15f)
-        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
-        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
-        mMap!!.animateCamera(cameraUpdate)
+        mMap!!.moveCamera(cameraUpdate)
     }
 
     //여기부터는 런타임 퍼미션 처리을 위한 메소드들
@@ -478,9 +484,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             this,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
-        return if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-            true
-        } else false
+        return hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED
 //true면 퍼미션 허용한거  !
     }
 
@@ -534,7 +538,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         val builder = AlertDialog.Builder(this@LocationMainActivity)
         builder.setTitle("위치 서비스 비활성화")
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다\n" + "위치 설정을 허용해 주세요")
-        builder.setCancelable(false)
+        builder.setCancelable(true)
         builder.setPositiveButton("설정") { dialog, id ->
             val callGPSSettingIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS) //gps설정으로 감
             startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE)
