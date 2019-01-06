@@ -100,10 +100,10 @@
 
                                     <TextView
                                         style="@style/home_category_title"
-                                        android:text="Concept" />
+                                        android:text="Hot Place" />
 
                                     <TextView
-                                        android:id="@+id/home_concept_tv"
+                                        android:id="@+id/tv_act_home_hot_more"
                                         style="@style/home_category_look_entire" />
                                 </RelativeLayout>
                             </RelativeLayout>

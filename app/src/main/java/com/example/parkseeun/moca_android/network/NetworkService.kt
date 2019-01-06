@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.network
 
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
+import com.example.parkseeun.moca_android.model.get.GetHomeHotplaceResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
 import retrofit2.Call
@@ -31,5 +32,12 @@ interface NetworkService {
     fun getFollower(@Header("token") token: String,
                     @Path("user_id") id: String):Call<GetFollowerResponse>
     // <마이 페이지>
+
+    //<홈-핫플레이스>
+    @GET("/hot_place")
+    fun getHomeHotplaceResponse(
+        @Header("Content-Type") content_type : String,
+        @Header("Authorization") token : String
+    ) : Call<GetHomeHotplaceResponse>
 
 }

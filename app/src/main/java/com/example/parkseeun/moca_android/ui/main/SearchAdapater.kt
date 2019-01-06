@@ -24,7 +24,7 @@ class SearchAdapater(val context : Context, val dataList : ArrayList<SearchResul
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
-        Glide.with(context).load(dataList[position].profileImageUrl).into(holder.civ_search_resultImage)
+        Glide.with(context).load("https://s3.ap-northeast-2.amazonaws.com/project-sopt/%25E1%2584%258E%25E1%2585%25AC%25E1%2584%2589%25E1%2585%25A5%25E1%2586%25AB%25E").into(holder.civ_search_resultImage)
         holder.tv_search_cafeName.text = dataList[position].cafeName
         holder.tv_search_cafeLocation.text = dataList[position].cafeLocation
 

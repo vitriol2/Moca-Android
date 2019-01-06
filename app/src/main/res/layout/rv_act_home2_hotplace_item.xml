@@ -10,13 +10,14 @@
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_cat_pic_rv_item_image"
+            android:id="@+id/iv_rv_act_home2_hotplace"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/tv_cat_con_rv_item_concept_name"
+            android:id="@+id/tv_rv_act_home2_hotplace"
             style="@style/Extrabold25"
             android:layout_width="34dp"
             android:layout_height="16dp"

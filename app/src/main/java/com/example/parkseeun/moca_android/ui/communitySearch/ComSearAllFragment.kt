@@ -64,9 +64,9 @@ class ComSearAllFragment : Fragment() {
         searchList.add(ComSearAllData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "사용자", "안녕하세요", true, null, null, null, 0))
         searchList.add(ComSearAllData(null, null, null, null, "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페명", "과천시", 1))
 
-        reviewTopList.add(ComSearAllReviewTopData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페", 100))
-        reviewTopList.add(ComSearAllReviewTopData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페", 200))
-        reviewTopList.add(ComSearAllReviewTopData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페", 300))
+        reviewTopList.add(ComSearAllReviewTopData("https://s3.ap-northeast-2.amazonaws.com/project-sopt/%25E1%2584%258E%25E1%2585%25AC%25E1%2584%2589%25E1%2585%25A5%25E1%2586%25AB%25E", "카페", 100))
+        reviewTopList.add(ComSearAllReviewTopData("https://s3.ap-northeast-2.amazonaws.com/project-sopt/%25E1%2584%258E%25E1%2585%25AC%25E1%2584%2589%25E1%2585%25A5%25E1%2586%25AB%25E", "카페", 200))
+        reviewTopList.add(ComSearAllReviewTopData("https://s3.ap-northeast-2.amazonaws.com/project-sopt/%25E1%2584%258E%25E1%2585%25AC%25E1%2584%2589%25E1%2585%25A5%25E1%2586%25AB%25E", "카페", 300))
 
         popularList.add(ComSearAllPopData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "사용자", true))
         popularList.add(ComSearAllPopData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "사용자", true))

@@ -3,31 +3,47 @@ package com.example.parkseeun.moca_android.ui.main
 import android.content.Intent
 import com.example.parkseeun.moca_android.ui.ranking.RankingActivity
 import android.os.Bundle
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import com.example.parkseeun.moca_android.util.NavigationActivity
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetHomeHotplaceResponse
+import com.example.parkseeun.moca_android.model.get.HomeHotplaceData
+import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.ui.category.CategoryActivity
 import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
+import com.example.parkseeun.moca_android.util.SharedPreferenceController
+import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeActivity2 : NavigationActivity(), View.OnClickListener{
     private val pickposts: ArrayList<String> = ArrayList()
-    private val conceptPosts: ArrayList<String> = ArrayList()
+    private val hotList = ArrayList<HomeHotplaceData>()
     val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
     val plusPosts: ArrayList<String> = ArrayList()
+
+    val networkService by lazy {
+        ApplicationController.instance.networkService
+    }
+    lateinit var homeHotplaceAdapter: HomeHotplaceAdapter
+
+
 
     override fun onClick(v: View?) {
         when(v){
             home_picks_tv -> {
                 startActivity(Intent(this, MocaPicksListActivity::class.java))
             }
-            home_concept_tv -> {
-//                to category
+            tv_act_home_hot_more -> {
+               startActivity(Intent(this, CategoryActivity::class.java))
             }
             home_ranking_tv -> {
                 startActivity(Intent(this, RankingActivity::class.java))
@@ -66,12 +82,14 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         setContentView(R.layout.activity_home2)
 
         home_picks_tv.setOnClickListener(this)
-        home_concept_tv.setOnClickListener(this)
+        tv_act_home_hot_more.setOnClickListener(this)
         home_ranking_tv.setOnClickListener(this)
         home_plus_tv.setOnClickListener(this)
         home_menu_iv.setOnClickListener(this)
 
         makeData()
+
+        getHomeHotplaceResponse()
 
         recyclerView()
 
@@ -95,6 +113,7 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
 //        toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
     }
 
 
@@ -106,8 +125,9 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         rv_act_home_picks.adapter = CategoryPickAdapter(this, pickposts)
 
         //concept
+        homeHotplaceAdapter = HomeHotplaceAdapter(this, hotList)
         rv_act_home_concept.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rv_act_home_concept.adapter = CategoryConceptAdapter(this, conceptPosts)
+        rv_act_home_concept.adapter = homeHotplaceAdapter
 
         //ranking
         rv_act_home_ranking.layoutManager = LinearLayoutManager(this)
@@ -123,7 +143,7 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
     private fun makeData() {
         for (i in 1..12) {
             pickposts.add("카페 $i")
-            conceptPosts.add("컨셉 $i")
+
 
         }
         for (i in 1..3) {
@@ -132,4 +152,29 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
 
         }
     }
+
+    private fun getHomeHotplaceResponse() {
+        val token = SharedPreferenceController.getAuthorization(this)
+        val getHomeHotplaceResponse = networkService.getHomeHotplaceResponse("application/json", token)
+
+        getHomeHotplaceResponse.enqueue(object : Callback<GetHomeHotplaceResponse> {
+            override fun onFailure(call: Call<GetHomeHotplaceResponse>, t: Throwable) {
+                Log.e("Hotplace load failed", t.toString())
+            }
+
+            override fun onResponse(call: Call<GetHomeHotplaceResponse>, response: Response<GetHomeHotplaceResponse>) {
+                if(response.isSuccessful) {
+                    Log.v("hotplace", "load")
+                    val temp : ArrayList<HomeHotplaceData> = response.body()!!.data
+                    if(temp.size>0) {
+                        val position = homeHotplaceAdapter.itemCount
+                        homeHotplaceAdapter.dataList.addAll(temp)
+                        homeHotplaceAdapter.notifyItemInserted(position)
+                    }
+
+                }
+            }
+        })
+    }
+
 }
