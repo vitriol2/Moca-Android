@@ -12,7 +12,6 @@ import android.widget.TextView
 import com.example.parkseeun.moca_android.ui.category.recyclerview.category.ButtonData
 import com.example.parkseeun.moca_android.ui.category.recyclerview.category.ButtonViewAdapter
 import com.example.parkseeun.moca_android.util.NavigationActivity
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 
@@ -21,7 +20,6 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
     private lateinit var conceptViewAdapter : ButtonViewAdapter
     private var menuList : ArrayList<ButtonData> = ArrayList()
     private var conceptList : ArrayList<ButtonData> = ArrayList()
-    private lateinit var regionIds : ArrayList<Int>
     private lateinit var regionTvs : ArrayList<TextView>
     private var regionSelected : Int = -1
 
@@ -83,12 +81,12 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
     // RecyclerView 설정
     private fun setRecyclerView() {
         // menu data
-        menuList.add(ButtonData(R.drawable.menu_coffee_line, R.drawable.menu_coffee_pink, "커피",false))
-        menuList.add(ButtonData(R.drawable.menu_tea_line, R.drawable.menu_tea_pink, "차",false))
-        menuList.add(ButtonData(R.drawable.menu_bakery_line, R.drawable.menu_bakery_pink,"베이커리", false))
-        menuList.add(ButtonData(R.drawable.menu_fruit_line, R.drawable.menu_fruit_pink, "생과일",false))
-        menuList.add(ButtonData(R.drawable.menu_dessert_line, R.drawable.menu_dessert_pink, "디저트",false))
-        menuList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.concept_etc_pink, "기타",false))
+        menuList.add(ButtonData(1, R.drawable.menu_coffee_line, R.drawable.menu_coffee_pink, "커피",false))
+        menuList.add(ButtonData(2, R.drawable.menu_tea_line, R.drawable.menu_tea_pink, "차",false))
+        menuList.add(ButtonData(3, R.drawable.menu_bakery_line, R.drawable.menu_bakery_pink,"베이커리", false))
+        menuList.add(ButtonData(4, R.drawable.menu_fruit_line, R.drawable.menu_fruit_pink, "생과일",false))
+        menuList.add(ButtonData(5, R.drawable.menu_dessert_line, R.drawable.menu_dessert_pink, "디저트",false))
+        menuList.add(ButtonData(6, R.drawable.menu_etc_line, R.drawable.concept_etc_pink, "기타",false))
 
         menuViewAdapter = ButtonViewAdapter(this, menuList)
         menuViewAdapter.setOnItemClickListener(this)
@@ -96,14 +94,14 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
         cate_menu_rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // concept data
-        conceptList.add(ButtonData(R.drawable.concept_mood_line, R.drawable.concept_mood_pink, "감성",false))
-        conceptList.add(ButtonData(R.drawable.concept_pet_line, R.drawable.concept_pet_pink, "펫카페",false))
-        conceptList.add(ButtonData(R.drawable.concept_hanok_line, R.drawable.concept_hanok_pink, "한옥",false))
-        conceptList.add(ButtonData(R.drawable.concept_drive_line, R.drawable.concept_drive_pink, "드라이브",false))
-        conceptList.add(ButtonData(R.drawable.concept_book_line, R.drawable.concept_book_pink, "북카페",false))
-        conceptList.add(ButtonData(R.drawable.concept_flower_line, R.drawable.concept_flower_pink, "플라워",false))
-        conceptList.add(ButtonData(R.drawable.concept_rooftop_line, R.drawable.concept_rooftop_pink, "루프탑",false))
-        conceptList.add(ButtonData(R.drawable.menu_etc_line, R.drawable.concept_etc_pink, "기타",false))
+        conceptList.add(ButtonData(1, R.drawable.concept_mood_line, R.drawable.concept_mood_pink, "감성",false))
+        conceptList.add(ButtonData(2, R.drawable.concept_pet_line, R.drawable.concept_pet_pink, "펫카페",false))
+        conceptList.add(ButtonData(3, R.drawable.concept_hanok_line, R.drawable.concept_hanok_pink, "한옥",false))
+        conceptList.add(ButtonData(4, R.drawable.concept_drive_line, R.drawable.concept_drive_pink, "드라이브",false))
+        conceptList.add(ButtonData(5, R.drawable.concept_book_line, R.drawable.concept_book_pink, "북카페",false))
+        conceptList.add(ButtonData(6, R.drawable.concept_flower_line, R.drawable.concept_flower_pink, "플라워",false))
+        conceptList.add(ButtonData(7, R.drawable.concept_rooftop_line, R.drawable.concept_rooftop_pink, "루프탑",false))
+        conceptList.add(ButtonData(8, R.drawable.menu_etc_line, R.drawable.concept_etc_pink, "기타",false))
 
         conceptViewAdapter = ButtonViewAdapter(this, conceptList)
         conceptViewAdapter.setOnItemClickListener(this)
@@ -127,15 +125,10 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
     // 지역 관련 변수 초기화
     private fun initRegion() {
         // 지역 TextView Id
-        // 강서 구로 양천 금천 영등포 마포 은평 서대문 관악 동작 종로 용산 중구 서초 강북 성북 도봉 성동 동대문 강남 노원 광진 중랑 송파 강동
-        regionIds = arrayListOf(R.id.gangseo_tv, R.id.guro_tv, R.id.yangcheon_tv, R.id.goldcheon_tv, R.id.zeropo_tv, R.id.mapo_tv, R.id.silver_tv, R.id.seodaemoon_tv,
-                R.id.pipe_tv, R.id.action_tv, R.id.jongro_tv, R.id.dragon_tv, R.id.midnine_tv, R.id.seocho_tv, R.id.gangbook_tv,
-                R.id.seongbook_tv, R.id.dobong_tv, R.id.seongdong_tv, R.id.dongdae_tv, R.id.gangnam_tv, R.id.noone_tv, R.id.gwangjin_tv,
-                R.id.midrang_tv, R.id.songpa_tv, R.id.gangdong_tv)
-        regionTvs = arrayListOf(gangseo_tv, guro_tv, yangcheon_tv, goldcheon_tv, zeropo_tv, mapo_tv, silver_tv, seodaemoon_tv,
-                pipe_tv, action_tv, jongro_tv, dragon_tv, midnine_tv, seocho_tv, gangbook_tv,
-                seongbook_tv, dobong_tv, seongdong_tv, dongdae_tv, gangnam_tv, noone_tv, gwangjin_tv,
-                midrang_tv, songpa_tv, gangdong_tv)
+        // 종로구 중구 용산구 성동구 광진구 동대문구 중랑구 성북구 강북구 도봉구 노원구 은평구 서대문구 마포구 양천구 강서구 구로구 금천구 영등포구 동작구 관악구 서초구 강남구 송파구 강동구
+        regionTvs = arrayListOf(jongro_tv, midnine_tv, dragon_tv, seongdong_tv, gwangjin_tv, dongdae_tv, midrang_tv, seongbook_tv,
+                gangbook_tv, dobong_tv, noone_tv, silver_tv, seodaemoon_tv, mapo_tv, yangcheon_tv, gangseo_tv, guro_tv, goldcheon_tv,
+                zeropo_tv, action_tv, pipe_tv, seocho_tv, gangnam_tv, songpa_tv, gangdong_tv)
     }
     // 지역 TextView에 clickListener 달기
     private fun setClickListener() {
@@ -151,9 +144,9 @@ class CategoryActivity : NavigationActivity(), View.OnClickListener {
                     // 마커 위치 설정: 선택한 지역의 id를 기준으로 설정
                     val constraintSet = ConstraintSet()
                     constraintSet.clone(cate_map_const)
-                    constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.START, regionIds[i], ConstraintSet.START)
-                    constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.END, regionIds[i], ConstraintSet.END)
-                    constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.BOTTOM , regionIds[i], ConstraintSet.BOTTOM)
+                    constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.START, regionTvs[i].id, ConstraintSet.START)
+                    constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.END, regionTvs[i].id, ConstraintSet.END)
+                    constraintSet.connect(R.id.cate_marker_iv, ConstraintSet.BOTTOM , regionTvs[i].id, ConstraintSet.BOTTOM)
                     constraintSet.applyTo(cate_map_const)
                     cate_marker_iv.visibility = View.VISIBLE
                 }

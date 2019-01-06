@@ -1,10 +1,12 @@
 package com.example.parkseeun.moca_android.network
 
+import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
 import retrofit2.Call
 import retrofit2.http.*
+import retrofit2.http.QueryMap
 
 interface NetworkService {
     // <회원가입>
@@ -20,6 +22,10 @@ interface NetworkService {
 
     // <카테고리>
     // 카페 리스트
+    @GET("/category/location/{district_id}")
+    fun getCafeList(@Path("district_id") district_id: Int,
+                    @Query("concept") concept: List<Int>,
+                    @Query("menu") menu: List<Int>):Call<GetCafeListResponse>
 
     // <카페 상세>
 
