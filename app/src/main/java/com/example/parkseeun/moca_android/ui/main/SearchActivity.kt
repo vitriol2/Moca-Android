@@ -12,17 +12,22 @@ import android.view.View
 import android.widget.*
 import java.security.Key
 import android.R.attr.host
+import android.content.Context
 import android.widget.TextView
 import android.support.v4.view.MarginLayoutParamsCompat.setMarginEnd
 import android.support.v4.view.MarginLayoutParamsCompat.setMarginStart
 import android.os.Build
 import android.view.ViewGroup
 import android.support.design.widget.TabLayout
-
-
-
-
-
+import android.util.Log
+import com.example.parkseeun.moca_android.model.get.*
+import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.ui.community.follow.FollowData
+import com.example.parkseeun.moca_android.util.User
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchActivity : AppCompatActivity() {
 
@@ -35,10 +40,19 @@ class SearchActivity : AppCompatActivity() {
     private var tab2: TabHost.TabSpec? = null
     private var tab3: TabHost.TabSpec? = null
 
+    private var currentTab = 0 // 현재 선택된 탭
+
     // RecyclerView 설정
     lateinit var searchResultAdapter : SearchAdapater
     lateinit var beforeSearchPopularCafeAdapter: BeforeSearchPopularCafeAdapter
     lateinit var beforeSearchRecommendPlaceAdapter: BeforeSearchRecommendPlaceAdapter
+
+    // 통신
+    private val networkService  = ApplicationController.instance.networkService
+    private lateinit var getBestCafeListResponse : Call<GetBestCafeListResponse> // 인기 카페 리스트
+    private lateinit var getHomeSearchResponse : Call<GetHomeSearchResponse> // 검색
+    var dataList : ArrayList<GetHomeSearchResponseData> = ArrayList()
+    private var getHomeSearchResponseData = ArrayList<GetHomeSearchResponseData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,12 +75,23 @@ class SearchActivity : AppCompatActivity() {
             override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
                 //Enter key Action
                 return if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    linear_before_search_all.visibility = View.GONE
+                    if (currentTab == 0) {
+                        linear_before_search_all.visibility = View.GONE
+                    }
+                    else if (currentTab == 1) {
+                        linear_before_search_cafe.visibility = View.GONE
+                    }
+                    else if (currentTab == 2) {
+                        linear_before_search_location.visibility = View.GONE
+                    }
+                    getSearchResult(v.context, et_search.text.toString())
 
                     true
                 } else false
             }
         })
+
+        getBestCafe(this)
     }
 
     // 탭 처리
@@ -109,7 +134,8 @@ class SearchActivity : AppCompatActivity() {
         frameLayout = findViewById<View>(android.R.id.tabcontent) as FrameLayout
 
         tabHost!!.setOnTabChangedListener {
-            val tab = tabHost!!.currentTab
+            currentTab = tabHost!!.currentTab
+
             for (i in 0 until tabHost!!.tabWidget.childCount) {
                 // When tab is not selected
                 val tv = tabHost!!.tabWidget.getChildAt(i).findViewById(android.R.id.title) as TextView
@@ -124,15 +150,99 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+    // 검색 전 인기 카페 통신
+    private fun getBestCafe(context : Context) {
+        getBestCafeListResponse = networkService.getBestCafeList(User.token!!, 0)
+        getBestCafeListResponse.enqueue(object: Callback<GetBestCafeListResponse> {
+            override fun onFailure(call: Call<GetBestCafeListResponse>, t: Throwable) {
+                toast(t.toString())
+            }
+
+            override fun onResponse(call: Call<GetBestCafeListResponse>, response: Response<GetBestCafeListResponse>) {
+                if(response!!.isSuccessful)
+                    if(response!!.body()!!.status==200) {
+                        var getBestCafeListData: ArrayList<GetBestCafeListData> = response.body()!!.data
+
+                        beforeSearchPopularCafeAdapter = BeforeSearchPopularCafeAdapter(context, getBestCafeListData)
+                        rv_search_popularCafe_all.adapter = beforeSearchPopularCafeAdapter
+                        rv_search_popularCafe_all.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+                        rv_search_popularCafe_cafe.adapter = beforeSearchPopularCafeAdapter
+                        rv_search_popularCafe_cafe.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+                        rv_search_popularCafe_location.adapter = beforeSearchPopularCafeAdapter
+                        rv_search_popularCafe_location.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    } else if (response!!.body()!!.status == 204) {
+                        toast("인기 카페가 존재하지 않습니다!")
+                    }
+            }
+        })
+    }
+
+    // 검색 통신
+    private fun getSearchResult(context : Context, searchString : String) {
+        getHomeSearchResponse = networkService.getHomeSearch(searchString)
+        getHomeSearchResponse.enqueue(object: Callback<GetHomeSearchResponse> {
+            override fun onFailure(call: Call<GetHomeSearchResponse>, t: Throwable) {
+                toast(t.toString())
+            }
+
+            override fun onResponse(call: Call<GetHomeSearchResponse>, response: Response<GetHomeSearchResponse>) {
+                if(response.isSuccessful)
+                    if(response.body()!!.status==200) {
+                        getHomeSearchResponseData = response.body()!!.data
+
+                        searchResultAdapter = SearchAdapater(context, getHomeSearchResponseData)
+
+                        Log.v("검색결과", getHomeSearchResponseData.toString())
+
+                        if (currentTab == 0) {
+                            rv_searchResult_list_all.adapter = searchResultAdapter
+                            rv_searchResult_list_all.layoutManager = LinearLayoutManager(context)
+                        }
+                        else if (currentTab == 1) {
+                            val cafeList = ArrayList<GetHomeSearchResponseData>()
+
+                            for (value in getHomeSearchResponseData) {
+                                if (!value.type) {
+                                    cafeList.add(value)
+                                }
+
+                                searchResultAdapter = SearchAdapater(context, cafeList)
+                                rv_searchResult_list_cafe.adapter = searchResultAdapter
+                                rv_searchResult_list_cafe.layoutManager = LinearLayoutManager(context)
+                            }
+                        }
+                        else if (currentTab == 2) {
+                            val locationList = ArrayList<GetHomeSearchResponseData>()
+
+                            for (value in getHomeSearchResponseData) {
+                                if (value.type) {
+                                    locationList.add(value)
+                                }
+
+                                searchResultAdapter = SearchAdapater(context, locationList)
+                                rv_searchResult_list_location.adapter = searchResultAdapter
+                                rv_searchResult_list_location.layoutManager = LinearLayoutManager(context)
+                            }
+                        }
+
+                    } else if (response!!.body()!!.status == 204) {
+                        toast("인기 카페가 존재하지 않습니다!")
+                    }
+            }
+        })
+    }
+
     // 검색 전 리사이클러뷰 설정
     private fun setUpBeforeSearchRecyclerView() {
-        // 인기 카페
-        var dataList : ArrayList<PopularCafeData> = ArrayList()
-        dataList.add(PopularCafeData("", "C127", 1, 24))
-        dataList.add(PopularCafeData("", "C127", 1, 24))
-        dataList.add(PopularCafeData("", "C127", 1, 24))
-        dataList.add(PopularCafeData("", "C127", 1, 24))
-        beforeSearchPopularCafeAdapter = BeforeSearchPopularCafeAdapter(this, dataList)
+//        // 인기 카페
+//        var dataList : ArrayList<PopularCafeData> = ArrayList()
+//        dataList.add(PopularCafeData("", "C127", 1, 24))
+//        dataList.add(PopularCafeData("", "C127", 1, 24))
+//        dataList.add(PopularCafeData("", "C127", 1, 24))
+//        dataList.add(PopularCafeData("", "C127", 1, 24))
+//        beforeSearchPopularCafeAdapter = BeforeSearchPopularCafeAdapter(this, dataList)
 
         // 모카 추천 플레이스
         var dataList_recommend_place : ArrayList<RecommendPlaceData> = ArrayList()
@@ -143,47 +253,47 @@ class SearchActivity : AppCompatActivity() {
         beforeSearchRecommendPlaceAdapter = BeforeSearchRecommendPlaceAdapter(this, dataList_recommend_place)
 
         // 첫 번째 탭
-        rv_search_popularCafe_all.adapter = beforeSearchPopularCafeAdapter
-        rv_search_popularCafe_all.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        rv_search_popularCafe_all.adapter = beforeSearchPopularCafeAdapter
+//        rv_search_popularCafe_all.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        rv_search_recommendPlace_all.adapter = beforeSearchRecommendPlaceAdapter
-        rv_search_recommendPlace_all.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        // 두 번째 탭
-        rv_search_popularCafe_cafe.adapter = beforeSearchPopularCafeAdapter
-        rv_search_popularCafe_cafe.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        rv_search_recommendPlace_cafe.adapter = beforeSearchRecommendPlaceAdapter
-        rv_search_recommendPlace_cafe.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        // 세 번째 탭
-        rv_search_popularCafe_location.adapter = beforeSearchPopularCafeAdapter
-        rv_search_popularCafe_location.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        rv_search_recommendPlace_location.adapter = beforeSearchRecommendPlaceAdapter
-        rv_search_recommendPlace_location.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        rv_search_recommendPlace_all.adapter = beforeSearchRecommendPlaceAdapter
+//        rv_search_recommendPlace_all.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//
+//        // 두 번째 탭
+//        rv_search_popularCafe_cafe.adapter = beforeSearchPopularCafeAdapter
+//        rv_search_popularCafe_cafe.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//
+//        rv_search_recommendPlace_cafe.adapter = beforeSearchRecommendPlaceAdapter
+//        rv_search_recommendPlace_cafe.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//
+//        // 세 번째 탭
+//        rv_search_popularCafe_location.adapter = beforeSearchPopularCafeAdapter
+//        rv_search_popularCafe_location.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//
+//        rv_search_recommendPlace_location.adapter = beforeSearchRecommendPlaceAdapter
+//        rv_search_recommendPlace_location.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun setRecyclerView() {
         // 임시 데이터
-        var dataList : ArrayList<SearchResultData> = ArrayList()
-        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
-        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
-        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
-        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
-
-        searchResultAdapter = SearchAdapater(this, dataList)
+//        var dataList : ArrayList<SearchResultData> = ArrayList()
+//        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
+//        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
+//        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
+//        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
+//
+//        searchResultAdapter = SearchAdapater(this, dataList)
 
         // 첫 번째 탭
-        rv_searchResult_list_all.adapter = searchResultAdapter
-        rv_searchResult_list_all.layoutManager = LinearLayoutManager(this)
-
-        // 두 번째 탭
-        rv_searchResult_list_cafe.adapter = searchResultAdapter
-        rv_searchResult_list_cafe.layoutManager = LinearLayoutManager(this)
-
-        // 세 번째 탭
-        rv_searchResult_list_location.adapter = searchResultAdapter
-        rv_searchResult_list_location.layoutManager = LinearLayoutManager(this)
+//        rv_searchResult_list_all.adapter = searchResultAdapter
+//        rv_searchResult_list_all.layoutManager = LinearLayoutManager(this)
+//
+//        // 두 번째 탭
+//        rv_searchResult_list_cafe.adapter = searchResultAdapter
+//        rv_searchResult_list_cafe.layoutManager = LinearLayoutManager(this)
+//
+//        // 세 번째 탭
+//        rv_searchResult_list_location.adapter = searchResultAdapter
+//        rv_searchResult_list_location.layoutManager = LinearLayoutManager(this)
     }
 }
