@@ -16,6 +16,10 @@ class PlusDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_plus_detail)
 
         setRecyclerView()
+
+        ib_plus_detail_back.setOnClickListener {
+            finish()
+        }
     }
 
     // RecyclerView 설정

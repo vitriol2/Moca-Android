@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.loginJoin.LoginActivity
+import com.example.parkseeun.moca_android.util.SharedPreferenceController
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -43,12 +44,15 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         btn_act_edit_prof_complete.setOnClickListener{
             finish()
         }
-
+//전체 기록 지우고 SharedPreference에서 로그인 기록 지우고 로그인화면으로 넘어감
         rl_act_edit_profile_logout.setOnClickListener {
+            SharedPreferenceController.clearSPC(this)
+
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+
         }
     }
 

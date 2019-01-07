@@ -26,7 +26,9 @@ import retrofit2.Response
 
 class HomeActivity2 : NavigationActivity(), View.OnClickListener{
     private val pickposts: ArrayList<String> = ArrayList()
-    private val hotList = ArrayList<HomeHotplaceData>()
+    val hotList : ArrayList<HomeHotplaceData>by lazy{
+        ArrayList<HomeHotplaceData>()
+    }
     val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
     val plusPosts: ArrayList<String> = ArrayList()
 
@@ -39,9 +41,6 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         when(v){
             home_picks_tv -> {
                 startActivity(Intent(this, MocaPicksListActivity::class.java))
-            }
-            tv_act_home_hot_more -> {
-               startActivity(Intent(this, CategoryActivity::class.java))
             }
             home_ranking_tv -> {
                 startActivity(Intent(this, RankingActivity::class.java))
@@ -80,7 +79,7 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         setContentView(R.layout.activity_home2)
 
         home_picks_tv.setOnClickListener(this)
-        tv_act_home_hot_more.setOnClickListener(this)
+        home_concept_tv.setOnClickListener(this)
         home_ranking_tv.setOnClickListener(this)
         home_plus_tv.setOnClickListener(this)
         home_menu_iv.setOnClickListener(this)
@@ -103,7 +102,12 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
             startActivity(intent)
         }
 
+        // 수민 추가 (핫 플레이스 화면으로)
+        home_concept_tv.setOnClickListener {
+            val intent = Intent(this@HomeActivity2, HotPlaceActivity::class.java)
 
+            startActivity(intent)
+        }
 //        val toggle = ActionBarDrawerToggle(
 //            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
 //        )
@@ -141,8 +145,6 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
     private fun makeData() {
         for (i in 1..12) {
             pickposts.add("카페 $i")
-
-
         }
         for (i in 1..3) {
             rankingPosts.add(CategoryRankData("cafe $i", "location $i"))

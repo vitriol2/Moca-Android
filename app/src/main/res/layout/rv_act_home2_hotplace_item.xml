@@ -23,7 +23,7 @@
             android:layout_height="16dp"
             android:layout_gravity="center"
             android:lineSpacingExtra="2sp"
-            android:text="#감성"
+            android:text="감성"
             android:textColor="#FFF"
             android:textSize="14sp" />
 

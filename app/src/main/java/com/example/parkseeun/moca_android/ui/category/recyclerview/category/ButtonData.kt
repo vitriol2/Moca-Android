@@ -3,8 +3,9 @@ package com.example.parkseeun.moca_android.ui.category.recyclerview.category
 import android.os.Parcel
 import android.os.Parcelable
 
-class ButtonData(val off: Int, val on: Int, val name: String, var flag: Boolean) : Parcelable {
+class ButtonData(val id: Int, val off: Int, val on: Int, val name: String, var flag: Boolean) : Parcelable {
     constructor(source: Parcel) : this(
+            source.readInt(),
             source.readInt(),
             source.readInt(),
             source.readString(),
@@ -14,6 +15,7 @@ class ButtonData(val off: Int, val on: Int, val name: String, var flag: Boolean)
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeInt(id)
         writeInt(off)
         writeInt(on)
         writeString(name)

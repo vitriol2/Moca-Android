@@ -36,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
             window.statusBarColor = Color.parseColor("#e1b2a3")
         }
 
-
         // 회원가입 > 버튼
         btn_goToJoin.setOnClickListener {
             val intent : Intent = Intent(this@LoginActivity, JoinActivity::class.java)

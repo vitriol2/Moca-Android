@@ -14,21 +14,20 @@ import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.location.LocationMainDialog
 import com.example.parkseeun.moca_android.ui.location.data.LocationMainData
 import com.example.parkseeun.moca_android.ui.location.data.MarkerItem
-import org.jetbrains.anko.backgroundResource
 
 class LocationMainAdapter(
     val context: Context,
     val dataList: ArrayList<LocationMainData>,
     val markerItem: ArrayList<MarkerItem>
 ) : RecyclerView.Adapter<LocationMainAdapter.Holder>() {
+
     private lateinit var onItemClick: View.OnClickListener
+
     fun setOnItemClickListener(l: View.OnClickListener) {
         onItemClick = l
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-
         // 뷰 인플레이트
         val view: View = LayoutInflater.from(context).inflate(R.layout.rv_item_nearby_cafe, parent, false)
         view.setOnClickListener(onItemClick)
@@ -49,56 +48,8 @@ class LocationMainAdapter(
         } else {
             holder.rl_dialog_location_main.setBackgroundResource(R.drawable.boarder_pointpink)
         }
-
-        holder.rl_dialog_location_main.setOnClickListener {
-            if (dataList[position].selected == false) {
-                for (i in dataList) {
-                    i.selected = false
-                }
-                notifyDataSetChanged()
-                markerItem.get(position).setmarker(true)
-                dataList[position].selected = true
-            } else if (dataList[position].selected == true) {
-                for (i in dataList) {
-                    i.selected = false
-                }
-                notifyDataSetChanged()
-                val dialog: LocationMainDialog = LocationMainDialog(context, dataList[position])
-                Log.v("플래그 (어댑터)", "" + dataList[position].selected)
-                dialog.show()
-            }
-        }
-
-
     }
 
-    /*
-//필크 색갈
-        if(dataList[position].selected == false){
-            holder.rl_dialog_location_main.setBackgroundResource(R.drawable.boarder_darkgray)
-
-        } else{
-            holder.rl_dialog_location_main.setBackgroundResource(R.drawable.boarder_pointpink)
-        }
-
-
-        holder.rl_dialog_location_main.setOnClickListener {
-            if (dataList[position].selected == false) {
-
-                markerItem.get(position).setmarker(true)
-//                dataList[position].selected = true
-                holder.rl_dialog_location_main.setBackgroundResource(R.drawable.boarder_darkgray)
-            } else if (dataList[position].selected == true) {
-                holder.rl_dialog_location_main.setBackgroundResource(R.drawable.boarder_pointpink)
-
-                val dialog : LocationMainDialog = LocationMainDialog(context, dataList[position])
-                Log.v("플래그 (어댑터)", "" + dataList[position].selected)
-                dialog.show()
-            }
-        }
-
-    }
-    */
     // View Holder
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val rl_dialog_location_main: RelativeLayout =

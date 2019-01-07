@@ -18,4 +18,11 @@ object SharedPreferenceController {
         val pref = ctx.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE)
         return pref.getString(myAuth, "")
     }
+
+    fun clearSPC (ctx : Context) {
+        val pref = ctx.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.clear()
+        editor.apply()
+    }
 }

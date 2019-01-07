@@ -53,5 +53,10 @@ android {
         implementation "com.airbnb.android:lottie:2.1.0"
         // image zoom
         implementation 'com.github.chrisbanes:PhotoView:2.1.0'
+        implementation 'com.android.support.constraint:constraint-layout:+'
     }
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
