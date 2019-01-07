@@ -43,9 +43,10 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
     private val TAG = "NavigationActivity"
 
-    private var mem_num: Int = 0
+    private var mem_num: Int = 4
     lateinit var headerView: View
     private val membershipList = ArrayList<MembershipData>()
+    val mList = ArrayList<Boolean>()
     val memList by lazy{
         ArrayList<Boolean>()
     }
@@ -119,13 +120,28 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
             startActivity(intent)
         }
 
-        membershipRv= headerView.findViewById(R.id.rv_act_home_membership)
+        setList()
 
+        membershipRv = headerView.findViewById(R.id.rv_act_home_membership)
+        membershipRv.layoutManager = GridLayoutManager(this, 4)
+        membershipRv.adapter = MypageTabAdapter(this, mList)
+
+        val mNum : String = mem_num.toString()
+        headerView.tv_act_home_membership_num.text = mNum + "/12"
 
 
 
         setNetwork()
 
+    }
+
+    private fun setList() {
+        for(i in 0..11){
+            if(i<mem_num) {
+                mList.add(true)
+            }else
+                mList.add(false)
+        }
     }
 
     private fun setScrapList() {
@@ -211,9 +227,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                     }
                     val memSize = memList.size
                     Log.v("getMypageMember", "$memSize")
-                    mypageTabAdapter = MypageTabAdapter(this@NavigationActivity, memList)
-                    membershipRv.layoutManager = GridLayoutManager(this@NavigationActivity, 4)
-                    membershipRv.adapter = mypageTabAdapter
+
                 }
         }})
     }
