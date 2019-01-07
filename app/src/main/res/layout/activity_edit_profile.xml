@@ -61,7 +61,7 @@
                     android:layout_width="88dp"
                     android:layout_height="88dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/common_defaultimage" />
 
                 <ImageView
                     android:layout_width="36dp"
@@ -214,7 +214,8 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp">
+                        android:layout_height="50dp"
+                        android:id="@+id/rl_act_edit_profile_logout">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -229,7 +230,6 @@
                                 android:text="로그아웃" />
 
                             <ImageView
-                                android:id="@+id/iv_act_edit_prof_logout"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:src="@drawable/mypage_arrow_right"
