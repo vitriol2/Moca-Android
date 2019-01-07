@@ -1,9 +1,6 @@
 package com.example.parkseeun.moca_android.network
 
-import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
-import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
-import com.example.parkseeun.moca_android.model.get.GetMembershipResponse
-import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
+import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.model.post.PostJoinResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
@@ -43,6 +40,14 @@ interface NetworkService {
     // <위치>
 
     // <커뮤니티>
+    // 소셜 피드
+    @GET("/feed/social")
+    fun getSocialFeed(@Header("Authorization") token: String):Call<GetFeedResponse>
+    // 유저 피드
+    @GET("/feed/user/{user_id}")
+    fun getUserFeed(@Header("Authorization") token: String,
+                      @Path("user_id") id: String):Call<GetFeedResponse>
+
     // 팔로워 조회
     @GET("/user/{user_id}/follower")
     fun getFollower(@Header("Authorization") token: String,

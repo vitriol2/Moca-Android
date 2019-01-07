@@ -6,12 +6,21 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.ui.community.feed.ReviewData
+import com.example.parkseeun.moca_android.model.get.GetFeedResponse
+import com.example.parkseeun.moca_android.model.get.GetFeedResponseData
+import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.feed.ReviewRecyclerViewAdapter
 import com.example.parkseeun.moca_android.ui.community.follow.FollowActivity
+import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_other_user.*
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
+    private val networkService  = ApplicationController.instance.networkService
+    private lateinit var getFeedResponse : Call<GetFeedResponse>
     private lateinit var reviewRecyclerViewAdapter : ReviewRecyclerViewAdapter
 
     override fun onClick(v: View?) {
@@ -38,19 +47,28 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
         other_follower_tv.setOnClickListener(this)
         other_following_tv.setOnClickListener(this)
 
-        setRecyclerView()
+        communicate()
     }
     // RecyclerView 설정
-    private fun setRecyclerView() {
-        // 임시 데이터
-        var dataList : ArrayList<ReviewData> = ArrayList()
-        dataList.add(ReviewData("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "정화니", 4, 0, "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", 199, 200, "C27", "20시간 전", "서울 강남구", "오께~이 간만에 커필 마셨는데 음~ 가격~이… 잘 모르겠쒀요"))
-        dataList.add(ReviewData("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "누구", 3, 1, "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", 199, 200, "C27", "20시간 전", "서울 강남구", "오께~이 간만에 커필 마셨는데 음~ 가격~이… 잘 모르겠쒀요"))
-        dataList.add(ReviewData("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "세용", 2, 1, "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", 199, 200, "C27", "20시간 전", "서울 강남구", "오께~이 간만에 커필 마셨는데 음~ 가격~이… 잘 모르겠쒀요"))
-        dataList.add(ReviewData("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "아용", 1, 0, "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", 199, 200, "C27", "20시간 전", "서울 강남구", "노 맛"))
+    private fun communicate() {
+        // intent로 받아온 user_id가 없을 경우 유저 아이디 사용
+        getFeedResponse = networkService.getUserFeed(User.token, intent.getStringExtra("user_id")?:User.user_id)
+        getFeedResponse.enqueue(object : Callback<GetFeedResponse> {
+            override fun onFailure(call: Call<GetFeedResponse>?, t: Throwable?) {
+                toast(t.toString())
+            }
 
-        reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(applicationContext!!, dataList)
-        other_reviews_recycler.adapter = reviewRecyclerViewAdapter
-        other_reviews_recycler.layoutManager = LinearLayoutManager(applicationContext)
+            override fun onResponse(call: Call<GetFeedResponse>?, response: Response<GetFeedResponse>?) {
+                if(response!!.isSuccessful)
+                    if (response!!.body()!!.status == 200) {
+                        var dataList: ArrayList<GetFeedResponseData> = response.body()!!.data
+                        reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(applicationContext!!, dataList)
+                        other_reviews_recycler.adapter = reviewRecyclerViewAdapter
+                        other_reviews_recycler.layoutManager = LinearLayoutManager(applicationContext)
+                    } else if (response!!.body()!!.status != 204) {
+                        toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
+                    }
+            }
+        })
     }
 }
