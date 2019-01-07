@@ -30,9 +30,7 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
     val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
     val plusPosts: ArrayList<String> = ArrayList()
 
-    val networkService by lazy {
-        ApplicationController.instance.networkService
-    }
+
     lateinit var homeHotplaceAdapter: HomeHotplaceAdapter
 
 

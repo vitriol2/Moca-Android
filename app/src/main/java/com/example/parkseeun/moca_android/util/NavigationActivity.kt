@@ -13,7 +13,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetMypageScrapResponse
+import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.category.CategoryActivity
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.main.*
@@ -28,6 +31,9 @@ import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.mypage_tab.*
 import kotlinx.android.synthetic.main.mypage_tab.view.*
 import org.jetbrains.anko.startActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
@@ -35,7 +41,12 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
 
     private var mem_num : Int = 5
     lateinit var headerView : View
-    val membershipList = ArrayList<Boolean>()
+    private val membershipList = ArrayList<Boolean>()
+    private var scrapList = ArrayList<String>()
+
+    val networkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
     fun setHeader(view_navi : NavigationView) {
 
@@ -84,7 +95,7 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
         }
 
 
-        val scrapCafe : ImageView = headerView.findViewById(R.id.iv_mypage_tab_scrapcafe_more) as ImageView
+        val scrapCafe : RelativeLayout = headerView.findViewById(R.id.rl_mypage_tab_scrap_more) as RelativeLayout
         scrapCafe.setOnClickListener {
             startActivity<ScrapCafeActivity>()
         }
@@ -105,6 +116,62 @@ abstract class NavigationActivity : AppCompatActivity() , NavigationView.OnNavig
         headerView.iv_act_home_membership.setOnClickListener {
 
         }
+
+        setNetwork()
+
+
+    }
+
+    private fun setList() {
+        //찜한 카페 목록
+            Glide.with(this).load(scrapList[1]).into(iv_mypage_tab_scrap_1)
+            Glide.with(this).load(scrapList[2]).into(iv_mypage_tab_scrap_2)
+            Glide.with(this).load(scrapList[3]).into(iv_mypage_tab_scrap_3)
+            Glide.with(this).load(scrapList[4]).into(iv_mypage_tab_scrap_4)
+            Glide.with(this).load(scrapList[5]).into(iv_mypage_tab_scrap_5)
+
+
+    }
+
+    private fun setNetwork() {
+        //마이페이지-찜한카페 목록
+        getMypageScrapResponse()
+
+
+    }
+
+    private fun getMypageScrapResponse() {
+        val getMypageScrapResponse = networkService.getMypageScrapResponse("application/json", User.token!!)
+
+        getMypageScrapResponse.enqueue(object : Callback<GetMypageScrapResponse>{
+            override fun onFailure(call: Call<GetMypageScrapResponse>, t: Throwable) {
+                Log.e("Mypage-Scrap failed", t.toString())
+            }
+
+            override fun onResponse(call: Call<GetMypageScrapResponse>, response: Response<GetMypageScrapResponse>) {
+                if(response.isSuccessful) {
+                    Log.v("mypage-scrap load", "success")
+                    for(i in 1..6) {
+                        if(response.body() != null) {
+                            if (response.body()!!.data != null) {
+                                val scrapImg: String? = response.body()!!.data[i].cafe_img_url[i]
+                                if (scrapImg != null) {
+                                    scrapList.add(response.body()!!.data[i].cafe_img_url[i])
+                                }
+                                else
+                                    scrapList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
+
+                            }
+                            else
+                                scrapList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
+                        }else
+                            scrapList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
+                    }
+                    Log.v("setList", "done")
+                    setList()
+                }
+            }
+        })
     }
 
     override fun onBackPressed() {

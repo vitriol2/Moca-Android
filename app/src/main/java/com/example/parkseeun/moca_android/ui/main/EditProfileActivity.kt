@@ -1,15 +1,25 @@
 package com.example.parkseeun.moca_android.ui.main
 
+import android.content.Intent
+import android.media.session.MediaSession
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.ui.loginJoin.LoginActivity
+import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
 class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener, TextWatcher {
+
+    val networkService  by lazy {
+        ApplicationController.instance.networkService
+    }
+
 
     override fun onVisibilityChanged(isKeyboardOpen: Boolean) {
          if(isKeyboardOpen) {
@@ -33,6 +43,13 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         btn_act_edit_prof_complete.setOnClickListener{
             finish()
         }
+
+        rl_act_edit_profile_logout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 
     private fun setBtnSetting() {
@@ -46,9 +63,7 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
 
     override fun afterTextChanged(s: Editable?) {
          btn_act_edit_prof_complete.isEnabled =
-                 et_ect_edit_prof_nick.text.toString().isNotEmpty()&&
-                 et_ect_edit_prof_status.text.toString().isNotEmpty()&&
-                 et_ect_edit_prof_phone.text.toString().isNotEmpty()
+                 et_ect_edit_prof_nick.text.toString().isNotEmpty()
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -56,6 +71,7 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
     }
+
 
 
 

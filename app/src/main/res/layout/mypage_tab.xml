@@ -14,7 +14,7 @@
         android:paddingLeft="20dp"
         android:paddingBottom="10dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -24,27 +24,26 @@
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/common_defaultimage" />
 
-            <ImageView
-                android:id="@+id/iv_mypage_tab_barcode"
-                android:layout_width="43dp"
-                android:layout_height="14dp"
-                android:layout_marginLeft="103dp"
-                android:layout_marginTop="11dp" />
 
             <RelativeLayout
                 android:id="@+id/iv_mypage_tab_notice"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginLeft="9dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="6dp">
+                <RelativeLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:id="@+id/rl_mypage_tab_alarm">
 
                 <ImageView
 
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/mypage_alarm" />
 
                 <ImageView
@@ -55,25 +54,18 @@
                     android:layout_marginTop="9dp"
                     android:layout_marginRight="7dp"
                     android:src="@drawable/mypage_alram_circle" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginRight="6dp"
-
-                android:gravity="center">
+                </RelativeLayout>
 
                 <ImageView
                     android:id="@+id/iv_mypage_tab_setting"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/rl_mypage_tab_alarm"
                     android:src="@drawable/mypage_setting" />
             </RelativeLayout>
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             style="@style/home_category_title"
@@ -164,27 +156,32 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_mypage_tab_scrap_1"
                     style="@style/mypage_tab_menu_zzim_image"
                     android:src="@drawable/ic_launcher_background" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_mypage_tab_scrap_2"
                     style="@style/mypage_tab_menu_zzim_image"
                     android:src="@drawable/ic_launcher_background" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_mypage_tab_scrap_3"
                     style="@style/mypage_tab_menu_zzim_image"
                     android:src="@drawable/ic_launcher_background" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_mypage_tab_scrap_4"
                     style="@style/mypage_tab_menu_zzim_image"
                     android:src="@drawable/ic_launcher_background" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_mypage_tab_scrap_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_mypage_tab_scrapcafe_more"
+                        android:id="@+id/iv_mypage_tab_scrap_5"
                         style="@style/mypage_tab_menu_zzim_image"
                         android:src="@drawable/ic_launcher_background" />
 
@@ -199,8 +196,8 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            android:text="+5
-더보기"
+                            android:lines="2"
+                            android:text="5+&#10;더보기"
                             android:textColor="#ffffff"
                             android:textSize="9sp" />
                     </RelativeLayout>
