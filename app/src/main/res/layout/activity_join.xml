@@ -209,7 +209,8 @@
         android:textColor="#ffffff"
         android:textSize="13sp"
         android:fontFamily="@font/nanum_b"
-        android:background="@drawable/button_pink_radius"/>
+        android:background="@drawable/button_pink_radius"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/btn_join_cancel"
@@ -222,6 +223,7 @@
         android:textColor="#e1b2a3"
         android:textSize="13sp"
         android:fontFamily="@font/nanum_b"
-        android:background="@drawable/button_pink_border"/>
+        android:background="@drawable/button_pink_border"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </LinearLayout>
