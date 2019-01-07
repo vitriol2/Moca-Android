@@ -29,24 +29,24 @@ class FollowRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         holder.tv_follow_name.text = dataList[position].name
 
         // followFlag가 1이면 팔로잉 되어있는 상태라고 가정했당 (1이면 팔로잉, 0이면 팔로잉X)
-        if (dataList[position].followFlag == 0) {
-            holder.ib_follow_follow.setBackgroundResource(R.drawable.community_following_following)
-        }
-        else if (dataList[position].followFlag == 1) {
+        if (dataList[position].followFlag) {
             holder.ib_follow_follow.setBackgroundResource(R.drawable.community_followinglist_follow)
+        }
+        else {
+            holder.ib_follow_follow.setBackgroundResource(R.drawable.community_following_following)
         }
 
         // 팔로우 버튼 클릭 리스너
         holder.ib_follow_follow.setOnClickListener {
-            if (dataList[position].followFlag == 0) {
-                holder.ib_follow_follow.setBackgroundResource(R.drawable.community_followinglist_follow)
-
-                dataList[position].followFlag = 1
-            }
-            else if (dataList[position].followFlag == 1) {
+            if (dataList[position].followFlag) {
                 holder.ib_follow_follow.setBackgroundResource(R.drawable.community_following_following)
 
-                dataList[position].followFlag = 0
+                dataList[position].followFlag = false
+            }
+            else {
+                holder.ib_follow_follow.setBackgroundResource(R.drawable.community_followinglist_follow)
+
+                dataList[position].followFlag = true
             }
         }
     }
