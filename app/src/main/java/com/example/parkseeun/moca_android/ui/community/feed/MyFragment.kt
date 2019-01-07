@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetFeedResponse
 import com.example.parkseeun.moca_android.model.get.GetFeedResponseData
+import com.example.parkseeun.moca_android.model.get.GetUserDataResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.follow.FollowActivity
 import com.example.parkseeun.moca_android.util.User
@@ -23,6 +25,7 @@ import retrofit2.Response
 class MyFragment :Fragment(), View.OnClickListener{
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getFeedResponse : Call<GetFeedResponse>
+    private lateinit var getMyDataResponse : Call<GetUserDataResponse>
     private lateinit var reviewRecyclerViewAdapter : ReviewRecyclerViewAdapter
 
     override fun onClick(v: View?) {
@@ -51,8 +54,32 @@ class MyFragment :Fragment(), View.OnClickListener{
         communicate(v)
         return v
     }
-    // RecyclerView 설정
+
     private fun communicate(v:View) {
+        // 상단부
+        getMyDataResponse = networkService.getUserData(User.token, User.user_id)
+        getMyDataResponse.enqueue(object : Callback<GetUserDataResponse>{
+            override fun onFailure(call: Call<GetUserDataResponse>?, t: Throwable?) {
+                toast(t.toString())
+            }
+
+            override fun onResponse(call: Call<GetUserDataResponse>?, response: Response<GetUserDataResponse>?) {
+                if(response!!.isSuccessful)
+                    if (response!!.body()!!.status == 200) {
+                        Glide.with(context!!).load(response.body()!!.data.user_img_url).into(v.my_profile_ci)
+                        v.my_name_tv.text = response.body()!!.data.user_name
+                        v.my_status_tv.text = response.body()!!.data.user_status_comment
+                        v.my_review_tv.text = response.body()!!.data.review_count.toString()
+                        v.my_follower_tv.text = response.body()!!.data.follower_count.toString()
+                        v.my_following_tv.text = response.body()!!.data.following_count.toString()
+                    } else {
+                        toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
+                    }
+
+            }
+
+        })
+        // 리뷰들
         getFeedResponse = networkService.getUserFeed(User.token, User.user_id)
         getFeedResponse.enqueue(object : Callback<GetFeedResponse>{
             override fun onFailure(call: Call<GetFeedResponse>?, t: Throwable?) {

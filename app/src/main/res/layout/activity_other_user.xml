@@ -10,6 +10,15 @@
         android:id="@+id/other_actionbar_const"
         android:layout_width="match_parent"
         android:layout_height="55dp">
+        <ImageView
+            android:id="@+id/other_back_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/common_back_black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"/>
         <TextView
             android:id="@+id/other_title_tv"
             android:layout_width="wrap_content"
@@ -57,6 +66,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/other_profile_ci"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="16dp"

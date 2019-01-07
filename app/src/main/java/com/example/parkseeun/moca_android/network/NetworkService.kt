@@ -50,6 +50,10 @@ interface NetworkService {
     @GET("/feed/user/{user_id}")
     fun getUserFeed(@Header("Authorization") token: String,
                       @Path("user_id") id: String):Call<GetFeedResponse>
+    // 유저 정보
+    @GET("/user/{user_id}")
+    fun getUserData(@Header("Authorization") token: String,
+                    @Path("user_id") id: String):Call<GetUserDataResponse>
 
     // 팔로워 조회
     @GET("/user/{user_id}/follower")
