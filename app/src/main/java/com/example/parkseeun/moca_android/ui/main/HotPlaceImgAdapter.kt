@@ -33,11 +33,13 @@ class HotPlaceImgAdapter(val context : Context, val dataList : ArrayList<String>
         }
 
         Glide.with(context).load(dataList[position]).into(holder.iv_hot_place_img) // 이미지 넣기
+
     }
 
     // View Holder
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val rv_hot_place_img : RelativeLayout = itemView.findViewById(R.id.rv_hot_place_img) as RelativeLayout
+        val iv_hot_place_isPick : ImageView = itemView.findViewById(R.id.iv_hot_place_isPick) as ImageView
         val iv_hot_place_img : ImageView = itemView.findViewById(R.id.iv_hot_place_img) as ImageView
     }
 }

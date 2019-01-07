@@ -46,12 +46,16 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
     private var mem_num: Int = 0
     lateinit var headerView: View
     private val membershipList = ArrayList<MembershipData>()
-    private val memList = ArrayList<Boolean>()
+    val memList by lazy{
+        ArrayList<Boolean>()
+    }
+    lateinit var mypageTabAdapter : MypageTabAdapter
     private var scrapList = ArrayList<String>()
 
     val networkService by lazy {
         ApplicationController.instance.networkService
     }
+    lateinit var membershipRv: RecyclerView
 
     fun setHeader(view_navi: NavigationView) {
 
@@ -115,9 +119,8 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
             startActivity(intent)
         }
 
-        val membershipRv: RecyclerView = headerView.findViewById(R.id.rv_act_home_membership)
-        membershipRv.layoutManager = GridLayoutManager(this, 4)
-        membershipRv.adapter = MypageTabAdapter(this, memList)
+        membershipRv= headerView.findViewById(R.id.rv_act_home_membership)
+
 
 
 
@@ -136,18 +139,6 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
     }
 
-    private fun setMembershipList() {
-        for (i in 1..mem_num) {
-            if (mem_num != 0) {
-                memList.add(true)
-            } else
-                break
-        }
-        for (i in mem_num + 1..12) {
-            memList.add(false)
-        }
-
-    }
 
     private fun setNetwork() {
         //마이페이지-찜한카페 목록
@@ -186,7 +177,6 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                     }
                     Log.v("setList", "done")
                     setScrapList()
-                    headerView.tv_act_home_membership_num!!.text = "$mem_num/12"
                 }
             }
 
@@ -205,15 +195,27 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
             override fun onResponse(
                 call: Call<GetMypageMembershipResponse>, response: Response<GetMypageMembershipResponse>) {
                 if (response.isSuccessful) {
-                    if (response.body()!!.data != null) {
-                        membershipList.addAll(response.body()!!.data)
-                        mem_num = membershipList.size
-                    } else
-                        mem_num = 0
+                    Log.v(TAG, "getMypageMembershipResponse load success")
+                    val temp : ArrayList<MembershipData>? = response.body()!!.data
+                    if(temp!!.size>0) {
+                        for(i in 0..11) {
+                            if(i<3) {
+                                memList.add(true)
+                            }else
+                                memList.add(false)
+                        }
+                    }else {
+                        for (i in 0..11) {
+                            memList.add(false)
+                        }
+                    }
+                    val memSize = memList.size
+                    Log.v("getMypageMember", "$memSize")
+                    mypageTabAdapter = MypageTabAdapter(this@NavigationActivity, memList)
+                    membershipRv.layoutManager = GridLayoutManager(this@NavigationActivity, 4)
+                    membershipRv.adapter = mypageTabAdapter
                 }
-                setMembershipList()
-            }
-        })
+        }})
     }
 
 

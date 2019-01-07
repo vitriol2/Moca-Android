@@ -78,11 +78,12 @@ class JoinActivity : AppCompatActivity() {
                     }
 
                     override fun onResponse(call: Call<PostJoinResponse>?, response: Response<PostJoinResponse>?) {
-                        if(response!!.body()!!.status==201) {
-                            finish()
-                        }else{
-                            toast(response!!.body()!!.message)
-                        }
+                        if(response!!.isSuccessful)
+                            if(response!!.body()!!.status==201) {
+                                finish()
+                            }else{
+                                toast(response!!.body()!!.message)
+                            }
                     }
                 })
             }

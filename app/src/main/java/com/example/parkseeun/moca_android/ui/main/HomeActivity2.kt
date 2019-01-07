@@ -126,7 +126,7 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         rv_act_home_picks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_act_home_picks.adapter = CategoryPickAdapter(this, pickposts)
 
-        //concept
+        //hotplace
         homeHotplaceAdapter = HomeHotplaceAdapter(this, hotList)
         rv_act_home_concept.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_act_home_concept.adapter = homeHotplaceAdapter
