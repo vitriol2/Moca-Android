@@ -50,5 +50,10 @@ class MocaPicksDetailActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        // 뒤로가기 버튼
+        ib_moca_picks_detail_back.setOnClickListener {
+            finish()
+        }
     }
 }

@@ -33,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
             window.statusBarColor = Color.parseColor("#e1b2a3")
         }
 
-
         // 회원가입 > 버튼
         btn_goToJoin.setOnClickListener {
             val intent : Intent = Intent(this@LoginActivity, JoinActivity::class.java)
@@ -74,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<PostLoginResponse>?, response: Response<PostLoginResponse>?) {
                     if(response!!.body()!!.status==200) {
                         User.token = response.body()!!.data.token!!
+                        User.user_id = et_login_id.text.toString()
                         startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
                     }
                 }

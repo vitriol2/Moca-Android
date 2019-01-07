@@ -28,8 +28,9 @@
         <activity android:name=".ui.community.review_write.WriteReviewActivity" />
         <activity android:name=".ui.community.follow.FollowActivity" />
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity" />
-
         <activity android:name=".ui.main.HomeActivity2">
+
+
         </activity>
 
 
@@ -52,13 +53,13 @@
         <activity android:name=".ui.community.feed.image.ImageActivity" />
         <activity android:name=".ui.community.review_detail.ReviewDetailActivity" />
         <activity android:name=".ui.ranking.RankingActivity" />
-        <activity android:name=".ui.location.LocationMainActivity" />
-        <activity android:name=".ui.category.CategoryActivity"></activity>
-        <activity android:name=".ui.mocapicks.MocaPicksListActivity" />
-        <activity android:name=".ui.location.LocationSearchActivity" />
-        <activity android:name=".ui.main.SearchActivity">
+        <activity android:name=".ui.category.CategoryActivity" />
+        <activity android:name=".ui.location.LocationMainActivity" >
 
         </activity>
+        <activity android:name=".ui.mocapicks.MocaPicksListActivity" />
+        <activity android:name=".ui.location.LocationSearchActivity" />
+        <activity android:name=".ui.main.SearchActivity"></activity>
         <activity android:name=".ui.main.ScrapCafeActivity" />
         <activity android:name=".ui.main.coupon.CouponActivity" />
         <activity android:name=".ui.main.notice.NoticeActivity" />
@@ -76,14 +77,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.category.CafeListActivity" />
-        <activity android:name=".ui.communitySearch.CommunitySearchActivity">
+        <activity android:name=".ui.detail.DetailActivity"></activity>
+        <activity android:name=".ui.communitySearch.CommunitySearchActivity"></activity>
+        <activity android:name=".ui.community.feed.other_user.OtherUserActivity" />
+        <activity android:name=".ui.main.HotPlaceActivity">
 
         </activity>
-        <activity android:name=".ui.detail.DetailActivity">
-
-        </activity>
-        <activity android:name=".ui.community.feed.other_user.OtherUserActivity"></activity>
-
+        <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
+        <activity android:name=".ui.detail.detailReviewAll.ReviewAllActivity"/>
+        <activity android:name=".ui.detail.nearbyList.NearbyListActivity"/>
     </application>
 
 </manifest>
