@@ -55,4 +55,6 @@ interface NetworkService {
                      @Path("user_id") id: String) : Call<GetFollowingResponse>
     // <마이 페이지>
 
+    // 주변카페
+
 }
