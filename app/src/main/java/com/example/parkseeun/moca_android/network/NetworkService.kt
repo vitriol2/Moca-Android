@@ -4,7 +4,6 @@ import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
-import com.example.parkseeun.moca_android.model.post.PostJoinData
 import com.example.parkseeun.moca_android.model.post.PostJoinResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
@@ -12,7 +11,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
-import retrofit2.http.QueryMap
 
 interface NetworkService {
     // <회원가입>
@@ -45,16 +43,27 @@ interface NetworkService {
     // <위치>
 
     // <커뮤니티>
+    // 소셜 피드
+    @GET("/feed/social")
+    fun getSocialFeed(@Header("Authorization") token: String):Call<GetFeedResponse>
+    // 유저 피드
+    @GET("/feed/user/{user_id}")
+    fun getUserFeed(@Header("Authorization") token: String,
+                      @Path("user_id") id: String):Call<GetFeedResponse>
+
     // 팔로워 조회
     @GET("/user/{user_id}/follower")
-    fun getFollower(@Header("token") token: String,
+    fun getFollower(@Header("Authorization") token: String,
                     @Path("user_id") id: String):Call<GetFollowerResponse>
 
     // 팔로잉 조회
     @GET("/user/{user_id}/following")
-    fun getFollowing(@Header("token") token: String,
+    fun getFollowing(@Header("Authorization") token: String,
                      @Path("user_id") id: String) : Call<GetFollowingResponse>
     // <마이 페이지>
+    // 적립 내역
+    @GET("/membership")
+    fun getMembership(@Header("Authorization") token: String):Call<GetMembershipResponse>
 
     // 주변카페
     //<지원: 홈-핫플레이스>
