@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.ui.detail.detailReviewAll.GridSpacingItemDecoration
-import com.example.parkseeun.moca_android.ui.detail.detailReviewAll.ReviewAllPopularAdapter
-import com.example.parkseeun.moca_android.ui.detail.detailReviewAll.ReviewAllPopularData
+import com.example.parkseeun.moca_android.ui.detail.detailReviewAll.*
 import kotlinx.android.synthetic.main.activity_review_all.*
 import kotlinx.android.synthetic.main.activity_review_all.view.*
 import kotlinx.android.synthetic.main.fragment_com_sear_all.*
@@ -20,7 +18,7 @@ import kotlinx.android.synthetic.main.navigation_community_search.*
 
 class ComSearCafeFragment : Fragment() {
     private val PcafeList = ArrayList<ReviewAllPopularData>()
-    private val RcafeList = ArrayList<ReviewAllPopularData>()
+    private val RcafeList = ArrayList<ReviewAllRecentData>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,7 +40,7 @@ class ComSearCafeFragment : Fragment() {
         PcafeList.add(ReviewAllPopularData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG"))
 
         for (i in 1..20) {
-            RcafeList.add(ReviewAllPopularData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG"))
+            RcafeList.add(ReviewAllRecentData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG"))
         }
 
     }
@@ -57,7 +55,7 @@ class ComSearCafeFragment : Fragment() {
         val includeEdge = false
         rv_frag_com_sear_cafe_recent.addItemDecoration(GridSpacingItemDecoration(spanCount, spacing, includeEdge))
         rv_frag_com_sear_cafe_recent.layoutManager = GridLayoutManager(activity, 3)
-        rv_frag_com_sear_cafe_recent.adapter = ReviewAllPopularAdapter(activity!!, RcafeList)
+        rv_frag_com_sear_cafe_recent.adapter = ReviewAllRecentAdapter(activity!!, RcafeList)
 
 
     }

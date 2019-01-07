@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.ui.loginJoin
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +14,9 @@ import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.main.HomeActivity2
+import com.example.parkseeun.moca_android.util.SharedPreferenceController
 import com.example.parkseeun.moca_android.util.User
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -72,12 +75,20 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<PostLoginResponse>?, response: Response<PostLoginResponse>?) {
                     if(response!!.body()!!.status==200) {
+                        val token = response.body()!!.data.token!!
+                        User.token = token
+                        SharedPreferenceController.setAuthorization(this@LoginActivity, token)
                         User.token = response.body()!!.data.token!!
                         User.user_id = et_login_id.text.toString()
                         startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
                     }
                 }
             })
+        }
+
+        //에뮬돌릴때 로그인 한번 해놓으면 다음에 킬때 바로 홈화면으로, 뒤로가기누르면 LoginActivity로 돌아갈 수 있다.
+        if(SharedPreferenceController.getAuthorization(this).isNotEmpty()) {
+            startActivity<HomeActivity2>()
         }
     }
 }
