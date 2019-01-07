@@ -3,5 +3,5 @@ package com.example.parkseeun.moca_android.model.get
 data class GetFollowerResponse (
         val status: Int,
         val message: String?,
-        val data: GetFollowerResponseData
+        val data: ArrayList<GetFollowerResponseData>
 )

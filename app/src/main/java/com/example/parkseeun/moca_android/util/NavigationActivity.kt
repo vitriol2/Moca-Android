@@ -146,6 +146,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
         for (i in mem_num + 1..12) {
             memList.add(false)
         }
+
     }
 
     private fun setNetwork() {

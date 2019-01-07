@@ -78,6 +78,7 @@ class LoginActivity : AppCompatActivity() {
                         val token = response.body()!!.data.token!!
                         User.token = token
                         SharedPreferenceController.setAuthorization(this@LoginActivity, token)
+                        User.user_id = et_login_id.text.toString()
                         startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
                     }
                 }
