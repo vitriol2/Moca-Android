@@ -99,7 +99,7 @@ class JoinActivity : AppCompatActivity() {
         if (et_join_id.text.toString() != "" && et_join_name.text.toString() != "" && et_join_phone.text.toString() != "" && et_join_pw.text.toString() != "" && et_join_pwCheck.text.toString() != "") {
             if (et_join_id.text.length < 4 || et_join_id.text.length > 10) {
                 toast("아이디는 4~10글자로 입력해주세요.")
-                
+
 
                 return false
             } else if(!Pattern.compile("^([a-z][A-Z][0-9])$").matcher(et_join_id.text.toString()).matches()){
