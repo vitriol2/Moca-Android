@@ -1,6 +1,9 @@
 package com.example.parkseeun.moca_android.network
 
 import com.example.parkseeun.moca_android.model.get.*
+import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
+import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
+import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
 import com.example.parkseeun.moca_android.model.post.PostJoinData
 import com.example.parkseeun.moca_android.model.post.PostJoinResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
@@ -46,6 +49,11 @@ interface NetworkService {
     @GET("/user/{user_id}/follower")
     fun getFollower(@Header("token") token: String,
                     @Path("user_id") id: String):Call<GetFollowerResponse>
+
+    // 팔로잉 조회
+    @GET("/user/{user_id}/following")
+    fun getFollowing(@Header("token") token: String,
+                     @Path("user_id") id: String) : Call<GetFollowingResponse>
     // <마이 페이지>
 
     //<지원: 홈-핫플레이스>
