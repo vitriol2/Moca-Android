@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.ui.detail
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
@@ -10,6 +11,7 @@ import android.view.View
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.community.feed.ReviewData
 import com.example.parkseeun.moca_android.ui.community.feed.ReviewRecyclerViewAdapter
+import com.example.parkseeun.moca_android.ui.community.review_write.WriteReviewActivity
 import com.example.parkseeun.moca_android.ui.detail.detailReviewAll.ReviewAllActivity
 import com.example.parkseeun.moca_android.ui.detail.nearbyList.NearbyListActivity
 import com.example.parkseeun.moca_android.ui.ranking.RankingData
@@ -50,6 +52,31 @@ class DetailActivity : AppCompatActivity() {
 
         ll_act_detail_nearbyList.setOnClickListener {
             startActivity<NearbyListActivity>()
+        }
+
+        ib_detail_back.setOnClickListener {
+            finish()
+        }
+
+        // 리뷰 쓰기
+        tv_detail_write_review.setOnClickListener {
+            val intent = Intent(this@DetailActivity, WriteReviewActivity::class.java)
+
+            startActivity(intent)
+        }
+
+        // 전체 리뷰 보기
+        iv_detail_review_all.setOnClickListener {
+            val intent = Intent(this@DetailActivity, ReviewAllActivity::class.java)
+
+            startActivity(intent)
+        }
+
+        // 주변 카페 리스트
+        ll_act_detail_nearbyList.setOnClickListener {
+            val intent = Intent(this@DetailActivity, NearbyListActivity::class.java)
+
+            startActivity(intent)
         }
     }
 

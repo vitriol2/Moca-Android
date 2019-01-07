@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
+import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.activity_ranking.*
 
 class RankingActivity : AppCompatActivity(), View.OnClickListener {
@@ -14,8 +15,8 @@ class RankingActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         val idx: Int = ranking_cafe_rv.getChildAdapterPosition(v!!)
-        val nextIntent = Intent(this, FeedActivity::class.java)
-        nextIntent.putExtra("rank idx", idx)
+        val nextIntent = Intent(this, DetailActivity::class.java)
+
         startActivity(nextIntent)
     }
 

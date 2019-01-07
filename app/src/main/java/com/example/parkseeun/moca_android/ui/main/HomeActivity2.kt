@@ -87,7 +87,12 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
             startActivity(intent)
         }
 
+        // 수민 추가 (핫 플레이스 화면으로)
+        home_concept_tv.setOnClickListener {
+            val intent = Intent(this@HomeActivity2, HotPlaceActivity::class.java)
 
+            startActivity(intent)
+        }
 //        val toggle = ActionBarDrawerToggle(
 //            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
 //        )

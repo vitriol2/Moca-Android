@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.ui.community.feed
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.View
 import com.example.parkseeun.moca_android.util.NavigationActivity
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.ui.communitySearch.CommunitySearchActivity
 import kotlinx.android.synthetic.main.activity_feed2.*
 import kotlinx.android.synthetic.main.app_bar_community.*
 
@@ -78,6 +80,13 @@ class FeedActivity : NavigationActivity(), View.OnClickListener{
         feed_social_const.setOnClickListener(this)
         feed_menu_iv.setOnClickListener(this)
         feed_cancel_iv.setOnClickListener(this)
+
+        // 커뮤니티 검색
+        feed_search_iv.setOnClickListener {
+            val intent = Intent(this@FeedActivity, CommunitySearchActivity::class.java)
+
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {
