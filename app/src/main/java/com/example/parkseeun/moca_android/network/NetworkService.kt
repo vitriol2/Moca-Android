@@ -56,6 +56,7 @@ interface NetworkService {
                      @Path("user_id") id: String) : Call<GetFollowingResponse>
     // <마이 페이지>
 
+    // 주변카페
     //<지원: 홈-핫플레이스>
     @GET("/hot_place")
     fun getHomeHotplaceResponse(
@@ -84,5 +85,4 @@ interface NetworkService {
         @Header("Content-Type") content_type : String,
         @Header("Authorization") token : String
     ) : Call<GetMypageMembershipResponse>
-
 }
