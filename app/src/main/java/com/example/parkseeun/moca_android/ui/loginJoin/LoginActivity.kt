@@ -88,8 +88,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //에뮬돌릴때 로그인 한번 해놓으면 다음에 킬때 바로 홈화면으로, 뒤로가기누르면 LoginActivity로 돌아갈 수 있다.
-        if(SharedPreferenceController.getAuthorization(this).isNotEmpty()) {
-            startActivity<HomeActivity2>()
-        }
+//        if(SharedPreferenceController.getAuthorization(this).isNotEmpty()) {
+//            startActivity<HomeActivity2>()
+//        }
     }
 }

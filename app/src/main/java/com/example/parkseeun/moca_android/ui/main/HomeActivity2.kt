@@ -118,9 +118,6 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
 
     }
 
-
-
-
     private fun recyclerView() {
         //cafecloud pick
         rv_act_home_picks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

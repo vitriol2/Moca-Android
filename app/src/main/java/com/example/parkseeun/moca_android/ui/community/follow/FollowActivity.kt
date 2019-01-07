@@ -3,6 +3,8 @@ package com.example.parkseeun.moca_android.ui.community.follow
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.KeyEvent
+import android.view.View
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponseData
@@ -25,6 +27,7 @@ class FollowActivity : AppCompatActivity() {
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getFollowerResponse : Call<GetFollowerResponse>
     private lateinit var getFollowingResponse : Call<GetFollowingResponse>
+    private lateinit var searchResultList : ArrayList<FollowData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +44,39 @@ class FollowActivity : AppCompatActivity() {
             getFollowing()
         }
 
+        ib_follow_cancel.setOnClickListener {
+            finish()
+        }
+
         setRecyclerView()
+        searchAction()
+    }
+
+    // 검색
+    private fun searchAction() {
+        et_follow_search.setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
+                //Enter key Action
+                return if (event.action === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    searchResultList = ArrayList()
+
+                    var searchString = et_follow_search.text.toString()
+                    val regex = Regex(pattern = searchString)
+
+                    for (value in dataList) {
+                        if (regex.containsMatchIn(input = value.name)) {
+                            searchResultList.add(value)
+                        }
+                    }
+
+                    followRecyclerViewAdapter = FollowRecyclerViewAdapter(applicationContext!!, searchResultList)
+                    rv_follow_list.adapter = followRecyclerViewAdapter
+                    rv_follow_list.layoutManager = LinearLayoutManager(applicationContext)
+
+                    true
+                } else false
+            }
+        })
     }
 
     // 데이터 받아오기 (통신) - 팔로워
@@ -58,7 +93,7 @@ class FollowActivity : AppCompatActivity() {
                         var getFollowerData: ArrayList<GetFollowerResponseData> = response.body()!!.data
 
                         for (value in getFollowerData) {
-                            dataList.add(FollowData(value.user_img_url, value.user_name, value.follow))
+                            dataList.add(FollowData(value.user_id, value.user_img_url, value.user_name, value.follow))
                         }
                     } else if (response!!.body()!!.status == 204) {
                         toast("팔로워가 존재하지 않습니다!")
@@ -81,7 +116,7 @@ class FollowActivity : AppCompatActivity() {
                         var getFollowerData: ArrayList<GetFollowerResponseData> = response.body()!!.data
 
                         for (value in getFollowerData) {
-                            dataList.add(FollowData(value.user_img_url, value.user_name, value.follow))
+                            dataList.add(FollowData(value.user_id, value.user_img_url, value.user_name, value.follow))
                         }
                     } else if (response!!.body()!!.status == 204) {
                         toast("팔로잉이 존재하지 않습니다!")
