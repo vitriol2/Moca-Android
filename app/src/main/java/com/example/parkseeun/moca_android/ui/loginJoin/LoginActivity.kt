@@ -74,14 +74,15 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<PostLoginResponse>?, response: Response<PostLoginResponse>?) {
-                    if(response!!.body()!!.status==200) {
-                        val token = response.body()!!.data.token!!
-                        User.token = token
-                        SharedPreferenceController.setAuthorization(this@LoginActivity, token)
-                        User.token = response.body()!!.data.token!!
-                        User.user_id = et_login_id.text.toString()
-                        startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
-                    }
+                    if(response!!.isSuccessful)
+                        if(response!!.body()!!.status==200) {
+                            val token = response.body()!!.data.token!!
+                            User.token = token
+                            SharedPreferenceController.setAuthorization(this@LoginActivity, token)
+                            User.token = response.body()!!.data.token!!
+                            User.user_id = et_login_id.text.toString()
+                            startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
+                        }
                 }
             })
         }
