@@ -47,7 +47,7 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         })
         var imgs: ArrayList<String> = ArrayList()
         dataList[position].image.forEach { imgs.add(it.review_img_url?:"") }
-        holder.pic.adapter = ImageAdapter(context, imgs.toArray() as Array<String>)
+        holder.pic.adapter = ImageAdapter(context, imgs.toTypedArray())
 
         // view binding
         Glide.with(context).load(dataList[position].image[0].review_img_url).into(holder.profile)
