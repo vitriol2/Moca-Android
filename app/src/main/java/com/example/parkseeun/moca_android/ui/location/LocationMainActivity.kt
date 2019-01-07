@@ -36,6 +36,7 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_location_main.*
+import org.jetbrains.anko.startActivity
 import java.io.IOException
 import java.util.Locale
 
@@ -87,12 +88,12 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet)
-                setLocationTitle(markerTitle)
                 mCurrentLocation = location
             }
         }
     }
-    fun setLocationTitle(markerTitle : String){
+
+    fun setLocationTitle(markerTitle: String) {
         txt_location_main_address.text = markerTitle
     }
 
@@ -127,7 +128,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     }
 
     private fun drawCircle(googleMap: GoogleMap) {
-        if(circleflag)
+        if (circleflag)
             mCircle.remove()
 
         var circleOptions = CircleOptions()
@@ -139,7 +140,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         circleOptions.strokeWidth(1.toFloat())
 
         mCircle = googleMap.addCircle(circleOptions)
-        circleflag=true
+        circleflag = true
     }
 
 
@@ -147,25 +148,28 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         if (rv_act_location_main.indexOfChild(v) != -1) { // 리사이클러뷰의 자식뷰 이면  !
             val idx: Int = rv_act_location_main.getChildAdapterPosition(v!!) // 선택된 자식뷰
             cameraToMarker(idx)
-            floatDialog(idx)
+            var markerTitle : String = getCurrentAddress(markerlist[idx].position)
+            floatDialog(idx,markerTitle)
         }
     }
 
-    private fun setRvColor(idx: Int): Boolean{
-        if(!dataList[idx].selected){
+    private fun setRvColorandMarkerTitle(idx: Int,markerTitle: String): Boolean {
+        if (!dataList[idx].selected) {
             for (i in dataList) {
                 i.selected = false
             }
             locationMainAdapter.notifyDataSetChanged()
             LngList[idx].setmarker(true)
             dataList[idx].selected = true
+            setLocationTitle(markerTitle)
             rv_act_location_main.smoothScrollToPosition(idx)
             return true
         }
         return false
     }
-    private fun floatDialog(idx: Int){
-        if(!setRvColor(idx)) {
+
+    private fun floatDialog(idx: Int,markerTitle: String) {
+        if (!setRvColorandMarkerTitle(idx,markerTitle)) {
             if (dataList[idx].selected) {
                 for (i in dataList) {
                     i.selected = false
@@ -207,7 +211,9 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     }
 
     private fun setOnBtnClickListener() {
-
+        img_location_common_search.setOnClickListener {
+            startActivity<LocationSearchActivity>()
+        }
     }
 
 
@@ -321,19 +327,21 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
         mMap!!.setOnMapClickListener { Log.d(TAG, "onMapClick :") }
         mMap!!.setOnMarkerClickListener {
-            var idx: Int =-1
-            if(it == currentMarker)
+            var idx: Int = -1
+            if (it == currentMarker)
                 return@setOnMarkerClickListener false
 
             for (i in 0 until markerlist.size) {
                 markerlist[i].tag = markerlist[i] == it
-                if(markerlist[i].tag==true){
-                    idx=i
+                if (markerlist[i].tag == true) {
+                    idx = i
                 }
                 Log.v("마커 클릭 ", i.toString() + " 는 " + markerlist[i].tag)
             }
+            var markerTitle: String = getCurrentAddress(markerlist[idx].position)
+
             setMarkerIcon(-1)
-            setRvColor(idx)
+            setRvColorandMarkerTitle(idx,markerTitle)
             return@setOnMarkerClickListener false
 
         }
@@ -348,7 +356,9 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                 if (markerlist[i].tag as Boolean) {
                     markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
                 } else {
-                    markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point))
+                    markerlist[i].setIcon(
+                        BitmapDescriptorFactory.fromResource(R.drawable.location_point)
+                    )
                 }
             }
         } else {
@@ -391,7 +401,6 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             mFusedLocationClient!!.removeLocationUpdates(locationCallback)
         }
     }
-
 
     fun getCurrentAddress(latlng: LatLng): String {
 
@@ -456,10 +465,11 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
         img_mylocation_btn.setOnClickListener {
             val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
-            setLocationTitle(markerTitle)
             mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
             mMap!!.animateCamera(CameraUpdateFactory.zoomIn(), 500, null)
             mMap!!.animateCamera(cameraUpdate)
+            setLocationTitle(markerTitle)
+
             flag = true
         }
     }
