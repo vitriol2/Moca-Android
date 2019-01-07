@@ -4,15 +4,11 @@ import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
-import com.example.parkseeun.moca_android.model.post.PostJoinData
-import com.example.parkseeun.moca_android.model.post.PostJoinResponse
-import com.example.parkseeun.moca_android.model.post.PostLoginData
-import com.example.parkseeun.moca_android.model.post.PostLoginResponse
+import com.example.parkseeun.moca_android.model.post.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
-import retrofit2.http.QueryMap
 
 interface NetworkService {
     // <회원가입>
@@ -56,7 +52,13 @@ interface NetworkService {
                      @Path("user_id") id: String) : Call<GetFollowingResponse>
     // <마이 페이지>
 
-    // 주변카페
+    // <소희: 맵-주변카페>
+    @POST("/cafe/nearbycafe")
+    fun postNearByCafeResponse(
+        @Header("Authorization") token : String,
+        @Body postNearByCafe : PostNearByCafeData
+    ) : Call<PostNearByCafeResponse>
+
     //<지원: 홈-핫플레이스>
     @GET("/hot_place")
     fun getHomeHotplaceResponse(
