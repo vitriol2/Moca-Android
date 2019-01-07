@@ -45,15 +45,15 @@ interface NetworkService {
     // <커뮤니티>
     // 팔로워 조회
     @GET("/user/{user_id}/follower")
-    fun getFollower(@Header("token") token: String,
+    fun getFollower(@Header("Authorization") token: String,
                     @Path("user_id") id: String):Call<GetFollowerResponse>
 
     // 팔로잉 조회
     @GET("/user/{user_id}/following")
-    fun getFollowing(@Header("token") token: String,
+    fun getFollowing(@Header("Authorization") token: String,
                      @Path("user_id") id: String) : Call<GetFollowingResponse>
     // <마이 페이지>
     // 적립 내역
     @GET("/membership")
-    fun getMembership(@Header("token") token: String):Call<GetMembershipResponse>
+    fun getMembership(@Header("Authorization") token: String):Call<GetMembershipResponse>
 }

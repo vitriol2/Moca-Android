@@ -21,7 +21,7 @@ class CouponHistoryViewAdapter(val context: Context, val dataList: ArrayList<Get
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        when((dataList.size-position)%12){
+        when((dataList.size-position-1)%12){
             // bottom, plain, top 별 background, margin 설정
             0 -> (holder.bg.layoutParams as ConstraintLayout.LayoutParams).let {
                 it.bottomMargin = (20.0f*context.resources.displayMetrics.density).toInt()
@@ -40,7 +40,7 @@ class CouponHistoryViewAdapter(val context: Context, val dataList: ArrayList<Get
             }
         }
         Glide.with(context).load(dataList[position].cafe_img_url).into(holder.img)
-        holder.name.text = dataList[position].cafe_id.toString()+"번 카페 이름은 모르긔"
+        holder.name.text = dataList[position].cafe_name
         holder.date.text = dataList[position].membership_create_date.substring(0,10).replace("-",".")
     }
 

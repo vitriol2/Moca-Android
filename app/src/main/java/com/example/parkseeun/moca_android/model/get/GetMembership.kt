@@ -8,6 +8,7 @@ data class GetMembershipResponse (
 
 data class GetMembershipResponseData(
         val cafe_id: Int,
+        val cafe_name: String,
         val membership_create_date: String,
         val cafe_img_url: String?
 )

@@ -3,6 +3,7 @@ package com.example.parkseeun.moca_android.ui.mypage.coupon
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetMembershipResponse
 import com.example.parkseeun.moca_android.model.get.GetMembershipResponseData
@@ -36,15 +37,18 @@ class HistoryActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<GetMembershipResponse>?, response: Response<GetMembershipResponse>?) {
-                if(response!!.body()!!.status==200) {
-                    var dataList: ArrayList<GetMembershipResponseData> = response.body()!!.data
-                    dataList.reverse()
-                    couponViewAdapter = CouponHistoryViewAdapter(applicationContext!!, dataList)
-                    history_coupon_rv.adapter = couponViewAdapter
-                    history_coupon_rv.layoutManager = LinearLayoutManager(applicationContext)
-                } else if(response!!.body()!!.status!=404) {
-                    toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
-                }
+//                Log.d("Asdf", response!!.isSuccessful())
+                Log.d("Asdf", response!!.body().toString()+response.raw())
+                if(response!!.isSuccessful)
+                    if (response!!.body()!!.status == 200) {
+                        var dataList: ArrayList<GetMembershipResponseData> = response.body()!!.data
+                        dataList.reverse()
+                        couponViewAdapter = CouponHistoryViewAdapter(applicationContext!!, dataList)
+                        history_coupon_rv.adapter = couponViewAdapter
+                        history_coupon_rv.layoutManager = LinearLayoutManager(applicationContext)
+                    } else if (response!!.body()!!.status != 404) {
+                        toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
+                    }
             }
         })
     }
