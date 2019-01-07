@@ -16,9 +16,7 @@ import java.util.ArrayList
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.communitySearch.ComSearAllData
 
-/**
- * Created by choisunpil on 17/11/2018.
- */
+
 
 class ComSearAllAdapter(internal var context: Context, internal var dataList: ArrayList<ComSearAllData>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -38,11 +36,14 @@ class ComSearAllAdapter(internal var context: Context, internal var dataList: Ar
             view = LayoutInflater.from(parent.context).inflate(R.layout.rv_item_search, parent, false)
             return CafeHolder(view)
         }
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         var view = holder.itemView
+
+
 
         if (getItemViewType(position) == CAFE) {
             var viewHolder = CafeHolder(view)
@@ -73,6 +74,8 @@ class ComSearAllAdapter(internal var context: Context, internal var dataList: Ar
             viewHolder.state!!.text = dataList[position].user_status
 
         }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -90,6 +93,8 @@ class ComSearAllAdapter(internal var context: Context, internal var dataList: Ar
             CAFE
     }
 
+
+    //두가지 데이터타입리스트 띄울때 홀더모습
     internal inner class UserHolder(itemView: View) : RecyclerView.ViewHolder //결제 정보
         (itemView) {
 
@@ -109,6 +114,7 @@ class ComSearAllAdapter(internal var context: Context, internal var dataList: Ar
         val cafeLocation: TextView? = itemView.findViewById(R.id.tv_search_cafeLocation)
 
     }
+
 
 
 }

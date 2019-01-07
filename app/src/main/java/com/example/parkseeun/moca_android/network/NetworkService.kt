@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.network
 
+import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
@@ -56,5 +57,32 @@ interface NetworkService {
     // <마이 페이지>
 
     // 주변카페
+    //<지원: 홈-핫플레이스>
+    @GET("/hot_place")
+    fun getHomeHotplaceResponse(
+        @Header("Content-Type") content_type : String,
+        @Header("Authorization") token : String
+    ) : Call<GetHomeHotplaceResponse>
 
+    //<지원: 홈-Moca Plus>: 플러스주제 리스트 조회
+    @GET("/plus/{length}")
+    fun getMocaplusResponse(
+        @Header("Content-Type") content_type : String,
+        @Header("Authorization") token : String,
+        @Path("user_id") user_id : Int
+    ) : Call<GetMocaplusResponse>
+
+    //<지원: 마이페이지 찜한카페목록>
+    @GET("/user/scrap")
+    fun getMypageScrapResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("Authorization") token : String
+    ) : Call<GetMypageScrapResponse>
+
+    //<지원: 마이페이지 멤버십개수 조회>
+    @GET("/membership")
+    fun getMypageMembershipResponse(
+        @Header("Content-Type") content_type : String,
+        @Header("Authorization") token : String
+    ) : Call<GetMypageMembershipResponse>
 }
