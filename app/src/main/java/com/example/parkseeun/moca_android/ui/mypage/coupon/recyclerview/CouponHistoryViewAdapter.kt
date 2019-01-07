@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetMembershipResponseData
 import de.hdodenhof.circleimageview.CircleImageView
 
-class CouponHistoryViewAdapter(val context: Context, val dataList: ArrayList<CouponHistoryData>) : RecyclerView.Adapter<CouponHistoryViewAdapter.Holder>() {
+class CouponHistoryViewAdapter(val context: Context, val dataList: ArrayList<GetMembershipResponseData>) : RecyclerView.Adapter<CouponHistoryViewAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.rv_item_coupon, parent, false)
         return Holder(view)
@@ -20,27 +21,27 @@ class CouponHistoryViewAdapter(val context: Context, val dataList: ArrayList<Cou
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        when(dataList[position].flag){
+        when((dataList.size-position)%12){
             // bottom, plain, top 별 background, margin 설정
-            -1 -> (holder.bg.layoutParams as ConstraintLayout.LayoutParams).let {
+            0 -> (holder.bg.layoutParams as ConstraintLayout.LayoutParams).let {
                 it.bottomMargin = (20.0f*context.resources.displayMetrics.density).toInt()
                 holder.bg.layoutParams = it
                 holder.bg.setBackgroundResource(R.drawable.square_coupon_bottom)
-            }
-            0 -> (holder.bg.layoutParams as ConstraintLayout.LayoutParams).let {
-                it.bottomMargin = (6.0f*context.resources.displayMetrics.density).toInt()
-                holder.bg.layoutParams = it
-                holder.bg.setBackgroundResource(R.color.point_pink)
             }
             1 -> (holder.bg.layoutParams as ConstraintLayout.LayoutParams).let {
                 it.bottomMargin = (6.0f*context.resources.displayMetrics.density).toInt()
                 holder.bg.layoutParams = it
                 holder.bg.setBackgroundResource(R.drawable.square_coupon_top)
             }
+            else -> (holder.bg.layoutParams as ConstraintLayout.LayoutParams).let {
+                it.bottomMargin = (6.0f*context.resources.displayMetrics.density).toInt()
+                holder.bg.layoutParams = it
+                holder.bg.setBackgroundResource(R.color.point_pink)
+            }
         }
-        Glide.with(context).load(dataList[position].img).into(holder.img)
-        holder.name.text = dataList[position].name
-        holder.date.text = dataList[position].date
+        Glide.with(context).load(dataList[position].cafe_img_url).into(holder.img)
+        holder.name.text = dataList[position].cafe_id.toString()+"번 카페 이름은 모르긔"
+        holder.date.text = dataList[position].membership_create_date.substring(0,10).replace("-",".")
     }
 
     // View Holder

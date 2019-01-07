@@ -2,6 +2,7 @@ package com.example.parkseeun.moca_android.network
 
 import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
+import com.example.parkseeun.moca_android.model.get.GetMembershipResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
 import retrofit2.Call
@@ -37,5 +38,7 @@ interface NetworkService {
     fun getFollower(@Header("token") token: String,
                     @Path("user_id") id: String):Call<GetFollowerResponse>
     // <마이 페이지>
-
+    // 적립 내역
+    @GET("/membership")
+    fun getMembership(@Header("token") token: String):Call<GetMembershipResponse>
 }
