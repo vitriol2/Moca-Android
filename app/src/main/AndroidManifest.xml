@@ -60,7 +60,11 @@
         <activity android:name=".ui.ranking.RankingActivity" />
         <activity android:name=".ui.category.CategoryActivity" />
         <activity android:name=".ui.location.LocationMainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.mocapicks.MocaPicksListActivity" />
         <activity android:name=".ui.location.LocationSearchActivity" />
@@ -75,7 +79,6 @@
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity" />
         <activity android:name=".ui.loginJoin.JoinActivity" />
         <activity android:name=".ui.loginJoin.LoginActivity">
-
         </activity>
         <activity android:name=".ui.category.CafeListActivity" />
         <activity android:name=".ui.communitySearch.CommunitySearchActivity"></activity>

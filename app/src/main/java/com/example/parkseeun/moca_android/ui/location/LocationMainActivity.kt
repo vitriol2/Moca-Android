@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -35,6 +36,7 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_location_main.*
+import org.jetbrains.anko.startActivity
 import java.io.IOException
 import java.util.Locale
 
@@ -48,6 +50,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     private var currentMarker: Marker? = null
     internal var needRequest = false
     private var flag: Boolean = false
+    private var circleflag: Boolean = false
     var LngList: ArrayList<MarkerItem> = ArrayList()
     var dataList: ArrayList<LocationMainData> = ArrayList()
     var markerlist: ArrayList<Marker> = ArrayList()
@@ -57,12 +60,13 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     internal var REQUIRED_PERMISSIONS =
         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)  // 외부 저장소
 
-    internal var mCurrentLocatiion: Location? = null
+    internal var mCurrentLocation: Location? = null
     internal var currentPosition: LatLng? = null
     private var mFusedLocationClient: FusedLocationProviderClient? = null
     private var locationRequest: LocationRequest? = null
     private var location: Location? = null
     private var mLayout: View? = null  // Snackbar 사용하기 위해서는 View가 필요합니다.
+    private lateinit var mCircle: Circle
 
     internal var locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
@@ -84,9 +88,13 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet)
-                mCurrentLocatiion = location
+                mCurrentLocation = location
             }
         }
+    }
+
+    fun setLocationTitle(markerTitle: String) {
+        txt_location_main_address.text = markerTitle
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +102,6 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         setContentView(R.layout.activity_location_main)
         setOnBtnClickListener()
         rv_act_location_main.setOnClickListener(this)
-//        recyclerconnect()
 //        window.setFlags(
 //            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 //            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -117,8 +124,23 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             .findFragmentById(R.id.map) as SupportMapFragment?
         //mapFragment!!.view!!.findViewById<ImageView>(2 as Int).setImageDrawable(resources.getDrawable(R.drawable.location_location_pink))
         mapFragment!!.getMapAsync(this)
-
         setRecyclerView()
+    }
+
+    private fun drawCircle(googleMap: GoogleMap) {
+        if (circleflag)
+            mCircle.remove()
+
+        var circleOptions = CircleOptions()
+
+        circleOptions.center(currentMarker!!.position)
+        circleOptions.radius(1000.toDouble())
+        circleOptions.strokeColor(resources.getColor(R.color.point_pink))
+        circleOptions.fillColor(Color.parseColor("#4de1b2a3"))
+        circleOptions.strokeWidth(1.toFloat())
+
+        mCircle = googleMap.addCircle(circleOptions)
+        circleflag = true
     }
 
 
@@ -126,30 +148,38 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         if (rv_act_location_main.indexOfChild(v) != -1) { // 리사이클러뷰의 자식뷰 이면  !
             val idx: Int = rv_act_location_main.getChildAdapterPosition(v!!) // 선택된 자식뷰
             cameraToMarker(idx)
-            connectToMarkerAndShowDialog(idx)
+            var markerTitle : String = getCurrentAddress(markerlist[idx].position)
+            floatDialog(idx,markerTitle)
         }
     }
 
-    private fun connectToMarkerAndShowDialog(idx: Int) {
-        var idx: Int = idx
-
-        if (dataList[idx].selected == false) {
+    private fun setRvColorandMarkerTitle(idx: Int,markerTitle: String): Boolean {
+        if (!dataList[idx].selected) {
             for (i in dataList) {
                 i.selected = false
             }
             locationMainAdapter.notifyDataSetChanged()
-            LngList.get(idx).setmarker(true)
+            LngList[idx].setmarker(true)
             dataList[idx].selected = true
-        } else if (dataList[idx].selected == true) {
-            for (i in dataList) {
-                i.selected = false
+            setLocationTitle(markerTitle)
+            rv_act_location_main.smoothScrollToPosition(idx)
+            return true
+        }
+        return false
+    }
+
+    private fun floatDialog(idx: Int,markerTitle: String) {
+        if (!setRvColorandMarkerTitle(idx,markerTitle)) {
+            if (dataList[idx].selected) {
+                for (i in dataList) {
+                    i.selected = false
+                }
+                locationMainAdapter.notifyDataSetChanged()
+
+                val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx], LngList)
+                Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
+                dialog.show()
             }
-            locationMainAdapter.notifyDataSetChanged()
-
-            val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx], LngList)
-            Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
-            dialog.show()
-
         }
     }
 
@@ -167,21 +197,6 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         setMarkerIcon(idx)
     }
 
-    private fun recyclerconnect() {
-//        markerlist[0]
-//
-//        for (i in 0..LngList.size) {
-//            if (LngList[i].getmarker() == true) { //리사이클러뷰가 눌리면 그 마커에 포커스..
-//                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
-//                val selectedmarkerLatLng =
-//                    CameraUpdateFactory.newLatLng(LatLng(LngList.get(i).lat, LngList.get(i).lon))
-//                mMap!!.moveCamera(selectedmarkerLatLng)
-////}
-//            }
-//        }
-    }
-
-
     private fun setRecyclerView() {
 // 임시 데이터
         dataList.add(LocationMainData("", "카페1", "1m 이내", false))
@@ -196,7 +211,9 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     }
 
     private fun setOnBtnClickListener() {
-
+        img_location_common_search.setOnClickListener {
+            startActivity<LocationSearchActivity>()
+        }
     }
 
 
@@ -222,6 +239,8 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             if (checkPermission())
                 mMap!!.isMyLocationEnabled = true
         }
+        mMap!!.setOnMyLocationChangeListener { drawCircle(mMap!!) }
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -308,16 +327,21 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
         mMap!!.setOnMapClickListener { Log.d(TAG, "onMapClick :") }
         mMap!!.setOnMarkerClickListener {
-            var idx: Int =-1
+            var idx: Int = -1
+            if (it == currentMarker)
+                return@setOnMarkerClickListener false
+
             for (i in 0 until markerlist.size) {
                 markerlist[i].tag = markerlist[i] == it
-                if(markerlist[i].tag==true){
-                    idx=i
+                if (markerlist[i].tag == true) {
+                    idx = i
                 }
                 Log.v("마커 클릭 ", i.toString() + " 는 " + markerlist[i].tag)
             }
+            var markerTitle: String = getCurrentAddress(markerlist[idx].position)
+
             setMarkerIcon(-1)
-            connectToMarkerAndShowDialog(idx)
+            setRvColorandMarkerTitle(idx,markerTitle)
             return@setOnMarkerClickListener false
 
         }
@@ -332,7 +356,9 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                 if (markerlist[i].tag as Boolean) {
                     markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
                 } else {
-                    markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point))
+                    markerlist[i].setIcon(
+                        BitmapDescriptorFactory.fromResource(R.drawable.location_point)
+                    )
                 }
             }
         } else {
@@ -369,12 +395,12 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
         super.onStop()
 
+
         if (mFusedLocationClient != null) {
             Log.d(TAG, "onStop : call stopLocationUpdates")
             mFusedLocationClient!!.removeLocationUpdates(locationCallback)
         }
     }
-
 
     fun getCurrentAddress(latlng: LatLng): String {
 
@@ -433,6 +459,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
             mMap!!.animateCamera(cameraUpdate)
+            setLocationTitle(markerTitle)
             flag = true
         }
 
@@ -441,6 +468,8 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
             mMap!!.animateCamera(CameraUpdateFactory.zoomIn(), 500, null)
             mMap!!.animateCamera(cameraUpdate)
+            setLocationTitle(markerTitle)
+
             flag = true
         }
     }
@@ -463,9 +492,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         currentMarker = mMap!!.addMarker(markerOptions)
 
         val cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15f)
-        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
-        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
-        mMap!!.animateCamera(cameraUpdate)
+        mMap!!.moveCamera(cameraUpdate)
     }
 
     //여기부터는 런타임 퍼미션 처리을 위한 메소드들
@@ -478,9 +505,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             this,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
-        return if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-            true
-        } else false
+        return hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED
 //true면 퍼미션 허용한거  !
     }
 
@@ -534,7 +559,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         val builder = AlertDialog.Builder(this@LocationMainActivity)
         builder.setTitle("위치 서비스 비활성화")
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다\n" + "위치 설정을 허용해 주세요")
-        builder.setCancelable(false)
+        builder.setCancelable(true)
         builder.setPositiveButton("설정") { dialog, id ->
             val callGPSSettingIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS) //gps설정으로 감
             startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE)
