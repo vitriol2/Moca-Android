@@ -74,16 +74,11 @@ class SearchActivity : AppCompatActivity() {
         et_search.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
                 //Enter key Action
-                return if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    if (currentTab == 0) {
-                        linear_before_search_all.visibility = View.GONE
-                    }
-                    else if (currentTab == 1) {
-                        linear_before_search_cafe.visibility = View.GONE
-                    }
-                    else if (currentTab == 2) {
-                        linear_before_search_location.visibility = View.GONE
-                    }
+                return if (event.action === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    linear_before_search_all.visibility = View.GONE
+                    linear_before_search_cafe.visibility = View.GONE
+                    linear_before_search_location.visibility = View.GONE
+
                     getSearchResult(v.context, et_search.text.toString())
 
                     true
@@ -196,37 +191,35 @@ class SearchActivity : AppCompatActivity() {
 
                         Log.v("검색결과", getHomeSearchResponseData.toString())
 
-                        if (currentTab == 0) {
-                            rv_searchResult_list_all.adapter = searchResultAdapter
-                            rv_searchResult_list_all.layoutManager = LinearLayoutManager(context)
-                        }
-                        else if (currentTab == 1) {
-                            val cafeList = ArrayList<GetHomeSearchResponseData>()
+                        // 전체 탭
+                        rv_searchResult_list_all.adapter = searchResultAdapter
+                        rv_searchResult_list_all.layoutManager = LinearLayoutManager(context)
 
-                            for (value in getHomeSearchResponseData) {
-                                if (!value.type) {
-                                    cafeList.add(value)
-                                }
+                        // 카페 탭
+                        val cafeList = ArrayList<GetHomeSearchResponseData>()
 
-                                searchResultAdapter = SearchAdapater(context, cafeList)
-                                rv_searchResult_list_cafe.adapter = searchResultAdapter
-                                rv_searchResult_list_cafe.layoutManager = LinearLayoutManager(context)
+                        for (value in getHomeSearchResponseData) {
+                            if (!value.type) {
+                                cafeList.add(value)
                             }
+
+                            searchResultAdapter = SearchAdapater(context, cafeList)
+                            rv_searchResult_list_cafe.adapter = searchResultAdapter
+                            rv_searchResult_list_cafe.layoutManager = LinearLayoutManager(context)
                         }
-                        else if (currentTab == 2) {
-                            val locationList = ArrayList<GetHomeSearchResponseData>()
 
-                            for (value in getHomeSearchResponseData) {
-                                if (value.type) {
-                                    locationList.add(value)
-                                }
+                        // 위치 탭
+                        val locationList = ArrayList<GetHomeSearchResponseData>()
 
-                                searchResultAdapter = SearchAdapater(context, locationList)
-                                rv_searchResult_list_location.adapter = searchResultAdapter
-                                rv_searchResult_list_location.layoutManager = LinearLayoutManager(context)
+                        for (value in getHomeSearchResponseData) {
+                            if (value.type) {
+                                locationList.add(value)
                             }
-                        }
 
+                            searchResultAdapter = SearchAdapater(context, locationList)
+                            rv_searchResult_list_location.adapter = searchResultAdapter
+                            rv_searchResult_list_location.layoutManager = LinearLayoutManager(context)
+                        }
                     } else if (response!!.body()!!.status == 204) {
                         toast("인기 카페가 존재하지 않습니다!")
                     }
