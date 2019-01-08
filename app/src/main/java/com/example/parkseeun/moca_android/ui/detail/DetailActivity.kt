@@ -19,7 +19,7 @@ import org.jetbrains.anko.startActivity
 
 class DetailActivity : AppCompatActivity() {
 
-    var urlList = arrayOf("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG","http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
+    var urlList:Array<String?> = arrayOf("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG","http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
 
     private val sigList = ArrayList<String>()
     private val menuList = ArrayList<DetailMenuData>()
@@ -82,10 +82,10 @@ class DetailActivity : AppCompatActivity() {
             menuList.add(DetailMenuData("메뉴 $i", "$i.0"))
         }
 
-        reviewList.add(GetFeedResponseData(1, 1, "coco", "아영", arrayListOf(GetFeedResponseImage(1,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")), 3, "넘 별로였음", "ㄹㅇ 가지 마세요", "2018-12-22","아영스윗홈", "우주 최고 짱", "1분 전", 300, 4000, false, true))
-        reviewList.add(GetFeedResponseData(1, 1, "coco", "아영", arrayListOf(GetFeedResponseImage(1,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")), 3, "넘 별로였음", "ㄹㅇ 가지 마세요", "2018-12-22","아영스윗홈", "우주 최고 짱", "1분 전", 300, 4000, false, true))
-        reviewList.add(GetFeedResponseData(1, 1, "coco", "아영", arrayListOf(GetFeedResponseImage(1,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")), 3, "넘 별로였음", "ㄹㅇ 가지 마세요", "2018-12-22","아영스윗홈", "우주 최고 짱", "1분 전", 300, 4000, false, true))
-        reviewList.add(GetFeedResponseData(1, 1, "coco", "아영", arrayListOf(GetFeedResponseImage(1,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")), 3, "넘 별로였음", "ㄹㅇ 가지 마세요", "2018-12-22","아영스윗홈", "우주 최고 짱", "1분 전", 300, 4000, false, true))
+        reviewList.add(GetFeedResponseData(1, 1, "coco", "아영", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", arrayListOf(GetFeedResponseImage(1,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")), 3, "넘 별로였음", "ㄹㅇ 가지 마세요", "2018-12-22","아영스윗홈", "우주 최고 짱", "1분 전", 300, 4000, false, true))
+        reviewList.add(GetFeedResponseData(1, 1, "coco", "아영", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", arrayListOf(GetFeedResponseImage(1,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")), 3, "넘 별로였음", "ㄹㅇ 가지 마세요", "2018-12-22","아영스윗홈", "우주 최고 짱", "1분 전", 300, 4000, false, true))
+        reviewList.add(GetFeedResponseData(1, 1, "coco", "아영", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", arrayListOf(GetFeedResponseImage(1,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")), 3, "넘 별로였음", "ㄹㅇ 가지 마세요", "2018-12-22","아영스윗홈", "우주 최고 짱", "1분 전", 300, 4000, false, true))
+        reviewList.add(GetFeedResponseData(1, 1, "coco", "아영", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", arrayListOf(GetFeedResponseImage(1,"http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")), 3, "넘 별로였음", "ㄹㅇ 가지 마세요", "2018-12-22","아영스윗홈", "우주 최고 짱", "1분 전", 300, 4000, false, true))
 
         nearbyList.add(DetailNearbyData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페 이름이긔", 4, "서울시 우리집"))
         nearbyList.add(DetailNearbyData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "카페 이름이긔", 4, "서울시 우리집"))
