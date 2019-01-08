@@ -70,6 +70,7 @@ class ScrapCafeActivity : AppCompatActivity() {
                     val temp: ArrayList<ScrapCafeData> = response.body()!!.data
                     if (temp != null)
                         if (temp.size > 0) {
+                            Log.v(TAG, temp.size.toString())
                             val position = scrapCafeAdapter.itemCount
                             scrapCafeAdapter.dataList.addAll(temp)
                             scrapCafeAdapter.notifyItemInserted(position)

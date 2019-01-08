@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="서울리즘"
                 style="@style/Bold15"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="서울시 강동구 명일동"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     style="@style/Light11"/>
 
                 <RatingBar

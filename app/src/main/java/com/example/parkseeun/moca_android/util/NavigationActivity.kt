@@ -204,7 +204,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                             if (temp!!.size >= 5) {
                                 for (i in 1..temp.size) {
                                     if (temp[i - 1].cafe_img_url.size > 0) {
-                                        scrapList.add(temp[i].cafe_img_url[0])
+                                        scrapList.add(temp[i].cafe_img_url[0].cafe_img_url[0])
                                     } else
                                         scrapList.add("")
                                 }
@@ -212,7 +212,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                                 for (i in 1..5) {
                                     if (i <= temp.size) {
                                         if (temp[i - 1].cafe_img_url.size > 0) {
-                                            scrapList.add(temp[i].cafe_img_url[0])
+                                            scrapList.add(temp[i].cafe_img_url[0].cafe_img_url[0])
                                         } else
                                             scrapList.add("")
                                     } else
@@ -223,11 +223,15 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                                     scrapList.add("")
                                 }
                             }
+                            Log.v(TAG, temp.size.toString())
                         }
-                    }else
+                    }
+                    else {
                         for(i in 1..5) {
                             scrapList.add("")
                         }
+                    }
+
                     Log.v("setList", "done")
                     setScrapList()
                 }
