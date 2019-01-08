@@ -16,9 +16,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.get.GetMypageMembershipResponse
-import com.example.parkseeun.moca_android.model.get.GetMypageScrapResponse
-import com.example.parkseeun.moca_android.model.get.MembershipData
+import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.category.CategoryActivity
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
@@ -43,15 +41,19 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
     private val TAG = "NavigationActivity"
 
-    private var mem_num: Int = 0
+    private var mem_num: Int = 4
     lateinit var headerView: View
     private val membershipList = ArrayList<MembershipData>()
-    private val memList = ArrayList<Boolean>()
-    private var scrapList = ArrayList<String>()
-
+    val mList = ArrayList<Boolean>()
+    val memList by lazy {
+        ArrayList<Boolean>()
+    }
+    lateinit var mypageTabAdapter: MypageTabAdapter
+    private val scrapList = ArrayList<String>(5)
     val networkService by lazy {
         ApplicationController.instance.networkService
     }
+    lateinit var membershipRv: RecyclerView
 
     fun setHeader(view_navi: NavigationView) {
 
@@ -97,9 +99,12 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
             startActivity(intent)
         }
 
-
+        val scrapCafeTitle : RelativeLayout = headerView.findViewById(R.id.rl_mypage_tab_scrap_title) as RelativeLayout
         val scrapCafe: RelativeLayout = headerView.findViewById(R.id.rl_mypage_tab_scrap_more) as RelativeLayout
         scrapCafe.setOnClickListener {
+            startActivity<ScrapCafeActivity>()
+        }
+        scrapCafeTitle.setOnClickListener {
             startActivity<ScrapCafeActivity>()
         }
 
@@ -113,11 +118,17 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
             val intent = Intent(this@NavigationActivity, HistoryActivity::class.java)
 
             startActivity(intent)
+
         }
 
-        val membershipRv: RecyclerView = headerView.findViewById(R.id.rv_act_home_membership)
+        setList()
+
+        membershipRv = headerView.findViewById(R.id.rv_act_home_membership)
         membershipRv.layoutManager = GridLayoutManager(this, 4)
-        membershipRv.adapter = MypageTabAdapter(this, memList)
+        membershipRv.adapter = MypageTabAdapter(this, mList)
+
+        val mNum: String = mem_num.toString()
+        headerView.tv_act_home_membership_num.text = mNum + "/12"
 
 
 
@@ -125,28 +136,47 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
     }
 
+    private fun setList() {
+        for (i in 0..11) {
+            if (i < mem_num) {
+                mList.add(true)
+            } else
+                mList.add(false)
+        }
+    }
+
     private fun setScrapList() {
         //찜한 카페 목록
-        Glide.with(this).load(scrapList[0]).into(iv_mypage_tab_scrap_1)
-        Glide.with(this).load(scrapList[1]).into(iv_mypage_tab_scrap_2)
-        Glide.with(this).load(scrapList[2]).into(iv_mypage_tab_scrap_3)
-        Glide.with(this).load(scrapList[3]).into(iv_mypage_tab_scrap_4)
-        Glide.with(this).load(scrapList[4]).into(iv_mypage_tab_scrap_5)
 
+        if (scrapList[0].isNotEmpty()) {
+            val scrap1 = headerView.iv_mypage_tab_scrap_1
+            scrap1.visibility = View.VISIBLE
+            Glide.with(this).load(scrapList[0]).into(scrap1)
+        }
+        if (scrapList[1].isNotEmpty()) {
+            val scrap2 = headerView.iv_mypage_tab_scrap_2
+            scrap2.visibility = View.VISIBLE
+            Glide.with(this).load(scrapList[1]).into(scrap2)
+        }
+        if (scrapList[2].isNotEmpty()) {
+            val scrap3 = headerView.iv_mypage_tab_scrap_3
+            scrap3.visibility = View.VISIBLE
+            Glide.with(this).load(scrapList[2]).into(scrap3)
+        }
+        if (scrapList[3].isNotEmpty()) {
+            val scrap4 = headerView.iv_mypage_tab_scrap_4
+            scrap4.visibility = View.VISIBLE
+            Glide.with(this).load(scrapList[3]).into(scrap4)
+        }
+        if (scrapList[4].isNotEmpty()) {
+            val scrap5 = headerView.iv_mypage_tab_scrap_5
+            val scrap5Layout = headerView.rl_mypage_tab_scrap_more
+            scrap5Layout.visibility = View.VISIBLE
+            Glide.with(this).load(scrapList[4]).into(scrap5)
+        }
 
     }
 
-    private fun setMembershipList() {
-        for (i in 1..mem_num) {
-            if (mem_num != 0) {
-                memList.add(true)
-            } else
-                break
-        }
-        for (i in mem_num + 1..12) {
-            memList.add(false)
-        }
-    }
 
     private fun setNetwork() {
         //마이페이지-찜한카페 목록
@@ -158,7 +188,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
     }
 
     private fun getMypageScrapResponse() {
-        val getMypageScrapResponse = networkService.getMypageScrapResponse("application/json", User.token!!)
+        val getMypageScrapResponse = networkService.getMypageScrapResponse( User.token)
 
         getMypageScrapResponse.enqueue(object : Callback<GetMypageScrapResponse> {
             override fun onFailure(call: Call<GetMypageScrapResponse>, t: Throwable) {
@@ -167,25 +197,45 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
             override fun onResponse(call: Call<GetMypageScrapResponse>, response: Response<GetMypageScrapResponse>) {
                 if (response.isSuccessful) {
-                    Log.v("mypage-scrap load", "success")
-                    for (i in 1..5) {
-                        if (response.body()!!.data != null) {
-                            if (response.body()!!.data.size > 0) {
-                                var scrapImg: String? = response.body()!!.data[i].cafe_img_url[i]
-                                if (scrapImg != null) {
-                                    scrapList.add(response.body()!!.data[i].cafe_img_url[i])
-                                } else
-                                    scrapList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
+                    Log.v("mypage-scrap load", response.raw().toString()+"bb-${User.token}")
+                    val temp: ArrayList<ScrapCafeData>? = response.body()!!.data
+                    if (temp!=null) {
+                        if (temp!!.size > 0) {
+                            if (temp!!.size >= 5) {
+                                for (i in 1..temp.size) {
+                                    if (temp[i - 1].cafe_img_url.size > 0) {
+                                        scrapList.add(temp[i-1].cafe_img_url[0].cafe_img_url?:"")
+                                    } else
+                                        scrapList.add("")
+                                }
+                            } else if (temp!!.size < 5) {
+                                for (i in 1..5) {
+                                    if (i <= temp.size) {
+                                        if (temp[i - 1].cafe_img_url.size > 0) {
+                                            scrapList.add(temp[i-1].cafe_img_url[0].cafe_img_url?:"")
+                                        } else
+                                            scrapList.add("")
+                                    } else
+                                        scrapList.add("")
+                                }
+                            } else if (temp.isEmpty()) {
+                                for (i in 1..5) {
+                                    scrapList.add("")
+                                }
+                            }
+                            Log.v(TAG, temp.size.toString())
+                        }
+                        Log.v(TAG, "scrap data exists")
 
-                            } else
-                                scrapList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
-
-                        }else
-                            scrapList.add("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
                     }
+                    else {
+                        for(i in 1..5) {
+                            scrapList.add("")
+                        }
+                    }
+
                     Log.v("setList", "done")
                     setScrapList()
-                    headerView.tv_act_home_membership_num!!.text = "$mem_num/12"
                 }
             }
 
@@ -202,15 +252,27 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
             }
 
             override fun onResponse(
-                call: Call<GetMypageMembershipResponse>, response: Response<GetMypageMembershipResponse>) {
+                call: Call<GetMypageMembershipResponse>, response: Response<GetMypageMembershipResponse>
+            ) {
                 if (response.isSuccessful) {
-                    if (response.body()!!.data != null) {
-                        membershipList.addAll(response.body()!!.data)
-                        mem_num = membershipList.size
-                    } else
-                        mem_num = 0
+                    Log.v(TAG, "getMypageMembershipResponse load success")
+                    val temp: ArrayList<MembershipData>? = response.body()!!.data
+                    if (temp!!.size > 0) {
+                        for (i in 0..11) {
+                            if (i < 3) {
+                                memList.add(true)
+                            } else
+                                memList.add(false)
+                        }
+                    } else {
+                        for (i in 0..11) {
+                            memList.add(false)
+                        }
+                    }
+                    val memSize = memList.size
+                    Log.v("getMypageMember", "$memSize")
+
                 }
-                setMembershipList()
             }
         })
     }
@@ -239,5 +301,3 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
         return true
     }
 }
-
-

@@ -25,8 +25,8 @@
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/common_defaultimage" />
+                android:src="@drawable/common_defaultimage"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RelativeLayout
                 android:id="@+id/iv_mypage_tab_notice"
@@ -34,9 +34,9 @@
                 android:layout_height="36dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="42dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:gravity="center">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
 
@@ -59,9 +59,9 @@
                 android:layout_height="36dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="6dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:gravity="center">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/iv_mypage_tab_setting"
@@ -150,41 +150,52 @@
             android:layout_height="96dp"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/mypage_tab_menu_title"
-                android:text="찜한 카페" />
+            <RelativeLayout
+                android:id="@+id/rl_mypage_tab_scrap_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    style="@style/mypage_tab_menu_title"
+                    android:text="찜한 카페" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="17dp"
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_mypage_tab_scrap_1"
                     style="@style/mypage_tab_menu_zzim_image"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_mypage_tab_scrap_2"
                     style="@style/mypage_tab_menu_zzim_image"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_mypage_tab_scrap_3"
                     style="@style/mypage_tab_menu_zzim_image"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_mypage_tab_scrap_4"
                     style="@style/mypage_tab_menu_zzim_image"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/rl_mypage_tab_scrap_more"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_mypage_tab_scrap_5"
@@ -267,7 +278,7 @@
                     android:layout_marginTop="9dp"
                     android:layout_marginRight="9dp"
                     android:src="@drawable/mypage_arrow_right"
-                    android:layout_marginBottom="9dp"/>
+                    android:layout_marginBottom="9dp" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -283,7 +294,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0/12"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 

@@ -10,10 +10,11 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetHomeSearchResponseData
 import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
-class SearchAdapater(val context : Context, val dataList : ArrayList<SearchResultData>) : RecyclerView.Adapter<SearchAdapater.Holder>() {
+class SearchAdapater(val context : Context, val dataList : ArrayList<GetHomeSearchResponseData>) : RecyclerView.Adapter<SearchAdapater.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 뷰 인플레이트
@@ -26,9 +27,9 @@ class SearchAdapater(val context : Context, val dataList : ArrayList<SearchResul
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
-        Glide.with(context).load("https://s3.ap-northeast-2.amazonaws.com/project-sopt/%25E1%2584%258E%25E1%2585%25AC%25E1%2584%2589%25E1%2585%25A5%25E1%2586%25AB%25E").into(holder.civ_search_resultImage)
-        holder.tv_search_cafeName.text = dataList[position].cafeName
-        holder.tv_search_cafeLocation.text = dataList[position].cafeLocation
+        Glide.with(context).load(dataList[position].cafe_img_url).into(holder.civ_search_resultImage)
+        holder.tv_search_cafeName.text = dataList[position].cafe_name
+        holder.tv_search_cafeLocation.text = dataList[position].cafe_address_detail
 
         // 클릭 리스너
         holder.relative_search_result.setOnClickListener {

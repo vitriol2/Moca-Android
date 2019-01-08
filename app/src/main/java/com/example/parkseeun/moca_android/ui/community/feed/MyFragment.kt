@@ -50,6 +50,12 @@ class MyFragment :Fragment(), View.OnClickListener{
 
         v.my_follower_tv.setOnClickListener(this)
         v.my_following_tv.setOnClickListener(this)
+        // swipe refresh
+        v.my_refresh_sl.setColorSchemeColors(resources.getColor(R.color.colorPrimaryDark))
+        v.my_refresh_sl.setOnRefreshListener {
+            communicate(v)
+            v.my_refresh_sl.isRefreshing = false
+        }
 
         communicate(v)
         return v

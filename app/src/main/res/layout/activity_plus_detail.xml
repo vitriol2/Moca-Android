@@ -10,7 +10,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="54dp">
+            android:layout_height="54dp"
+            android:background="#ffffff">
 
             <ImageButton
                 android:id="@+id/ib_plus_detail_back"
@@ -47,6 +48,11 @@
                         android:layout_height="360dp"
                         android:background="@color/dark_gray">
 
+                    <ImageView
+                        android:id="@+id/rv_plus_detail_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
                     <TextView
                             android:id="@+id/tv_plus_detail_contentsTitle"
                             android:layout_width="wrap_content"
@@ -58,6 +64,42 @@
                             android:layout_marginLeft="26dp"
                             android:layout_marginTop="39dp"
                             android:lineSpacingExtra="3sp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@id/tv_plus_detail_contentsTitle"
+                        android:layout_marginLeft="26dp"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="by"
+                            android:textColor="#ffffff"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/nanum_r"/>
+
+                        <TextView
+                            android:id="@+id/tv_plus_detail_editor_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="김정환"
+                            android:textColor="#ffffff"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/nanum_r"
+                            android:layout_marginLeft="2dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 에디터"
+                            android:textColor="#ffffff"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/nanum_r"/>
+
+                    </LinearLayout>
 
                 </RelativeLayout>
 

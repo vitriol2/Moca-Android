@@ -28,7 +28,8 @@
                 android:id="@+id/civ_join_profile"
                 android:layout_width="88dp"
                 android:layout_height="88dp"
-                android:background="#000000"/>
+                android:background="@drawable/common_defaultimage"
+                android:scaleType="centerCrop"/>
 
             <ImageButton
                 android:id="@+id/ib_join_selectProfile"
