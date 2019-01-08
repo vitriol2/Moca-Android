@@ -4,9 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.OrientationHelper
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.ui.ranking.RankingData
 import kotlinx.android.synthetic.main.activity_review_all.*
 
 class ReviewAllActivity : AppCompatActivity() {

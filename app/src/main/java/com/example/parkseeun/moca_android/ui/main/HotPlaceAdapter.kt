@@ -34,7 +34,7 @@ class HotPlaceAdapter(val context : Context, val dataList : ArrayList<HotPlaceDa
         Glide.with(context).load(dataList[position].cafe_img).into(holder.civ_hot_place)
         holder.tv_hot_place_name.text = dataList[position].cafe_name
         holder.tv_hot_place_explain.text = dataList[position].cafe_explain
-        holder.rating_rv_item_hot_place.numStars = dataList[position].rate
+        holder.rating_rv_item_hot_place.rating = dataList[position].rate.toFloat()
 
         // RecyclerView 설정
         var imgList = dataList[position].imgList
