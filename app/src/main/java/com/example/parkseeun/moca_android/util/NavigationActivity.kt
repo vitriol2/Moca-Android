@@ -121,11 +121,10 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
         }
 
-        setList()
-
         membershipRv = headerView.findViewById(R.id.rv_act_home_membership)
+        mypageTabAdapter = MypageTabAdapter(this, mList)
         membershipRv.layoutManager = GridLayoutManager(this, 4)
-        membershipRv.adapter = MypageTabAdapter(this, mList)
+        membershipRv.adapter = mypageTabAdapter
 
         val mNum: String = mem_num.toString()
         headerView.tv_act_home_membership_num.text = mNum + "/12"
@@ -136,14 +135,6 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
     }
 
-    private fun setList() {
-        for (i in 0..11) {
-            if (i < mem_num) {
-                mList.add(true)
-            } else
-                mList.add(false)
-        }
-    }
 
     private fun setScrapList() {
         //찜한 카페 목록
@@ -188,7 +179,8 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
     }
 
     private fun getMypageScrapResponse() {
-        val getMypageScrapResponse = networkService.getMypageScrapResponse( User.token!!)
+        val token : String = SharedPreferenceController.getAuthorization(this)
+        val getMypageScrapResponse = networkService.getMypageScrapResponse( token)
 
         getMypageScrapResponse.enqueue(object : Callback<GetMypageScrapResponse> {
             override fun onFailure(call: Call<GetMypageScrapResponse>, t: Throwable) {
@@ -197,14 +189,14 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
             override fun onResponse(call: Call<GetMypageScrapResponse>, response: Response<GetMypageScrapResponse>) {
                 if (response.isSuccessful) {
-                    Log.v("mypage-scrap load", "success")
+                    Log.v("mypage-scrap load", response.raw().toString()+"bb-${User.token}")
                     val temp: ArrayList<ScrapCafeData>? = response.body()!!.data
                     if (temp!=null) {
                         if (temp!!.size > 0) {
                             if (temp!!.size >= 5) {
                                 for (i in 1..temp.size) {
                                     if (temp[i - 1].cafe_img_url.size > 0) {
-                                        scrapList.add(temp[i].cafe_img_url[0].cafe_img_url[0])
+                                        scrapList.add(temp[i-1].cafe_img_url[0].cafe_img_url?:"")
                                     } else
                                         scrapList.add("")
                                 }
@@ -212,7 +204,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                                 for (i in 1..5) {
                                     if (i <= temp.size) {
                                         if (temp[i - 1].cafe_img_url.size > 0) {
-                                            scrapList.add(temp[i].cafe_img_url[0].cafe_img_url[0])
+                                            scrapList.add(temp[i-1].cafe_img_url[0].cafe_img_url?:"")
                                         } else
                                             scrapList.add("")
                                     } else
@@ -225,6 +217,8 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                             }
                             Log.v(TAG, temp.size.toString())
                         }
+                        Log.v(TAG, "scrap data exists")
+
                     }
                     else {
                         for(i in 1..5) {
@@ -234,15 +228,21 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
                     Log.v("setList", "done")
                     setScrapList()
+
                 }
             }
 
         })
     }
 
+    private fun getMypageCouponResponse() {
+
+    }
+
 
     private fun getMypageMembershipResponse() {
-        val getMypageMembershipResponse = networkService.getMypageMembershipResponse("application/json", User.token!!)
+        val token : String = SharedPreferenceController.getAuthorization(this)
+        val getMypageMembershipResponse = networkService.getMypageMembershipResponse("application/json", token)
 
         getMypageMembershipResponse.enqueue(object : Callback<GetMypageMembershipResponse> {
             override fun onFailure(call: Call<GetMypageMembershipResponse>, t: Throwable) {
@@ -257,7 +257,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                     val temp: ArrayList<MembershipData>? = response.body()!!.data
                     if (temp!!.size > 0) {
                         for (i in 0..11) {
-                            if (i < 3) {
+                            if (i < temp.size) {
                                 memList.add(true)
                             } else
                                 memList.add(false)
@@ -267,8 +267,14 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                             memList.add(false)
                         }
                     }
-                    val memSize = memList.size
-                    Log.v("getMypageMember", "$memSize")
+                    Log.v("getMypageMember", "${temp.size}")
+
+                    val position = mypageTabAdapter.itemCount
+                    mypageTabAdapter.dataList.addAll(memList)
+                    mypageTabAdapter.notifyItemInserted(position)
+
+                    headerView.tv_act_home_membership_num.text = "${temp.size}/12"
+
 
                 }
             }

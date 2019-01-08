@@ -29,7 +29,7 @@ class ScrapCafeAdapter(val ctx : Context, val dataList : ArrayList<ScrapCafeData
             val intent = Intent(ctx, DetailActivity::class.java)
             ctx.startActivity(intent)
         }
-        Glide.with(ctx).load(dataList[position].cafe_img_url[0].cafe_img_url[0]).into(holder.cafeimage)
+        Glide.with(ctx).load(dataList[position].cafe_img_url[0].cafe_img_url?:"").into(holder.cafeimage)
         holder.cafename.text = dataList[position].cafe_name
         holder.location.text = dataList[position].address_district_name
         holder.rating.numStars = dataList[position].cafe_rating_avg

@@ -135,18 +135,23 @@ interface NetworkService {
 
     // 주변카페
 
-    //<지원: 마이페이지 찜한카페목록>
+    //<마이페이지 찜한카페목록>
     @GET("/user/scrap")
     fun getMypageScrapResponse(
         @Header("Authorization") token: String
     ): Call<GetMypageScrapResponse>
 
-    //<지원: 마이페이지 멤버십개수 조회>
+    //<마이페이지 멤버십개수 조회>
     @GET("/membership")
     fun getMypageMembershipResponse(
         @Header("Content-Type") content_type: String,
         @Header("Authorization") token: String
     ): Call<GetMypageMembershipResponse>
 
+    //<마이페이지 쿠폰>
+    @GET("/coupon")
+    fun getMypageCouponResponse(
+        @Header("Authorization") token : String
+    ): Call<GetMypageCouponResponse>
     // 주변카페
 }

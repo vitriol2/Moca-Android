@@ -101,6 +101,7 @@
                             android:background="@android:color/transparent"/>
 
                         <ImageView
+                            android:id="@+id/iv_act_editprofile_nickname"
                             android:layout_width="24dp"
                             android:layout_height="match_parent"
                             android:layout_alignParentRight="true"
@@ -135,6 +136,8 @@
                                 android:background="@android:color/transparent"/>
 
                             <ImageView
+                                android:id="@+id/iv_act_editprofile_status"
+
                                 android:layout_width="24dp"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
@@ -169,6 +172,8 @@
                                 android:background="@android:color/transparent"/>
 
                             <ImageView
+                                android:id="@+id/iv_act_editprofile_phone"
+
                                 android:layout_width="24dp"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"

@@ -54,6 +54,24 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
             startActivity(intent)
 
         }
+
+        //텍스트 지우기
+        iv_act_editprofile_nickname.setOnClickListener {
+            var nickname = et_ect_edit_prof_nick.text
+            nickname.clear()
+
+        }
+        iv_act_editprofile_status.setOnClickListener {
+            var status = et_ect_edit_prof_status.text
+            status.clear()
+
+        }
+        iv_act_editprofile_phone.setOnClickListener {
+            var phone = et_ect_edit_prof_phone.text
+            phone.clear()
+
+        }
+
     }
 
     private fun setBtnSetting() {

@@ -15,5 +15,5 @@ data class ScrapCafeData(
     val cafe_img_url : ArrayList<ScrapCafeDataImage>
 )
 data class ScrapCafeDataImage(
-    val cafe_img_url: ArrayList<String>
+    val cafe_img_url: String?
 )
