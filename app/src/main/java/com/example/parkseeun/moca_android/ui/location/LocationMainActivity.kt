@@ -192,7 +192,8 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                 }
                 locationMainAdapter.notifyDataSetChanged()
 
-                val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx])
+                val currentLatLng = LatLng(location!!.latitude, location!!.longitude)
+                val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx],currentLatLng)
                 Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
                 dialog.show()
             }
@@ -209,7 +210,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
         mMap!!.animateCamera(selectedRecyclerLatLng)
         Log.v("<RECYCLER VIEW CLICKED>", idx.toString())
-        locationMainAdapter.notifyDataSetChanged() // 어댑터에 바뀐거를 알려서 다시 뿌려라..
+        locationMainAdapter.notifyDataSetChanged() // 어댑터에 바뀐거를 알려서 다시 뿌림
         setMarkerIcon(idx)
     }
 
@@ -247,7 +248,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         setDefaultLocation()
         // postNearByCafeResponse()
         getLocationPermission()
-        mMap!!.uiSettings.isMyLocationButtonEnabled = false
+        mMap!!.uiSettings.isMyLocationButtonEnabled = false //커스텀 현재위치 버튼을 사용하기 위해 기능이 불가하게 함
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
         mMap!!.setOnMapClickListener { Log.d(TAG, "onMapClick :") }
@@ -378,7 +379,8 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
         val postNearByCafeResponse = networkService.postNearByCafeResponse( //나중에 쉐어드프리퍼런스에 저장된 토큰값으로 바꿔놓기!
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
-            PostNearByCafeData("37.5504", "126.9036", 0, 0)
+            PostNearByCafeData("37.5504", "126.9036", //현재위치로 바꿔야해 ㅠㅠ
+                0, 0)
         )
         postNearByCafeResponse.enqueue(object : Callback<PostNearByCafeResponse> {
             override fun onFailure(call: Call<PostNearByCafeResponse>, t: Throwable) {
@@ -423,6 +425,8 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                         rv_act_location_main.layoutManager =
                                 LinearLayoutManager(this@LocationMainActivity, LinearLayoutManager.HORIZONTAL, false)
                         setRvColorandMarkerTitle(0, markerTitle)// 제일 가까운 리사이클러뷰에 포커스
+                        setMarkerIcon(0) // 제일 가까운 마커 크게하기
+                        //cameraToMarker(0)
 
                         for (i in 0 until lngList.size) { //마커 생성
                             Log.d("LngList size2 :", lngList.size.toString() + " ," + i.toString())
@@ -612,7 +616,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         val builder = AlertDialog.Builder(this@LocationMainActivity)
         builder.setTitle("위치 서비스 비활성화")
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다\n" + "위치 설정을 허용해 주세요")
-        builder.setCancelable(false)
+        builder.setCancelable(true)
         builder.setPositiveButton("설정") { dialog, id ->
             val callGPSSettingIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS) //gps설정으로 감
             startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE)
