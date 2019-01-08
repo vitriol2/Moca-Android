@@ -81,7 +81,7 @@ class FollowActivity : AppCompatActivity() {
 
     // 데이터 받아오기 (통신) - 팔로워
     private fun getFollowers() {
-        getFollowerResponse = networkService.getFollower(User.token!!, User.user_id!!)
+        getFollowerResponse = networkService.getFollower(User.token, intent.getStringExtra("user_id")?:User.user_id)
         getFollowerResponse.enqueue(object: Callback<GetFollowerResponse> {
             override fun onFailure(call: Call<GetFollowerResponse>, t: Throwable) {
                 toast(t.toString())
@@ -104,7 +104,7 @@ class FollowActivity : AppCompatActivity() {
 
     // 데이터 받아오기 (통신) - 팔로잉
     private fun getFollowing() {
-        getFollowingResponse = networkService.getFollowing(User.token!!, User.user_id!!)
+        getFollowingResponse = networkService.getFollowing(User.token, intent.getStringExtra("user_id")?:User.user_id)
         getFollowingResponse.enqueue(object: Callback<GetFollowingResponse> {
             override fun onFailure(call: Call<GetFollowingResponse>, t: Throwable) {
                 toast(t.toString())

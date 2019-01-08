@@ -14,10 +14,12 @@ import com.example.parkseeun.moca_android.ui.community.review_detail.ReviewDetai
 import de.hdodenhof.circleimageview.CircleImageView
 import android.graphics.Point
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.*
 import com.example.parkseeun.moca_android.model.get.GetFeedResponseData
 import com.example.parkseeun.moca_android.model.post.PostFollowResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.ui.community.feed.other_user.OtherUserActivity
 import com.example.parkseeun.moca_android.util.ImageAdapter
 import com.example.parkseeun.moca_android.util.User
 import org.jetbrains.anko.toast
@@ -25,7 +27,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<GetFeedResponseData>) : RecyclerView.Adapter<ReviewRecyclerViewAdapter.Holder>() {
+class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<GetFeedResponseData>, val idOfContext: String="") : RecyclerView.Adapter<ReviewRecyclerViewAdapter.Holder>() {
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var postLikeResponse : Call<PostFollowResponse>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -61,6 +63,19 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         // view binding
         Glide.with(context).load(dataList[position].user_img_url).into(holder.profile)
         holder.name.text = dataList[position].user_name
+        // 이름과 프로필 사진 누르면 본인/타인에 따라 각자의 피드로 이동
+        View.OnClickListener {
+            // 현재 있는 피드의 id와 다른 경우에만 이동 가능하게
+            if(dataList[position].user_id != idOfContext)
+                if(dataList[position].user_id == User.user_id){
+                    Intent(context, FeedActivity::class.java).apply { putExtra("myFeed", true); context.startActivity(this) }
+                }else{
+                    Intent(context, OtherUserActivity::class.java).apply { putExtra("user_id", dataList[position].user_id); context.startActivity(this) }
+                }
+        }.let {
+            holder.profile.setOnClickListener(it)
+            holder.name.setOnClickListener(it)
+        }
         holder.rating.rating = dataList[position].review_rating.toFloat()
         if(dataList[position].like)
             holder.heart.setImageResource(R.drawable.common_heart_fill)
