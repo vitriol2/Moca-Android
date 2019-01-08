@@ -4,14 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
-import android.util.Log
 import android.view.View
 import com.example.parkseeun.moca_android.util.NavigationActivity
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.communitySearch.CommunitySearchActivity
 import kotlinx.android.synthetic.main.activity_feed2.*
 import kotlinx.android.synthetic.main.app_bar_community.*
-import org.jetbrains.anko.toast
 
 class FeedActivity : NavigationActivity(), View.OnClickListener{
     override fun onClick(v: View?) {
