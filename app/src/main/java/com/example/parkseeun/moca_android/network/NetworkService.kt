@@ -75,6 +75,9 @@ interface NetworkService {
     ) : Call<GetBestCafeListResponse>
 
     // 검색 - 모카 추천 플레이스 조회
+    @GET("/hot_place/best")
+    fun getMocaRecommenPlace(
+    ) : Call<GetMocaRecommendHotPlaceResponse>
 
 
     // 랭킹
