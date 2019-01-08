@@ -51,7 +51,7 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
 
         // view binding
         Glide.with(context).load(dataList[position].image[0].review_img_url).into(holder.profile)
-        holder.name.text = dataList[position].user_id               // 이름 받아서 이름으로 수정해야 함.
+        holder.name.text = dataList[position].user_name
         holder.rating.rating = dataList[position].review_rating.toFloat()
         if(dataList[position].like)
             holder.heart.setBackgroundResource(R.drawable.common_heart_fill)

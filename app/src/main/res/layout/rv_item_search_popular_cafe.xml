@@ -15,7 +15,7 @@
             android:id="@+id/iv_popular_cafe"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:background="#eaeaea"/>
+            android:background="@drawable/rounded_top_radius_5"/>
 
         <TextView
             android:id="@+id/tv_popular_cafe_name"

@@ -5,6 +5,7 @@ import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
 import com.example.parkseeun.moca_android.model.post.PostJoinData
+import com.example.parkseeun.moca_android.model.post.PostFollowResponse
 import com.example.parkseeun.moca_android.model.post.PostJoinResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
@@ -14,7 +15,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface NetworkService {
-    // <회원가입>
+    // <회원가입> - 수민
     @Multipart
     @POST("/user")
     fun postJoin(
@@ -25,18 +26,42 @@ interface NetworkService {
         @Part user_img: MultipartBody.Part?
     ): Call<PostJoinResponse>
 
-    // <로그인>
+    // <로그인> - 아영
     @POST("/login")
-    fun postLogin(@Body user: PostLoginData): Call<PostLoginResponse>
+    fun postLogin(@Body user: PostLoginData):Call<PostLoginResponse>
 
     // <홈>
-    // 검색
-    // 핫플레이스
+    //<지원: 홈-핫플레이스>
     @GET("/hot_place")
     fun getHomeHotplaceResponse(
-        @Header("Content-Type") content_type: String,
-        @Header("Authorization") token: String
-    ): Call<GetHomeHotplaceResponse>
+        @Header("Content-Type") content_type : String,
+        @Header("Authorization") token : String
+    ) : Call<GetHomeHotplaceResponse>
+
+    //<지원: 홈-Moca Plus>: 플러스주제 리스트 조회
+    @GET("/plus/{length}")
+    fun getMocaplusResponse(
+        @Header("Content-Type") content_type : String,
+        @Header("Authorization") token : String,
+        @Path("user_id") user_id : Int
+    ) : Call<GetMocaplusResponse>
+
+    // 검색
+    // 핫플레이스
+
+    @GET("/search/cafe/{keyword}")
+    fun getHomeSearch(
+        @Path("keyword") keyword : String
+    ) : Call<GetHomeSearchResponse>
+
+    // 검색 - 인기 카페 리스트 조횐
+    @GET("/cafe/best/{flag}")
+    fun getBestCafeList(
+        @Header("Authorization") token : String,
+        @Path("flag") flag : Int
+    ) : Call<GetBestCafeListResponse>
+
+    // 검색 - 모카 추천 플레이스 조회
 
     // 랭킹
 
@@ -63,7 +88,7 @@ interface NetworkService {
     // <위치>
 
     // <커뮤니티>
-    // 소셜 피드
+    // 소셜 피드 - 아영
     @GET("/feed/social")
     fun getSocialFeed(@Header("Authorization") token: String): Call<GetFeedResponse>
 
@@ -74,19 +99,32 @@ interface NetworkService {
         @Path("user_id") id: String
     ): Call<GetFeedResponse>
 
-    // 팔로워 조회
+
+    // 유저 정보
+    @GET("/user/{user_id}")
+    fun getUserData(@Header("Authorization") token: String,
+                    @Path("user_id") id: String):Call<GetUserDataResponse>
+
+    // 팔로워 조회 - 수민
     @GET("/user/{user_id}/follower")
     fun getFollower(
         @Header("Authorization") token: String,
         @Path("user_id") id: String
     ): Call<GetFollowerResponse>
 
-    // 팔로잉 조회
+    // 팔로잉 조회 - 수민
     @GET("/user/{user_id}/following")
     fun getFollowing(
         @Header("Authorization") token: String,
         @Path("user_id") id: String
     ): Call<GetFollowingResponse>
+
+
+    // 팔로우, 언팔로우 하기 - 수민
+    @POST("/user/{user_id}/follow")
+    fun postFollow(
+        @Header("Authorization") token: String,
+        @Path("user_id") id: String) : Call<PostFollowResponse>
 
     // <마이 페이지>
     // 적립 내역
@@ -97,7 +135,6 @@ interface NetworkService {
     //<지원: 홈-핫플레이스>
 
     //<지원: 홈-Moca Plus>: 플러스주제 리스트 조회
-
 
     //<지원: 마이페이지 찜한카페목록>
     @GET("/user/scrap")
@@ -112,4 +149,6 @@ interface NetworkService {
         @Header("Content-Type") content_type: String,
         @Header("Authorization") token: String
     ): Call<GetMypageMembershipResponse>
+
+    // 주변카페
 }
