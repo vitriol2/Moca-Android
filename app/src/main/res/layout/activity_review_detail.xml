@@ -10,6 +10,15 @@
         android:id="@+id/review_detail_actionbar_const"
         android:layout_width="match_parent"
         android:layout_height="54dp">
+        <ImageView
+            android:id="@+id/review_detail_back_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/common_back_black"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:id="@+id/review_detail_cafename_tv"
             android:layout_width="wrap_content"
@@ -50,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="nanum_b"
+                        android:fontFamily="@font/nanum_b"
                         android:textColor="@color/black"
                         android:textSize="13sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="33dp"
                         android:layout_marginTop="2.5dp"
-                        android:fontFamily="nanum_l"
+                        android:fontFamily="@font/nanum_l"
                         android:textColor="@color/dark_gray"
                         android:textSize="11sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +102,6 @@
                     android:id="@+id/review_detail_pic_vp"
                     android:layout_width="match_parent"
                     android:layout_height="320dp"
-                    android:background="@color/colorPrimary"
                     app:layout_constraintTop_toBottomOf="@+id/review_detail_info_const"/>
                 <View
                     android:id="@+id/review_detail_space_view"
@@ -208,7 +216,7 @@
                         android:textSize="11sp"
                         android:textColor="#ffffff"
                         android:fontFamily="@font/nanum_r"
-                        android:text="1/10"
+                        tools:text="1/10"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

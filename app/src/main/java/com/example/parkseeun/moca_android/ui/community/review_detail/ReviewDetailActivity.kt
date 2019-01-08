@@ -31,6 +31,8 @@ class ReviewDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_detail)
 
+        review_detail_back_iv.setOnClickListener { finish() }
+
         // 스크린 너비에 따른 이미지 길이 설정
         review_detail_pic_vp.layoutParams.height = getScreenWidth()
         review_detail_space_view.layoutParams.height = getScreenWidth() - dpToPx(13.toFloat()).toInt()
