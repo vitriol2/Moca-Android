@@ -175,6 +175,10 @@ interface NetworkService {
     @GET("/membership")
     fun getMembership(@Header("Authorization") token: String): Call<GetMembershipResponse>
 
+    // 주변카페
+
+
+    //<마이페이지 찜한카페목록>
     // <소희: 맵-주변카페>
     @POST("/cafe/nearbycafe")
     fun postNearByCafeResponse(
@@ -190,12 +194,24 @@ interface NetworkService {
         @Header("Authorization") token: String
     ): Call<GetMypageScrapResponse>
 
-    //<지원: 마이페이지 멤버십개수 조회>
+    //<마이페이지 멤버십개수 조회>
     @GET("/membership")
     fun getMypageMembershipResponse(
         @Header("Content-Type") content_type: String,
         @Header("Authorization") token: String
     ): Call<GetMypageMembershipResponse>
 
+    //<마이페이지 쿠폰>
+    @GET("/coupon")
+    fun getMypageCouponResponse(
+        @Header("Authorization") token : String
+    ): Call<GetMypageCouponResponse>
+
+    //<마이페이지 프로필수정>
+    @GET("/user/{user_id}/mypage")
+    fun getMypageEditprofileResponse(
+        @Header("Authorization") token : String,
+        @Path("user_id") user_id : String
+    ): Call<GetMypageEditprofileResponse>
     // 주변카페
 }

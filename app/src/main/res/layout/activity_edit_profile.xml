@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.main.EditProfileActivity">
 
     <android.support.v7.widget.Toolbar
@@ -57,18 +58,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <RelativeLayout
+                    android:id="@+id/rl_act_editprofile_photo"
                     android:layout_width="88dp"
-                    android:layout_height="88dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/common_defaultimage" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginLeft="210dp"
-                    android:layout_marginTop="64dp"
-                    android:src="@drawable/mypage_edit_image" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_act_editprofile_photo"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
+                        android:src="@drawable/common_defaultimage" />
+
+                    <ImageView
+                        android:id="@+id/btn_act_editprofile_changeprofile"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/mypage_edit_image" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <LinearLayout
@@ -98,9 +107,10 @@
                             style="@style/editProfileCategoryContent"
                             android:layout_centerVertical="true"
                             android:text="정화니"
-                            android:background="@android:color/transparent"/>
+                            android:background="@android:color/transparent" />
 
                         <ImageView
+                            android:id="@+id/iv_act_editprofile_nickname"
                             android:layout_width="24dp"
                             android:layout_height="match_parent"
                             android:layout_alignParentRight="true"
@@ -132,9 +142,11 @@
                                 style="@style/editProfileCategoryContent"
                                 android:layout_centerVertical="true"
                                 android:text="안녕하세요"
-                                android:background="@android:color/transparent"/>
+                                android:background="@android:color/transparent" />
 
                             <ImageView
+                                android:id="@+id/iv_act_editprofile_status"
+
                                 android:layout_width="24dp"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
@@ -166,9 +178,11 @@
                                 style="@style/editProfileCategoryContent"
                                 android:layout_centerVertical="true"
                                 android:text="정화니"
-                                android:background="@android:color/transparent"/>
+                                android:background="@android:color/transparent" />
 
                             <ImageView
+                                android:id="@+id/iv_act_editprofile_phone"
+
                                 android:layout_width="24dp"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
@@ -213,9 +227,9 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_act_edit_profile_logout"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:id="@+id/rl_act_edit_profile_logout">
+                        android:layout_height="50dp">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -234,7 +248,7 @@
                                 android:layout_height="24dp"
                                 android:src="@drawable/mypage_arrow_right"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginRight="20dp"/>
+                                android:layout_marginRight="20dp" />
 
                         </RelativeLayout>
 
@@ -265,7 +279,7 @@
                                 android:layout_height="24dp"
                                 android:src="@drawable/mypage_arrow_right"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginRight="20dp"/>
+                                android:layout_marginRight="20dp" />
 
                         </RelativeLayout>
 
@@ -282,9 +296,9 @@
 
     <Button
         android:id="@+id/btn_act_edit_prof_complete"
+        style="@style/editProfileComplete"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:text="완료"
-        style="@style/editProfileComplete"/>
+        android:text="완료" />
 </RelativeLayout>
