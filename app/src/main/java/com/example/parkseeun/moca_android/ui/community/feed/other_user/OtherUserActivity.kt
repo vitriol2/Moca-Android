@@ -32,12 +32,14 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
             other_follower_tv -> {
                 Intent(this, FollowActivity::class.java).apply {
                     this.putExtra("flag","follower")
+                    this.putExtra("user_id", intent.getStringExtra("user_id"))
                     startActivity(this)
                 }
             }
             other_following_tv -> {
                 Intent(this, FollowActivity::class.java).apply {
                     putExtra("flag","following")
+                    this.putExtra("user_id", intent.getStringExtra("user_id"))
                     startActivity(this)
                 }
             }
@@ -72,6 +74,7 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
                 if(response!!.isSuccessful)
                     if (response!!.body()!!.status == 200) {
                         Glide.with(this@OtherUserActivity).load(response.body()!!.data.user_img_url).into(other_profile_ci)
+                        other_title_tv.text = response.body()!!.data.user_name
                         other_name_tv.text = response.body()!!.data.user_name
                         other_status_tv.text = response.body()!!.data.user_status_comment
                         other_review_tv.text = response.body()!!.data.review_count.toString()
@@ -95,7 +98,7 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
                 if(response!!.isSuccessful)
                     if (response!!.body()!!.status == 200) {
                         var dataList: ArrayList<GetFeedResponseData> = response.body()!!.data
-                        reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(applicationContext!!, dataList)
+                        reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(applicationContext!!, dataList, intent.getStringExtra("user_id")?:User.user_id)
                         other_reviews_recycler.adapter = reviewRecyclerViewAdapter
                         other_reviews_recycler.layoutManager = LinearLayoutManager(applicationContext)
                     } else if (response!!.body()!!.status != 204) {
