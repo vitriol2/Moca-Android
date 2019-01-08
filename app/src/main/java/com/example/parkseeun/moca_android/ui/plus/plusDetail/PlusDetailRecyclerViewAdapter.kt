@@ -15,13 +15,14 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetMocaPlusDetailCafeListData
 import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import com.example.parkseeun.moca_android.util.ImageAdapter
 import kotlinx.android.synthetic.main.activity_moca_picks_detail.*
 import com.example.parkseeun.moca_android.util.gravitySnapHelper.GravitySnapHelper
 
 
-class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayList<PlusDetailData>) : RecyclerView.Adapter<PlusDetailRecyclerViewAdapter.Holder>() {
+class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayList<GetMocaPlusDetailCafeListData>) : RecyclerView.Adapter<PlusDetailRecyclerViewAdapter.Holder>() {
 
     // Image RecyclerView
     lateinit var linearLayoutManager:LinearLayoutManager
@@ -37,10 +38,10 @@ class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayL
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
-        holder.tv_plus_detail_item_location.text = dataList[position].location
-        holder.tv_plus_detail_item_cafeName.text = dataList[position].cafeName
-        holder.tv_plus_detail_item_cafeName2.text = dataList[position].cafeName
-        holder.tv_plus_detail_item_contents.text = dataList[position].contents
+        holder.tv_plus_detail_item_location.text = dataList[position].address_district_name
+        holder.tv_plus_detail_item_cafeName.text = dataList[position].cafe_name
+        holder.tv_plus_detail_item_cafeName2.text = dataList[position].cafe_name
+        holder.tv_plus_detail_item_contents.text = dataList[position].plus_contents_content
 
         // ㅜ-ㅜ
         holder.vp_mocaPlusDetail.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -56,10 +57,10 @@ class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayL
                 holder.progressBar_plus_detail_item.progress = p0 + 1
             }
         })
-        var urlList: Array<String?> = arrayOf("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG","http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
-        holder.progressBar_plus_detail_item.max = urlList.size
+        var imgList = dataList[position].contentImages
+        holder.progressBar_plus_detail_item.max = imgList.size
 
-        holder.vp_mocaPlusDetail.adapter = ImageAdapter(context, urlList)
+        holder.vp_mocaPlusDetail.adapter = PlusDetailImageAdapter(context, imgList)
 
         // 클릭
         holder.relative_plus_detail_item_goToCafe.setOnClickListener {

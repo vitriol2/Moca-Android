@@ -16,10 +16,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.get.CafeData
-import com.example.parkseeun.moca_android.model.get.GetMypageMembershipResponse
-import com.example.parkseeun.moca_android.model.get.GetMypageScrapResponse
-import com.example.parkseeun.moca_android.model.get.MembershipData
+import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.category.CategoryActivity
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
@@ -102,9 +99,12 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
             startActivity(intent)
         }
 
-
+        val scrapCafeTitle : RelativeLayout = headerView.findViewById(R.id.rl_mypage_tab_scrap_title) as RelativeLayout
         val scrapCafe: RelativeLayout = headerView.findViewById(R.id.rl_mypage_tab_scrap_more) as RelativeLayout
         scrapCafe.setOnClickListener {
+            startActivity<ScrapCafeActivity>()
+        }
+        scrapCafeTitle.setOnClickListener {
             startActivity<ScrapCafeActivity>()
         }
 
@@ -188,7 +188,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
     }
 
     private fun getMypageScrapResponse() {
-        val getMypageScrapResponse = networkService.getMypageScrapResponse("application/json", User.token!!)
+        val getMypageScrapResponse = networkService.getMypageScrapResponse( User.token)
 
         getMypageScrapResponse.enqueue(object : Callback<GetMypageScrapResponse> {
             override fun onFailure(call: Call<GetMypageScrapResponse>, t: Throwable) {
@@ -197,14 +197,14 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
             override fun onResponse(call: Call<GetMypageScrapResponse>, response: Response<GetMypageScrapResponse>) {
                 if (response.isSuccessful) {
-                    Log.v("mypage-scrap load", "success")
-                    val temp: ArrayList<CafeData>? = response.body()!!.data
+                    Log.v("mypage-scrap load", response.raw().toString()+"bb-${User.token}")
+                    val temp: ArrayList<ScrapCafeData>? = response.body()!!.data
                     if (temp!=null) {
                         if (temp!!.size > 0) {
                             if (temp!!.size >= 5) {
                                 for (i in 1..temp.size) {
                                     if (temp[i - 1].cafe_img_url.size > 0) {
-                                        scrapList.add(temp[i].cafe_img_url[0])
+                                        scrapList.add(temp[i-1].cafe_img_url[0].cafe_img_url?:"")
                                     } else
                                         scrapList.add("")
                                 }
@@ -212,7 +212,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                                 for (i in 1..5) {
                                     if (i <= temp.size) {
                                         if (temp[i - 1].cafe_img_url.size > 0) {
-                                            scrapList.add(temp[i].cafe_img_url[0])
+                                            scrapList.add(temp[i-1].cafe_img_url[0].cafe_img_url?:"")
                                         } else
                                             scrapList.add("")
                                     } else
@@ -223,11 +223,17 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                                     scrapList.add("")
                                 }
                             }
+                            Log.v(TAG, temp.size.toString())
                         }
-                    }else
+                        Log.v(TAG, "scrap data exists")
+
+                    }
+                    else {
                         for(i in 1..5) {
                             scrapList.add("")
                         }
+                    }
+
                     Log.v("setList", "done")
                     setScrapList()
                 }
@@ -295,5 +301,3 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
         return true
     }
 }
-
-

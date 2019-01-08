@@ -50,18 +50,20 @@ class SearchActivity : AppCompatActivity() {
     // 통신
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getBestCafeListResponse : Call<GetBestCafeListResponse> // 인기 카페 리스트
-    private lateinit var getHomeSearchResponse : Call<GetHomeSearchResponse> // 검색
+    // 검색
+    private lateinit var getHomeSearchResponse : Call<GetHomeSearchResponse>
     var dataList : ArrayList<GetHomeSearchResponseData> = ArrayList()
     private var getHomeSearchResponseData = ArrayList<GetHomeSearchResponseData>()
+    // 모카 추천 핫플레이스
+    private lateinit var getMocaRecommendHotPlaceResponse: Call<GetMocaRecommendHotPlaceResponse>
+    private var recommendList = ArrayList<GetMocaRecommendHotPlaceData>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        setRecyclerView()
-//        categoryBtnListener()
         setUpTab()
-        setUpBeforeSearchRecyclerView()
         setTabSelected()
 
         // 뒤로 가기 버튼
@@ -86,7 +88,9 @@ class SearchActivity : AppCompatActivity() {
             }
         })
 
+        // 검색 전 인기 카페, 모카 추천 핫플레이스 설정
         getBestCafe(this)
+        getMocaRecommendHotPlace(this)
     }
 
     // 탭 처리
@@ -154,8 +158,8 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<GetBestCafeListResponse>, response: Response<GetBestCafeListResponse>) {
-                if(response!!.isSuccessful)
-                    if(response!!.body()!!.status==200) {
+                if(response.isSuccessful)
+                    if(response.body()!!.status==200) {
                         var getBestCafeListData: ArrayList<GetBestCafeListData> = response.body()!!.data
 
                         beforeSearchPopularCafeAdapter = BeforeSearchPopularCafeAdapter(context, getBestCafeListData)
@@ -167,10 +171,39 @@ class SearchActivity : AppCompatActivity() {
 
                         rv_search_popularCafe_location.adapter = beforeSearchPopularCafeAdapter
                         rv_search_popularCafe_location.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    } else if (response!!.body()!!.status == 204) {
+                    } else if (response.body()!!.status == 204) {
                         toast("인기 카페가 존재하지 않습니다!")
                     }
             }
+        })
+    }
+
+    // 검색 전 모카 추천 핫플레이스 통신
+    private fun getMocaRecommendHotPlace(context : Context) {
+        getMocaRecommendHotPlaceResponse = networkService.getMocaRecommenPlace()
+        getMocaRecommendHotPlaceResponse.enqueue(object : Callback<GetMocaRecommendHotPlaceResponse> {
+            override fun onFailure(call: Call<GetMocaRecommendHotPlaceResponse>, t: Throwable) {
+                toast(t.message!!.toString())
+            }
+
+            override fun onResponse(call: Call<GetMocaRecommendHotPlaceResponse>, response: Response<GetMocaRecommendHotPlaceResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        recommendList = response.body()!!.data
+
+                        beforeSearchRecommendPlaceAdapter = BeforeSearchRecommendPlaceAdapter(context, recommendList)
+                        rv_search_recommendPlace_all.adapter = beforeSearchPopularCafeAdapter
+                        rv_search_recommendPlace_all.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+                        rv_search_recommendPlace_cafe.adapter = beforeSearchPopularCafeAdapter
+                        rv_search_recommendPlace_cafe.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+                        rv_search_recommendPlace_location.adapter = beforeSearchPopularCafeAdapter
+                        rv_search_recommendPlace_location.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    }
+                }
+            }
+
         })
     }
 
@@ -225,68 +258,5 @@ class SearchActivity : AppCompatActivity() {
                     }
             }
         })
-    }
-
-    // 검색 전 리사이클러뷰 설정
-    private fun setUpBeforeSearchRecyclerView() {
-//        // 인기 카페
-//        var dataList : ArrayList<PopularCafeData> = ArrayList()
-//        dataList.add(PopularCafeData("", "C127", 1, 24))
-//        dataList.add(PopularCafeData("", "C127", 1, 24))
-//        dataList.add(PopularCafeData("", "C127", 1, 24))
-//        dataList.add(PopularCafeData("", "C127", 1, 24))
-//        beforeSearchPopularCafeAdapter = BeforeSearchPopularCafeAdapter(this, dataList)
-
-        // 모카 추천 플레이스
-        var dataList_recommend_place : ArrayList<RecommendPlaceData> = ArrayList()
-        dataList_recommend_place.add(RecommendPlaceData("", "#연남동"))
-        dataList_recommend_place.add(RecommendPlaceData("", "#연남동"))
-        dataList_recommend_place.add(RecommendPlaceData("", "#연남동"))
-        dataList_recommend_place.add(RecommendPlaceData("", "#연남동"))
-        beforeSearchRecommendPlaceAdapter = BeforeSearchRecommendPlaceAdapter(this, dataList_recommend_place)
-
-        // 첫 번째 탭
-//        rv_search_popularCafe_all.adapter = beforeSearchPopularCafeAdapter
-//        rv_search_popularCafe_all.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-//        rv_search_recommendPlace_all.adapter = beforeSearchRecommendPlaceAdapter
-//        rv_search_recommendPlace_all.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-//
-//        // 두 번째 탭
-//        rv_search_popularCafe_cafe.adapter = beforeSearchPopularCafeAdapter
-//        rv_search_popularCafe_cafe.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-//
-//        rv_search_recommendPlace_cafe.adapter = beforeSearchRecommendPlaceAdapter
-//        rv_search_recommendPlace_cafe.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-//
-//        // 세 번째 탭
-//        rv_search_popularCafe_location.adapter = beforeSearchPopularCafeAdapter
-//        rv_search_popularCafe_location.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-//
-//        rv_search_recommendPlace_location.adapter = beforeSearchRecommendPlaceAdapter
-//        rv_search_recommendPlace_location.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private fun setRecyclerView() {
-        // 임시 데이터
-//        var dataList : ArrayList<SearchResultData> = ArrayList()
-//        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
-//        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
-//        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
-//        dataList.add(SearchResultData("", "빙봉", "크리스마스 화이링~~"))
-//
-//        searchResultAdapter = SearchAdapater(this, dataList)
-
-        // 첫 번째 탭
-//        rv_searchResult_list_all.adapter = searchResultAdapter
-//        rv_searchResult_list_all.layoutManager = LinearLayoutManager(this)
-//
-//        // 두 번째 탭
-//        rv_searchResult_list_cafe.adapter = searchResultAdapter
-//        rv_searchResult_list_cafe.layoutManager = LinearLayoutManager(this)
-//
-//        // 세 번째 탭
-//        rv_searchResult_list_location.adapter = searchResultAdapter
-//        rv_searchResult_list_location.layoutManager = LinearLayoutManager(this)
     }
 }
