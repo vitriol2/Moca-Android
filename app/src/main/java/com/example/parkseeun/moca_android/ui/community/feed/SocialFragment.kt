@@ -2,6 +2,7 @@ package com.example.parkseeun.moca_android.ui.community.feed
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.example.parkseeun.moca_android.model.get.GetFeedResponse
 import com.example.parkseeun.moca_android.model.get.GetFeedResponseData
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.util.User
+import kotlinx.android.synthetic.main.fragment_social.*
 import kotlinx.android.synthetic.main.fragment_social.view.*
 import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
@@ -23,7 +25,12 @@ class SocialFragment :Fragment(){
     lateinit var reviewRecyclerViewAdapter : ReviewRecyclerViewAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_social,container,false)
-
+        // swipe refresh
+        v.social_refresh_sl.setColorSchemeColors(resources.getColor(R.color.colorPrimaryDark))
+        v.social_refresh_sl.setOnRefreshListener {
+            communicate(v)
+            v.social_refresh_sl.isRefreshing = false
+        }
         communicate(v)
         return v
     }

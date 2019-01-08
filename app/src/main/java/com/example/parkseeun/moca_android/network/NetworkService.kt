@@ -103,7 +103,7 @@ interface NetworkService {
                     @Path("user_id") id: String):Call<GetUserDataResponse>
 
     // 리뷰 상세보기 - 아영
-    @GET("/review/{review_id}")
+    @GET("/review/{review_id}/detail")
     fun getReviewDetail(@Header("Authorization") token: String,
                         @Path("review_id") id: Int):Call<GetReviewDetailResponse>
 
