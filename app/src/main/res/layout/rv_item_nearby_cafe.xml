@@ -19,7 +19,7 @@
         <RelativeLayout
                 android:layout_below="@+id/circle_nearby_cafe"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_width="wrap_content" android:layout_height="wrap_content">
             <TextView
@@ -36,13 +36,13 @@
                     android:layout_below="@+id/tv_nearby_cafe_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/common_location"/>
+                    android:src="@drawable/location_ic_location"/>
             <TextView
                     android:id="@+id/txt_nearby_how_close"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/img_common_location"
                     android:layout_below="@+id/tv_nearby_cafe_name"
-                    style="@style/Bold11"
+                    style="@style/Regular11"
                     android:singleLine="true"
                     android:textColor="@color/dark_gray"
                     android:layout_width="match_parent"
