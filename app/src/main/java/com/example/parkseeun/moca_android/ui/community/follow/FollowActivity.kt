@@ -53,16 +53,16 @@ class FollowActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<GetFollowerResponse>, response: Response<GetFollowerResponse>) {
-                if(response!!.body()!!.status==200) {
-                    var getFollowerData: ArrayList<GetFollowerResponseData> = response.body()!!.data
+                if(response!!.isSuccessful)
+                    if(response!!.body()!!.status==200) {
+                        var getFollowerData: ArrayList<GetFollowerResponseData> = response.body()!!.data
 
-                    for (value in getFollowerData) {
-                        dataList.add(FollowData(value.user_img_url, value.user_name, value.follow))
+                        for (value in getFollowerData) {
+                            dataList.add(FollowData(value.user_img_url, value.user_name, value.follow))
+                        }
+                    } else if (response!!.body()!!.status == 204) {
+                        toast("팔로워가 존재하지 않습니다!")
                     }
-                }
-                else if (response!!.body()!!.status == 204) {
-                    toast("팔로워가 존재하지 않습니다!")
-                }
             }
         })
     }
@@ -76,16 +76,16 @@ class FollowActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<GetFollowingResponse>, response: Response<GetFollowingResponse>) {
-                if(response!!.body()!!.status==200) {
-                    var getFollowerData: ArrayList<GetFollowerResponseData> = response.body()!!.data
+                if(response!!.isSuccessful)
+                    if(response!!.body()!!.status==200) {
+                        var getFollowerData: ArrayList<GetFollowerResponseData> = response.body()!!.data
 
-                    for (value in getFollowerData) {
-                        dataList.add(FollowData(value.user_img_url, value.user_name, value.follow))
+                        for (value in getFollowerData) {
+                            dataList.add(FollowData(value.user_img_url, value.user_name, value.follow))
+                        }
+                    } else if (response!!.body()!!.status == 204) {
+                        toast("팔로잉이 존재하지 않습니다!")
                     }
-                }
-                else if (response!!.body()!!.status == 204) {
-                    toast("팔로잉이 존재하지 않습니다!")
-                }
             }
         })
     }

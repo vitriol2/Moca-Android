@@ -2,6 +2,7 @@ package com.example.parkseeun.moca_android.ui.main
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ class HomeHotplaceAdapter(val ctx : Context, val dataList: ArrayList<HomeHotplac
             .setDefaultRequestOptions(requestOptions)
             .load(dataList[position].hot_place_img)
             .into(holder.image)
+
         holder.cafename.text = dataList[position].hot_place_name
     }
 

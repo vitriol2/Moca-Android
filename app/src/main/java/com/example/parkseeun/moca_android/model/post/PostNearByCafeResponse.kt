@@ -12,12 +12,11 @@ data class PostNearByCafeResponse(
 
 data class PostNearByCafeResponseData (
         val cafe_id : Int,
-        val cafe_latitude : String,
-        val cafe_longitude : String,
+        val cafe_latitude : Double,
+        val cafe_longitude : Double,
         val cafe_name : String,
         val cafe_img_url : String,
         val address_district_name : String,
         val cafe_rating_avg : Int,
         val distance : String
-
 )
