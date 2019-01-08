@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.ui.community.feed.image.ImageActivity
 import com.github.chrisbanes.photoview.PhotoView
 
-class PhotoViewAdapter(private val mContext : Context, private var mImgItem : Array<String>, private val clickable : Boolean = false) : PagerAdapter() {
+class PhotoViewAdapter(private val mContext : Context, private var mImgItem : Array<String?>, private val clickable : Boolean = false) : PagerAdapter() {
     override fun isViewFromObject(p0: View, p1: Any): Boolean {
         return p0==p1
     }
@@ -24,6 +24,7 @@ class PhotoViewAdapter(private val mContext : Context, private var mImgItem : Ar
             img.setOnClickListener {
                 Intent(mContext, ImageActivity::class.java).apply{
                     putExtra("page",position)
+                    putExtra("imgs", mImgItem)
                     mContext.startActivity(this)
                 }
             }

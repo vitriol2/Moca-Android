@@ -57,7 +57,6 @@ class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayL
                 holder.progressBar_plus_detail_item.progress = p0 + 1
             }
         })
-
         var imgList = dataList[position].contentImages
         holder.progressBar_plus_detail_item.max = imgList.size
 
