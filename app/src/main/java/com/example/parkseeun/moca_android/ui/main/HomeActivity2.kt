@@ -11,34 +11,35 @@ import android.view.View
 import com.example.parkseeun.moca_android.util.NavigationActivity
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetHomeHotplaceResponse
+import com.example.parkseeun.moca_android.model.get.GetMocaplusResponse
 import com.example.parkseeun.moca_android.model.get.HomeHotplaceData
-import com.example.parkseeun.moca_android.network.ApplicationController
-import com.example.parkseeun.moca_android.ui.category.CategoryActivity
+import com.example.parkseeun.moca_android.model.get.MocaplusData
 import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import com.example.parkseeun.moca_android.util.SharedPreferenceController
-import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeActivity2 : NavigationActivity(), View.OnClickListener{
+class HomeActivity2 : NavigationActivity(), View.OnClickListener {
+    private val TAG = "HomeActivity"
+
     private val pickposts: ArrayList<String> = ArrayList()
-    val hotList : ArrayList<HomeHotplaceData>by lazy{
+    val hotList: ArrayList<HomeHotplaceData>by lazy {
         ArrayList<HomeHotplaceData>()
     }
-    val rankingPosts: ArrayList<CategoryRankData> = ArrayList()
-    val plusPosts: ArrayList<String> = ArrayList()
+    val rankingPosts: ArrayList<CategoryRankData> = ArrayList<CategoryRankData>()
+    val plusData: ArrayList<MocaplusData> = ArrayList<MocaplusData>()
 
 
     lateinit var homeHotplaceAdapter: HomeHotplaceAdapter
-
+    lateinit var homeMocaplusAdapter: HomeMocaplusAdapter
 
 
     override fun onClick(v: View?) {
-        when(v){
+        when (v) {
             home_picks_tv -> {
                 startActivity(Intent(this, MocaPicksListActivity::class.java))
             }
@@ -78,6 +79,10 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home2)
 
+        recyclerView()
+
+        setHomeNetwork()
+
         home_picks_tv.setOnClickListener(this)
         home_concept_tv.setOnClickListener(this)
         home_ranking_tv.setOnClickListener(this)
@@ -86,18 +91,18 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
 
         makeData()
 
-        getHomeHotplaceResponse()
 
-        recyclerView()
+
+
 
         setHeader(nav_view)
 
-        val snapHelper= LinearSnapHelper()
+        val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(rv_act_home_picks)
 
         // 수민 추가 (홈에서 검색 화면으로)
         home_search_iv.setOnClickListener {
-            val intent : Intent = Intent(this@HomeActivity2, SearchActivity::class.java)
+            val intent: Intent = Intent(this@HomeActivity2, SearchActivity::class.java)
 
             startActivity(intent)
         }
@@ -118,7 +123,11 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
 
     }
 
+    private fun setHomeNetwork() {
+        getHomeHotplaceResponse()
 
+        getHomeMocaplusResponse()
+    }
 
 
     private fun recyclerView() {
@@ -136,8 +145,9 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         rv_act_home_ranking.adapter = CategoryRankingAdapter(this, rankingPosts)
 
         //plus
+        homeMocaplusAdapter = HomeMocaplusAdapter(this, plusData)
         rv_act_home_plus.layoutManager = LinearLayoutManager(this)
-        rv_act_home_plus.adapter = CategoryPlusAdapter(this, plusPosts)
+        rv_act_home_plus.adapter = homeMocaplusAdapter
 
         //
     }
@@ -148,7 +158,7 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         }
         for (i in 1..3) {
             rankingPosts.add(CategoryRankData("cafe $i", "location $i"))
-            plusPosts.add("image $i")
+
 
         }
     }
@@ -163,10 +173,10 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
             }
 
             override fun onResponse(call: Call<GetHomeHotplaceResponse>, response: Response<GetHomeHotplaceResponse>) {
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     Log.v("hotplace", "load")
-                    val temp : ArrayList<HomeHotplaceData> = response.body()!!.data
-                    if(temp.size>0) {
+                    val temp: ArrayList<HomeHotplaceData> = response.body()!!.data
+                    if (temp.size > 0) {
                         val position = homeHotplaceAdapter.itemCount
                         homeHotplaceAdapter.dataList.addAll(temp)
                         homeHotplaceAdapter.notifyItemInserted(position)
@@ -177,4 +187,37 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener{
         })
     }
 
+    private fun getHomeMocaplusResponse() {
+        val getHomeMocaplusResponse = networkService.getMocaplusResponse(3)
+
+        getHomeMocaplusResponse.enqueue(object : Callback<GetMocaplusResponse> {
+            override fun onFailure(call: Call<GetMocaplusResponse>, t: Throwable) {
+                Log.e(TAG, "getHomeMocaplusResponse failed")
+            }
+
+            override fun onResponse(call: Call<GetMocaplusResponse>, response: Response<GetMocaplusResponse>) {
+                if (response.isSuccessful) {
+                    Log.v(TAG, "getHomeMocaplusResponse success")
+                    val temp: ArrayList<MocaplusData> = response.body()!!.data
+
+                    if (temp != null) {
+                        if (temp.size > 0) {
+                            if (temp.size >= 3) {
+                                for (i in 0..2) {
+                                    homeMocaplusAdapter.dataList.add(temp[i])
+                                }
+                            } else if (temp.size < 3) {
+                                homeMocaplusAdapter.dataList.addAll(temp)
+                            }
+                        }
+                        Log.v("plus data num", temp.size.toString())
+                        val position = homeMocaplusAdapter.itemCount
+                        homeMocaplusAdapter.notifyItemInserted(position)
+                    }
+
+
+                }
+            }
+        })
+    }
 }

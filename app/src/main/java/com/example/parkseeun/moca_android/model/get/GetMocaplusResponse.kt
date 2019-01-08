@@ -1,7 +1,7 @@
 package com.example.parkseeun.moca_android.model.get
 
 data class GetMocaplusResponse(
-    val status : String,
+    val status : Int,
     val messge : String,
     val data : ArrayList<MocaplusData>
 )
