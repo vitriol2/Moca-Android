@@ -50,8 +50,8 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
             override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
             }
 
-            override fun onPageSelected(position: Int) {
-                holder.page.text = "${position+1}/${dataList[position].image.size}"
+            override fun onPageSelected(pos: Int) {
+                holder.page.text = "${pos+1}/${dataList[position].image.size}"
             }
         })
         var imgs: ArrayList<String> = ArrayList()

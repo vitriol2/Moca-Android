@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.get.GetFeedResponse
 import com.example.parkseeun.moca_android.model.get.GetReviewCommentResponse
 import com.example.parkseeun.moca_android.model.get.GetReviewDetailResponse
 import com.example.parkseeun.moca_android.model.post.PostFollowResponse
@@ -76,7 +74,6 @@ class ReviewDetailActivity : AppCompatActivity() {
                                         if(response!!.isSuccessful)
                                             if (response.body()!!.status == 200) {
                                                 it.like = !it.like
-                                                toast(it.like.toString())
                                                 if(it.like)
                                                     review_detail_heart_btn.setImageResource(R.drawable.common_heart_fill)
                                                 else
@@ -102,7 +99,7 @@ class ReviewDetailActivity : AppCompatActivity() {
                             })
                             ArrayList<String>().apply{
                                 it.image.forEach { add(it.review_img_url?:"") }
-                                review_detail_pic_vp.adapter = ImageAdapter(this@ReviewDetailActivity, toTypedArray())
+                                review_detail_pic_vp.adapter = ImageAdapter(this@ReviewDetailActivity, toTypedArray(), true)
                             }
                             Glide.with(this@ReviewDetailActivity).load(it.user_img_url).into(review_detail_profile_ci)
                             review_detail_name_tv.text = it.user_name
