@@ -239,9 +239,10 @@
                 android:text="음료 쿠폰" />
 
             <TextView
+                android:id="@+id/tv_mypage_tab_coupon_num"
                 style="@style/mypage_tab_menu_num"
                 android:layout_marginLeft="186dp"
-                android:text="3" />
+                android:text="0" />
 
             <ImageView
                 android:layout_width="24dp"
