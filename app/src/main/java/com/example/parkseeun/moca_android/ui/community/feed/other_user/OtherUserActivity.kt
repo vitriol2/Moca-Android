@@ -47,7 +47,12 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other_user)
-
+        // swipe refresh
+        other_swipe_sl.setColorSchemeColors(resources.getColor(R.color.colorPrimaryDark))
+        other_swipe_sl.setOnRefreshListener {
+            communicate()
+            other_swipe_sl.isRefreshing = false
+        }
         other_back_iv.setOnClickListener(this)
         other_follower_tv.setOnClickListener(this)
         other_following_tv.setOnClickListener(this)

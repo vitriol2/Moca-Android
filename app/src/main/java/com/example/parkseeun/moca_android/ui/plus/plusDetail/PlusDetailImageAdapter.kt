@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.util
+package com.example.parkseeun.moca_android.ui.plus.plusDetail
 
 import android.content.Context
 import android.content.Intent
@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.example.parkseeun.moca_android.model.get.GetMocaContentImagesData
 import com.example.parkseeun.moca_android.ui.community.feed.image.ImageActivity
-import com.github.chrisbanes.photoview.PhotoView
 
-class PhotoViewAdapter(private val mContext : Context, private var mImgItem : Array<String?>, private val clickable : Boolean = false) : PagerAdapter() {
+class PlusDetailImageAdapter(private val mContext : Context, private var mImgItem : ArrayList<GetMocaContentImagesData>, private val clickable : Boolean = false) : PagerAdapter() {
     override fun isViewFromObject(p0: View, p1: Any): Boolean {
         return p0==p1
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        var img = PhotoView(mContext)
+        var img = ImageView(mContext)
         img.scaleType = ImageView.ScaleType.CENTER_CROP
         Glide.with(mContext).load(mImgItem[position]).into(img)
         container.addView(img, 0)
@@ -24,7 +24,6 @@ class PhotoViewAdapter(private val mContext : Context, private var mImgItem : Ar
             img.setOnClickListener {
                 Intent(mContext, ImageActivity::class.java).apply{
                     putExtra("page",position)
-                    putExtra("imgs", mImgItem)
                     mContext.startActivity(this)
                 }
             }

@@ -28,7 +28,7 @@ class CouponHistoryViewAdapter(val context: Context, val dataList: ArrayList<Get
                 holder.bg.layoutParams = it
                 holder.bg.setBackgroundResource(R.drawable.square_coupon_bottom)
             }
-            1 -> (holder.bg.layoutParams as ConstraintLayout.LayoutParams).let {
+            11 -> (holder.bg.layoutParams as ConstraintLayout.LayoutParams).let {
                 it.bottomMargin = (6.0f*context.resources.displayMetrics.density).toInt()
                 holder.bg.layoutParams = it
                 holder.bg.setBackgroundResource(R.drawable.square_coupon_top)

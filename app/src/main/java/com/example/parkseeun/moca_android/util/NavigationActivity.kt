@@ -179,8 +179,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
     }
 
     private fun getMypageScrapResponse() {
-        val token : String = SharedPreferenceController.getAuthorization(this)
-        val getMypageScrapResponse = networkService.getMypageScrapResponse( token)
+        val getMypageScrapResponse = networkService.getMypageScrapResponse( User.token)
 
         getMypageScrapResponse.enqueue(object : Callback<GetMypageScrapResponse> {
             override fun onFailure(call: Call<GetMypageScrapResponse>, t: Throwable) {
@@ -216,9 +215,9 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                                 }
                             }
                             Log.v(TAG, temp.size.toString())
+                            headerView.tv_mypage_tab_coupon_num.text = temp.size.toString()
                         }
                         Log.v(TAG, "scrap data exists")
-
                     }
                     else {
                         for(i in 1..5) {
@@ -305,5 +304,3 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
         return true
     }
 }
-
-

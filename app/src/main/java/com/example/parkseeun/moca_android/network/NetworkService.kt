@@ -40,13 +40,32 @@ interface NetworkService {
         @Header("Authorization") token : String
     ) : Call<GetHomeHotplaceResponse>
 
+    //<지원: 홈-Moca Plus>: 플러스주제 리스트 조회
+    @GET("/plus/{length}")
+    fun getMocaplusResponse(
+        @Path("length") length : Int
+    ) : Call<GetMocaplusResponse>
 
+    // 수민 - 모카 플러스 상세 조회
+    @GET("/plus/{plus_subject_id}/detail")
+    fun getMocaPlusDetail(
+        @Path("plus_subject_id") plus_subject_id : Int
+    ) : Call<GetMocaPlusDetailResponse>
+
+    // 수민 - 모카 플러스 카페 리스트
+    @GET("/plus/{plus_subject_id}/contents")
+    fun getMocaPlusDetailCafeList(
+        @Header("Authorization") token : String,
+        @Path("plus_subject_id") plus_subject_id: Int
+    ) : Call<GetMocaPlusDetailCafeListResponse>
+
+    // 검색
     @GET("/search/cafe/{keyword}")
     fun getHomeSearch(
         @Path("keyword") keyword : String
     ) : Call<GetHomeSearchResponse>
 
-    // 검색 - 인기 카페 리스트 조횐
+    // 검색 - 인기 카페 리스트 조회
     @GET("/cafe/best/{flag}")
     fun getBestCafeList(
         @Header("Authorization") token : String,
@@ -54,16 +73,21 @@ interface NetworkService {
     ) : Call<GetBestCafeListResponse>
 
     // 검색 - 모카 추천 플레이스 조회
+    @GET("/hot_place/best")
+    fun getMocaRecommenPlace(
+    ) : Call<GetMocaRecommendHotPlaceResponse>
+
 
     // 랭킹
 
-
-    // 모카 플러스(홈 포함)
-    @GET("/plus/{length}")
-    fun getMocaplusResponse(
-        @Path("length") length: Int
-    ): Call<GetMocaplusResponse>
     // 모카 픽스
+    @GET("/cafe/pick/{length}")
+    fun getMocaPicksList(
+        @Header("Authorization") token : String,
+        @Path("length") length : Int
+    ) : Call<GetMocaPicksListResponse>
+
+    // 모카 픽스 -
 
 
 
@@ -92,18 +116,32 @@ interface NetworkService {
     @GET("/feed/social")
     fun getSocialFeed(@Header("Authorization") token: String): Call<GetFeedResponse>
 
-    // 유저 피드
+    // 유저 피드 - 아영
     @GET("/feed/user/{user_id}")
     fun getUserFeed(
         @Header("Authorization") token: String,
         @Path("user_id") id: String
     ): Call<GetFeedResponse>
 
-
-    // 유저 정보
+    // 유저 정보 - 아영
     @GET("/user/{user_id}")
     fun getUserData(@Header("Authorization") token: String,
                     @Path("user_id") id: String):Call<GetUserDataResponse>
+
+    // 리뷰 상세보기 - 아영
+    @GET("/review/{review_id}/detail")
+    fun getReviewDetail(@Header("Authorization") token: String,
+                        @Path("review_id") id: Int):Call<GetReviewDetailResponse>
+
+    // 리뷰 좋아요 toggle - 아영
+    @POST("/review/{review_id}/like")
+    fun postReviewLike(@Header("Authorization") token: String,
+                       @Path("review_id") id: Int):Call<PostFollowResponse>
+
+    // 리뷰 댓글 조회 - 아영
+    @GET("/review/{review_id}/comment")
+    fun getReviewComment(@Header("Authorization") token: String,
+                        @Path("review_id") id: Int):Call<GetReviewCommentResponse>
 
     // 팔로워 조회 - 수민
     @GET("/user/{user_id}/follower")
@@ -129,11 +167,12 @@ interface NetworkService {
 
 
     // <마이 페이지>
-    // 적립 내역
+    // 적립 내역 - 아영
     @GET("/membership")
     fun getMembership(@Header("Authorization") token: String): Call<GetMembershipResponse>
 
     // 주변카페
+
 
     //<마이페이지 찜한카페목록>
     @GET("/user/scrap")
@@ -153,5 +192,12 @@ interface NetworkService {
     fun getMypageCouponResponse(
         @Header("Authorization") token : String
     ): Call<GetMypageCouponResponse>
+
+    //<마이페이지 프로필수정>
+    @GET("/user/{user_id}/mypage")
+    fun getMypageEditprofileResponse(
+        @Header("Authorization") token : String,
+        @Path("user_id") user_id : String
+    ): Call<GetMypageEditprofileResponse>
     // 주변카페
 }

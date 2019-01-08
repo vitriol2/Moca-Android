@@ -18,11 +18,11 @@ class ImageActivity : AppCompatActivity() {
         image_back_ib.setOnClickListener{
             finish()
         }
-
+        val imgs : Array<String?> = intent.getStringArrayExtra("imgs")
         // 스크린 너비에 따른 이미지 길이 설정
         image_img_vp.layoutParams.height = getScreenWidth()
 
-        image_index_tv.text = "1/10"
+        image_index_tv.text = "1/${imgs.size}"
 
         image_img_vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(p0: Int) {
@@ -32,16 +32,17 @@ class ImageActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                image_index_tv.text = (position+1).toString()+"/10"
+                image_index_tv.text = "${(position+1)}/${imgs.size}"
             }
         })
-        image_img_vp.adapter = PhotoViewAdapter(this, arrayOf("https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4", "https://avatars1.githubusercontent.com/u/18085486?s=460&v=4"))
+        image_img_vp.adapter = PhotoViewAdapter(this, imgs)
 
         // 몇 번째 페이지에서 눌렀는지 반영
-        val page = intent.getIntExtra("page", -1)
-        if(page!=-1){
-            image_index_tv.text = (page+1).toString() + "/10"
-            image_img_vp.currentItem = page
+        intent.getIntExtra("page", -1).let{
+            if(it != -1){
+                image_index_tv.text = "${it+1}/${imgs.size}"
+                image_img_vp.currentItem = it
+            }
         }
     }
     private fun getScreenWidth(): Int {
