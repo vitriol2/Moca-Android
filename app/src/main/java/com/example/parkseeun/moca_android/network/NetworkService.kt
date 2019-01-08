@@ -41,10 +41,21 @@ interface NetworkService {
     //<지원: 홈-Moca Plus>: 플러스주제 리스트 조회
     @GET("/plus/{length}")
     fun getMocaplusResponse(
-        @Header("Content-Type") content_type : String,
-        @Header("Authorization") token : String,
-        @Path("user_id") user_id : Int
+        @Path("length") length : Int
     ) : Call<GetMocaplusResponse>
+
+    // 수민 - 모카 플러스 상세 조회
+    @GET("/plus/{plus_subject_id}/detail")
+    fun getMocaPlusDetail(
+        @Path("plus_subject_id") plus_subject_id : Int
+    ) : Call<GetMocaPlusDetailResponse>
+
+    // 수민 - 모카 플러스 카페 리스트
+    @GET("/plus/{plus_subject_id}/contents")
+    fun getMocaPlusDetailCafeList(
+        @Header("Authorization") token : String,
+        @Path("plus_subject_id") plus_subject_id: Int
+    ) : Call<GetMocaPlusDetailCafeListResponse>
 
     // 검색
     // 핫플레이스
@@ -63,15 +74,17 @@ interface NetworkService {
 
     // 검색 - 모카 추천 플레이스 조회
 
+
     // 랭킹
 
-
-    // 모카 플러스(홈 포함)
-    @GET("/plus/{length}")
-    fun getMocaplusResponse(
-        @Path("length") length: Int
-    ): Call<GetMocaplusResponse>
     // 모카 픽스
+    @GET("/cafe/pick/{length}")
+    fun getMocaPicksList(
+        @Header("Authorization") token : String,
+        @Path("length") length : Int
+    ) : Call<GetMocaPicksListResponse>
+
+    // 모카 픽스 -
 
 
     // <카테고리>
@@ -133,8 +146,6 @@ interface NetworkService {
 
     // 주변카페
     //<지원: 홈-핫플레이스>
-
-    //<지원: 홈-Moca Plus>: 플러스주제 리스트 조회
 
     //<지원: 마이페이지 찜한카페목록>
     @GET("/user/scrap")
