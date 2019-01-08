@@ -2,7 +2,6 @@ package com.example.parkseeun.moca_android.ui.location.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,12 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.ui.location.LocationMainDialog
-import com.example.parkseeun.moca_android.ui.location.data.LocationMainData
+import com.example.parkseeun.moca_android.ui.location.data.LocationCafeDetailData
 import com.example.parkseeun.moca_android.ui.location.data.MarkerItem
 
 class LocationMainAdapter(
     val context: Context,
-    val dataList: ArrayList<LocationMainData>,
+    val dataList: ArrayList<LocationCafeDetailData>,
     val markerItem: ArrayList<MarkerItem>
 ) : RecyclerView.Adapter<LocationMainAdapter.Holder>() {
 
@@ -38,9 +36,9 @@ class LocationMainAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
-        Glide.with(context).load(dataList[position].cafeImageUrl).into(holder.circle_nearby_cafe)
+        Glide.with(context).load(dataList[position].cafe_img_url).into(holder.circle_nearby_cafe)
         holder.tv_nearby_cafe_name.text = dataList[position].name
-        holder.txt_nearby_how_close.text = dataList[position].address
+        holder.txt_nearby_how_close.text = dataList[position].distance
 
 
         if (dataList[position].selected == false) {
