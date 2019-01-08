@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="정화니" />
+            tools:text="정화니" />
         <ImageView
             android:id="@+id/other_dm_iv"
             android:layout_width="wrap_content"

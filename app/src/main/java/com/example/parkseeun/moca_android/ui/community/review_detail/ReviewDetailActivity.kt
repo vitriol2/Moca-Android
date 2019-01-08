@@ -33,6 +33,13 @@ class ReviewDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_detail)
 
+        // swipe refresh
+        review_detail_refresh_sl.setColorSchemeColors(resources.getColor(R.color.colorPrimaryDark))
+        review_detail_refresh_sl.setOnRefreshListener {
+            communicate()
+            review_detail_refresh_sl.isRefreshing = false
+        }
+
         review_detail_back_iv.setOnClickListener { finish() }
 
         // 스크린 너비에 따른 이미지 길이 설정

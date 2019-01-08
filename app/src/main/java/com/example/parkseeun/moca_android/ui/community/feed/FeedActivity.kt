@@ -11,10 +11,9 @@ import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.communitySearch.CommunitySearchActivity
 import kotlinx.android.synthetic.main.activity_feed2.*
 import kotlinx.android.synthetic.main.app_bar_community.*
+import org.jetbrains.anko.toast
 
 class FeedActivity : NavigationActivity(), View.OnClickListener{
-    private val TAG = "FeedActivity onCreate"
-
     override fun onClick(v: View?) {
         when(v){
             feed_title_tv, feed_title_iv -> {
@@ -66,13 +65,10 @@ class FeedActivity : NavigationActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed2)
-        addFragment(SocialFragment())
 
         setHeader(nav_view_feed)
 
         nav_view_feed.setNavigationItemSelectedListener(this)
-
-        Log.v(TAG, "onCreate")
 
         feed_title_tv.setOnClickListener(this)
         feed_title_iv.setOnClickListener(this)
@@ -80,6 +76,16 @@ class FeedActivity : NavigationActivity(), View.OnClickListener{
         feed_social_const.setOnClickListener(this)
         feed_menu_iv.setOnClickListener(this)
         feed_cancel_iv.setOnClickListener(this)
+
+        // 본인의 프로필 사진, 이름을 누른 경우의 Flag
+        if(intent.getBooleanExtra("myFeed", false)) {
+            addFragment(MyFragment())
+            feed_my_iv.visibility = View.VISIBLE
+            feed_social_iv.visibility = View.GONE
+            feed_title_tv.text = "내 피드"
+        }else{
+            addFragment(SocialFragment())
+        }
 
         // 커뮤니티 검색
         feed_search_iv.setOnClickListener {
@@ -103,7 +109,6 @@ class FeedActivity : NavigationActivity(), View.OnClickListener{
         val transaction = fm.beginTransaction()
         transaction.add(R.id.feed_fragment_frame,fragment)
         transaction.commit()
-        Log.v(TAG, "socialFragment added")
     }
 
     //Fragment 교체
