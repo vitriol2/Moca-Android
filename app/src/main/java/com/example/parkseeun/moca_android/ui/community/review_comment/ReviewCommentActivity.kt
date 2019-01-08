@@ -23,6 +23,15 @@ class ReviewCommentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_comment)
 
+        review_comment_cancel_iv.setOnClickListener { finish() }
+
+        // swipe refresh
+        sl_comment_refresh.setColorSchemeColors(resources.getColor(R.color.colorPrimaryDark))
+        sl_comment_refresh.setOnRefreshListener {
+            communicate()
+            sl_comment_refresh.isRefreshing = false
+        }
+
         communicate()
     }
 

@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.community.review_detail
 
 
+import android.content.Intent
 import android.graphics.Point
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,8 @@ import com.example.parkseeun.moca_android.model.get.GetReviewCommentResponse
 import com.example.parkseeun.moca_android.model.get.GetReviewDetailResponse
 import com.example.parkseeun.moca_android.model.post.PostFollowResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
+import com.example.parkseeun.moca_android.ui.community.feed.other_user.OtherUserActivity
 import com.example.parkseeun.moca_android.ui.community.review_comment.ReviewCommentViewAdapter
 import com.example.parkseeun.moca_android.util.ImageAdapter
 import com.example.parkseeun.moca_android.util.User
@@ -32,6 +35,13 @@ class ReviewDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_detail)
+
+        // swipe refresh
+        review_detail_refresh_sl.setColorSchemeColors(resources.getColor(R.color.colorPrimaryDark))
+        review_detail_refresh_sl.setOnRefreshListener {
+            communicate()
+            review_detail_refresh_sl.isRefreshing = false
+        }
 
         review_detail_back_iv.setOnClickListener { finish() }
 
@@ -107,6 +117,17 @@ class ReviewDetailActivity : AppCompatActivity() {
                             review_detail_time_tv.text = it.time
                             review_detail_aline_tv.text = it.review_title
                             review_detail_review_tv.text = it.review_content
+                            // 이름과 프로필 사진 누르면 본인/타인에 따라 각자의 피드로 이동
+                            View.OnClickListener { _ ->
+                                if(it.user_id == User.user_id){
+                                    Intent(this@ReviewDetailActivity, FeedActivity::class.java).apply { putExtra("myFeed", true); applicationContext.startActivity(this) }
+                                }else{
+                                    Intent(this@ReviewDetailActivity, OtherUserActivity::class.java).apply { putExtra("user_id", it.user_id); applicationContext.startActivity(this) }
+                                }
+                            }.let {
+                                review_detail_profile_ci.setOnClickListener(it)
+                                review_detail_name_tv.setOnClickListener(it)
+                            }
                         }
                     } else {
                         toast(response.body()!!.status.toString() + ": " + response.body()!!.message)

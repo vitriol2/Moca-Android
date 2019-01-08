@@ -4,6 +4,7 @@ import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
+import com.example.parkseeun.moca_android.model.post.*
 import com.example.parkseeun.moca_android.model.post.PostJoinData
 import com.example.parkseeun.moca_android.model.post.PostFollowResponse
 import com.example.parkseeun.moca_android.model.post.PostJoinResponse
@@ -175,6 +176,16 @@ interface NetworkService {
 
 
     //<마이페이지 찜한카페목록>
+    // <소희: 맵-주변카페>
+    @POST("/cafe/nearbycafe")
+    fun postNearByCafeResponse(
+        @Header("Authorization") token : String,
+        @Body postNearByCafe : PostNearByCafeData
+    ) : Call<PostNearByCafeResponse>
+
+    //<지원: 홈-핫플레이스>
+    
+    //<지원: 마이페이지 찜한카페목록>
     @GET("/user/scrap")
     fun getMypageScrapResponse(
         @Header("Authorization") token: String
