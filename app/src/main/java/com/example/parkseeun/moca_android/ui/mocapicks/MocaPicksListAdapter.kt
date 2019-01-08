@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetMocaPicksListData
 
-class MocaPicksListAdapter(val context : Context, val dataList : ArrayList<MocaPicksListData>) : RecyclerView.Adapter<MocaPicksListAdapter.Holder>() {
+class MocaPicksListAdapter(val context : Context, val dataList : ArrayList<GetMocaPicksListData>) : RecyclerView.Adapter<MocaPicksListAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MocaPicksListAdapter.Holder {
         // 뷰 인플레이트
@@ -25,7 +26,7 @@ class MocaPicksListAdapter(val context : Context, val dataList : ArrayList<MocaP
         // 뷰 바인딩
         Glide.with(context).load(dataList[position].cafe_img_main).into(holder.iv_mocaPicksList_cafeImage)
         holder.tv_mocaPicksList_cafeName.text = dataList[position].cafe_name
-        holder.tv_mocaPicksList_cafeLocation.text = dataList[position].address_district_name
+        holder.tv_mocaPicksList_cafeLocation.text = dataList[position].cafe_introduction
 
         // 토글 버튼 리스너
         holder.tb_mocaPicksList.setOnClickListener {

@@ -154,8 +154,8 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<GetBestCafeListResponse>, response: Response<GetBestCafeListResponse>) {
-                if(response!!.isSuccessful)
-                    if(response!!.body()!!.status==200) {
+                if(response.isSuccessful)
+                    if(response.body()!!.status==200) {
                         var getBestCafeListData: ArrayList<GetBestCafeListData> = response.body()!!.data
 
                         beforeSearchPopularCafeAdapter = BeforeSearchPopularCafeAdapter(context, getBestCafeListData)
@@ -167,7 +167,7 @@ class SearchActivity : AppCompatActivity() {
 
                         rv_search_popularCafe_location.adapter = beforeSearchPopularCafeAdapter
                         rv_search_popularCafe_location.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    } else if (response!!.body()!!.status == 204) {
+                    } else if (response.body()!!.status == 204) {
                         toast("인기 카페가 존재하지 않습니다!")
                     }
             }
