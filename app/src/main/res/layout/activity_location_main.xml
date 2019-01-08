@@ -86,13 +86,13 @@
                android:scaleType="centerCrop"
     />
     <TextView
+            android:layout_above="@+id/rv_act_location_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="주변카페"
             style="@style/Bold15"
-            android:layout_alignParentBottom="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="165dp"
+            android:layout_marginBottom="16dp"
     />
     <android.support.v7.widget.RecyclerView
             android:layout_alignParentBottom="true"

@@ -86,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
                             val token = response.body()!!.data.token!!
                             User.token = token
                             SharedPreferenceController.setAuthorization(this@LoginActivity, token)
+                            SharedPreferenceController.setId(this@LoginActivity, et_login_id.text.toString())
                             User.token = response.body()!!.data.token!!
                             User.user_id = et_login_id.text.toString()
                             startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
@@ -97,6 +98,8 @@ class LoginActivity : AppCompatActivity() {
         //에뮬돌릴때 로그인 한번 해놓으면 다음에 킬때 바로 홈화면으로, 뒤로가기누르면 LoginActivity로 돌아갈 수 있다.
         if(SharedPreferenceController.getAuthorization(this).isNotEmpty()) {
             startActivity<HomeActivity2>()
+            User.token = SharedPreferenceController.getAuthorization(this)
+            User.user_id = SharedPreferenceController.getId(this)
         }
     }
 }
