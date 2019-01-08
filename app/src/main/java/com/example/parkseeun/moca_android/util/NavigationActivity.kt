@@ -188,7 +188,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
     }
 
     private fun getMypageScrapResponse() {
-        val getMypageScrapResponse = networkService.getMypageScrapResponse( User.token!!)
+        val getMypageScrapResponse = networkService.getMypageScrapResponse( User.token)
 
         getMypageScrapResponse.enqueue(object : Callback<GetMypageScrapResponse> {
             override fun onFailure(call: Call<GetMypageScrapResponse>, t: Throwable) {
@@ -197,14 +197,14 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
             override fun onResponse(call: Call<GetMypageScrapResponse>, response: Response<GetMypageScrapResponse>) {
                 if (response.isSuccessful) {
-                    Log.v("mypage-scrap load", "success")
+                    Log.v("mypage-scrap load", response.raw().toString()+"bb-${User.token}")
                     val temp: ArrayList<ScrapCafeData>? = response.body()!!.data
                     if (temp!=null) {
                         if (temp!!.size > 0) {
                             if (temp!!.size >= 5) {
                                 for (i in 1..temp.size) {
                                     if (temp[i - 1].cafe_img_url.size > 0) {
-                                        scrapList.add(temp[i].cafe_img_url[0].cafe_img_url[0])
+                                        scrapList.add(temp[i-1].cafe_img_url[0].cafe_img_url?:"")
                                     } else
                                         scrapList.add("")
                                 }
@@ -212,7 +212,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                                 for (i in 1..5) {
                                     if (i <= temp.size) {
                                         if (temp[i - 1].cafe_img_url.size > 0) {
-                                            scrapList.add(temp[i].cafe_img_url[0].cafe_img_url[0])
+                                            scrapList.add(temp[i-1].cafe_img_url[0].cafe_img_url?:"")
                                         } else
                                             scrapList.add("")
                                     } else
@@ -225,6 +225,8 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
                             }
                             Log.v(TAG, temp.size.toString())
                         }
+                        Log.v(TAG, "scrap data exists")
+
                     }
                     else {
                         for(i in 1..5) {
@@ -299,5 +301,3 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
         return true
     }
 }
-
-

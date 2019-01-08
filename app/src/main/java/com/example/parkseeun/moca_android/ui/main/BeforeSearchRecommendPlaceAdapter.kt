@@ -11,9 +11,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetMocaRecommendHotPlaceData
 import com.example.parkseeun.moca_android.ui.plus.plusDetail.PlusDetailActivity
 
-class BeforeSearchRecommendPlaceAdapter(val context : Context, val dataList : ArrayList<RecommendPlaceData>) : RecyclerView.Adapter<BeforeSearchRecommendPlaceAdapter.Holder>()  {
+class BeforeSearchRecommendPlaceAdapter(val context : Context, val dataList : ArrayList<GetMocaRecommendHotPlaceData>) : RecyclerView.Adapter<BeforeSearchRecommendPlaceAdapter.Holder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeforeSearchRecommendPlaceAdapter.Holder {
         // 뷰 인플레이트
@@ -26,12 +27,13 @@ class BeforeSearchRecommendPlaceAdapter(val context : Context, val dataList : Ar
 
     override fun onBindViewHolder(holder: BeforeSearchRecommendPlaceAdapter.Holder, position: Int) {
         holder.iv_search_recommend_place_image.clipToOutline = true
-//        Glide.with(context).load(dataList[position].cafe_img).into(holder.iv_search_recommend_place_image)
-        holder.tv_search_recommend_place_tag.text = dataList[position].cafe_name
+        Glide.with(context).load(dataList[position].hot_place_img).into(holder.iv_search_recommend_place_image)
+        holder.tv_search_recommend_place_tag.text = dataList[position].hot_place_name
 
         // 클릭
         holder.rv_item_search_recommend_place_relative.setOnClickListener {
-            val intent = Intent(context, HotPlaceActivity::class.java) //
+            val intent = Intent(context, HotPlaceActivity::class.java)
+//            intent.putExtra("")
 
             context.startActivity(intent)
         }
