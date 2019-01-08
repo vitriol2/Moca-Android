@@ -164,27 +164,32 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_mypage_tab_scrap_1"
                     style="@style/mypage_tab_menu_zzim_image"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_mypage_tab_scrap_2"
                     style="@style/mypage_tab_menu_zzim_image"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_mypage_tab_scrap_3"
                     style="@style/mypage_tab_menu_zzim_image"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_mypage_tab_scrap_4"
                     style="@style/mypage_tab_menu_zzim_image"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/rl_mypage_tab_scrap_more"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_mypage_tab_scrap_5"

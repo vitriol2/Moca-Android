@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetBestCafeListData
 import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 
-class BeforeSearchPopularCafeAdapter(val context : Context, val dataList : ArrayList<PopularCafeData>) : RecyclerView.Adapter<BeforeSearchPopularCafeAdapter.Holder>() {
+class BeforeSearchPopularCafeAdapter(val context : Context, val dataList : ArrayList<GetBestCafeListData>) : RecyclerView.Adapter<BeforeSearchPopularCafeAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeforeSearchPopularCafeAdapter.Holder {
         // 뷰 인플레이트
@@ -26,9 +27,9 @@ class BeforeSearchPopularCafeAdapter(val context : Context, val dataList : Array
         holder.iv_popular_cafe.clipToOutline = true
 
         // 뷰 바인딩
-        Glide.with(context).load(dataList[position].cafe_img).into(holder.iv_popular_cafe)
+        Glide.with(context).load(dataList[position].cafe_img_url).into(holder.iv_popular_cafe)
         holder.tv_popular_cafe_name.text = dataList[position].cafe_name
-        holder.tv_popular_cafe_scrap_num.text = dataList[position].scrap_number.toString()
+        holder.tv_popular_cafe_scrap_num.text = dataList[position].scrap_count.toString()
 
         // 클릭
         holder.rv_item_search_popular_cafe_relative.setOnClickListener {

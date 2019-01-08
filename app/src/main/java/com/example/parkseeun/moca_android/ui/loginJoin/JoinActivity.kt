@@ -103,7 +103,7 @@ class JoinActivity : AppCompatActivity() {
 
 
                 return false
-            } else if(!Pattern.compile("^([a-z][A-Z][0-9])$").matcher(et_join_id.text.toString()).matches()){
+            } else if(!Pattern.compile("^[a-zA-Z0-9]*S").matcher(et_join_id.text.toString()).matches()){
                 toast("아이디는 영어와 숫자만으로 입력해주세요.")
 
                 return false

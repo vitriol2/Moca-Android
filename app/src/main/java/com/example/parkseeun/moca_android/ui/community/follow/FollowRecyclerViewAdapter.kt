@@ -1,7 +1,6 @@
 package com.example.parkseeun.moca_android.ui.community.follow
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,20 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.post.PostFollowResponse
+import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.util.User
 import de.hdodenhof.circleimageview.CircleImageView
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FollowRecyclerViewAdapter(val context : Context, val dataList : ArrayList<FollowData>) : RecyclerView.Adapter<FollowRecyclerViewAdapter.Holder>() {
+
+    // 통신
+    private val networkService  = ApplicationController.instance.networkService
+    private lateinit var postFollowerResponse : Call<PostFollowResponse>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 뷰 인플레이트
@@ -29,7 +39,7 @@ class FollowRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         holder.tv_follow_name.text = dataList[position].name
 
         // followFlag가 1이면 팔로잉 되어있는 상태라고 가정했당 (1이면 팔로잉, 0이면 팔로잉X)
-        if (dataList[position].followFlag) {
+        if (!dataList[position].followFlag) {
             holder.ib_follow_follow.setBackgroundResource(R.drawable.community_followinglist_follow)
         }
         else {
@@ -38,17 +48,39 @@ class FollowRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
 
         // 팔로우 버튼 클릭 리스너
         holder.ib_follow_follow.setOnClickListener {
-            if (dataList[position].followFlag) {
+            if (!dataList[position].followFlag) {
                 holder.ib_follow_follow.setBackgroundResource(R.drawable.community_following_following)
 
-                dataList[position].followFlag = false
+                followUnfollow(dataList[position].user_id)
+
+                dataList[position].followFlag = true
             }
             else {
                 holder.ib_follow_follow.setBackgroundResource(R.drawable.community_followinglist_follow)
 
-                dataList[position].followFlag = true
+                followUnfollow(dataList[position].user_id)
+
+                dataList[position].followFlag = false
             }
+            notifyDataSetChanged()
         }
+    }
+
+    // 팔로우, 언팔로우
+    private fun followUnfollow(user_id: String) {
+        postFollowerResponse = networkService.postFollow(User.token!!, user_id)
+        postFollowerResponse.enqueue(object: Callback<PostFollowResponse> {
+            override fun onFailure(call: Call<PostFollowResponse>, t: Throwable) {
+                context.toast(t.message.toString())
+            }
+
+            override fun onResponse(call: Call<PostFollowResponse>, response: Response<PostFollowResponse>) {
+                if(response.isSuccessful)
+                    if(response.body()!!.status != 200) {
+                        context.toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
+                    }
+            }
+        })
     }
 
     // View Holder
