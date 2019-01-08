@@ -33,7 +33,7 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         holder.pic.layoutParams.height = holder.pic.layoutParams.width
 
         // image viewpager setting
-        holder.page.text = "1/" + dataList[position].image.size
+        holder.page.text = "1/${dataList[position].image.size}"
         holder.pic.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(p0: Int) {
             }
@@ -42,7 +42,7 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
             }
 
             override fun onPageSelected(position: Int) {
-                holder.page.text = (position+1).toString() + "/" + dataList[position].image.size
+                holder.page.text = "${position+1}/${dataList[position].image.size}"
             }
         })
         var imgs: ArrayList<String> = ArrayList()
@@ -50,7 +50,7 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         holder.pic.adapter = ImageAdapter(context, imgs.toTypedArray())
 
         // view binding
-        Glide.with(context).load(dataList[position].image[0].review_img_url).into(holder.profile)
+        Glide.with(context).load(dataList[position].user_img_url).into(holder.profile)
         holder.name.text = dataList[position].user_name
         holder.rating.rating = dataList[position].review_rating.toFloat()
         if(dataList[position].like)
@@ -58,10 +58,16 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         else
             holder.heart.setBackgroundResource(R.drawable.common_heart_blank)
         holder.commentBtn.setOnClickListener{
-            context.startActivity(Intent(context, ReviewCommentActivity::class.java))
+            Intent(context, ReviewCommentActivity::class.java).apply {
+                putExtra("review_id", dataList[position].review_id)
+                context.startActivity(this)
+            }
         }
         holder.more.setOnClickListener {
-            context.startActivity(Intent(context, ReviewDetailActivity::class.java))
+            Intent(context, ReviewDetailActivity::class.java).apply {
+                putExtra("review_id", dataList[position].review_id)
+                context.startActivity(this)
+            }
         }
         holder.heartNum.text = dataList[position].like_count.toString()
         holder.commentNum.text = dataList[position].comment_count.toString()

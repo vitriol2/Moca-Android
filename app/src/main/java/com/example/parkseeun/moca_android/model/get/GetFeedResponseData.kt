@@ -5,6 +5,7 @@ data class GetFeedResponseData (
         val cafe_id: Int,
         val user_id: String,
         val user_name: String,
+        val user_img_url: String?,
         val image: ArrayList<GetFeedResponseImage>,
         val review_rating: Int,
         val review_title: String?,
