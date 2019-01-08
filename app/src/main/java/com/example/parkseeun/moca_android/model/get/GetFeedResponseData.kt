@@ -14,8 +14,8 @@ data class GetFeedResponseData (
         val cafe_name: String,
         val cafe_address: String,
         val time: String,
-        val like_count: Int,
+        var like_count: Int,
         val comment_count: Int,
         val auth: Boolean,
-        val like: Boolean
+        var like: Boolean
 )

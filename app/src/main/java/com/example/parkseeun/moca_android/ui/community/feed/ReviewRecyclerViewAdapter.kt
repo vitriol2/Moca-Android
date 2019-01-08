@@ -16,9 +16,18 @@ import android.graphics.Point
 import android.support.v4.view.ViewPager
 import android.view.*
 import com.example.parkseeun.moca_android.model.get.GetFeedResponseData
+import com.example.parkseeun.moca_android.model.post.PostFollowResponse
+import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.util.ImageAdapter
+import com.example.parkseeun.moca_android.util.User
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<GetFeedResponseData>) : RecyclerView.Adapter<ReviewRecyclerViewAdapter.Holder>() {
+    private val networkService  = ApplicationController.instance.networkService
+    private lateinit var postLikeResponse : Call<PostFollowResponse>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view : View = LayoutInflater.from(context).inflate(R.layout.rv_item_review, parent, false)
         return Holder(view)
@@ -54,9 +63,34 @@ class ReviewRecyclerViewAdapter(val context : Context, val dataList : ArrayList<
         holder.name.text = dataList[position].user_name
         holder.rating.rating = dataList[position].review_rating.toFloat()
         if(dataList[position].like)
-            holder.heart.setBackgroundResource(R.drawable.common_heart_fill)
+            holder.heart.setImageResource(R.drawable.common_heart_fill)
         else
-            holder.heart.setBackgroundResource(R.drawable.common_heart_blank)
+            holder.heart.setImageResource(R.drawable.common_heart_blank)
+        // 좋아요 toggle 통신
+        holder.heart.setOnClickListener {
+            postLikeResponse = networkService.postReviewLike(User.token, dataList[position].review_id)
+            postLikeResponse.enqueue(object : Callback<PostFollowResponse> {
+                override fun onFailure(call: Call<PostFollowResponse>?, t: Throwable?) {
+                    context.toast(t.toString())
+                }
+
+                override fun onResponse(call: Call<PostFollowResponse>?, response: Response<PostFollowResponse>?) {
+                    if(response!!.isSuccessful)
+                        if (response.body()!!.status == 200) {
+                            dataList[position].like = !dataList[position].like
+                            if(dataList[position].like) {
+                                holder.heartNum.text = (++dataList[position].like_count).toString()
+                                holder.heart.setImageResource(R.drawable.common_heart_fill)
+                            }else {
+                                holder.heartNum.text = (--dataList[position].like_count).toString()
+                                holder.heart.setImageResource(R.drawable.common_heart_blank)
+                            }
+                        } else {
+                            context.toast(response.body()!!.status.toString() + ": " + response.body()!!.message)
+                        }
+                }
+            })
+        }
         holder.commentBtn.setOnClickListener{
             Intent(context, ReviewCommentActivity::class.java).apply {
                 putExtra("review_id", dataList[position].review_id)

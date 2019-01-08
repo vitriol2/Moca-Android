@@ -97,7 +97,6 @@ interface NetworkService {
         @Path("user_id") id: String
     ): Call<GetFeedResponse>
 
-
     // 유저 정보 - 아영
     @GET("/user/{user_id}")
     fun getUserData(@Header("Authorization") token: String,
@@ -107,6 +106,11 @@ interface NetworkService {
     @GET("/review/{review_id}")
     fun getReviewDetail(@Header("Authorization") token: String,
                         @Path("review_id") id: Int):Call<GetReviewDetailResponse>
+
+    // 리뷰 좋아요 toggle - 아영
+    @POST("/review/{review_id}/like")
+    fun postReviewLike(@Header("Authorization") token: String,
+                       @Path("review_id") id: Int):Call<PostFollowResponse>
 
     // 리뷰 댓글 조회 - 아영
     @GET("/review/{review_id}/comment")

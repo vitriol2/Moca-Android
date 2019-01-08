@@ -7,10 +7,13 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetFeedResponse
 import com.example.parkseeun.moca_android.model.get.GetReviewCommentResponse
 import com.example.parkseeun.moca_android.model.get.GetReviewDetailResponse
+import com.example.parkseeun.moca_android.model.post.PostFollowResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.review_comment.ReviewCommentViewAdapter
 import com.example.parkseeun.moca_android.util.ImageAdapter
@@ -25,6 +28,7 @@ class ReviewDetailActivity : AppCompatActivity() {
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getReviewResponse : Call<GetReviewDetailResponse>
     private lateinit var getCommentResponse : Call<GetReviewCommentResponse>
+    private lateinit var postLikeResponse : Call<PostFollowResponse>
     lateinit var reviewCommentViewAdapter : ReviewCommentViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +64,30 @@ class ReviewDetailActivity : AppCompatActivity() {
                                 review_detail_heart_btn.setImageResource(R.drawable.common_heart_fill)
                             else
                                 review_detail_heart_btn.setImageResource(R.drawable.common_heart_blank)
+                            // 좋아요 toggle 통신
+                            review_detail_heart_btn.setOnClickListener {inner_it->
+                                postLikeResponse = networkService.postReviewLike(User.token, intent.getIntExtra("review_id", 1))
+                                postLikeResponse.enqueue(object : Callback<PostFollowResponse>{
+                                    override fun onFailure(call: Call<PostFollowResponse>?, t: Throwable?) {
+                                        toast(t.toString())
+                                    }
+
+                                    override fun onResponse(call: Call<PostFollowResponse>?, response: Response<PostFollowResponse>?) {
+                                        if(response!!.isSuccessful)
+                                            if (response.body()!!.status == 200) {
+                                                it.like = !it.like
+                                                toast(it.like.toString())
+                                                if(it.like)
+                                                    review_detail_heart_btn.setImageResource(R.drawable.common_heart_fill)
+                                                else
+                                                    review_detail_heart_btn.setImageResource(R.drawable.common_heart_blank)
+                                            } else {
+                                                toast(response.body()!!.status.toString() + ": " + response.body()!!.message)
+                                            }
+                                    }
+
+                                })
+                            }
                             review_detail_page_tv.text = "1/${it.image.size}"
                             review_detail_pic_vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
                                 override fun onPageScrollStateChanged(p0: Int) {
