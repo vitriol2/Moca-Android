@@ -27,9 +27,9 @@ class PhotoAdapter(private var photoItems : ArrayList<PhotoData>, var requestMan
             .load(photoItems[position].review_img)
             //.centerCrop()
             .into(holder.review_photo)
-      //  holder.cancel_btn.setOnClickListener{
-   //         photoItems.removeAt(position)
-    //        this.notifyDataSetChanged()
-      //  }
+        holder.cancel_btn.setOnClickListener{
+            photoItems.removeAt(position)
+            this.notifyDataSetChanged()
+        }
     }
 }
