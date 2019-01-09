@@ -41,7 +41,8 @@
                 android:scaleType="centerCrop"/>
 
             <EditText
-                    android:id="@+id/et_addreview_search_address"
+                    android:maxLines="1"
+                    android:id="@+id/et_map_search_address"
                 app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginLeft="37dp"
                     android:background="@null"

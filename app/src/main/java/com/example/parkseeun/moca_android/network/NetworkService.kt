@@ -188,6 +188,13 @@ interface NetworkService {
         @Header("Authorization") token: String,
         @Path("user_id") id: String) : Call<PostFollowResponse>
 
+    // 리뷰 작성 -소희
+    @POST("/review")
+    fun postReviewWriteResponse(
+        @Header("Authorization") token : String,
+    @Body postReviewWrite : PostReviewWriteData
+    ) : Call<PostReviewWriteResponse>
+
 
 
     // <마이 페이지>
@@ -195,16 +202,17 @@ interface NetworkService {
     @GET("/membership")
     fun getMembership(@Header("Authorization") token: String): Call<GetMembershipResponse>
 
-    // 주변카페
-
-
-    //<마이페이지 찜한카페목록>
-    // <소희: 맵-주변카페>
+    // <맵>
+    // 주변카페 - 소희
     @POST("/cafe/nearbycafe")
     fun postNearByCafeResponse(
         @Header("Authorization") token : String,
         @Body postNearByCafe : PostNearByCafeData
     ) : Call<PostNearByCafeResponse>
+    // 주소 검색- 소희
+    @GET("v2/local/search/keyword.json")
+    fun getLocationList(@Header("Authorization") header: String,
+                        @Query("query") query: String): Call<GetLocationListResponse>
 
     //<지원: 홈-핫플레이스>
     
