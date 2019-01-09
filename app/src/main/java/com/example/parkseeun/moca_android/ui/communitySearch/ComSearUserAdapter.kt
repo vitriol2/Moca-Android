@@ -12,12 +12,13 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.SearchUserData
 import com.example.parkseeun.moca_android.ui.community.feed.other_user.OtherUserActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 
-class ComSearUserAdapter(val context: Context, val dataList: ArrayList<ComSearUserData>) :
+class ComSearUserAdapter(val context: Context, val dataList: ArrayList<SearchUserData>) :
     RecyclerView.Adapter<ComSearUserAdapter.Holder>() {
 
 
@@ -37,12 +38,12 @@ class ComSearUserAdapter(val context: Context, val dataList: ArrayList<ComSearUs
             context!!.startActivity<OtherUserActivity>()
         }
 
-        Glide.with(context).load(dataList[position].photo).into(holder.photo) // 이게 맞을깡
+//        Glide.with(context).load(dataList[position].).into(holder.photo) // 이게 맞을깡
 
-        holder.name.text = dataList[position].name
-        holder.state.text = dataList[position].state
+        holder.name.text = dataList[position].user_name
+        holder.state.text = dataList[position].user_status_comment
 
-        if (!dataList[position].follow) {
+        if (!dataList[position].follow_is) {
             holder.follow.setBackgroundResource(R.drawable.community_followinglist_follow)
             holder.follow.setOnClickListener {
                     holder.follow.setBackgroundResource(R.drawable.community_following_following)

@@ -32,15 +32,15 @@ class HotPlaceAdapter(val context : Context, val dataList : ArrayList<GetHotPlac
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
-        Glide.with(context).load(dataList[position].).into(holder.civ_hot_place)
+//        Glide.with(context).load(dataList[position].).into(holder.civ_hot_place)
         holder.tv_hot_place_name.text = dataList[position].cafe_name
-        holder.tv_hot_place_explain.text = dataList[position].cafe_explain
-        holder.rating_rv_item_hot_place.numStars = dataList[position].rate
+//        holder.tv_hot_place_explain.text = dataList[position].cafe_explain
+//        holder.rating_rv_item_hot_place.numStars = dataList[position].rate
 
         // RecyclerView 설정
-        var imgList = dataList[position].imgList
+//        var imgList = dataList[position].imgList
 
-        hotPlaceImgAdapter = HotPlaceImgAdapter(context, imgList)
+//        hotPlaceImgAdapter = HotPlaceImgAdapter(context, imgList)
         holder.rv_hot_place_img.adapter = hotPlaceImgAdapter
         holder.rv_hot_place_img.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
