@@ -11,8 +11,7 @@
             android:id="@+id/rank_item_pic_iv"
             android:layout_width="match_parent"
             android:layout_height="190dp"
-            android:scaleType="centerCrop"
-            android:background="@color/colorPrimaryDark"/>
+            android:scaleType="centerCrop"/>
         <ImageView
             android:id="@+id/rank_item_rank_iv"
             android:layout_width="30dp"
@@ -20,6 +19,14 @@
             android:layout_marginStart="6dp"
             app:layout_constraintStart_toStartOf="parent"
             android:src="@drawable/ranking_mark"/>
+        <ImageView
+            android:id="@+id/rank_item_evaluated_iv"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_margin="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/mocapicks_badge"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/rank_item_rank_tv"
             android:layout_width="wrap_content"

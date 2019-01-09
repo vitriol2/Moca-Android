@@ -86,7 +86,10 @@ interface NetworkService {
     ) : Call<GetMocaRecommendHotPlaceResponse>
 
 
-    // 랭킹
+    // 랭킹 - 아영
+    @GET("/cafe/ranking/{length}")
+    fun getRanking(@Header("Authorization") token : String,
+                   @Path("length") length : Int): Call<GetRankingResponse>
 
     // 모카 픽스
     @GET("/cafe/pick/{length}")
