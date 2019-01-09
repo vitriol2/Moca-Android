@@ -17,17 +17,16 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.example.parkseeun.moca_android.model.post.PostReviewWriteData
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.network.NetworkService
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.community.review_write.adapter.PhotoAdapter
 import com.example.parkseeun.moca_android.ui.community.review_write.data.PhotoData
 import com.example.parkseeun.moca_android.ui.community.review_write.data.ReviewImageData
-import kotlinx.android.synthetic.main.activity_community_search_address.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.jetbrains.anko.backgroundResource
+import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -37,10 +36,10 @@ class WriteReviewActivity : AppCompatActivity() {
     //    var PICK_IMAGE_MULTIPLE = 1
 //    var imageEncoded: String? = null
 //    var imagesEncodedList = ArrayList<String>()
-    val networkService : NetworkService by lazy { ApplicationController.instance.networkService }
+    val networkService: NetworkService by lazy { ApplicationController.instance.networkService }
     private val REQ_CODE_SELECT_IMAGE = 100
     lateinit var data: Uri
-    var REQUEST_CODE : Int = 1007
+    var REQUEST_CODE: Int = 1007
     var btn_num = 0
 
     lateinit var photoItems: ArrayList<PhotoData>
@@ -64,18 +63,50 @@ class WriteReviewActivity : AppCompatActivity() {
         SetOnClickListener()
         ratingBar()
     }
-private fun setUnderlineColor(){
-    //카페이름
-//    if(et_addreview_cafename.text.toString() !="")
-//        view_write_review_cafename.backgroundResource=R.color.point_pink
-//    else
-//        view_write_review_cafename.backgroundResource=R.color.dark_gray
-}
+
+    private fun setUnderlineColor() {
+        //카페이름
+        et_addreview_cafename.textChangedListener {
+            onTextChanged { s, start, before, count ->
+                if (et_addreview_cafename.text.toString().isNotEmpty())
+                    v_write_review_cafename.backgroundResource = R.color.point_pink
+                else v_write_review_cafename.backgroundResource = R.color.dark_gray
+            }
+        }
+        //카페장소
+        et_addreview_cafeaddress.textChangedListener {
+            onTextChanged {s, start, before, count ->
+                if (et_addreview_cafeaddress.text.toString().isNotEmpty())
+                    v_write_review_cafeaddress.backgroundResource = R.color.point_pink
+                else v_write_review_cafeaddress.backgroundResource = R.color.dark_gray
+            }
+        }
+        //레이팅
+        if(ratingBarCustom.rating>=0) v_write_review_rating.backgroundResource= R.color.point_pink
+
+        //한줄 설명
+        et_addreview_oneline.textChangedListener {
+            onTextChanged { s, start, before, count ->
+                if (et_addreview_oneline.text.toString().isNotEmpty())
+                    v_write_review_oneline.backgroundResource = R.color.point_pink
+                else v_write_review_oneline.backgroundResource = R.color.dark_gray
+            }
+        }
+        //상세 설명
+        et_addreview_multiline.textChangedListener {
+            onTextChanged { s, start, before, count ->
+                if (et_addreview_multiline.text.toString().isNotEmpty())
+                    v_write_review_multiline.backgroundResource = R.color.point_pink
+                else v_write_review_multiline.backgroundResource = R.color.dark_gray
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(resultCode == RESULT_OK) {
-            when(requestCode) {
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
                 1007 -> {
-                    txt_addreview_cafeaddress.text= data!!.getStringExtra("cafe_name")
+                    et_addreview_cafeaddress.setText(data!!.getStringExtra("cafe_name"))
                 }
             }
         }
@@ -148,7 +179,7 @@ private fun setUnderlineColor(){
     }
 
     fun SetOnClickListener() {
-        txt_addreview_cafeaddress.setOnClickListener {
+        et_addreview_cafeaddress.setOnClickListener {
             val intent = Intent(this, ReviewSearchLocationActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE)
         }
@@ -162,7 +193,7 @@ private fun setUnderlineColor(){
 //        iv_cancel_addreview.setOnClickListener { finish() }
     }
 
-    private fun postReviewWriteResponse(){
+    private fun postReviewWriteResponse() {
 // val postReviewWriteResponse = networkService.postReviewWriteResponse(
 //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
 //     PostReviewWriteData(1,)
