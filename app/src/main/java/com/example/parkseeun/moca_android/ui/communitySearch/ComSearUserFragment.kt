@@ -20,9 +20,15 @@ class ComSearUserFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        setNetwork()
+
         makeList()
 
         setRecyclerView()
+    }
+
+    private fun setNetwork() {
+
     }
 
     private fun makeList() {

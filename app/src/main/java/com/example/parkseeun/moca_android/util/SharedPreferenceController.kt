@@ -30,6 +30,18 @@ object SharedPreferenceController {
         return pref.getString("ID", "")
     }
 
+    fun setPw(ctx : Context, pw: String){
+        val pref = ctx.getSharedPreferences("ID", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putString("PW", pw)
+        editor.apply()
+    }
+
+    fun getPw(ctx : Context) : String{
+        val pref = ctx.getSharedPreferences("ID", Context.MODE_PRIVATE)
+        return pref.getString("PW", "")
+    }
+
     fun clearSPC (ctx : Context) {
         val pref = ctx.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE)
         val editor = pref.edit()

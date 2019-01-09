@@ -4,17 +4,22 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.media.Image
 import android.media.session.MediaSession
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.CursorLoader
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.R.id.*
 import com.example.parkseeun.moca_android.model.get.GetMypageEditprofileResponse
 import com.example.parkseeun.moca_android.model.get.ProfileData
 import com.example.parkseeun.moca_android.network.ApplicationController
@@ -22,20 +27,31 @@ import com.example.parkseeun.moca_android.ui.loginJoin.LoginActivity
 import com.example.parkseeun.moca_android.util.SharedPreferenceController
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_edit_profile.*
+import kotlinx.android.synthetic.main.activity_join.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Url
+import java.io.*
+import java.net.URL
+import java.net.URLConnection
 
 class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener, TextWatcher {
     private val TAG = "EditProfileActivity"
     private val My_READ_STORAGE_REQUEST_CODE = 1004
     private val REQUEST_CODE_SELECT_IMAGE = 2004
+    private val size = 1024
     lateinit var profileData: ProfileData
     val networkService by lazy {
         ApplicationController.instance.networkService
     }
+    private var imageURI : String? = null
 
 
     override fun onVisibilityChanged(isKeyboardOpen: Boolean) {
@@ -85,8 +101,54 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         })
     }
 
+    private fun putMypageEditprofileResponse() {
+
+        val name = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_nick.text.toString())
+        val status = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_status.text.toString())
+        val phone = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_status.text.toString())
+        /*********************/
+
+//        val file = File(this.filesDir ,imageURI)
+//        if (!file.exists()) {
+//            try {
+//                file.createNewFile()
+//            } catch (e: IOException) {
+//                Log.e("put", "no file")
+//                e.printStackTrace()
+//            }
+//        }
+
+
+
+         /*********************/
+            val file : File = File(imageURI);
+            val requestfile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            val data: MultipartBody.Part = MultipartBody.Part.createFormData("photo", file!!.name, requestfile)
+
+
+            val putMypageEditprofileResponse =
+                networkService.putMypageEditprofileResponse(User.token, name, phone, status, data)
+
+            putMypageEditprofileResponse.enqueue(object : Callback<GetMypageEditprofileResponse> {
+                override fun onFailure(call: Call<GetMypageEditprofileResponse>, t: Throwable) {
+                    Log.e(TAG, t.message.toString())
+                }
+
+                override fun onResponse(
+                    call: Call<GetMypageEditprofileResponse>,
+                    response: Response<GetMypageEditprofileResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        toast("프로필이 수정되었습니다.")
+                    }
+                }
+            })
+        }
+
+
     private fun setProfile(data: ProfileData) {
         Glide.with(this).load(data.user_img_url).into(iv_act_editprofile_photo)
+        imageURI = data.user_img_url
 
         et_ect_edit_prof_nick.setText(data.user_name)
         et_ect_edit_prof_status.setText(data.user_status_comment)
@@ -95,7 +157,7 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
 
 
     private fun setOnBtnClickListeners() {
-        btn_act_edit_prof_complete.setOnClickListener {
+        iv_act_editprofile_back.setOnClickListener {
             finish()
         }
 //전체 기록 지우고 SharedPreference에서 로그인 기록 지우고 로그인화면으로 넘어감
@@ -125,6 +187,9 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
 
         }
 
+        btn_act_edit_prof_complete.setOnClickListener {
+            putMypageEditprofileResponse()
+        }
     }
 
     private fun setBtnSetting() {
@@ -192,13 +257,27 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
 
-                    val selectedImageUri: Uri = data.data
+                    val selectedImageUri: Uri = data.data ?: Uri.EMPTY
+
+                    imageURI = getRealPathFromURI(selectedImageUri)
+
                     Glide.with(this@EditProfileActivity)
                         .load(selectedImageUri)
                         .into(iv_act_editprofile_photo)
                 }
             }
         }
+    }
+
+    fun getRealPathFromURI(content: Uri): String {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader: CursorLoader = CursorLoader(this, content, proj, null, null, null)
+        val cursor: Cursor = loader.loadInBackground()!!
+        val column_idx = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val result = cursor.getString(column_idx)
+        cursor.close()
+        return result
     }
 
     override fun afterTextChanged(s: Editable?) {
@@ -211,6 +290,4 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
     }
-
-
 }
