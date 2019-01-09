@@ -51,6 +51,8 @@ import java.util.Locale
 
 class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
     View.OnClickListener {
+
+    private val REQUEST_CODE = 1004
     val networkService: NetworkService by lazy { ApplicationController.instance.networkService }
     // RecyclerView 설정
     lateinit var locationMainAdapter: LocationMainAdapter
@@ -62,7 +64,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
     var lngList: ArrayList<MarkerItem> = ArrayList()
     var dataList: ArrayList<LocationCafeDetailData> = ArrayList()
     var markerlist: ArrayList<Marker> = ArrayList()
-
+    var first: Boolean = true
 
 
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
@@ -99,6 +101,10 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet)
                 mCurrentLocation = location
+                if (first == true) {
+                    drawCircle(mMap!!, currentMarker!!.position)
+                    first= false
+                }
             }
         }
     }
@@ -128,32 +134,55 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         //mapFragment!!.view!!.findViewById<ImageView>(2 as Int).setImageDrawable(resources.getDrawable(R.drawable.location_location_pink))
         mapFragment!!.getMapAsync(this)
 
-        postNearByCafeResponse()
+//        postNearByCafeResponse(currentMarker!!.position) 여기가 원래 되던거!!
     }
 
     private fun setOnBtnClickListener() {
         img_location_common_search.setOnClickListener {
-            startActivity<LocationSearchActivity>()
+            val intent = Intent(this, LocationSearchActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
         }
     }
+
 
     fun setLocationTitle(markerTitle: String) {
         txt_location_main_address.text = markerTitle
     }
 
-    private fun drawCircle(googleMap: GoogleMap) {
+    private fun drawCircle(googleMap: GoogleMap, latlng: LatLng) {
         if (circleflag)
             mCircle.remove()
 
         var circleOptions = CircleOptions()
 
-        circleOptions.center(currentMarker!!.position)
+        circleOptions.center(latlng)
         circleOptions.radius(1000.toDouble())
         circleOptions.strokeColor(resources.getColor(R.color.point_pink))
         circleOptions.fillColor(Color.parseColor("#4de1b2a3"))
         circleOptions.strokeWidth(1.toFloat())
 
         mCircle = googleMap.addCircle(circleOptions)
+        circleflag = true
+    }
+
+    private fun drawCircleAfterSearch(googleMap: GoogleMap, latlng: LatLng) {
+        if (circleflag)
+            mCircle.remove()
+
+        var circleOptions2 = CircleOptions()
+        val LatLngForCamera =
+            CameraUpdateFactory.newLatLng(latlng)
+        circleOptions2.center(latlng)
+        Log.v("drawCircleAfterSearch", latlng.toString())
+        circleOptions2.radius(1000.toDouble())
+        circleOptions2.strokeColor(resources.getColor(R.color.point_pink))
+        circleOptions2.fillColor(Color.parseColor("#4de1b2a3"))
+        circleOptions2.strokeWidth(1.toFloat())
+
+        mCircle = googleMap.addCircle(circleOptions2)
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
+        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        mMap!!.animateCamera(LatLngForCamera)
         circleflag = true
     }
 
@@ -193,7 +222,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                 locationMainAdapter.notifyDataSetChanged()
 
                 val currentLatLng = LatLng(location!!.latitude, location!!.longitude)
-                val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx],currentLatLng)
+                val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx], currentLatLng)
                 Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
                 dialog.show()
             }
@@ -236,7 +265,10 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             if (checkPermission())
                 mMap!!.isMyLocationEnabled = true
         }
-        mMap!!.setOnMyLocationChangeListener { drawCircle(mMap!!) }
+
+        postNearByCafeResponse(currentMarker!!.position)
+        Log.v("lat,lon 은요", currentMarker!!.position.toString())
+//        mMap!!.setOnMyLocationChangeListener { drawCircle(mMap!!,currentMarker!!.position) }
 
     }
 
@@ -256,7 +288,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
     }
 
-    private fun setMarkerClickListener(mMap : GoogleMap){
+    private fun setMarkerClickListener(mMap: GoogleMap) {
         mMap!!.setOnMarkerClickListener {
             var idx: Int = -1
             if (it == currentMarker)
@@ -375,12 +407,14 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         }
     }
 
-    private fun postNearByCafeResponse() {
+    private fun postNearByCafeResponse(latlng: LatLng) {
 
         val postNearByCafeResponse = networkService.postNearByCafeResponse( //나중에 쉐어드프리퍼런스에 저장된 토큰값으로 바꿔놓기!
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
-            PostNearByCafeData("37.5504", "126.9036", //현재위치로 바꿔야해 ㅠㅠ
-                0, 0)
+            PostNearByCafeData(
+                latlng.latitude.toString(), latlng.longitude.toString(), //현재위치로 바꿔야해 ㅠㅠ
+                0, 0
+            )
         )
         postNearByCafeResponse.enqueue(object : Callback<PostNearByCafeResponse> {
             override fun onFailure(call: Call<PostNearByCafeResponse>, t: Throwable) {
@@ -391,6 +425,11 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                 Log.d("asdf", response.raw().toString())
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
+                        mMap!!.clear()
+                        dataList.clear()
+                        markerlist.clear()
+                        lngList.clear()
+                        drawCircleAfterSearch(mMap!!,latlng)
                         for (value in response.body()!!.data) {
                             dataList.add(
                                 LocationCafeDetailData(
@@ -446,7 +485,15 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                         }
                         Log.d("markerlist size : ", markerlist.size.toString())
                     } else {
-                        toast(response.body()!!.status.toString() + ": " + response.body()!!.message)
+                        mMap!!.clear()
+                        dataList.clear()
+                        markerlist.clear()
+                        lngList.clear()
+                        drawCircleAfterSearch(mMap!!,latlng)
+
+                        if(response.body()!!.status==404)
+                        toast("주변에 가까운 카페가 존재하지 않습니다")
+
                         Log.v(
                             TAG,
                             response.body()!!.status.toString() + ": " + response.body()!!.message
@@ -525,7 +572,14 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
             mMap!!.animateCamera(CameraUpdateFactory.zoomIn(), 500, null)
             mMap!!.animateCamera(cameraUpdate)
+            mMap!!.clear()
+            dataList.clear()
+            markerlist.clear()
+            lngList.clear()
             setLocationTitle(markerTitle)
+            postNearByCafeResponse(currentMarker!!.position)
+            drawCircle(mMap!!, currentMarker!!.position)
+
 
             flag = true
         }
@@ -627,6 +681,19 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) { //LocationSearchActivity에서 주소 넘어올 때
+                1004 -> {
+                    var searchLat = data!!.getDoubleExtra("lat", 0.0)
+                    var searchLon = data!!.getDoubleExtra("lon", 0.0)
+                    var latlng: LatLng = LatLng(searchLat, searchLon)
+
+                    drawCircleAfterSearch(mMap!!, latlng)
+                    postNearByCafeResponse(latlng)
+
+                }
+            }
+        }
         when (requestCode) {
             GPS_ENABLE_REQUEST_CODE ->
                 //사용자가 GPS 활성 시켰는지 검사

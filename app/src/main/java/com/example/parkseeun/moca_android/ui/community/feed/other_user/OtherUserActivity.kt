@@ -10,6 +10,7 @@ import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetFeedResponse
 import com.example.parkseeun.moca_android.model.get.GetFeedResponseData
 import com.example.parkseeun.moca_android.model.get.GetUserDataResponse
+import com.example.parkseeun.moca_android.model.post.PostFollowResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.feed.ReviewRecyclerViewAdapter
 import com.example.parkseeun.moca_android.ui.community.follow.FollowActivity
@@ -24,6 +25,7 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getFeedResponse : Call<GetFeedResponse>
     private lateinit var getUserDataResponse : Call<GetUserDataResponse>
+    private lateinit var postFollowerResponse : Call<PostFollowResponse>
     private lateinit var reviewRecyclerViewAdapter : ReviewRecyclerViewAdapter
 
     override fun onClick(v: View?) {
@@ -61,6 +63,7 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
 
         communicate()
     }
+
     private fun communicate() {
         // 상단부
         // intent로 받아온 user_id가 없을 경우 유저 아이디 사용
@@ -71,39 +74,69 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
             }
 
             override fun onResponse(call: Call<GetUserDataResponse>?, response: Response<GetUserDataResponse>?) {
-                if(response!!.isSuccessful)
+                if (response!!.isSuccessful)
                     if (response!!.body()!!.status == 200) {
-                        Glide.with(this@OtherUserActivity).load(response.body()!!.data.user_img_url).into(other_profile_ci)
-                        other_title_tv.text = response.body()!!.data.user_name
-                        other_name_tv.text = response.body()!!.data.user_name
-                        other_status_tv.text = response.body()!!.data.user_status_comment
-                        other_review_tv.text = response.body()!!.data.review_count.toString()
-                        other_follower_tv.text = response.body()!!.data.follower_count.toString()
-                        other_following_tv.text = response.body()!!.data.following_count.toString()
-                    } else {
-                        toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
+                        response.body()!!.data.let {
+                            Glide.with(this@OtherUserActivity).load(it.user_img_url).into(other_profile_ci)
+                            other_title_tv.text = it.user_name
+                            other_name_tv.text = it.user_name
+                            other_status_tv.text = it.user_status_comment
+                            other_review_tv.text = it.review_count.toString()
+                            other_follower_tv.text = it.follower_count.toString()
+                            other_following_tv.text = it.following_count.toString()
+                            if (it.follow) {
+                                other_follow_iv.setImageResource(R.drawable.community_follow_success)
+                                other_follow_iv.setOnClickListener {
+                                    other_follow_iv.setImageResource(R.drawable.community_otheruser_follow)
+                                    followUnfollow(intent.getStringExtra("user_id"))
+                                }
+                            } else {
+                                other_follow_iv.setImageResource(R.drawable.community_otheruser_follow)
+                                other_follow_iv.setOnClickListener {
+                                    other_follow_iv.setImageResource(R.drawable.community_follow_success)
+                                    followUnfollow(intent.getStringExtra("user_id"))
+                                }
+                            }
+                        }
                     }
-
             }
-
         })
         // 리뷰들
-        getFeedResponse = networkService.getUserFeed(User.token, intent.getStringExtra("user_id")?:User.user_id)
+        getFeedResponse = networkService.getUserFeed(User.token, intent.getStringExtra("user_id")
+                ?: User.user_id)
         getFeedResponse.enqueue(object : Callback<GetFeedResponse> {
             override fun onFailure(call: Call<GetFeedResponse>?, t: Throwable?) {
                 toast(t.toString())
             }
 
             override fun onResponse(call: Call<GetFeedResponse>?, response: Response<GetFeedResponse>?) {
-                if(response!!.isSuccessful)
-                    if (response!!.body()!!.status == 200) {
+                if (response!!.isSuccessful)
+                    if (response.body()!!.status == 200) {
                         var dataList: ArrayList<GetFeedResponseData> = response.body()!!.data
-                        reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(applicationContext!!, dataList, intent.getStringExtra("user_id")?:User.user_id)
+                        reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(applicationContext!!, dataList, intent.getStringExtra("user_id"))
                         other_reviews_recycler.adapter = reviewRecyclerViewAdapter
                         other_reviews_recycler.layoutManager = LinearLayoutManager(applicationContext)
-                    } else if (response!!.body()!!.status != 204) {
-                        toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
+                        other_empty_const.visibility = View.GONE
+                    } else if (response.body()!!.status == 204) {
+                        other_empty_const.visibility = View.VISIBLE
+                    } else {
+                        toast(response.body()!!.status.toString() + ": " + response.body()!!.message)
                     }
+            }
+        })
+    }
+    private fun followUnfollow(user_id: String) {
+        postFollowerResponse = networkService.postFollow(User.token!!, user_id)
+        postFollowerResponse.enqueue(object: Callback<PostFollowResponse> {
+            override fun onFailure(call: Call<PostFollowResponse>, t: Throwable) {
+                toast(t.message.toString())
+            }
+            override fun onResponse(call: Call<PostFollowResponse>, response: Response<PostFollowResponse>) {
+                if(response.isSuccessful)
+                    if(response.body()!!.status == 200)
+                        communicate()
+                    else
+                        toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
             }
         })
     }

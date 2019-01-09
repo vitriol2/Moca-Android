@@ -1,6 +1,8 @@
 package com.example.parkseeun.moca_android.ui.location
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -14,22 +16,28 @@ import com.example.parkseeun.moca_android.model.get.GetLocationListResponseData
 import com.example.parkseeun.moca_android.network.NetworkService
 import com.example.parkseeun.moca_android.ui.location.adapter.LocationSearchAdapter
 import kotlinx.android.synthetic.main.activity_location_search.*
+import kotlinx.android.synthetic.main.rv_item_cafe_location.*
+import kotlinx.android.synthetic.main.rv_item_cafe_location.view.*
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class LocationSearchActivity : AppCompatActivity() ,View.OnClickListener {
+class LocationSearchActivity : AppCompatActivity() {
     lateinit var networkService: NetworkService
     lateinit var locationSearchItems: ArrayList<GetLocationListResponseData>
     // RecyclerView 설정
     lateinit var locationSearchAdapter: LocationSearchAdapter
+    private var lat: Double? = null
+    private var lon: Double? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_search)
-        // setRecyclerView()
 
         val builder = Retrofit.Builder()
         val retrofit_loc_search = builder
@@ -57,17 +65,7 @@ class LocationSearchActivity : AppCompatActivity() ,View.OnClickListener {
                 }
             }
         })
-
         setOnBtnClickListeners()
-    }
-
-    override fun onClick(v: View?) {
-//        if (rv_act_location_main.indexOfChild(v) != -1) { // 리사이클러뷰의 자식뷰 이면  !
-//            val idx: Int = rv_act_location_main.getChildAdapterPosition(v!!) // 선택된 자식뷰
-//            cameraToMarker(idx)
-//            var markerTitle: String = getCurrentAddress(markerlist[idx].position)
-//            floatDialog(idx, markerTitle)
-//        }
     }
 
     private fun getLocationList(context: Context, header: String, location_keyword: String) {
@@ -85,13 +83,26 @@ class LocationSearchActivity : AppCompatActivity() ,View.OnClickListener {
 
                     locationSearchItems = response.body()!!.documents
 
-                    Log.v("locationLocation", locationSearchItems.toString())
+                    Log.v("asdf", locationSearchItems.toString())
 
                     locationSearchAdapter = LocationSearchAdapter(context, locationSearchItems)
+                    locationSearchAdapter.setOnItemClickListener(View.OnClickListener { v ->
+                        Log.d("asdf", "clicked")
+                        //if (rv_act_location_search.indexOfChild(v) != -1) { // 리사이클러뷰의 자식뷰 이면  !
+                        val idx: Int = rv_act_location_search.getChildAdapterPosition(v!!) // 선택된 자식뷰
+                        for (value in 0 until locationSearchItems.size) {
+                            locationSearchItems[value].dot = false
+                        }
+                        locationSearchItems[idx].dot = true
+                        lat = locationSearchItems[idx].y!!.toDouble()
+                        lon = locationSearchItems[idx].x!!.toDouble()
+                        locationSearchAdapter.notifyDataSetChanged()
 
+                        //}
+                    })
                     rv_act_location_search.adapter = locationSearchAdapter
                     rv_act_location_search.layoutManager = LinearLayoutManager(context)
-                     // locationSearchAdapter.setOnItemClickListener(this@LocationSearchActivity)
+                    // locationSearchAdapter.setOnItemClickListener(this@LocationSearchActivity)
 
                 }
 
@@ -104,6 +115,16 @@ class LocationSearchActivity : AppCompatActivity() ,View.OnClickListener {
     private fun setOnBtnClickListeners() {
         img_location_common_backbtn_black.setOnClickListener {
             finish()
+        }
+        img_location_search_ok.setOnClickListener {
+            if(lat!=null&&lon!=null) {
+                Log.v("lat 과 lon은 ", lat.toString()+" "+lon.toString())
+                val intent = Intent(this, LocationMainActivity::class.java)
+                intent.putExtra("lat", lat!!)
+                intent.putExtra("lon", lon!!)
+                setResult(RESULT_OK, intent)
+                finish()
+            }else toast("장소를 설정해 주세요")
         }
     }
 }

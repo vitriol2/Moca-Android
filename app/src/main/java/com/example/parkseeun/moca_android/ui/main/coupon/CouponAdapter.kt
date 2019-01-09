@@ -1,10 +1,6 @@
 package com.example.parkseeun.moca_android.ui.main.coupon
 
-import android.app.Activity
 import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -38,7 +34,7 @@ class CouponAdapter(val ctx : Context, val dataList : ArrayList<String>) : Recyc
     }
 
     private fun setDialog() {
-        CouponDialog2(ctx, "1", "2", "3", "4").show()
+        CouponDialog(ctx, "1", "2", "3", "4").show()
 
     }
 }
