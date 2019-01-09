@@ -47,7 +47,7 @@ class ComSearCafeFragment : Fragment() {
 
     private fun setRecyclerView() {
         rv_frag_com_sear_cafe_popular!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        rv_frag_com_sear_cafe_popular!!.adapter = ReviewAllPopularAdapter(activity!!, PcafeList)
+//        rv_frag_com_sear_cafe_popular!!.adapter = ReviewAllPopularAdapter(activity!!, PcafeList)
 
 
         val spanCount = 3 // 3 columns
