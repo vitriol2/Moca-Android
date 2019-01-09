@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import com.bumptech.glide.Glide
 
@@ -47,9 +48,11 @@ class LocationMainDialog(val ctx: Context, val data: LocationCafeDetailData, val
     private fun setOnBtnClickListener() {
 
         btn_dialog_location_detail.setOnClickListener {
-            ctx.startActivity<DetailActivity>() // index값 보내주기~~
+            val intent : Intent =  Intent(ctx,DetailActivity::class.java)
+            intent.putExtra("cafe_id",data.cafe_id)
+            ctx.startActivity(intent)
             this.dismiss()
-        }
+
 
         btn_dialog_location_navi.setOnClickListener {
             if(currentLatLng !=null) {
