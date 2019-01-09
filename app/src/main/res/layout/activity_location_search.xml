@@ -25,9 +25,11 @@
                   android:textColor="#e67854"/>
 
         <android.support.constraint.ConstraintLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             android:layout_marginLeft="40dp">
 
             <ImageView

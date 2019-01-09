@@ -12,11 +12,12 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetHotPlaceListData
 import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.find
 
-class HotPlaceAdapter(val context : Context, val dataList : ArrayList<HotPlaceData>) : RecyclerView.Adapter<HotPlaceAdapter.Holder>() {
+class HotPlaceAdapter(val context : Context, val dataList : ArrayList<GetHotPlaceListData>) : RecyclerView.Adapter<HotPlaceAdapter.Holder>() {
 
     lateinit var hotPlaceImgAdapter: HotPlaceImgAdapter
 
@@ -31,15 +32,15 @@ class HotPlaceAdapter(val context : Context, val dataList : ArrayList<HotPlaceDa
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
-        Glide.with(context).load(dataList[position].cafe_img).into(holder.civ_hot_place)
+//        Glide.with(context).load(dataList[position].).into(holder.civ_hot_place)
         holder.tv_hot_place_name.text = dataList[position].cafe_name
-        holder.tv_hot_place_explain.text = dataList[position].cafe_explain
-        holder.rating_rv_item_hot_place.numStars = dataList[position].rate
+//        holder.tv_hot_place_explain.text = dataList[position].cafe_explain
+//        holder.rating_rv_item_hot_place.numStars = dataList[position].rate
 
         // RecyclerView 설정
-        var imgList = dataList[position].imgList
+//        var imgList = dataList[position].imgList
 
-        hotPlaceImgAdapter = HotPlaceImgAdapter(context, imgList)
+//        hotPlaceImgAdapter = HotPlaceImgAdapter(context, imgList)
         holder.rv_hot_place_img.adapter = hotPlaceImgAdapter
         holder.rv_hot_place_img.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 

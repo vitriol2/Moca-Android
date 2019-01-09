@@ -26,6 +26,8 @@ class CommunitySearchActivity : AppCompatActivity() {
     private val cafeData = ArrayList<CommunitySearchAllData>()
     private val userData = ArrayList<CommunitySearchAllData>()
 
+
+
     /* override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_search)
@@ -91,6 +93,11 @@ class CommunitySearchActivity : AppCompatActivity() {
         adapter.addFragment(ComSearCafeFragment(), "")
         adapter.addFragment(ComSearUserFragment(), "")
         viewPager.adapter = adapter
+    }
+
+    // 통신 (검색 전)
+    private fun getBestReviewCafe() {
+
     }
 
     internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
