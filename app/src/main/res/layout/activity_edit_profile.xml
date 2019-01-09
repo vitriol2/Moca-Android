@@ -305,9 +305,15 @@
 
     <Button
         android:id="@+id/btn_act_edit_prof_complete"
-        style="@style/editProfileComplete"
+        android:background="@drawable/edit_profile_btn_bg"
+        android:textColor="@drawable/edit_profile_btn_color"
+        style="?android:attr/borderlessButtonStyle"
+        android:fontFamily="@font/nanum_b"
+        android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
+        android:elevation="0dp"
         android:text="완료" />
 </RelativeLayout>

@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.media.Image
-import android.media.session.MediaSession
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -20,7 +18,6 @@ import android.util.Log
 import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.R.id.*
 import com.example.parkseeun.moca_android.model.get.GetMypageEditprofileResponse
 import com.example.parkseeun.moca_android.model.get.ProfileData
 import com.example.parkseeun.moca_android.network.ApplicationController
@@ -28,8 +25,6 @@ import com.example.parkseeun.moca_android.ui.loginJoin.LoginActivity
 import com.example.parkseeun.moca_android.util.SharedPreferenceController
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.activity_join.*
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -38,10 +33,7 @@ import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Url
 import java.io.*
-import java.net.URL
-import java.net.URLConnection
 
 class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener, TextWatcher {
     private val TAG = "EditProfileActivity"
@@ -52,7 +44,8 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
     val networkService by lazy {
         ApplicationController.instance.networkService
     }
-    private var imageURI : String? = null
+    private var imageURI: String? = null
+    private var selectPic = false
 
 
     override fun onVisibilityChanged(isKeyboardOpen: Boolean) {
@@ -90,8 +83,8 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
             }
 
             override fun onResponse(
-                call: Call<GetMypageEditprofileResponse>,
-                response: Response<GetMypageEditprofileResponse>
+                    call: Call<GetMypageEditprofileResponse>,
+                    response: Response<GetMypageEditprofileResponse>
             ) {
                 if (response.isSuccessful) {
                     Log.v(TAG, "load success")
@@ -108,51 +101,41 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
 
         val name = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_nick.text.toString())
         val status = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_status.text.toString())
-        val phone = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_status.text.toString())
-        /*********************/
-
-//        val file = File(this.filesDir ,imageURI)
-//        if (!file.exists()) {
-//            try {
-//                file.createNewFile()
-//            } catch (e: IOException) {
-//                Log.e("put", "no file")
-//                e.printStackTrace()
-//            }
-//        }
-
-
-
-         /*********************/
-            val file : File = File(imageURI);
+        val phone = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_phone.text.toString())
+        val data: MultipartBody.Part? = null
+        if (selectPic) {
+            val file: File = File(imageURI ?: "")
             val requestfile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            val data: MultipartBody.Part = MultipartBody.Part.createFormData("photo", file!!.name, requestfile)
-
-
-            val putMypageEditprofileResponse =
-                networkService.putMypageEditprofileResponse(User.token, name, phone, status, data)
-
-            putMypageEditprofileResponse.enqueue(object : Callback<GetMypageEditprofileResponse> {
-                override fun onFailure(call: Call<GetMypageEditprofileResponse>, t: Throwable) {
-                    Log.e(TAG, t.message.toString())
-                }
-
-                override fun onResponse(
-                    call: Call<GetMypageEditprofileResponse>,
-                    response: Response<GetMypageEditprofileResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        toast("프로필이 수정되었습니다.")
-                    }
-                }
-            })
+            val data: MultipartBody.Part = MultipartBody.Part.createFormData("photo", file.name, requestfile)
         }
 
 
-    private fun setProfile(data: ProfileData) {
-        Glide.with(this).load(data.user_img_url).into(iv_act_editprofile_photo)
-        imageURI = data.user_img_url
+        val putMypageEditprofileResponse =
+                networkService.putMypageEditprofileResponse(User.token, name, phone, status, data)
 
+        putMypageEditprofileResponse.enqueue(object : Callback<GetMypageEditprofileResponse> {
+            override fun onFailure(call: Call<GetMypageEditprofileResponse>, t: Throwable) {
+                Log.e(TAG, t.message.toString())
+            }
+
+            override fun onResponse(
+                    call: Call<GetMypageEditprofileResponse>,
+                    response: Response<GetMypageEditprofileResponse>
+            ) {
+                if (response.isSuccessful) {
+                    toast("프로필이 수정되었습니다.")
+                }
+            }
+        })
+    }
+
+
+    private fun setProfile(data: ProfileData) {
+        // 프로필 사진이 null이면 기본 세팅 이미지
+        if (data.user_img_url != null) {
+            Glide.with(this).load(data.user_img_url).into(iv_act_editprofile_photo)
+            imageURI = data.user_img_url
+        }
         et_ect_edit_prof_nick.setText(data.user_name)
         et_ect_edit_prof_status.setText(data.user_status_comment)
         et_ect_edit_prof_phone.setText(data.user_phone)
@@ -210,21 +193,21 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
 
     private fun requestReadExternalStoragePermission() {
         if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
+                        this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
         ) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
+                            this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
             ) {
 
             } else {
                 ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    My_READ_STORAGE_REQUEST_CODE
+                        this,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        My_READ_STORAGE_REQUEST_CODE
                 )
             }
         } else {
@@ -234,9 +217,9 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
     ) {
         if (requestCode == My_READ_STORAGE_REQUEST_CODE) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -259,14 +242,14 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         if (requestCode == REQUEST_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
-
-                    val selectedImageUri: Uri = data.data ?: Uri.EMPTY
+                    val selectedImageUri: Uri = data.data
+                    selectPic = true
 
                     imageURI = getRealPathFromURI(selectedImageUri)
 
                     Glide.with(this@EditProfileActivity)
-                        .load(selectedImageUri)
-                        .into(iv_act_editprofile_photo)
+                            .load(selectedImageUri)
+                            .into(iv_act_editprofile_photo)
                 }
             }
         }
