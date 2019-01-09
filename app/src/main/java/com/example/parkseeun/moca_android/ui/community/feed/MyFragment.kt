@@ -97,9 +97,12 @@ class MyFragment :Fragment(), View.OnClickListener{
                     if (response!!.body()!!.status == 200) {
                         var dataList: ArrayList<GetFeedResponseData> = response.body()!!.data
                         reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(context!!, dataList, User.user_id)
-                        v.my_reviews_recycler.adapter = reviewRecyclerViewAdapter
-                        v.my_reviews_recycler.layoutManager = LinearLayoutManager(context)
-                    } else if (response!!.body()!!.status != 204) {
+                        my_reviews_recycler.adapter = reviewRecyclerViewAdapter
+                        my_reviews_recycler.layoutManager = LinearLayoutManager(context)
+                        my_empty_const.visibility = View.GONE
+                    } else if (response!!.body()!!.status == 204) {
+                        my_empty_const.visibility = View.VISIBLE
+                    } else {
                         toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
                     }
             }

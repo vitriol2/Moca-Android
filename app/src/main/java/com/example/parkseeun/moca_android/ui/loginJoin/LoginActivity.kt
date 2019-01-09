@@ -1,6 +1,5 @@
 package com.example.parkseeun.moca_android.ui.loginJoin
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -85,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
                             User.user_id = et_login_id.text.toString()
                             User.user_password = et_login_pw.text.toString()
                             startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
+                            finish()
                         }
                 }
             })
@@ -93,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
         //에뮬돌릴때 로그인 한번 해놓으면 다음에 킬때 바로 홈화면으로, 뒤로가기누르면 LoginActivity로 돌아갈 수 있다.
         if(SharedPreferenceController.getAuthorization(this).isNotEmpty()) {
             startActivity<HomeActivity2>()
+            finish()
             User.token = SharedPreferenceController.getAuthorization(this)
             User.user_id = SharedPreferenceController.getId(this)
             User.user_password = SharedPreferenceController.getPw(this)

@@ -1,66 +1,35 @@
 package com.example.parkseeun.moca_android.ui.main.coupon
 
-import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.widget.TextView
+import android.graphics.drawable.ColorDrawable
+import android.view.Window
 import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.fragment_dialog_coupon.*
 
 
-class CouponDialog : DialogFragment() {
+class CouponDialog(context: Context, n1: String, n2 : String, n3: String, n4: String) : Dialog(context) {
+    init {
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        setContentView(R.layout.fragment_dialog_coupon)
+        setCancelable(false)
+        var num1 : TextView= findViewById(R.id.tv_frag_dia_bar_num1) as TextView
+        val num2 : TextView= findViewById(R.id.tv_frag_dia_bar_num2) as TextView
+        val num3 : TextView= findViewById(R.id.tv_frag_dia_bar_num3) as TextView
+        val num4 : TextView= findViewById(R.id.tv_frag_dia_bar_num4) as TextView
 
-    var num1 : String? = null
-    var num2 : String? = null
-    var num3 : String? = null
-    var num4 : String? = null
+        num1.text = n1
+        num2.text = n2
+        num3.text = n3
+        num4.text = n4
 
-    companion object {
-        private var instance : CouponDialog? = null
-        @Synchronized
-        fun getInstance(num1 : String, num2 : String, num3 : String, num4: String) : CouponDialog{
-            if (instance == null){
-                instance = CouponDialog().apply{
-                    arguments = Bundle().apply {
-                        putString("num1", num1)
-                        putString("num2", num2)
-                        putString("num3", num3)
-                        putString("num4", num4)
-                    }
-                }
-            }
-            return instance!!
+        iv_frag_cancel_coupon.setOnClickListener {
+
+            dismiss()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        val view = inflater.inflate(R.layout.fragment_dialog_coupon, container, false)
-
-        return view
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let{
-            num1 = it.getString("num1")
-            num2 = it.getString("num2")
-            num3 = it.getString("num3")
-            num4 = it.getString("num4")
-
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        if (activity is CouponActivity) {
-            tv_frag_dia_bar_num1.text = num1
-            tv_frag_dia_bar_num2.text = num2
-            tv_frag_dia_bar_num3.text = num3
-            tv_frag_dia_bar_num4.text = num4
-        }
-        dismiss()
-    }
 }
