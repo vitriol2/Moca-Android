@@ -79,10 +79,10 @@ class JoinActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<PostJoinResponse>?, response: Response<PostJoinResponse>?) {
                         if(response!!.isSuccessful)
-                            if(response!!.body()!!.status==201) {
+                            if(response.body()!!.status==201) {
                                 finish()
                             }else{
-                                toast(response!!.body()!!.message)
+                                toast(response.body()!!.message)
                             }
                     }
                 })
@@ -98,48 +98,33 @@ class JoinActivity : AppCompatActivity() {
     // 유효성 검사
     private fun checkValidation(): Boolean {
         if (et_join_id.text.toString() != "" && et_join_name.text.toString() != "" && et_join_phone.text.toString() != "" && et_join_pw.text.toString() != "" && et_join_pwCheck.text.toString() != "") {
-            if (et_join_id.text.length < 4 || et_join_id.text.length > 10) {
-                toast("아이디는 4~10글자로 입력해주세요.")
-
-
-                return false
-            } else if(!Pattern.compile("^[a-zA-Z0-9]*S").matcher(et_join_id.text.toString()).matches()){
-                toast("아이디는 영어와 숫자만으로 입력해주세요.")
+            if(!Pattern.compile("^[a-zA-Z0-9]{3,10}$").matcher(et_join_id.text.toString()).matches()){
+                toast("아이디는 영어, 숫자로 3~10글자로 입력해주세요")
 
                 return false
             }
-            if (et_join_name.text.length < 2 || et_join_name.text.length > 8) {
-                toast("이름은 2~8글자로 입력해주세요.")
-
-                return false
-            } else if(!Pattern.compile("^([가-힇][a-z][A-Z])$").matcher(et_join_name.text.toString()).matches()){
-                toast("이름은 한글과 영어만으로 입력해주세요.")
+            if(!Pattern.compile("^[a-zA-Z0-9가-힇]{2,10}$").matcher(et_join_name.text.toString()).matches()){
+                toast("이름은 한글, 영어, 숫자로 2~10글자로 입력해주세요")
 
                 return false
             }
-            if (et_join_pwCheck.text.toString() == et_join_pw.text.toString()) {
-                if (et_join_pw.text.length > 15 || et_join_pw.text.length < 6) {
-                    toast("비밀번호는 6~15글자 이내로 입력해주세요.")
-
-                    return false
-                }
-            } else if(!Pattern.compile("^([a-z][A-Z][0-9])$").matcher(et_join_pwCheck.text.toString()).matches()){
-                toast("비밀번호는 영어와 숫자만으로 입력해주세요.")
+            if(!Pattern.compile("^[a-zA-Z0-9]{6,15}$").matcher(et_join_pwCheck.text.toString()).matches()){
+                toast("비밀번호는 영어, 숫자로 6~15글자로 입력해주세요")
 
                 return false
-            } else {
-                toast("비밀번호가 다릅니다.")
+            } else if(et_join_pwCheck.text.toString() != et_join_pw.text.toString()) {
+                toast("비밀번호가 다릅니다")
 
                 return false
             }
         }
         else {
-            toast("모두 입력해주세요.")
+            toast("모두 입력해주세요")
 
             return false
         }
 
-        return false
+        return true
     }
 
     // 프로필 사진 선택
