@@ -5,13 +5,22 @@
         android:layout_width="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/tools"
+            android:id="@+id/item_cv_nearby_cafe"
+            android:background="@drawable/boarder_darkgray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            card_view:cardElevation="0dp">
     <RelativeLayout
             android:id="@+id/rl_dialog_location_main"
-            android:background="@drawable/boarder_darkgray"
              android:layout_centerInParent="true"
             android:layout_width="117dp"
             android:layout_height="127dp">
         <ImageView
+                android:background="@drawable/round_square_white"
+                android:scaleType="centerCrop"
                 android:id="@+id/circle_nearby_cafe"
                 android:layout_width="match_parent"
                 android:layout_height="84dp"
@@ -51,4 +60,5 @@
                     android:layout_alignParentEnd="true"/>
         </RelativeLayout>
     </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>
