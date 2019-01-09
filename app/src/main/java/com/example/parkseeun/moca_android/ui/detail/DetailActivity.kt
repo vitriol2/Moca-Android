@@ -12,10 +12,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.get.CafeDetailData
-import com.example.parkseeun.moca_android.model.get.GetCafeDetailResponse
-import com.example.parkseeun.moca_android.model.get.GetFeedResponseData
-import com.example.parkseeun.moca_android.model.get.GetFeedResponseImage
+import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.feed.ReviewRecyclerViewAdapter
 import com.example.parkseeun.moca_android.ui.community.review_write.WriteReviewActivity
@@ -54,13 +51,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var reservation: ImageView
 
 
-    var urlList: Array<String?> = arrayOf(
-        "c",
-        "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG",
-        "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG",
-        "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG",
-        "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG"
-    )
+    var urlList = ArrayList<String?>()
 
     private val sigList = ArrayList<String>()
     private val menuList = ArrayList<DetailMenuData>()
@@ -80,7 +71,6 @@ class DetailActivity : AppCompatActivity() {
 
         setRecyclerView()
 
-        pageChangeListener()
 
         setOnBtnClickListeners()
 
@@ -88,6 +78,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setNetwork() {
         getCafeDetailResponse()
+
+        getCafeDetailImageResponse()
     }
 
     private fun matchView() {
@@ -292,9 +284,9 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
-    private fun pageChangeListener() {
+    private fun pageChangeListener(num : Int) {
 
-        pb_act_detail.max = urlList.size
+        pb_act_detail.max = num
 
         vp_act_detail.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
@@ -309,7 +301,9 @@ class DetailActivity : AppCompatActivity() {
             }
         })
 
-        vp_act_detail.adapter = ImageAdapter(this, urlList)
+
+        vp_act_detail.adapter = ImageAdapter(this, urlList.toTypedArray())
+        Log.v("image num", num.toString())
     }
 
     private fun setRecyclerView() {
@@ -374,6 +368,31 @@ class DetailActivity : AppCompatActivity() {
                     ).into(option[4])
 
 
+                }
+            }
+        })
+    }
+
+    private fun getCafeDetailImageResponse() {
+        val getCafeDetailResponse = networkService.getCafeDetailImageResponse(User.token, 1)
+
+        getCafeDetailResponse.enqueue(object: Callback<GetCafeDetailImageResponse>{
+            override fun onFailure(call: Call<GetCafeDetailImageResponse>, t: Throwable) {
+                Log.e(TAG, t.toString())
+            }
+
+            override fun onResponse(
+                call: Call<GetCafeDetailImageResponse>,
+                response: Response<GetCafeDetailImageResponse>
+            ) {
+                if(response.isSuccessful) {
+                    val temp : ArrayList<CafeDetailImageData> = response.body()!!.data
+                    if(temp.size>0) {
+                        for(i in 0..temp.size-1)
+                        urlList.add(temp[i].cafe_img_url)
+
+                        pageChangeListener(urlList.size)
+                    }
                 }
             }
         })
