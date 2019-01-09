@@ -80,8 +80,10 @@ class LoginActivity : AppCompatActivity() {
                             User.token = token
                             SharedPreferenceController.setAuthorization(this@LoginActivity, token)
                             SharedPreferenceController.setId(this@LoginActivity, et_login_id.text.toString())
+                            SharedPreferenceController.setPw(this@LoginActivity, et_login_pw.text.toString())
                             User.token = response.body()!!.data.token!!
                             User.user_id = et_login_id.text.toString()
+                            User.user_password = et_login_pw.text.toString()
                             startActivity(Intent(this@LoginActivity, HomeActivity2::class.java))
                         }
                 }
@@ -93,6 +95,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity<HomeActivity2>()
             User.token = SharedPreferenceController.getAuthorization(this)
             User.user_id = SharedPreferenceController.getId(this)
+            User.user_password = SharedPreferenceController.getPw(this)
         }
     }
 }
