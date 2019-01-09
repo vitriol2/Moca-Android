@@ -11,12 +11,13 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetBestUserData
 import com.example.parkseeun.moca_android.ui.community.feed.other_user.OtherUserActivity
 import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 
-class ComSearAllPopUserAdapter(val context : Context, val dataList : ArrayList<ComSearAllPopData>) : RecyclerView.Adapter<ComSearAllPopUserAdapter.Holder>()  {
+class ComSearAllPopUserAdapter(val context : Context, val dataList : ArrayList<GetBestUserData>) : RecyclerView.Adapter<ComSearAllPopUserAdapter.Holder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComSearAllPopUserAdapter.Holder {
         // 뷰 인플레이트
@@ -31,8 +32,8 @@ class ComSearAllPopUserAdapter(val context : Context, val dataList : ArrayList<C
         holder.item.setOnClickListener {
             context!!.startActivity<OtherUserActivity>()
         }
-        Glide.with(context).load(dataList[position].photo).into(holder.image)
-        holder.username.text = dataList[position].username
+        Glide.with(context).load(dataList[position].user_img_url).into(holder.image)
+        holder.username.text = dataList[position].user_name
 
         if (!dataList[position].follow) {
             holder.follow.setBackgroundResource(R.drawable.community_followinglist_follow)

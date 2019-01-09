@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="104dp"
-        android:layout_height="104dp"
-        android:layout_marginRight="10dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp">
 
     <RelativeLayout
-            android:layout_centerInParent="true"
-            android:layout_width="104dp"
-            android:layout_height="104dp">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
-                android:layout_centerInParent="true"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/round_square_white"
                 android:id="@+id/img_photo_review"
                 android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:scaleType="centerCrop"
+                android:backgroundTint="@color/point_pink"
         />
         <ImageView
                 android:id="@+id/btn_cancel_photo"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
+                android:layout_width="24dp"
+                android:layout_marginLeft="88dp"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/community_addreview_remove"
+                android:layout_height="24dp" />
 
     </RelativeLayout>
 

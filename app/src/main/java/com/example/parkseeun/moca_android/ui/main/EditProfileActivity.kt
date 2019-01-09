@@ -17,6 +17,7 @@ import android.support.v4.content.CursorLoader
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.R.id.*
@@ -66,6 +67,8 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
         setSupportActionBar(toolbar_edit_profile)
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
         setNetwork()
 

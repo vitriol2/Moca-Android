@@ -41,7 +41,7 @@ class ComSearUserFragment : Fragment() {
 
     private fun setRecyclerView() {
         rv_frag_com_sear_user.layoutManager = LinearLayoutManager(activity)
-        rv_frag_com_sear_user.adapter = ComSearUserAdapter(activity!!, userList)
+//        rv_frag_com_sear_user.adapter = ComSearUserAdapter(activity!!, userList)
     }
 
 
