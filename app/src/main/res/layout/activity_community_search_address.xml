@@ -7,6 +7,7 @@
             android:layout_marginTop="8dp"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <ImageView
@@ -44,32 +45,34 @@
                 android:hint="장소를 검색해 주세요"/>
         <android.support.v7.widget.RecyclerView
                 android:layout_marginLeft="32dp"
-                android:layout_marginTop="14dp"
                 android:layout_below="@id/view_line"
+                android:layout_above="@+id/relative_addreview_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/search_address_recycler_view"
         ></android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
+        <RelativeLayout
+                android:id="@+id/relative_addreview_confirm"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <View
+                    android:id="@+id/img_addreview_location_complete"
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/round_square_white"
+                    android:backgroundTint="@color/point_pink"
+                    android:layout_centerHorizontal="true"/>
 
-    <RelativeLayout
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <ImageView
-                android:id="@+id/img_addreview_location_complete"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:src="@drawable/community_addreview_beforefinish"
-                android:layout_centerHorizontal="true"/>
-
-        <TextView
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/dark_gray"
-                android:text="입력"
-                style="@style/Bold15"/>
+            <TextView
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="입력"
+                    style="@style/Bold15"/>
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

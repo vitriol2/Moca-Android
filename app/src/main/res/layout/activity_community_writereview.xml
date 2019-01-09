@@ -44,6 +44,7 @@
                         style="@style/Light11"
                         android:textColor="#707070"/>
                 <EditText
+                        android:inputType="text"
                         android:maxLines="1"
                         android:background="@null"
                         android:id="@+id/et_addreview_cafename"
@@ -62,6 +63,7 @@
                         style="@style/Light11"
                         android:textColor="#707070"/>
                 <TextView
+                        android:paddingTop="9dp"
                         android:id="@+id/txt_addreview_cafeaddress"
                         android:layout_width="match_parent"
                         android:layout_height="33dp"
@@ -104,6 +106,7 @@
                         style="@style/Light11"
                         android:textColor="#707070"/>
                 <EditText
+                        android:inputType="text"
                         android:background="@null"
                         android:maxLines="1"
                         android:id="@+id/et_addreview_oneline"
@@ -164,9 +167,12 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
                     android:layout_width="match_parent" android:layout_height="wrap_content">
-                <ImageView
+                <View
                         android:id="@+id/img_addreview_complete"
-                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_width="match_parent" android:layout_height="48dp"
+                        android:background="@drawable/round_square_white"
+                        android:backgroundTint="@color/point_pink"
+                        android:layout_marginHorizontal="10dp"
                         android:src="@drawable/community_addreview_beforefinish"
                         android:layout_centerHorizontal="true"/>
 
@@ -175,7 +181,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:gravity="center_vertical"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/white"
                         android:text="완료"
                         style="@style/Regular15"/>
             </RelativeLayout>

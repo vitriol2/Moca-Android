@@ -11,5 +11,6 @@ data class GetHomeSearchResponseData(
     val cafe_name : String,
     val cafe_img_url : String,
     val cafe_address_detail : String,
-    val type : Boolean
+    val type : Boolean,
+var dot : Boolean
 )

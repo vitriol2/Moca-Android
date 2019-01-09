@@ -40,6 +40,7 @@ class WriteReviewActivity : AppCompatActivity() {
     val networkService : NetworkService by lazy { ApplicationController.instance.networkService }
     private val REQ_CODE_SELECT_IMAGE = 100
     lateinit var data: Uri
+    var REQUEST_CODE : Int = 1007
     var btn_num = 0
 
     lateinit var photoItems: ArrayList<PhotoData>
@@ -71,6 +72,13 @@ private fun setUnderlineColor(){
 //        view_write_review_cafename.backgroundResource=R.color.dark_gray
 }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(resultCode == RESULT_OK) {
+            when(requestCode) {
+                1007 -> {
+                    txt_addreview_cafeaddress.text= data!!.getStringExtra("cafe_name")
+                }
+            }
+        }
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
@@ -141,7 +149,8 @@ private fun setUnderlineColor(){
 
     fun SetOnClickListener() {
         txt_addreview_cafeaddress.setOnClickListener {
-            startActivity<ReviewSearchLocationActivity>()
+            val intent = Intent(this, ReviewSearchLocationActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
         }
         img_addreview_complete.setOnClickListener {
             postReviewWriteResponse()
