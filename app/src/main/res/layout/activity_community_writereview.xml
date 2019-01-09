@@ -52,6 +52,7 @@
                         android:layout_height="33dp"
                         style="@style/Regular13"/>
                 <View
+                        android:id="@+id/v_write_review_cafename"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/dark_gray"
@@ -62,13 +63,15 @@
                         android:text="카페 장소"
                         style="@style/Light11"
                         android:textColor="#707070"/>
-                <TextView
-                        android:paddingTop="9dp"
-                        android:id="@+id/txt_addreview_cafeaddress"
+                <EditText
+                        android:focusable="false"
+                        android:background="@null"
+                        android:id="@+id/et_addreview_cafeaddress"
                         android:layout_width="match_parent"
                         android:layout_height="33dp"
                         style="@style/Regular13"/>
                 <View
+                        android:id="@+id/v_write_review_cafeaddress"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/dark_gray"
@@ -95,6 +98,7 @@
                         android:visibility="gone"
                         android:layout_height="wrap_content"/>
                 <View
+                        android:id="@+id/v_write_review_rating"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/dark_gray"
@@ -114,6 +118,7 @@
                         android:layout_height="33dp"
                         style="@style/Regular13"/>
                 <View
+                        android:id="@+id/v_write_review_oneline"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/dark_gray"
@@ -133,6 +138,7 @@
                         android:layout_height="68dp"
                         style="@style/Regular13"/>
                 <View
+                        android:id="@+id/v_write_review_multiline"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/dark_gray"/>
