@@ -84,7 +84,6 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener {
         setHomeNetwork()
 
         home_picks_tv.setOnClickListener(this)
-        home_concept_tv.setOnClickListener(this)
         home_ranking_tv.setOnClickListener(this)
         home_plus_tv.setOnClickListener(this)
         home_menu_iv.setOnClickListener(this)
@@ -103,13 +102,6 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener {
         // 수민 추가 (홈에서 검색 화면으로)
         home_search_iv.setOnClickListener {
             val intent: Intent = Intent(this@HomeActivity2, SearchActivity::class.java)
-
-            startActivity(intent)
-        }
-
-        // 수민 추가 (핫 플레이스 화면으로)
-        home_concept_tv.setOnClickListener {
-            val intent = Intent(this@HomeActivity2, HotPlaceActivity::class.java)
 
             startActivity(intent)
         }

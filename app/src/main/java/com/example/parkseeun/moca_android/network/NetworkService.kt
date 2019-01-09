@@ -41,6 +41,13 @@ interface NetworkService {
         @Header("Authorization") token : String
     ) : Call<GetHomeHotplaceResponse>
 
+    // 수민 - 핫플레이스 리스트 조회
+    @GET("/cafe/hot_place/{hot_place_id}")
+    fun getHotPlaceListResponse(
+        @Header("Authorization") token : String,
+        @Path("hot_place_id") hot_place_id : Int
+    ) : Call<GetHotPlaceListResponse>
+
     //<지원: 홈-Moca Plus>: 플러스주제 리스트 조회
     @GET("/plus/{length}")
     fun getMocaplusResponse(

@@ -66,6 +66,7 @@ class PlusDetailRecyclerViewAdapter(val context : Context, val dataList : ArrayL
         holder.relative_plus_detail_item_goToCafe.setOnClickListener {
             // 해당 카페 상세 페이지로 이동
             val intent : Intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("cafe_id", dataList[position].cafe_id)
 
             context.startActivity(intent)
         }
