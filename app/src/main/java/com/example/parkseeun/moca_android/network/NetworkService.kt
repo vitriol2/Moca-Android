@@ -121,6 +121,13 @@ interface NetworkService {
         @Path("cafe_id") cafe_id : Int
     ): Call<GetCafeDetailResponse>
 
+    @GET("/cafe/{cafe_id}/image")
+    fun getCafeDetailImageResponse(
+        @Header("Authorization") token : String,
+        @Path("cafe_id") cafe_id : Int
+    ): Call<GetCafeDetailImageResponse>
+
+
 
 
     // <위치>
