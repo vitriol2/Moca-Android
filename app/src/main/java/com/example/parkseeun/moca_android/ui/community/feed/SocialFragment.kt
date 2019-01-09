@@ -2,7 +2,6 @@ package com.example.parkseeun.moca_android.ui.community.feed
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -47,9 +46,12 @@ class SocialFragment :Fragment(){
                     if (response!!.body()!!.status == 200) {
                         var dataList: ArrayList<GetFeedResponseData> = response.body()!!.data
                         reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(context!!, dataList)
-                        v.social_reviews_recycler.adapter = reviewRecyclerViewAdapter
-                        v.social_reviews_recycler.layoutManager = LinearLayoutManager(context)
-                    } else if (response!!.body()!!.status != 204) {
+                        social_reviews_recycler.adapter = reviewRecyclerViewAdapter
+                        social_reviews_recycler.layoutManager = LinearLayoutManager(context)
+                        social_empty_const.visibility = View.GONE
+                    } else if (response!!.body()!!.status == 204) {
+                        social_empty_const.visibility = View.VISIBLE
+                    } else {
                         toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
                     }
             }
