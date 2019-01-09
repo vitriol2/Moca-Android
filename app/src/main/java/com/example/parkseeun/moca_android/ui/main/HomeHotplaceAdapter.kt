@@ -1,12 +1,14 @@
 package com.example.parkseeun.moca_android.ui.main
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -31,9 +33,18 @@ class HomeHotplaceAdapter(val ctx : Context, val dataList: ArrayList<HomeHotplac
             .into(holder.image)
 
         holder.cafename.text = dataList[position].hot_place_name
+
+        // 클릭하면 액티비티 이동
+        holder.relative_home_hot_place.setOnClickListener {
+            val intent = Intent(ctx, HotPlaceActivity::class.java)
+            intent.putExtra("hot_place_id", dataList[position].hot_place_id)
+
+            ctx.startActivity(intent)
+        }
     }
 
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        val relative_home_hot_place : RelativeLayout = itemView.findViewById(R.id.relative_home_hot_place) as RelativeLayout
         val image : ImageView = itemView.findViewById(R.id.iv_rv_act_home2_hotplace) as ImageView
         val cafename : TextView = itemView.findViewById(R.id.tv_rv_act_home2_hotplace) as TextView
     }

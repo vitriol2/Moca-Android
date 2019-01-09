@@ -76,7 +76,7 @@ class SearchActivity : AppCompatActivity() {
         et_search.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
                 //Enter key Action
-                return if (event.action === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                return if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     linear_before_search_all.visibility = View.GONE
                     linear_before_search_cafe.visibility = View.GONE
                     linear_before_search_location.visibility = View.GONE

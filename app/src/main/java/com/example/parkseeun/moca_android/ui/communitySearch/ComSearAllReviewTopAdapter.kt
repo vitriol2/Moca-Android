@@ -11,11 +11,12 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetBestCafeListData
 import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 
-class ComSearAllReviewTopAdapter(val context : Context, val dataList : ArrayList<ComSearAllReviewTopData>) : RecyclerView.Adapter<ComSearAllReviewTopAdapter.Holder>()  {
+class ComSearAllReviewTopAdapter(val context : Context, val dataList : ArrayList<GetBestCafeListData>) : RecyclerView.Adapter<ComSearAllReviewTopAdapter.Holder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComSearAllReviewTopAdapter.Holder {
         // 뷰 인플레이트
@@ -28,12 +29,12 @@ class ComSearAllReviewTopAdapter(val context : Context, val dataList : ArrayList
 
     override fun onBindViewHolder(holder: ComSearAllReviewTopAdapter.Holder, position: Int) {
         holder.item.setOnClickListener {
-            context!!.startActivity<DetailActivity>()
+            context.startActivity<DetailActivity>()
         }
-        Glide.with(context).load(dataList[position].cafeImage!!).into(holder.image!!)
-        holder.cafename!!.text = dataList[position].cafeName
+        Glide.with(context).load(dataList[position].cafe_img_url!!).into(holder.image!!)
+        holder.cafename.text = dataList[position].cafe_name
 
-        holder.reviewNum!!.text = dataList[position].reviewNum.toString()
+        holder.reviewNum.text = dataList[position].review_count.toString()
 
     }
 

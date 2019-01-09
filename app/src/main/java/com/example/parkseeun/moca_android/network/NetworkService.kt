@@ -41,6 +41,13 @@ interface NetworkService {
         @Header("Authorization") token : String
     ) : Call<GetHomeHotplaceResponse>
 
+    // 수민 - 핫플레이스 리스트 조회
+    @GET("/cafe/hot_place/{hot_place_id}")
+    fun getHotPlaceListResponse(
+        @Header("Authorization") token : String,
+        @Path("hot_place_id") hot_place_id : Int
+    ) : Call<GetHotPlaceListResponse>
+
     //<지원: 홈-Moca Plus>: 플러스주제 리스트 조회
     @GET("/plus/{length}")
     fun getMocaplusResponse(
@@ -66,14 +73,14 @@ interface NetworkService {
         @Path("keyword") keyword : String
     ) : Call<GetHomeSearchResponse>
 
-    // 검색 - 인기 카페 리스트 조회
+    // 수민 - 검색 - 인기 카페 리스트 조회
     @GET("/cafe/best/{flag}")
     fun getBestCafeList(
         @Header("Authorization") token : String,
         @Path("flag") flag : Int
     ) : Call<GetBestCafeListResponse>
 
-    // 검색 - 모카 추천 플레이스 조회
+    // 수민 - 검색 - 모카 추천 플레이스 조회
     @GET("/hot_place/best")
     fun getMocaRecommenPlace(
     ) : Call<GetMocaRecommendHotPlaceResponse>
@@ -116,6 +123,19 @@ interface NetworkService {
 
 
     // <커뮤니티>
+    // 수민 - 검색 전 이번주 인기 많은 사용자
+    @GET("/user/best")
+    fun getBestUserList(
+        @Header("Authorization") token: String
+    ) : Call<GetBestUserResponse>
+
+    // 수민 - 커뮤니티 검색
+    @GET("/search/community/{keyword}")
+    fun getCommunitySearchResult(
+        @Header("Authorization") token: String,
+        @Path("keyword") keyword : String
+    ) : Call<GetCommunitySearchListResponse>
+
     // 소셜 피드 - 아영
     @GET("/feed/social")
     fun getSocialFeed(@Header("Authorization") token: String): Call<GetFeedResponse>
