@@ -111,13 +111,16 @@ class OtherUserActivity : AppCompatActivity(), View.OnClickListener{
 
             override fun onResponse(call: Call<GetFeedResponse>?, response: Response<GetFeedResponse>?) {
                 if (response!!.isSuccessful)
-                    if (response!!.body()!!.status == 200) {
+                    if (response.body()!!.status == 200) {
                         var dataList: ArrayList<GetFeedResponseData> = response.body()!!.data
                         reviewRecyclerViewAdapter = ReviewRecyclerViewAdapter(applicationContext!!, dataList, intent.getStringExtra("user_id"))
                         other_reviews_recycler.adapter = reviewRecyclerViewAdapter
                         other_reviews_recycler.layoutManager = LinearLayoutManager(applicationContext)
-                    } else if (response!!.body()!!.status != 204) {
-                        toast(response!!.body()!!.status.toString() + ": " + response!!.body()!!.message)
+                        other_empty_const.visibility = View.GONE
+                    } else if (response.body()!!.status == 204) {
+                        other_empty_const.visibility = View.VISIBLE
+                    } else {
+                        toast(response.body()!!.status.toString() + ": " + response.body()!!.message)
                     }
             }
         })
