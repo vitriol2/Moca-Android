@@ -115,6 +115,11 @@ interface NetworkService {
 
 
     // <카페 상세>
+    @GET("/cafe/{cafe_id}/detail")
+    fun getCafeDetailResponse(
+        @Header("Authorization") token : String,
+        @Path("cafe_id") cafe_id : Int
+    ): Call<GetCafeDetailResponse>
 
 
 
@@ -188,6 +193,18 @@ interface NetworkService {
         @Header("Authorization") token: String,
         @Path("user_id") id: String) : Call<PostFollowResponse>
 
+    // 리뷰 작성 -소희
+    @POST("/review")
+    fun postReviewWriteResponse(
+        @Header("Authorization") token : String,
+    @Body postReviewWrite : PostReviewWriteData
+    ) : Call<PostReviewWriteResponse>
+
+
+    //Community Search
+    //Community Search - user
+
+
 
 
     // <마이 페이지>
@@ -195,16 +212,17 @@ interface NetworkService {
     @GET("/membership")
     fun getMembership(@Header("Authorization") token: String): Call<GetMembershipResponse>
 
-    // 주변카페
-
-
-    //<마이페이지 찜한카페목록>
-    // <소희: 맵-주변카페>
+    // <맵>
+    // 주변카페 - 소희
     @POST("/cafe/nearbycafe")
     fun postNearByCafeResponse(
         @Header("Authorization") token : String,
         @Body postNearByCafe : PostNearByCafeData
     ) : Call<PostNearByCafeResponse>
+    // 주소 검색- 소희
+    @GET("v2/local/search/keyword.json")
+    fun getLocationList(@Header("Authorization") header: String,
+                        @Query("query") query: String): Call<GetLocationListResponse>
 
     //<지원: 홈-핫플레이스>
     
@@ -227,11 +245,27 @@ interface NetworkService {
         @Header("Authorization") token : String
     ): Call<GetMypageCouponResponse>
 
-    //<마이페이지 프로필수정>
+    //<마이페이지 프로필조회>
     @GET("/user/{user_id}/mypage")
     fun getMypageEditprofileResponse(
         @Header("Authorization") token : String,
         @Path("user_id") user_id : String
     ): Call<GetMypageEditprofileResponse>
+
+    //<마이페이지 프로필수정>
+    @Multipart
+    @PUT("/user/mypage")
+    fun putMypageEditprofileResponse(
+        @Header("Authorization") token : String,
+        @Part("user_name") user_name: RequestBody,
+        @Part("user_phone") user_phone: RequestBody,
+        @Part("user_status_comment") user_status_comment: RequestBody,
+        @Part user_img: MultipartBody.Part?
+    ): Call<GetMypageEditprofileResponse>
+
+
+
     // 주변카페
+
+
 }

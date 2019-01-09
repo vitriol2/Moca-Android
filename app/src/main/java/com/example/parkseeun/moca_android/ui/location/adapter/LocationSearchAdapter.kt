@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetLocationListResponseData
 import com.example.parkseeun.moca_android.ui.community.review_write.data.CafeListData
 
-class LocationSearchAdapter(val context : Context, val dataList : ArrayList<CafeListData>) : RecyclerView.Adapter<LocationSearchAdapter.Holder>() {
+class LocationSearchAdapter(val context : Context, val dataList : ArrayList<GetLocationListResponseData>) : RecyclerView.Adapter<LocationSearchAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 뷰 인플레이트
@@ -22,8 +23,8 @@ class LocationSearchAdapter(val context : Context, val dataList : ArrayList<Cafe
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
-        holder.txt_search_location_name.text = dataList[position].name
-        holder.txt_search_location_address.text = dataList[position].address
+        holder.txt_search_location_name.text = dataList[position].place_name
+        holder.txt_search_location_address.text = dataList[position].road_address_name
 
     }
 

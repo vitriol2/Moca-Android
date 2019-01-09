@@ -17,6 +17,9 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.example.parkseeun.moca_android.model.post.PostReviewWriteData
+import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.network.NetworkService
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.community.review_write.adapter.PhotoAdapter
 import com.example.parkseeun.moca_android.ui.community.review_write.data.PhotoData
@@ -24,6 +27,7 @@ import com.example.parkseeun.moca_android.ui.community.review_write.data.ReviewI
 import kotlinx.android.synthetic.main.activity_community_search_address.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.jetbrains.anko.backgroundResource
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -33,10 +37,10 @@ class WriteReviewActivity : AppCompatActivity() {
     //    var PICK_IMAGE_MULTIPLE = 1
 //    var imageEncoded: String? = null
 //    var imagesEncodedList = ArrayList<String>()
+    val networkService : NetworkService by lazy { ApplicationController.instance.networkService }
     private val REQ_CODE_SELECT_IMAGE = 100
     lateinit var data: Uri
     var btn_num = 0
-
 
     lateinit var photoItems: ArrayList<PhotoData>
     lateinit var totalItems: ArrayList<PhotoData>
@@ -48,7 +52,6 @@ class WriteReviewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_community_writereview)
         reviewImageItems = ArrayList()
 
-
         requestManager = Glide.with(this)
         photoItems = ArrayList()
 
@@ -56,16 +59,17 @@ class WriteReviewActivity : AppCompatActivity() {
         //var width = displayMetrics.widthPixels
         //var height = displayMetrics.heightPixels
 
-        img_addreview_image.setOnClickListener {
-            changeImage()
-        }
-
-
+        setUnderlineColor()
         SetOnClickListener()
         ratingBar()
-
     }
-
+private fun setUnderlineColor(){
+    //카페이름
+//    if(et_addreview_cafename.text.toString() !="")
+//        view_write_review_cafename.backgroundResource=R.color.point_pink
+//    else
+//        view_write_review_cafename.backgroundResource=R.color.dark_gray
+}
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
@@ -96,11 +100,12 @@ class WriteReviewActivity : AppCompatActivity() {
                     //이거 서버에 보내줄때 필요 image = MultipartBody.Part.createFormData("photo", photo.name, photoBody) //여기의 photo는 키값의 이름하고 같아야함
 
                     //body = MultipartBody.Part.createFormData("image", photo.getName(), profile_pic);
-                    if (photoItems.size < 10) {
+                    if (photoItems.size > 9) {
+                        img_addreview_image.visibility = View.GONE
+                    } else {
+                        img_addreview_image.visibility = View.VISIBLE
                         photoItems.add(PhotoData(data.data))
                         reviewImageItems.add(ReviewImageData(data.data.toString()))
-                    } else {
-                        img_addreview_image.visibility = View.GONE
                     }
                     PhotoAdapter = PhotoAdapter(photoItems, requestManager)
                     rv_photo_review.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -139,8 +144,20 @@ class WriteReviewActivity : AppCompatActivity() {
             startActivity<ReviewSearchLocationActivity>()
         }
         img_addreview_complete.setOnClickListener {
+            postReviewWriteResponse()
             startActivity<FeedActivity>()
         }
+        img_addreview_image.setOnClickListener {
+            changeImage()
+        }
+//        iv_cancel_addreview.setOnClickListener { finish() }
+    }
+
+    private fun postReviewWriteResponse(){
+// val postReviewWriteResponse = networkService.postReviewWriteResponse(
+//     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
+//     PostReviewWriteData(1,)
+// )
     }
 
     //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

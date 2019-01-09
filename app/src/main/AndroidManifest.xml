@@ -26,7 +26,8 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA"/>
 
-        <activity android:name=".ui.community.review_write.WriteReviewActivity"/>
+        <activity android:name=".ui.community.review_write.WriteReviewActivity">
+        </activity>
         <activity android:name=".ui.community.follow.FollowActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity"/>
         <activity android:name=".ui.main.HomeActivity2">
@@ -69,7 +70,13 @@
         </activity>
         <activity android:name=".ui.category.CafeListActivity"/>
         <activity android:name=".ui.communitySearch.CommunitySearchActivity"></activity>
-        <activity android:name=".ui.detail.DetailActivity"></activity>
+        <activity android:name=".ui.detail.DetailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.community.feed.other_user.OtherUserActivity"/>
         <activity android:name=".ui.main.HotPlaceActivity"></activity>
         <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
