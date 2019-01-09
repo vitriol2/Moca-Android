@@ -60,6 +60,8 @@
         android:src="@drawable/common_emptydata"/>
     <android.support.constraint.ConstraintLayout
             android:id="@+id/review_comment_bottom_const"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             app:layout_constraintBottom_toBottomOf="parent"

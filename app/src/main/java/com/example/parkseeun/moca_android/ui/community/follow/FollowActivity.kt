@@ -47,8 +47,6 @@ class FollowActivity : AppCompatActivity() {
         ib_follow_cancel.setOnClickListener {
             finish()
         }
-
-        setRecyclerView()
         searchAction()
     }
 
@@ -95,6 +93,7 @@ class FollowActivity : AppCompatActivity() {
                         for (value in getFollowerData) {
                             dataList.add(FollowData(value.user_id, value.user_img_url, value.user_name, value.follow))
                         }
+                        setRecyclerView()
                     } else if (response!!.body()!!.status == 204) {
                         toast("팔로워가 존재하지 않습니다!")
                     }
@@ -118,6 +117,7 @@ class FollowActivity : AppCompatActivity() {
                         for (value in getFollowerData) {
                             dataList.add(FollowData(value.user_id, value.user_img_url, value.user_name, value.follow))
                         }
+                        setRecyclerView()
                     } else if (response!!.body()!!.status == 204) {
                         toast("팔로잉이 존재하지 않습니다!")
                     }
