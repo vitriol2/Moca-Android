@@ -12,9 +12,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetLocationListResponseData
-import com.example.parkseeun.moca_android.ui.community.review_write.data.CafeListData
-import kotlinx.android.synthetic.main.rv_item_cafe_location.*
-import org.jetbrains.anko.textColorResource
 
 class LocationSearchAdapter(val context : Context, val dataList : ArrayList<GetLocationListResponseData>) : RecyclerView.Adapter<LocationSearchAdapter.Holder>() {
 
