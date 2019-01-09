@@ -66,12 +66,6 @@
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity"/>
         <activity android:name=".ui.loginJoin.JoinActivity"/>
         <activity android:name=".ui.loginJoin.LoginActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".ui.category.CafeListActivity"/>
         <activity android:name=".ui.communitySearch.CommunitySearchActivity"></activity>
@@ -81,6 +75,12 @@
         <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
         <activity android:name=".ui.detail.detailReviewAll.ReviewAllActivity"/>
         <activity android:name=".ui.detail.nearbyList.NearbyListActivity"/>
-    </application>
+        <activity android:name=".ui.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
