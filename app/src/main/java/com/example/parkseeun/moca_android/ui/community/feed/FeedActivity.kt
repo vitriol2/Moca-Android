@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.view.View
-import com.example.parkseeun.moca_android.util.NavigationActivity
+import com.example.parkseeun.moca_android.ui.mypage.NavigationActivity
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.ui.communitySearch.CommunitySearchActivity
 import kotlinx.android.synthetic.main.activity_feed2.*

@@ -11,7 +11,7 @@ import android.support.v4.view.GravityCompat
 import android.widget.TextView
 import com.example.parkseeun.moca_android.ui.category.recyclerview.category.ButtonData
 import com.example.parkseeun.moca_android.ui.category.recyclerview.category.ButtonViewAdapter
-import com.example.parkseeun.moca_android.util.NavigationActivity
+import com.example.parkseeun.moca_android.ui.mypage.NavigationActivity
 import org.jetbrains.anko.toast
 
 

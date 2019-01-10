@@ -75,12 +75,14 @@
         </android.support.constraint.ConstraintLayout>
 
         <TextView
+            android:id="@+id/tv_mypage_tab_name"
             style="@style/home_category_title"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="8dp"
             tools:text="정화니" />
 
         <TextView
+            android:id="@+id/tv_mypage_tab_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -199,8 +201,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_mypage_tab_scrap_more"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_mypage_tab_scrap_5"
@@ -208,18 +209,21 @@
                         android:src="@drawable/ic_launcher_background" />
 
                     <RelativeLayout
+                        android:id="@+id/rl_mypage_tab_more"
                         android:layout_width="42dp"
                         android:layout_height="42dp"
-                        android:background="@drawable/mypage_tab_scrap_more_bg">
+                        android:background="@drawable/mypage_tab_scrap_more_bg"
+                        android:visibility="gone">
 
                         <TextView
+                            android:id="@+id/tv_mypage_tab_more"
                             style="@style/Bold11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:gravity="center"
                             android:lines="2"
-                            android:text="5+&#10;더보기"
+                            android:text="+&#10;더보기"
                             android:textColor="#ffffff"
                             android:textSize="9sp" />
                     </RelativeLayout>
@@ -250,7 +254,7 @@
                 android:id="@+id/tv_mypage_tab_coupon_num"
                 style="@style/mypage_tab_menu_num"
                 android:layout_marginLeft="186dp"
-                tools:text="3" />
+                android:text="0" />
 
             <ImageView
                 android:layout_width="24dp"
