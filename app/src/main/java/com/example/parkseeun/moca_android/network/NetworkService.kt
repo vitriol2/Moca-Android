@@ -5,7 +5,6 @@ import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
 import com.example.parkseeun.moca_android.model.post.*
-import com.example.parkseeun.moca_android.model.post.PostJoinData
 import com.example.parkseeun.moca_android.model.post.PostFollowResponse
 import com.example.parkseeun.moca_android.model.post.PostJoinResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
@@ -206,16 +205,16 @@ interface NetworkService {
     ): Call<PostFollowResponse>
 
     // 리뷰 작성 -소희
+    @Multipart
     @POST("/review")
     fun postReviewWriteResponse(
         @Header("Authorization") token: String,
-        @Part("cafe_id") cafe_id: RequestBody,
+        @Part("cafe_id") cafe_id: Int,
         @Part("title") title: RequestBody,
         @Part("content") content: RequestBody,
-        @Part("rating") rating : RequestBody,
-        @Part photo: MultipartBody.Part?
+        @Part("rating") rating : Int,
+        @Part image: ArrayList<MultipartBody.Part>
     ): Call<PostReviewWriteResponse>
-
 
     //Community Search
     //Community Search - user

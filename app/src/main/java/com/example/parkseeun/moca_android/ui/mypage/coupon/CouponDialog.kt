@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main.coupon
+package com.example.parkseeun.moca_android.ui.mypage.coupon
 
 import android.app.Dialog
 import android.content.Context

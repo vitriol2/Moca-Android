@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main.coupon
+package com.example.parkseeun.moca_android.ui.mypage.coupon.recyclerview
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.CouponData
+import com.example.parkseeun.moca_android.ui.mypage.coupon.CouponDialog
 
 class CouponAdapter(val ctx : Context, val dataList : ArrayList<CouponData>) : RecyclerView.Adapter<CouponAdapter.Holder>(){
 

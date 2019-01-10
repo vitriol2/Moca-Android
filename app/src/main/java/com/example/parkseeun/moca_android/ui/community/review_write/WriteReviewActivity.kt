@@ -21,6 +21,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.example.parkseeun.moca_android.model.post.PostReviewWriteResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.network.NetworkService
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
@@ -34,6 +35,9 @@ import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColorResource
 import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -45,7 +49,6 @@ class WriteReviewActivity : AppCompatActivity() {
 //    var imagesEncodedList = ArrayList<String>()
     private val My_READ_STORAGE_REQUEST_CODE = 1004
     private val REQUEST_CODE_SELECT_IMAGE = 2004
-    val networkService: NetworkService by lazy { ApplicationController.instance.networkService }
     private val REQ_CODE_SELECT_IMAGE = 100
     lateinit var data: Uri
     var REQUEST_CODE: Int = 1007
@@ -54,7 +57,12 @@ class WriteReviewActivity : AppCompatActivity() {
     var btn_num = 0
     private var cafe_id: Int? = null
     private var currentProgress: Int = 0
-
+    //통신
+    private val networkService by lazy {
+        ApplicationController.instance.networkService
+    }
+    lateinit var postReviewWriteResponse: Call<PostReviewWriteResponse>
+    var images = ArrayList<MultipartBody.Part>()
     lateinit var photoItems: ArrayList<PhotoData>
     lateinit var totalItems: ArrayList<PhotoData>
     lateinit var PhotoAdapter: PhotoAdapter
@@ -147,16 +155,21 @@ class WriteReviewActivity : AppCompatActivity() {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos)
                     val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())
                     val photo = File(this.data.toString()) // 가져온 파일의 이름을 알아내려고 사용합니다
-                   //RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
+                    //RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
                     // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
-
-                    // mImage = MultipartBody.Part.createFormData("image", photo.name, photoBody) //여기의 photo는 키값의 이름하고 같아야함
-
+                    images.add(
+                        MultipartBody.Part.createFormData(
+                            "image",
+                            photo.name,
+                            photoBody
+                        )
+                    )//여기의 image는 키값의 이름하고 같아야함
+                    Log.v("images size", images.size.toString())
                     //body = MultipartBody.Part.createFormData("image", photo.getName(), profile_pic);
 
                     photoItems.add(PhotoData(data.data))
                     reviewImageItems.add(ReviewImageData(data.data.toString()))
-                    PhotoAdapter = PhotoAdapter(photoItems, requestManager, this.findViewById(R.id.rl_all_addreview))
+                    PhotoAdapter = PhotoAdapter(photoItems, requestManager,images, this.findViewById(R.id.rl_all_addreview))
                     rv_photo_review.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     rv_photo_review.adapter = PhotoAdapter
 
@@ -167,7 +180,6 @@ class WriteReviewActivity : AppCompatActivity() {
             }
         }
     }
-
 
     fun changeImage() {
         var intent = Intent(Intent.ACTION_PICK)
@@ -216,15 +228,15 @@ class WriteReviewActivity : AppCompatActivity() {
             var flag: Boolean = false
             Log.v(
                 "postReviewWriteResponse",
-                cafe_id.toString() + "  " + input_rating.toString() + " " + input_title + " "+input_content + " " + mImage.toString()
+                cafe_id.toString() + "  " + input_rating.toString() + " " + input_title + " " + input_content + " " + images.toString()
             )
 
-            if (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size >0) { //Multipart 형식은 String을 RequestBody 타입으로 바꿔줘야 합니다
+            if (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0) { //Multipart 형식은 String을 RequestBody 타입으로 바꿔줘야 합니다
                 flag = true
                 changeButtonColor(flag)
                 Log.v("postReviewWriteResponse", "다 널 아니다")
-                postReviewWriteResponse()
-                startActivity<FeedActivity>()
+                postReviewWriteResponse(input_cafeid, input_content, input_rating, input_title)
+
             } else {
                 flag = false
                 changeButtonColor(flag)
@@ -232,6 +244,7 @@ class WriteReviewActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun requestReadExternalStoragePermission() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -256,6 +269,7 @@ class WriteReviewActivity : AppCompatActivity() {
             changeImage()
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -269,18 +283,49 @@ class WriteReviewActivity : AppCompatActivity() {
             }
         }
     }
-    private fun changeButtonColor(flag : Boolean){
-        if(flag ==true){
-        img_addreview_complete.setBackgroundResource(R.color.point_pink)
-        txt_complete_addreview.textColorResource=R.color.white}
-        else {
+
+    private fun changeButtonColor(flag: Boolean) {
+        if (flag == true) {
+            img_addreview_complete.setBackgroundResource(R.color.point_pink)
+            txt_complete_addreview.textColorResource = R.color.white
+        } else {
             img_addreview_complete.setBackgroundResource(R.color.light_gray)
-            txt_complete_addreview.textColorResource=R.color.dark_gray}
+            txt_complete_addreview.textColorResource = R.color.dark_gray
         }
     }
 
-    private fun postReviewWriteResponse() {
+
+    private fun postReviewWriteResponse(input_cafeid: Int, input_content: String, input_rating: Int, input_title: String) {
+        var content = RequestBody.create(MediaType.parse("text/plain"), input_content)
+        var title = RequestBody.create(MediaType.parse("text/plain"), input_title)
+        postReviewWriteResponse =
+                networkService.postReviewWriteResponse(
+                    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
+                    input_cafeid, title, content, input_rating, images
+                )
+        postReviewWriteResponse.enqueue(object : Callback<PostReviewWriteResponse> {
+
+            override fun onFailure(call: Call<PostReviewWriteResponse>?, t: Throwable?) {
+                Log.v("fail..",t.toString())
+            }
+
+            override fun onResponse(
+                call: Call<PostReviewWriteResponse>?,
+                response: Response<PostReviewWriteResponse>?
+            ) {
+                if (response!!.isSuccessful)
+                    if (response.body()!!.status == 201) {
+                        toast("수고해써 소희얌")
+                        startActivity<FeedActivity>()
+                        Log.v("success..",images.toString())
+                    } else {
+                        Log.v("WriteReviewResponse",response.body()!!.message)
+                    }
+            }
+        })
+        Log.v("postReviewWriteResponse","여기는 리스폰스 밖..")
     }
+}
 // val postReviewWriteResponse = networkService.postReviewWriteResponse(
 //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
 //     PostReviewWriteData(1,)

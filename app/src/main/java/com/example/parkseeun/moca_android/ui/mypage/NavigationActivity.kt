@@ -22,12 +22,11 @@ import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.location.LocationMainActivity
 import com.example.parkseeun.moca_android.ui.main.*
 import com.example.parkseeun.moca_android.ui.location.LocationSearchActivity
-import com.example.parkseeun.moca_android.ui.main.EditProfileActivity
-import com.example.parkseeun.moca_android.ui.main.HomeActivity2
-import com.example.parkseeun.moca_android.ui.main.MypageTabAdapter
-import com.example.parkseeun.moca_android.ui.main.notice.NoticeActivity
-import com.example.parkseeun.moca_android.ui.main.coupon.CouponActivity
+import com.example.parkseeun.moca_android.ui.main.HomeActivity
+import com.example.parkseeun.moca_android.ui.mypage.notice.NoticeActivity
+import com.example.parkseeun.moca_android.ui.mypage.coupon.CouponActivity
 import com.example.parkseeun.moca_android.ui.mypage.coupon.HistoryActivity
+import com.example.parkseeun.moca_android.ui.mypage.scrap.ScrapCafeActivity
 import com.example.parkseeun.moca_android.util.SharedPreferenceController
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_home2.*
@@ -73,7 +72,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
         val home: ImageView = headerView.findViewById(R.id.iv_mypage_tab_home) as ImageView
         home.setOnClickListener {
 
-            val intent = Intent(this, HomeActivity2::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
