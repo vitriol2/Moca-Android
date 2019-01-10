@@ -12,7 +12,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="#111111"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mocapicks_badge"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"/>
 
     <ToggleButton
         android:id="@+id/tb_mocaPicksList"
@@ -29,8 +36,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="40dp">
+        android:layout_alignParentBottom="true">
 
         <TextView
             android:id="@+id/tv_mocaPicksList_cafeName"
