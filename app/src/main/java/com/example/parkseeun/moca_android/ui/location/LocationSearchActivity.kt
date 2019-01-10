@@ -1,6 +1,5 @@
 package com.example.parkseeun.moca_android.ui.location
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -16,9 +15,6 @@ import com.example.parkseeun.moca_android.model.get.GetLocationListResponseData
 import com.example.parkseeun.moca_android.network.NetworkService
 import com.example.parkseeun.moca_android.ui.location.adapter.LocationSearchAdapter
 import kotlinx.android.synthetic.main.activity_location_search.*
-import kotlinx.android.synthetic.main.rv_item_cafe_location.*
-import kotlinx.android.synthetic.main.rv_item_cafe_location.view.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,7 +43,6 @@ class LocationSearchActivity : AppCompatActivity() {
         networkService = retrofit_loc_search.create(NetworkService::class.java)
 
         var header = "KakaoAK f58c0b6bf01032faee81071dd1d935c6"
-//        var location_keyword :String = arguments.getString("keyword")
 
         et_map_search_address.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -87,8 +82,7 @@ class LocationSearchActivity : AppCompatActivity() {
 
                     locationSearchAdapter = LocationSearchAdapter(context, locationSearchItems)
                     locationSearchAdapter.setOnItemClickListener(View.OnClickListener { v ->
-                        Log.d("asdf", "clicked")
-                        //if (rv_act_location_search.indexOfChild(v) != -1) { // 리사이클러뷰의 자식뷰 이면  !
+                        Log.d("asdfg", "clicked")
                         val idx: Int = rv_act_location_search.getChildAdapterPosition(v!!) // 선택된 자식뷰
                         for (value in 0 until locationSearchItems.size) {
                             locationSearchItems[value].dot = false
@@ -97,13 +91,10 @@ class LocationSearchActivity : AppCompatActivity() {
                         lat = locationSearchItems[idx].y!!.toDouble()
                         lon = locationSearchItems[idx].x!!.toDouble()
                         locationSearchAdapter.notifyDataSetChanged()
-
-                        //}
                     })
                     rv_act_location_search.adapter = locationSearchAdapter
                     rv_act_location_search.layoutManager = LinearLayoutManager(context)
                     // locationSearchAdapter.setOnItemClickListener(this@LocationSearchActivity)
-
                 }
 
                 Log.v("onTextChanged", "${response.raw()}")

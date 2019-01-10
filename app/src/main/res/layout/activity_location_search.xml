@@ -74,7 +74,7 @@
 
         <View
                 android:background="@drawable/round_square_white"
-                android:backgroundTint="#ebebeb"
+                android:backgroundTint="@color/point_pink"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:src="@drawable/community_addreview_beforefinish"
@@ -86,7 +86,7 @@
                 style="@style/Bold15"
                 android:text="입력"
                 android:layout_centerVertical="true"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
