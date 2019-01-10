@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetMocaRecommendHotPlaceData
-import com.example.parkseeun.moca_android.ui.plus.plusDetail.PlusDetailActivity
+import com.example.parkseeun.moca_android.ui.main.hot_place.HotPlaceActivity
 
 class BeforeSearchRecommendPlaceAdapter(val context : Context, val dataList : ArrayList<GetMocaRecommendHotPlaceData>) : RecyclerView.Adapter<BeforeSearchRecommendPlaceAdapter.Holder>()  {
 

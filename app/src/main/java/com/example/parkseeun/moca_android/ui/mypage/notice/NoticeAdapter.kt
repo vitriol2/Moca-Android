@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main.notice
+package com.example.parkseeun.moca_android.ui.mypage.notice
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

@@ -3,7 +3,6 @@ package com.example.parkseeun.moca_android.ui.main
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.HomeHotplaceData
+import com.example.parkseeun.moca_android.ui.main.hot_place.HotPlaceActivity
 
 class HomeHotplaceAdapter(val ctx : Context, val dataList: ArrayList<HomeHotplaceData>) : RecyclerView.Adapter<HomeHotplaceAdapter.Holder>(){
     override fun onCreateViewHolder(container: ViewGroup, p1: Int): HomeHotplaceAdapter.Holder {

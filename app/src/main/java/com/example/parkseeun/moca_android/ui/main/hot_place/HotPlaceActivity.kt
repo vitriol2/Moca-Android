@@ -1,17 +1,14 @@
-package com.example.parkseeun.moca_android.ui.main
+package com.example.parkseeun.moca_android.ui.main.hot_place
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.get.GetBestCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetHotPlaceListData
 import com.example.parkseeun.moca_android.model.get.GetHotPlaceListResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_hot_place.*
-import kotlinx.android.synthetic.main.activity_search.*
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback

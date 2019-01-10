@@ -61,8 +61,9 @@
         <activity android:name=".ui.mypage.coupon.CouponActivity"/>
         <activity android:name="com.example.parkseeun.moca_android.ui.mypage.notice.NoticeActivity"/>
         <activity
-            android:name=".ui.mypage.EditProfileActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+
+                android:name=".ui.mypage.EditProfileActivity"
+                android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".ui.mocapicks.MocaPicksDetailActivity"/>
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity"/>
         <activity android:name=".ui.loginJoin.JoinActivity"/>

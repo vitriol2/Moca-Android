@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main
+package com.example.parkseeun.moca_android.ui.mypage
 
 import android.Manifest
 import android.app.Activity
@@ -222,7 +222,7 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
             grantResults: IntArray
     ) {
         if (requestCode == My_READ_STORAGE_REQUEST_CODE) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 showAlbum()
             } else {
 
