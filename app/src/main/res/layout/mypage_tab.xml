@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="289dp"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -90,8 +90,8 @@
             android:fontFamily="@font/nanum_l"
             android:textColor="@color/dark_gray"
             android:lineSpacingExtra="4dp"
-            tools:text="상태메시지는 여기에 작성되는데 너무 길면 어떻게 바뀔까용 요렇게!"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            tools:text="상태메시지는 여기에 작성되는데 너무 길면 어떻게 바뀔까용 요렇게!" />
 
     </LinearLayout>
 
@@ -149,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
             android:background="@color/light_gray"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -236,39 +236,45 @@
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
             android:background="@color/light_gray"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp" />
 
-        <LinearLayout
-            android:id="@+id/ll_mypage_tab_coupon"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/mypage_tab_menu_title"
-                android:layout_marginBottom="15dp"
-                android:text="음료 쿠폰" />
+            <LinearLayout
+                android:id="@+id/ll_mypage_tab_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_mypage_tab_coupon_num"
-                style="@style/mypage_tab_menu_num"
-                android:layout_marginLeft="186dp"
-                android:text="0" />
+                <TextView
+                    style="@style/mypage_tab_menu_title"
+                    android:layout_marginBottom="15dp"
+                    android:text="음료 쿠폰" />
 
+                <TextView
+                    android:id="@+id/tv_mypage_tab_coupon_num"
+                    style="@style/mypage_tab_menu_num"
+                    android:layout_marginLeft="186dp"
+                    android:text="0" />
+            </LinearLayout>
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="9dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:src="@drawable/mypage_arrow_right" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
             android:background="@color/light_gray"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -303,6 +309,7 @@
                 android:layout_below="@id/rl_mypage_tab_membership"
                 android:layout_marginTop="3dp" />
         </RelativeLayout>
+
         <TextView
             android:id="@+id/tv_act_home_membership_num"
             android:textSize="11sp"
@@ -311,7 +318,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
-            tools:text="0/12"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            tools:text="0/12" />
     </LinearLayout>
 </RelativeLayout>

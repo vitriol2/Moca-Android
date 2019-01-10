@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.communitySearch
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -57,6 +58,8 @@ class CommunitySearchActivity : AppCompatActivity() {
 
         tabLayout = findViewById(R.id.tl_act_comm_sear) as TabLayout
         tabLayout!!.setupWithViewPager(viewPager)
+        tabLayout!!.setTabTextColors(Color.parseColor("#e1b2a3"), Color.parseColor("#707070"))
+
 
         val headerView = (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.navigation_community_search2, null, false)

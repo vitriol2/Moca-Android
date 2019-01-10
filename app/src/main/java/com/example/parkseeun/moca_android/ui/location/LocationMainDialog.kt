@@ -61,7 +61,7 @@ class LocationMainDialog(val ctx: Context, val data: LocationCafeDetailData, val
                     // 구글맵 연결 (도보, 차량 지원 안함)
                     //val gmmIntentUri = Uri.parse("google.navigation:q="+desLat.toString()+","+desLon.toString())
                     //  val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                    //   mapIntent.setPackage("com.google.android.apps.maps")
+                    //   mapIntent.setPacFkage("com.google.android.apps.maps")
                     //   ctx.startActivity(mapIntent)
                     try {
                         // 다음 맵 연결

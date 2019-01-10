@@ -10,6 +10,7 @@
         android:elevation="3dp"
         android:background="@drawable/rv_act_detail_signiture_bg">
         <ImageView
+            android:id="@+id/iv_rv_act_detail_sig_item_image"
             android:layout_width="71dp"
             android:layout_height="51dp"
             android:src="@drawable/ic_launcher_background"
@@ -24,6 +25,7 @@
         android:layout_marginTop="15dp"
         android:text="아메리카노" />
     <TextView
+        android:id="@+id/tv_rv_act_detail_sig_item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Regular13"
