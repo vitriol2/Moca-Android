@@ -205,8 +205,6 @@ class JoinActivity : AppCompatActivity() {
                         .load(data.data)
                         //.centerCrop()
                         .into(civ_join_profile)
-
-
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

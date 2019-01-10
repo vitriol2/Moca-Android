@@ -65,7 +65,10 @@
                 android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".ui.mocapicks.MocaPicksDetailActivity"/>
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity"/>
-        <activity android:name=".ui.loginJoin.JoinActivity"/>
+        <activity android:name=".ui.loginJoin.JoinActivity">
+
+        </activity>
+
         <activity android:name=".ui.loginJoin.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
