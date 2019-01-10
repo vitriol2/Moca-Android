@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearSnapHelper
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import com.example.parkseeun.moca_android.util.NavigationActivity
+import com.example.parkseeun.moca_android.ui.mypage.NavigationActivity
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetHomeHotplaceResponse
 import com.example.parkseeun.moca_android.model.get.GetMocaplusResponse

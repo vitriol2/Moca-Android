@@ -269,10 +269,9 @@ interface NetworkService {
     ): Call<GetMypageCouponResponse>
 
     //<마이페이지 프로필조회>
-    @GET("/user/{user_id}/mypage")
+    @GET("/user/mypage")
     fun getMypageEditprofileResponse(
-        @Header("Authorization") token : String,
-        @Path("user_id") user_id : String
+        @Header("Authorization") token : String
     ): Call<GetMypageEditprofileResponse>
 
     //<마이페이지 프로필수정>
@@ -289,6 +288,44 @@ interface NetworkService {
 
 
     // 주변카페
+
+
+
+
+
+    //<선필 : 검증 카페>
+
+
+    /**
+     * 1/11
+     * 검증 카페 상세 정보 조회 ( 카페 이름, 카페 주소, 총평, 평균 별점)
+     */
+    @GET("/cafe/pick/{cafe_id}/detail")
+    fun getEvaluatedCafeDetail(
+            @Header("Authorization") token :String,
+            @Path("cafe_id") cafe_id :Int
+    ): Call<GetEvaluatedCafeDetailResponse>
+
+    /**
+     * 1/11
+     * 검증 카페 이미지 정보 조회
+     */
+    @GET("/cafe/pick/{cafe_id}/image")
+    fun getEvaluatedCafeImageList(
+            @Header("Authorization") token :String,
+            @Path("cafe_id") cafe_id :Int
+    ): Call<GetEvaluatedCafeImgListResponse>
+
+
+    /**
+     * 1/11
+     * 검증 카페 인증 평가 리스트 조회
+     */
+    @GET("/cafe/pick/{cafe_id}/evaluate")
+    fun getEvaluationList(
+            @Header("Authorization") token :String,
+            @Path("cafe_id") cafe_id :Int
+    ): Call<GetEvaluationListResponse>
 
 
 }

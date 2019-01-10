@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Moca-Android</string>
+    <string name="app_name">모카</string>
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="title_activity_home2">HomeActivity2</string>
