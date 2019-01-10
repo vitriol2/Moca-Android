@@ -43,6 +43,7 @@ class MocaPicksListAdapter(val context : Context, val dataList : ArrayList<GetMo
         holder.relative_mocaPicks_rv_item.setOnClickListener {
             val intent : Intent = Intent(context, MocaPicksDetailActivity::class.java)
             intent.putExtra("cafe_id",dataList[position].cafe_id)
+            intent.putExtra("is_scrab",dataList[position].scrab_is);
             context.startActivity(intent)
         }
     }

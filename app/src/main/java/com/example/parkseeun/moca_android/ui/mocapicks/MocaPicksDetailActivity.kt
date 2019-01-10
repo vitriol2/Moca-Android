@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager
 import android.util.Log
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.ToggleButton
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.EvaluationViewItem
@@ -30,6 +31,7 @@ class MocaPicksDetailActivity : AppCompatActivity() {
     private lateinit var getEvaluationListResponse :Call<GetEvaluationListResponse> // 검증 평가 리스트 조회
 
 
+
     //view 요소
     private var cafe_name:TextView ?= null //카페 이름
     private var cafe_location:TextView ?= null //카페 위치
@@ -42,12 +44,19 @@ class MocaPicksDetailActivity : AppCompatActivity() {
     private  var rb_reasonable:RatingBar ?= null
     private  var rb_consistancy:RatingBar ?= null
 
+    lateinit var tb_scarb:ToggleButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_moca_picks_detail)
-
+        var scrab_is: Boolean = false
         var intent:Intent  =  getIntent()
+
+        cafe_id = intent.getIntExtra("cafe_id",-1)
+        scrab_is = intent.getBooleanExtra("scrab_is",false)
+        Log.v("cafe_id", ""+cafe_id)
+        Log.v("scrab_is",scrab_is.toString())
         cafe_name = findViewById(R.id.tv_mocaPicksDetail_cafeName)
         cafe_location = findViewById(R.id.tv_mocaPicksDetail_cafeLocation)
         total_rating = findViewById(R.id.rating_mocaPicksList_total)
@@ -63,9 +72,14 @@ class MocaPicksDetailActivity : AppCompatActivity() {
 
         rb_consistancy = findViewById(R.id.rating_mocaPicksList_item5)
 
+        tb_scarb = findViewById(R.id.tb_mocaPicksScrab)
+        tb_scarb.isChecked = scrab_is
+        tb_scarb.setOnClickListener {
 
-        cafe_id = intent.getIntExtra("cafe_id",-1)
-        Log.v("cafe_id", ""+cafe_id)
+            /*****
+             * 스크랩 통신 보내야됨
+             */
+        }
        // var urlList: Array<String?> = arrayOf("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG","http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
 
         getEvaluatedCafeDetail()
@@ -130,6 +144,7 @@ class MocaPicksDetailActivity : AppCompatActivity() {
                         cafe_location!!.text = response.body()!!.data.cafe_address_detail
                         total_rating!!.rating = response.body()!!.data.evaluated_cafe_rating.toFloat()
                         summary!!.text = response.body()!!.data.evaluated_cafe_total_evaluation
+
                     }
                     else {
                         toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
