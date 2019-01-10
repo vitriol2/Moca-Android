@@ -24,30 +24,37 @@ class MocaPicksListAdapter(val context : Context, val dataList : ArrayList<GetMo
 
     override fun onBindViewHolder(holder: MocaPicksListAdapter.Holder, position: Int) {
         // 뷰 바인딩
-        Glide.with(context).load(dataList[position].cafe_img_main).into(holder.iv_mocaPicksList_cafeImage)
+        Glide.with(context).load(dataList[position].evaluated_cafe_img_url).into(holder.iv_mocaPicksList_cafeImage)
         holder.tv_mocaPicksList_cafeName.text = dataList[position].cafe_name
-        holder.tv_mocaPicksList_cafeLocation.text = dataList[position].cafe_introduction
+        holder.tv_mocaPicksList_cafeLocation.text = dataList[position].address_district_name
+        holder.rating_mocaPicksList.rating = dataList[position].evaluated_cafe_rating.toFloat()
+
 
         // 토글 버튼 리스너
         holder.tb_mocaPicksList.setOnClickListener {
+            holder.tb_mocaPicksList.isChecked = dataList[position].scrab_is
 
+            /*****
+             * 스크랩 통신 보내야됨
+             */
         }
 
         // 아이템 누르면 액티비티 전환
         holder.relative_mocaPicks_rv_item.setOnClickListener {
             val intent : Intent = Intent(context, MocaPicksDetailActivity::class.java)
-
+            intent.putExtra("cafe_id",dataList[position].cafe_id)
             context.startActivity(intent)
         }
     }
 
+
     // View Holder
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val relative_mocaPicks_rv_item : RelativeLayout = itemView.findViewById(R.id.relative_mocaPicks_rv_item) as RelativeLayout
-        val iv_mocaPicksList_cafeImage : ImageView = itemView.findViewById(R.id.iv_mocaPicksList_cafeImage) as ImageView
-        val tb_mocaPicksList : ToggleButton = itemView.findViewById(R.id.tb_mocaPicksList) as ToggleButton
-        val tv_mocaPicksList_cafeName : TextView = itemView.findViewById(R.id.tv_mocaPicksList_cafeName) as TextView
-        val tv_mocaPicksList_cafeLocation : TextView = itemView.findViewById(R.id.tv_mocaPicksList_cafeLocation) as TextView
-        val rating_mocaPicksList : RatingBar = itemView.findViewById(R.id.rating_mocaPicksList) as RatingBar
+        val relative_mocaPicks_rv_item : RelativeLayout = itemView.findViewById(R.id.relative_mocaPicks_rv_item)
+        val iv_mocaPicksList_cafeImage : ImageView = itemView.findViewById(R.id.iv_mocaPicksList_cafeImage)
+        val tb_mocaPicksList : ToggleButton = itemView.findViewById(R.id.tb_mocaPicksList)
+        val tv_mocaPicksList_cafeName : TextView = itemView.findViewById(R.id.tv_mocaPicksList_cafeName)
+        val tv_mocaPicksList_cafeLocation : TextView = itemView.findViewById(R.id.tv_mocaPicksList_cafeLocation)
+        val rating_mocaPicksList : RatingBar = itemView.findViewById(R.id.rating_mocaPicksList)
     }
 }

@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(카페 이름)"
+            android:text="Moca Picks"
             android:textSize="15sp"
             android:textColor="#101010"
             android:fontFamily="@font/nanum_b"
@@ -558,6 +558,7 @@
                     android:layout_marginTop="30dp"/>
 
                 <TextView
+                    android:id="@+id/tv_mocaPicks_summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="북한강을 바라보다 어느새 시간이 훌쩍, 복잡하고 어지럽게 움직이는 서울에서 도망치듯 빠져나와 따듯한 커피 한 잔 그리고 담백하고 촉촉한 베이커리까지
