@@ -44,6 +44,7 @@ class DetailActivity : AppCompatActivity() {
     private var cafe_id: Int = 0
 
     lateinit var cafename: TextView
+    lateinit var cafename_below : TextView
     lateinit var phone: TextView
     lateinit var address: TextView
     lateinit var menuImage: ImageView
@@ -107,6 +108,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun matchView() {
         cafename = findViewById(R.id.tv_act_detail_cafename)
+        cafename_below = findViewById(R.id.tv_act_detail_cafename_below)
         phone = findViewById(R.id.tv_act_detail_phone)
         address = findViewById(R.id.tv_act_detail_address)
         rating = findViewById(R.id.rb_act_detail_rating)
@@ -314,7 +316,7 @@ class DetailActivity : AppCompatActivity() {
         rv_act_detail_nearby.layoutManager = GridLayoutManager(this, 2)
     }
 
-    private fun getCafeDetailResponse(id : Int) {
+    private fun getCafeDetailResponse(id: Int) {
         val getCafeDetailResponse = networkService.getCafeDetailResponse(User.token, id)
 
         getCafeDetailResponse.enqueue(object : Callback<GetCafeDetailResponse> {
@@ -376,7 +378,7 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun getCafeDetailImageResponse(id : Int) {
+    private fun getCafeDetailImageResponse(id: Int) {
         val getCafeDetailResponse = networkService.getCafeDetailImageResponse(User.token, id)
 
         getCafeDetailResponse.enqueue(object : Callback<GetCafeDetailImageResponse> {
@@ -390,7 +392,7 @@ class DetailActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val temp: ArrayList<CafeDetailImageData> = response.body()!!.data
-                    if(temp != null) {
+                    if (temp != null) {
                         if (temp.size > 0) {
                             for (i in 0..temp.size - 1)
                                 urlList.add(temp[i].cafe_img_url)
@@ -403,7 +405,7 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun getCafeSignitureResponse(id : Int) {
+    private fun getCafeSignitureResponse(id: Int) {
         val getCafeSignitureResponse = networkService.getCafeSignitureResponse(User.token, id)
 
         getCafeSignitureResponse.enqueue(object : Callback<GetCafeSignitureResponse> {
@@ -429,7 +431,7 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun getCafePopReviewResponse(id : Int) {
+    private fun getCafePopReviewResponse(id: Int) {
         val getCafePopReviewResponse = networkService.getCafePopReviewResponse(
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY29jbyIsImlzcyI6IkRvSVRTT1BUIn0.Rplge4ISuuCrFzrddjOl55TCeRQ2QUD9yuwSMmOZ5X0",
             id
@@ -448,12 +450,14 @@ class DetailActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val temp: ArrayList<GetFeedResponseData> = response.body()!!.data
-                    if (temp.size > 0) {
-                        val position = reviewRecyclerViewAdapter.itemCount
-                        reviewRecyclerViewAdapter.dataList.addAll(temp)
-                        reviewRecyclerViewAdapter.notifyItemInserted(position)
+                    if (temp != null) {
+                        if (temp.size > 0) {
+                            val position = reviewRecyclerViewAdapter.itemCount
+                            reviewRecyclerViewAdapter.dataList.addAll(temp)
+                            reviewRecyclerViewAdapter.notifyItemInserted(position)
 
-                        Log.v("cafePopReview", temp.size.toString())
+                            Log.v("cafePopReview", temp.size.toString())
+                        }
                     }
                 }
                 Log.v("onResponse", response.raw().toString())
@@ -461,7 +465,7 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun postCafeNearbyResponse(id : Int) {
+    private fun postCafeNearbyResponse(id: Int) {
         val nearbyData: PostNearByCafeData = PostNearByCafeData(latitude.toString(), longitude.toString(), id, 1)
         Log.v("postNearby", latitude.toString())
 
@@ -478,14 +482,15 @@ class DetailActivity : AppCompatActivity() {
 
                     if (response.body()!!.data != null) {
                         val temp: ArrayList<PostNearByCafeResponseData> = response.body()!!.data
+                        if (temp != null) {
+                            if (temp.size > 0) {
+                                Log.v("nearbydata", temp.size.toString())
+                                val position = detailNearbyAdapter.itemCount
+                                detailNearbyAdapter.dataList.addAll(temp)
+                                detailNearbyAdapter.notifyItemInserted(position)
 
-                        if (temp.size > 0) {
-                            Log.v("nearbydata", temp.size.toString())
-                            val position = detailNearbyAdapter.itemCount
-                            detailNearbyAdapter.dataList.addAll(temp)
-                            detailNearbyAdapter.notifyItemInserted(position)
 
-
+                            }
                         }
                     }
                 }
