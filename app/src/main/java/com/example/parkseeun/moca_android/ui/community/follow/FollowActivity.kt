@@ -86,16 +86,20 @@ class FollowActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<GetFollowerResponse>, response: Response<GetFollowerResponse>) {
-                if(response!!.isSuccessful)
-                    if(response!!.body()!!.status==200) {
+                if(response.isSuccessful)
+                    if(response.body()!!.status==200) {
                         var getFollowerData: ArrayList<GetFollowerResponseData> = response.body()!!.data
 
                         for (value in getFollowerData) {
                             dataList.add(FollowData(value.user_id, value.user_img_url, value.user_name, value.follow))
                         }
                         setRecyclerView()
-                    } else if (response!!.body()!!.status == 204) {
-                        toast("팔로워가 존재하지 않습니다!")
+                    } else if (response.body()!!.status == 204) {
+                        follow_empty_const.visibility = View.VISIBLE
+                        rv_follow_list.visibility = View.GONE
+                        follow_empty_tv.text = "팔로워가 없습니다"
+                    } else {
+                        toast(response.body()!!.status.toString() + ": " + response.body()!!.message)
                     }
             }
         })
@@ -110,16 +114,19 @@ class FollowActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<GetFollowingResponse>, response: Response<GetFollowingResponse>) {
-                if(response!!.isSuccessful)
-                    if(response!!.body()!!.status==200) {
+                if(response.isSuccessful)
+                    if(response.body()!!.status==200) {
                         var getFollowerData: ArrayList<GetFollowerResponseData> = response.body()!!.data
 
                         for (value in getFollowerData) {
                             dataList.add(FollowData(value.user_id, value.user_img_url, value.user_name, value.follow))
                         }
                         setRecyclerView()
-                    } else if (response!!.body()!!.status == 204) {
-                        toast("팔로잉이 존재하지 않습니다!")
+                    } else if (response.body()!!.status == 204) {
+                        follow_empty_const.visibility = View.VISIBLE
+                        rv_follow_list.visibility = View.GONE
+                    } else {
+                        toast(response.body()!!.status.toString() + ": " + response.body()!!.message)
                     }
             }
         })

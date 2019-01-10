@@ -11,9 +11,9 @@
     <application
             android:name=".network.ApplicationController"
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/ic_launcher_n"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@mipmap/ic_launcher_n_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
@@ -27,6 +27,11 @@
                 android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA"/>
 
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".ui.community.follow.FollowActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity"/>
@@ -67,21 +72,17 @@
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity"/>
         <activity android:name=".ui.loginJoin.JoinActivity"/>
         <activity android:name=".ui.loginJoin.LoginActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".ui.category.CafeListActivity"/>
         <activity android:name=".ui.communitySearch.CommunitySearchActivity"></activity>
-        <activity android:name=".ui.detail.DetailActivity"></activity>
+        <activity android:name=".ui.detail.DetailActivity">
+        </activity>
         <activity android:name=".ui.community.feed.other_user.OtherUserActivity"/>
         <activity android:name=".ui.main.HotPlaceActivity"></activity>
         <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
         <activity android:name=".ui.detail.detailReviewAll.ReviewAllActivity"/>
         <activity android:name=".ui.detail.nearbyList.NearbyListActivity"/>
+        <activity android:name=".ui.splash.SplashActivity">
+        </activity>
     </application>
-
 </manifest>

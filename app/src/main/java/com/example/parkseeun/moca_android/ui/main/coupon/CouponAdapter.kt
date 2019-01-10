@@ -1,20 +1,16 @@
 package com.example.parkseeun.moca_android.ui.main.coupon
 
-import android.app.Activity
 import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.CouponData
 
-class CouponAdapter(val ctx : Context, val dataList : ArrayList<String>) : RecyclerView.Adapter<CouponAdapter.Holder>(){
+class CouponAdapter(val ctx : Context, val dataList : ArrayList<CouponData>) : RecyclerView.Adapter<CouponAdapter.Holder>(){
 
     override fun onCreateViewHolder(container: ViewGroup, p1: Int): Holder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.rv_coupon_item, container, false)
@@ -25,10 +21,9 @@ class CouponAdapter(val ctx : Context, val dataList : ArrayList<String>) : Recyc
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.date.text = dataList[position]
+        holder.date.text = "2018.12.22"             // 임시 date 세팅
         holder.coupon.setOnClickListener {
-            Log.v("vv", "vv")
-            setDialog()
+            setDialog(dataList[position].coupon_authentication_number)
         }
     }
 
@@ -37,8 +32,8 @@ class CouponAdapter(val ctx : Context, val dataList : ArrayList<String>) : Recyc
         val coupon : ImageView = itemView.findViewById(R.id.iv_act_coupon) as ImageView
     }
 
-    private fun setDialog() {
-        CouponDialog2(ctx, "1", "2", "3", "4").show()
+    private fun setDialog(num: String) {
+        CouponDialog(ctx, "${num[0]}", "${num[1]}", "${num[2]}", "${num[3]}").show()
 
     }
 }

@@ -67,7 +67,7 @@ interface NetworkService {
         @Path("plus_subject_id") plus_subject_id: Int
     ) : Call<GetMocaPlusDetailCafeListResponse>
 
-    // 검색
+    // 검색 -수민,소희
     @GET("/search/cafe/{keyword}")
     fun getHomeSearch(
         @Path("keyword") keyword : String
@@ -115,6 +115,18 @@ interface NetworkService {
 
 
     // <카페 상세>
+    @GET("/cafe/{cafe_id}/detail")
+    fun getCafeDetailResponse(
+        @Header("Authorization") token : String,
+        @Path("cafe_id") cafe_id : Int
+    ): Call<GetCafeDetailResponse>
+
+    @GET("/cafe/{cafe_id}/image")
+    fun getCafeDetailImageResponse(
+        @Header("Authorization") token : String,
+        @Path("cafe_id") cafe_id : Int
+    ): Call<GetCafeDetailImageResponse>
+
 
 
 
@@ -196,6 +208,11 @@ interface NetworkService {
     ) : Call<PostReviewWriteResponse>
 
 
+    //Community Search
+    //Community Search - user
+
+
+
 
     // <마이 페이지>
     // 적립 내역 - 아영
@@ -235,13 +252,27 @@ interface NetworkService {
         @Header("Authorization") token : String
     ): Call<GetMypageCouponResponse>
 
-    //<마이페이지 프로필수정>
-    @GET("/user/{user_id}/mypage")
+    //<마이페이지 프로필조회>
+    @GET("/user/mypage")
     fun getMypageEditprofileResponse(
-        @Header("Authorization") token : String,
-        @Path("user_id") user_id : String
+        @Header("Authorization") token : String
     ): Call<GetMypageEditprofileResponse>
+
+    //<마이페이지 프로필수정>
+    @Multipart
+    @PUT("/user/mypage")
+    fun putMypageEditprofileResponse(
+        @Header("Authorization") token : String,
+        @Part("user_name") user_name: RequestBody,
+        @Part("user_phone") user_phone: RequestBody,
+        @Part("user_status_comment") user_status_comment: RequestBody,
+        @Part user_img: MultipartBody.Part?
+    ): Call<GetMypageEditprofileResponse>
+
+
+
     // 주변카페
+
 
 
 
