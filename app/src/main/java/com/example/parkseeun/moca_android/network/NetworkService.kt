@@ -66,7 +66,7 @@ interface NetworkService {
         @Path("plus_subject_id") plus_subject_id: Int
     ) : Call<GetMocaPlusDetailCafeListResponse>
 
-    // 검색
+    // 검색 -수민,소희
     @GET("/search/cafe/{keyword}")
     fun getHomeSearch(
         @Path("keyword") keyword : String

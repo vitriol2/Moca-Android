@@ -103,7 +103,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                 mCurrentLocation = location
                 if (first == true) {
                     drawCircle(mMap!!, currentMarker!!.position)
-                    first= false
+                    first = false
                 }
             }
         }
@@ -220,11 +220,18 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                     i.selected = false
                 }
                 locationMainAdapter.notifyDataSetChanged()
-
-                val currentLatLng = LatLng(location!!.latitude, location!!.longitude)
-                val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx], currentLatLng)
-                Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
-                dialog.show()
+                if (location != null) {
+                    val currentLatLng = LatLng(location!!.latitude, location!!.longitude)
+                    val dialog: LocationMainDialog = LocationMainDialog(this, dataList[idx], currentLatLng)
+                    Log.v("플래그 (어댑터)", "" + dataList[idx].selected)
+                    dialog.show()
+                } else {
+                    toast("현재위치가 설정 된 후 이용해 주세요")
+                    mMap!!.clear()
+                    dataList.clear()
+                    markerlist.clear()
+                    lngList.clear()
+                }
             }
         }
     }
@@ -429,7 +436,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                         dataList.clear()
                         markerlist.clear()
                         lngList.clear()
-                        drawCircleAfterSearch(mMap!!,latlng)
+                        drawCircleAfterSearch(mMap!!, latlng)
                         for (value in response.body()!!.data) {
                             dataList.add(
                                 LocationCafeDetailData(
@@ -489,10 +496,10 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
                         dataList.clear()
                         markerlist.clear()
                         lngList.clear()
-                        drawCircleAfterSearch(mMap!!,latlng)
+                        drawCircleAfterSearch(mMap!!, latlng)
 
-                        if(response.body()!!.status==404)
-                        toast("주변에 가까운 카페가 존재하지 않습니다")
+                        if (response.body()!!.status == 404)
+                            toast("주변에 가까운 카페가 존재하지 않습니다")
 
                         Log.v(
                             TAG,
@@ -568,17 +575,19 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         }
 
         img_mylocation_btn.setOnClickListener {
-            val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
-            mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
-            mMap!!.animateCamera(CameraUpdateFactory.zoomIn(), 500, null)
-            mMap!!.animateCamera(cameraUpdate)
-            mMap!!.clear()
-            dataList.clear()
-            markerlist.clear()
-            lngList.clear()
-            setLocationTitle(markerTitle)
-            postNearByCafeResponse(currentMarker!!.position)
-            drawCircle(mMap!!, currentMarker!!.position)
+            if(location != null) {
+                val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
+                mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
+                mMap!!.animateCamera(CameraUpdateFactory.zoomIn(), 500, null)
+                mMap!!.animateCamera(cameraUpdate)
+                mMap!!.clear()
+                dataList.clear()
+                markerlist.clear()
+                lngList.clear()
+                setLocationTitle(markerTitle)
+                postNearByCafeResponse(currentMarker!!.position)
+                drawCircle(mMap!!, currentMarker!!.position)
+            }else toast("현재 위치가 설정되지 않았습니다. 잠시만 기다려 주세요.")
 
 
             flag = true

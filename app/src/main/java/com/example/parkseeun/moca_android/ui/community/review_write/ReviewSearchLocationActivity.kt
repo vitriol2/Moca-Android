@@ -1,6 +1,8 @@
 package com.example.parkseeun.moca_android.ui.community.review_write
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -9,41 +11,31 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.get.GetLocationListResponse
-import com.example.parkseeun.moca_android.model.get.GetLocationListResponseData
+import com.example.parkseeun.moca_android.model.get.GetHomeSearchResponse
+import com.example.parkseeun.moca_android.model.get.GetHomeSearchResponseData
+import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.network.NetworkService
-import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
-import com.example.parkseeun.moca_android.ui.community.review_write.data.CafeListData
 import com.example.parkseeun.moca_android.ui.community.review_write.adapter.SearchLocationListAdapter
-import com.example.parkseeun.moca_android.ui.location.adapter.LocationSearchAdapter
 import kotlinx.android.synthetic.main.activity_community_search_address.*
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class ReviewSearchLocationActivity : AppCompatActivity() {
-    lateinit var networkService : NetworkService
-    lateinit var locationSearchItems : ArrayList<GetLocationListResponseData>
+    private val networkService  = ApplicationController.instance.networkService
+    // 검색
+    private lateinit var getHomeSearchResponse : Call<GetHomeSearchResponse>
+    var dataList : ArrayList<GetHomeSearchResponseData> = ArrayList()
+    private var getHomeSearchResponseData = ArrayList<GetHomeSearchResponseData>()
     // RecyclerView 설정
-    lateinit var searchLocationListAdapter : SearchLocationListAdapter
-    lateinit var locationSearchAdapter : LocationSearchAdapter
+    lateinit var searchLocationListAdapter: SearchLocationListAdapter
+    private var cafe_name : String? =null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_search_address)
-       // setRecyclerView()
         setOnClickListener()
-
-        val builder = Retrofit.Builder()
-        val retrofit_loc_search = builder
-            .baseUrl("https://dapi.kakao.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        networkService = retrofit_loc_search.create(NetworkService::class.java)
-
-        var header = "KakaoAK f58c0b6bf01032faee81071dd1d935c6"
-//        var location_keyword :String = arguments.getString("keyword")
 
         et_addreview_search_address.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -54,74 +46,70 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString() != "") {
-                    getLocationList(applicationContext, header, s.toString())
-                }else {
+                    getSearchResult(applicationContext, s.toString())
+                    search_address_recycler_view.visibility = View.VISIBLE
+                } else {
                     search_address_recycler_view.visibility = View.INVISIBLE
                 }
             }
         })
-
-
-
-
-
     }
-
-    private fun getLocationList(context : Context, header : String, location_keyword : String) {
-        var getLocationList = networkService.getLocationList(header,location_keyword)
-        getLocationList.enqueue(object : Callback<GetLocationListResponse> {
-            override fun onFailure(call: Call<GetLocationListResponse>?, t: Throwable?) {
-                Log.v("failFail", t!!.message.toString())
+    // 검색 통신
+    private fun getSearchResult(context: Context, searchString: String) {
+        getHomeSearchResponse = networkService.getHomeSearch(searchString)
+        getHomeSearchResponse.enqueue(object : Callback<GetHomeSearchResponse> {
+            override fun onFailure(call: Call<GetHomeSearchResponse>, t: Throwable) {
+                toast(t.toString())
             }
 
-            override fun onResponse(call: Call<GetLocationListResponse>?, response: Response<GetLocationListResponse>?) {
-                if(response!!.isSuccessful){
+            override fun onResponse(call: Call<GetHomeSearchResponse>, response: Response<GetHomeSearchResponse>) {
+                if (response.isSuccessful)
+                    if (response.body()!!.status == 200) {
+                        getHomeSearchResponseData = response.body()!!.data
 
-                    locationSearchItems = response.body()!!.documents
+                        searchLocationListAdapter = SearchLocationListAdapter(context, dataList)
 
-                    Log.v("locationLocation", locationSearchItems.toString())
+                        Log.v("검색결과", getHomeSearchResponseData.toString())
 
-                    locationSearchAdapter = LocationSearchAdapter(context,locationSearchItems)
+                        // 카페 탭
+                        val cafeList = ArrayList<GetHomeSearchResponseData>()
 
-                    search_address_recycler_view.adapter = locationSearchAdapter
-                    search_address_recycler_view.layoutManager = LinearLayoutManager(context)
-                    //  locationSearchAdapter.setOnItemClickListener(this@LocationSearchResult)
+                        for (value in getHomeSearchResponseData) {
+                            if (!value.type) {
+                                cafeList.add(value)
+                            }
 
-                }
+                            searchLocationListAdapter = SearchLocationListAdapter(context, cafeList)
+                            searchLocationListAdapter.setOnItemClickListener(View.OnClickListener { v ->
+                                Log.d("asdfg", "clicked")
+                                val idx: Int = search_address_recycler_view.getChildAdapterPosition(v!!) // 선택된 자식뷰
+                                for (value in 0 until cafeList.size) {
+                                    cafeList[value].dot = false
+                                }
+                                cafeList[idx].dot = true
+                                cafe_name = cafeList[idx].cafe_name
+                                searchLocationListAdapter.notifyDataSetChanged()
+                            })
+                            search_address_recycler_view.adapter = searchLocationListAdapter
+                            search_address_recycler_view.layoutManager = LinearLayoutManager(context)
+                        }
 
-                Log.v("onTextChanged 제발","${response.raw()}")
+                    } else if (response!!.body()!!.status == 204) {
+                        toast("인기 카페가 존재하지 않습니다")
+                    }
             }
-
         })
-    }
-
-    fun setRecyclerView() {
-
-//        if(et_addreview_search_address.text.toString()==""){
-//            search_address_recycler_view.visibility = View.INVISIBLE
-//        }else{
-//            search_address_recycler_view.visibility = View.VISIBLE
-//        }
-// 임시 데이터
-        var dataList : ArrayList<CafeListData> = ArrayList()
-        dataList.add(CafeListData("카페이름", "주소"))
-        dataList.add(CafeListData("카페이름1", "주소1"))
-        dataList.add(CafeListData("카페이름1", "주소1"))
-        dataList.add(CafeListData("카페이름1", "주소1"))
-        dataList.add(CafeListData("카페이름1", "주소1"))
-        dataList.add(CafeListData("카페이름1", "주소1"))
-        dataList.add(CafeListData("카페이름1", "주소1"))
-        dataList.add(CafeListData("카페이름1", "주소1"))
-        dataList.add(CafeListData("카페이름1", "주소1"))
-
-        searchLocationListAdapter = SearchLocationListAdapter(this, dataList)
-        search_address_recycler_view.adapter = searchLocationListAdapter
-        search_address_recycler_view.layoutManager = LinearLayoutManager(applicationContext)
     }
 
     fun setOnClickListener(){
         img_addreview_location_complete.setOnClickListener {
+            if(cafe_name != null){
+                Log.v("리뷰서치액티비티(cafe_name) ", cafe_name)
+                val intent= Intent(this,WriteReviewActivity::class.java)
+                intent.putExtra("cafe_name",cafe_name)
+                setResult(RESULT_OK,intent)
             finish()
+            }else toast("카페 장소를 설정해 주세요")
         }
         img_search_location_back.setOnClickListener {
             finish()
