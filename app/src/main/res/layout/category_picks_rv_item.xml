@@ -18,7 +18,8 @@
                 android:layout_height="188dp"
                 android:elevation="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_cat_pic_rv_item_cafe_name"
-                android:background="#fff"/>
+                android:background="#fff"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/tv_cat_pic_rv_item_cafe_name"
@@ -30,6 +31,7 @@
                 android:text="cafe name" />
 
             <TextView
+                android:id="@+id/tv_cat_pic_rv_item_cafe_location"
                 style="@style/Light11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
