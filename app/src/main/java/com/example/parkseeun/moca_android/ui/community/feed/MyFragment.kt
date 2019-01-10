@@ -14,9 +14,11 @@ import com.example.parkseeun.moca_android.model.get.GetFeedResponseData
 import com.example.parkseeun.moca_android.model.get.GetUserDataResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.follow.FollowActivity
+import com.example.parkseeun.moca_android.ui.community.review_write.WriteReviewActivity
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.fragment_my.*
 import kotlinx.android.synthetic.main.fragment_my.view.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,6 +57,10 @@ class MyFragment :Fragment(), View.OnClickListener{
         v.my_refresh_sl.setOnRefreshListener {
             communicate(v)
             v.my_refresh_sl.isRefreshing = false
+        }
+        v.my_write_iv.setOnClickListener {
+
+            startActivity<WriteReviewActivity>()
         }
 
         communicate(v)
