@@ -107,6 +107,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun matchView() {
+
         cafename = findViewById(R.id.tv_act_detail_cafename)
         cafename_below = findViewById(R.id.tv_act_detail_cafename_below)
         phone = findViewById(R.id.tv_act_detail_phone)
@@ -150,7 +151,10 @@ class DetailActivity : AppCompatActivity() {
         // 리뷰 쓰기
         tv_detail_write_review.setOnClickListener {
             val intent = Intent(this@DetailActivity, WriteReviewActivity::class.java)
-
+            intent.putExtra("cafe_id_default",cafe_id)
+            intent.putExtra("cafename",cafename.text)
+            intent.putExtra("cafeaddress",address.text)
+            intent
             startActivity(intent)
         }
 

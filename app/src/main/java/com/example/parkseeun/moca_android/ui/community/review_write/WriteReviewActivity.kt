@@ -52,8 +52,7 @@ class WriteReviewActivity : AppCompatActivity() {
     private val REQ_CODE_SELECT_IMAGE = 100
     lateinit var data: Uri
     var REQUEST_CODE: Int = 1007
-    private var
-            mImage: MultipartBody.Part? = null
+    private var mImage: MultipartBody.Part? = null
     var btn_num = 0
     private var cafe_id: Int? = null
     private var currentProgress: Int = 0
@@ -83,6 +82,21 @@ class WriteReviewActivity : AppCompatActivity() {
         setUnderlineColor()
         SetOnClickListener()
         ratingBar()
+
+        var wherefrom : Boolean = false
+        var cafe_id_default = intent.getIntExtra("cafe_id_default",0)
+        var cafename = intent.getStringExtra("cafename")
+        var cafeaddress = intent.getStringExtra("cafeaddress")
+        Log.v("디테일에서 넘어온거",cafe_id_default.toString()+" "+cafename+" "+cafeaddress)
+        if(cafename!=null){
+            cafe_id=cafe_id_default
+            Log.v("디테일에서 넘어온 거 넣음 ",cafe_id.toString())
+            et_addreview_cafename.text=cafename
+            et_addreview_cafeaddress.text=cafeaddress
+            et_addreview_cafename.isEnabled = false
+            et_addreview_cafename.isClickable = false
+            wherefrom = true
+        }
     }
 
     private fun setUnderlineColor() {
@@ -123,7 +137,10 @@ class WriteReviewActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        var cafe_id_default = data!!.getIntExtra("cafe_id_default",0)
+        Log.v("cafe_id_default =",cafe_id_default.toString())
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 1007 -> {
@@ -316,7 +333,7 @@ class WriteReviewActivity : AppCompatActivity() {
                 if (response!!.isSuccessful)
                     if (response.body()!!.status == 201) {
                         toast("수고해써 소희얌")
-                        startActivity<FeedActivity>()
+                        finish()
                         Log.v("success..",images.toString())
                     } else {
                         Log.v("WriteReviewResponse",response.body()!!.message)

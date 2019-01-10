@@ -566,7 +566,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
 
     fun setCurrentLocation(location: Location?, markerTitle: String, markerSnippet: String) {
         if (currentMarker != null) currentMarker!!.remove()
-        val currentLatLng = LatLng(location!!.latitude, location.longitude)
+        val currentLatLng = LatLng(location!!.latitude, location!!.longitude)
         val markerOptions = MarkerOptions()
         markerOptions.position(currentLatLng)
         markerOptions.title(markerTitle)
