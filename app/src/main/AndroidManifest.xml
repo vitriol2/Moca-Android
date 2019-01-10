@@ -27,11 +27,6 @@
                 android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA"/>
 
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".ui.community.follow.FollowActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity"/>
@@ -72,6 +67,11 @@
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity"/>
         <activity android:name=".ui.loginJoin.JoinActivity"/>
         <activity android:name=".ui.loginJoin.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".ui.category.CafeListActivity"/>
         <activity android:name=".ui.communitySearch.CommunitySearchActivity"></activity>
