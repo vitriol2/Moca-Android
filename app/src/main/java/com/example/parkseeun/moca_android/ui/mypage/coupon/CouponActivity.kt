@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main.coupon
+package com.example.parkseeun.moca_android.ui.mypage.coupon
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +8,7 @@ import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.CouponData
 import com.example.parkseeun.moca_android.model.get.GetMypageCouponResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.ui.mypage.coupon.recyclerview.CouponAdapter
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_coupon.*
 import retrofit2.Call
