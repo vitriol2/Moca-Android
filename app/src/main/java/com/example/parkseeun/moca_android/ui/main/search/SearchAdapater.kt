@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main
+package com.example.parkseeun.moca_android.ui.main.search
 
 import android.content.Context
 import android.content.Intent

@@ -56,7 +56,7 @@
         </activity>
         <activity android:name=".ui.mocapicks.MocaPicksListActivity"/>
         <activity android:name=".ui.location.LocationSearchActivity"/>
-        <activity android:name=".ui.main.SearchActivity"></activity>
+        <activity android:name=".ui.main.search.SearchActivity"></activity>
         <activity android:name=".ui.mypage.scrap.ScrapCafeActivity"/>
         <activity android:name=".ui.mypage.coupon.CouponActivity"/>
         <activity android:name="com.example.parkseeun.moca_android.ui.mypage.notice.NoticeActivity"/>
