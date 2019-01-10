@@ -50,8 +50,25 @@ class ComSearUserFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
                 getAllResult(s.toString())
+        setNetwork()
 
-            }
+        makeList()
+
+        setRecyclerView()
+    }
+
+    private fun setNetwork() {
+
+    }
+
+    private fun makeList() {
+//        userList.add(ComSearUserData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "하정우", "좋다", true))
+//        userList.add(ComSearUserData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "하정우", "좋다", false))
+//        userList.add(ComSearUserData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "하정우", "좋다", true))
+//        userList.add(ComSearUserData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "하정우", "좋다", false))
+
+
+    }
         })
     }
 

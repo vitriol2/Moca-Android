@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.main.EditProfileActivity">
+    tools:context=".ui.mypage.EditProfileActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_edit_profile"
@@ -21,7 +21,7 @@
             android:paddingLeft="16dp">
 
             <ImageView
-                android:id="@+id/iv_act_notice_back"
+                android:id="@+id/iv_act_editprofile_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="15dp"
@@ -44,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_edit_profile"
+        android:layout_above="@id/btn_act_edit_prof_complete"
         android:scrollbars="none"
         android:fillViewport="true">
 
@@ -99,6 +100,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="24dp"
                         android:layout_marginTop="5dp"
+                        android:descendantFocusability="beforeDescendants"
+                        android:focusableInTouchMode="true"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -134,6 +137,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="24dp"
                             android:layout_marginTop="5dp"
+                            android:descendantFocusability="beforeDescendants"
+                            android:focusableInTouchMode="true"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -171,6 +176,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="24dp"
                             android:layout_marginTop="5dp"
+                            android:descendantFocusability="beforeDescendants"
+                            android:focusableInTouchMode="true"
                             android:gravity="center_vertical">
 
                             <EditText
@@ -201,6 +208,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:descendantFocusability="beforeDescendants"
+                            android:focusableInTouchMode="true"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -296,9 +305,15 @@
 
     <Button
         android:id="@+id/btn_act_edit_prof_complete"
-        style="@style/editProfileComplete"
+        android:background="@drawable/edit_profile_btn_bg"
+        android:textColor="@drawable/edit_profile_btn_color"
+        style="?android:attr/borderlessButtonStyle"
+        android:fontFamily="@font/nanum_b"
+        android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
+        android:elevation="0dp"
         android:text="완료" />
 </RelativeLayout>

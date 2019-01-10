@@ -2,33 +2,28 @@ package com.example.parkseeun.moca_android.ui.communitySearch
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetCommunitySearchListResponse
 import com.example.parkseeun.moca_android.model.get.ReviewData
 import com.example.parkseeun.moca_android.model.get.SearchUserData
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.detail.detailReviewAll.ReviewAllPopularAdapter
-import com.example.parkseeun.moca_android.ui.main.SearchAdapater
-import com.example.parkseeun.moca_android.ui.main.SearchResultData
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_community_search.*
-import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.fragment_com_sear_all.*
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -84,6 +79,8 @@ class CommunitySearchActivity : AppCompatActivity() {
 
         tabLayout = findViewById(R.id.tl_act_comm_sear) as TabLayout
         tabLayout!!.setupWithViewPager(viewPager)
+        tabLayout!!.setTabTextColors(Color.parseColor("#e1b2a3"), Color.parseColor("#707070"))
+
 
         setScreenConvert()
 

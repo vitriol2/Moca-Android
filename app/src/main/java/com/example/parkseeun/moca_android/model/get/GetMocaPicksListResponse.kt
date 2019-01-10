@@ -6,13 +6,12 @@ data class GetMocaPicksListResponse (
     val data : ArrayList<GetMocaPicksListData>
 )
 
+
 data class GetMocaPicksListData (
-    val cafe_id : Int,
-    val cafe_name : String,
-    val cafe_introduction : String,
-    val cafe_rating : Int,
-    val latitude : Float,
-    val longitude : Float,
-    val cafe_img_main : String,
-    val nerby_subway : String
+var cafe_id: Int,
+ var cafe_name:String,
+ var evaluated_cafe_rating: Int,
+ var address_district_name: String,
+var evaluated_cafe_img_url: String,
+ var scrab_is: Boolean
 )

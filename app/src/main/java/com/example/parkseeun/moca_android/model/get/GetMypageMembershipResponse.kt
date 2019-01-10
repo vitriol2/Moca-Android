@@ -1,7 +1,7 @@
 package com.example.parkseeun.moca_android.model.get
 
 data class GetMypageMembershipResponse(
-    val status : String,
+    val status : Int,
     val message : String,
     val data : ArrayList<MembershipData>
 )

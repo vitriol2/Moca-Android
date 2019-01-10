@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#fff"
     tools:context=".ui.loginJoin.LoginActivity"
     >
     <android.support.constraint.ConstraintLayout
@@ -77,6 +78,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="1dp">
 
@@ -84,7 +87,8 @@
             android:id="@+id/et_login_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="***********"
+            android:hint="*************"
+            android:fontFamily="@font/nanum_b"
             android:inputType="textPassword"
             android:background="#00000000"
             android:textSize="13sp"
