@@ -5,7 +5,6 @@ import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowingResponse
 import com.example.parkseeun.moca_android.model.post.*
-import com.example.parkseeun.moca_android.model.post.PostJoinData
 import com.example.parkseeun.moca_android.model.post.PostFollowResponse
 import com.example.parkseeun.moca_android.model.post.PostJoinResponse
 import com.example.parkseeun.moca_android.model.post.PostLoginData
@@ -127,6 +126,23 @@ interface NetworkService {
         @Path("cafe_id") cafe_id : Int
     ): Call<GetCafeDetailImageResponse>
 
+    @GET("/cafe/{cafe_id}/signiture")
+    fun getCafeSignitureResponse(
+        @Header("Authorization") token : String,
+        @Path("cafe_id") cafe_id: Int
+    ): Call<GetCafeSignitureResponse>
+
+    @GET("/review/{cafe_id}/best")
+    fun getCafePopReviewResponse(
+        @Header("Authorization") token : String,
+        @Path("cafe_id") cafe_id : Int
+    ): Call<GetCafePopReviewResponse>
+
+    @POST("/cafe/nearbycafe")
+    fun postCafeNearbyResponse(
+        @Header("Authorization") token : String,
+        @Body cafeNearby : PostNearByCafeData
+    ): Call<PostNearByCafeResponse>
 
 
 
