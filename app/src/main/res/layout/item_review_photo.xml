@@ -9,13 +9,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <ImageView
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/round_square_white"
                 android:id="@+id/img_photo_review"
                 android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:scaleType="centerCrop"
-                android:backgroundTint="@color/point_pink"
         />
         <ImageView
                 android:id="@+id/btn_cancel_photo"

@@ -31,6 +31,8 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
     // RecyclerView 설정
     lateinit var searchLocationListAdapter: SearchLocationListAdapter
     private var cafe_name : String? =null
+    private var cafe_id : Int? = null
+    private var cafe_address : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +90,8 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
                                 }
                                 cafeList[idx].dot = true
                                 cafe_name = cafeList[idx].cafe_name
+                                cafe_id = cafeList[idx].cafe_id
+                                cafe_address= cafeList[idx].cafe_address_detail
                                 searchLocationListAdapter.notifyDataSetChanged()
                             })
                             search_address_recycler_view.adapter = searchLocationListAdapter
@@ -107,6 +111,8 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
                 Log.v("리뷰서치액티비티(cafe_name) ", cafe_name)
                 val intent= Intent(this,WriteReviewActivity::class.java)
                 intent.putExtra("cafe_name",cafe_name)
+                intent.putExtra("cafe_id",cafe_id)
+                intent.putExtra("cafe_address",cafe_address)
                 setResult(RESULT_OK,intent)
             finish()
             }else toast("카페 장소를 설정해 주세요")
