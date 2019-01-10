@@ -66,6 +66,5 @@ class MocaPicksListActivity : AppCompatActivity() {
         mocaPicksListAdapter = MocaPicksListAdapter(this, dataList)
         rv_mocaPicks_list.adapter = mocaPicksListAdapter
         rv_mocaPicks_list.layoutManager = LinearLayoutManager(applicationContext)
-
     }
 }

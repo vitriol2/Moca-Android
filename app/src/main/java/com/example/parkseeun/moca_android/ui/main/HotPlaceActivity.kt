@@ -38,11 +38,13 @@ class HotPlaceActivity : AppCompatActivity() {
         }
 
         var hot_place_id = this.intent.getIntExtra("hot_place_id", hot_place_id)
+
+        getHotPlaceList(hot_place_id)
     }
 
     // 핫플레이스 통신
-    private fun getHotPlaceList() {
-        getHotPlaceListResponse = networkService.getHotPlaceListResponse(User.token!!, hot_place_id)
+    private fun getHotPlaceList(hot_place_id : Int) {
+        getHotPlaceListResponse = networkService.getHotPlaceListResponse(User.token, hot_place_id)
         getHotPlaceListResponse.enqueue(object : Callback<GetHotPlaceListResponse> {
             override fun onFailure(call: Call<GetHotPlaceListResponse>, t: Throwable) {
                 toast(t.message.toString())
@@ -53,7 +55,7 @@ class HotPlaceActivity : AppCompatActivity() {
                     if (response.body()!!.status == 200) {
                         getHotPlaceListData = response.body()!!.data
 
-
+                        setUpRecyclerView()
                     }
                 }
             }

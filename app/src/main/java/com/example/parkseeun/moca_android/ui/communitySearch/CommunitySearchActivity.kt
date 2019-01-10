@@ -10,15 +10,29 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.GetCommunitySearchListResponse
+import com.example.parkseeun.moca_android.model.get.ReviewData
+import com.example.parkseeun.moca_android.model.get.SearchUserData
+import com.example.parkseeun.moca_android.network.ApplicationController
+import com.example.parkseeun.moca_android.ui.detail.detailReviewAll.ReviewAllPopularAdapter
 import com.example.parkseeun.moca_android.ui.main.SearchAdapater
 import com.example.parkseeun.moca_android.ui.main.SearchResultData
+import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_community_search.*
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.fragment_com_sear_all.*
+import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CommunitySearchActivity : AppCompatActivity() {
 
@@ -26,7 +40,13 @@ class CommunitySearchActivity : AppCompatActivity() {
     private val cafeData = ArrayList<CommunitySearchAllData>()
     private val userData = ArrayList<CommunitySearchAllData>()
 
-
+    // 통신
+    private val networkService  = ApplicationController.instance.networkService
+    // 전체
+    private lateinit var getCommunitySearchListResponse : Call<GetCommunitySearchListResponse>
+    private var popularReviewList = ArrayList<ReviewData>()
+    private var reviewListOrderByLatest = ArrayList<ReviewData>()
+    private var searchUserList = ArrayList<SearchUserData>()
 
     /* override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +85,8 @@ class CommunitySearchActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.tl_act_comm_sear) as TabLayout
         tabLayout!!.setupWithViewPager(viewPager)
 
+        setScreenConvert()
+
         val headerView = (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.navigation_community_search2, null, false)
 
@@ -86,18 +108,87 @@ class CommunitySearchActivity : AppCompatActivity() {
         }
     }
 
+    private fun setScreenConvert() {
+        et_act_comm_sear.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val LlNothing : LinearLayout = findViewById(R.id.ll_frag_com_sear_all_nothing)
+
+                if (s.toString() == "") {
+                    LlNothing.visibility = View.VISIBLE
+                }
+                else {
+                    LlNothing.visibility = View.GONE
+                    getAllResult(s.toString())
+                }
+            }
+        })
+    }
+
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(ComSearAllFragment(), "")
-        adapter.addFragment(ComSearCafeFragment(), "")
-        adapter.addFragment(ComSearUserFragment(), "")
+
+        val bundle = Bundle()
+        bundle.putParcelableArrayList("popularReviewList", popularReviewList)
+        bundle.putParcelableArrayList("searchUserList", searchUserList)
+        val fragobj = ComSearAllFragment()
+        fragobj.setArguments(bundle)
+        adapter.addFragment(fragobj, "")
+
+        val bundle2 = Bundle()
+        bundle2.putParcelableArrayList("popularReviewList", popularReviewList)
+        bundle2.putParcelableArrayList("reviewListOrderByLatest", reviewListOrderByLatest)
+        val fragobj2 = ComSearCafeFragment()
+        fragobj2.setArguments(bundle2)
+        adapter.addFragment(fragobj2, "")
+
+        val bundle3 = Bundle()
+        bundle3.putParcelableArrayList("popularReviewList", popularReviewList)
+        bundle3.putParcelableArrayList("reviewListOrderByLatest", reviewListOrderByLatest)
+        val fragobj3 = ComSearUserFragment()
+        fragobj3.setArguments(bundle3)
+        adapter.addFragment(fragobj3, "")
         viewPager.adapter = adapter
     }
 
-    // 통신 (검색 전)
-    private fun getBestReviewCafe() {
+    // 통신 (전체 탭)
+    private fun getAllResult(searchString : String) {
+        getCommunitySearchListResponse = networkService.getCommunitySearchResult(User.token!!, searchString)
+        getCommunitySearchListResponse.enqueue(object : Callback<GetCommunitySearchListResponse> {
+            override fun onFailure(call: Call<GetCommunitySearchListResponse>, t: Throwable) {
+                toast(t.message.toString())
+            }
 
+            override fun onResponse(call: Call<GetCommunitySearchListResponse>, response: Response<GetCommunitySearchListResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        var communitySearchData = response.body()!!.data
+
+                        popularReviewList = communitySearchData.popularReviewList
+                        reviewListOrderByLatest = communitySearchData.reviewListOrderByLatest
+                        searchUserList = communitySearchData.searchUserList
+
+                        // RecyclerView 설정
+                        rv_frag_com_sear_all_review.layoutManager = LinearLayoutManager(this@CommunitySearchActivity, LinearLayoutManager.HORIZONTAL, false)
+                        rv_frag_com_sear_all_review.adapter = ReviewAllPopularAdapter(this@CommunitySearchActivity, popularReviewList)
+
+                        rv_frag_com_sear_all_user.layoutManager = LinearLayoutManager(this@CommunitySearchActivity)
+                        rv_frag_com_sear_all_user.adapter = ComSearUserAdapter(this@CommunitySearchActivity, searchUserList)
+                    }
+                }
+                else {
+                    toast(response.body()!!.status.toString() + " : " +response.body()!!.message.toString())
+                    toast("123")
+                }
+            }
+        })
     }
 
     internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
@@ -123,4 +214,3 @@ class CommunitySearchActivity : AppCompatActivity() {
     }
 
 }
-

@@ -33,7 +33,10 @@
             android:hint="카페 / 사용자를 검색해보세요"
             android:textColor="#101010"
             android:textSize="13sp"
-            android:fontFamily="@font/nanum_r"/>
+            android:fontFamily="@font/nanum_r"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"/>
 
     </RelativeLayout>
 
