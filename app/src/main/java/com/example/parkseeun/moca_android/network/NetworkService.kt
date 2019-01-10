@@ -92,15 +92,19 @@ interface NetworkService {
         @Path("length") length: Int
     ): Call<GetRankingResponse>
 
-    // 모카 픽스
+    // 모카 픽스 - 수민 (리스트)
     @GET("/cafe/pick/{length}")
     fun getMocaPicksList(
         @Header("Authorization") token: String,
         @Path("length") length: Int
     ): Call<GetMocaPicksListResponse>
 
-    // 모카 픽스 -
-
+    // 모카 픽스 - 상세보기 - 수민
+    @GET("/cafe/pick/{cafe_id}/detail")
+    fun getMocaPicksDetail(
+        @Header("Authorization") token : String,
+        @Path("cafe_id") cafe_id : Int
+    ) : Call<GetMocaPicksDetailResponse>
 
     // <카테고리>
     // 카페 리스트
