@@ -185,7 +185,7 @@
                         android:id="@+id/civ_baristaImage1"
                         android:layout_width="46dp"
                         android:layout_height="46dp"
-                        android:src="#111111"
+                        android:src="@drawable/common_defaultimage"
                         android:layout_centerVertical="true"/>
 
                     <LinearLayout
@@ -259,7 +259,7 @@
                         android:id="@+id/civ_baristaImage2"
                         android:layout_width="46dp"
                         android:layout_height="46dp"
-                        android:src="#111111"
+                        android:src="@drawable/common_defaultimage"
                         android:layout_centerVertical="true"/>
 
                     <LinearLayout
@@ -333,7 +333,7 @@
                         android:id="@+id/civ_baristaImage3"
                         android:layout_width="46dp"
                         android:layout_height="46dp"
-                        android:src="#111111"
+                        android:src="@drawable/common_defaultimage"
                         android:layout_centerVertical="true"/>
 
                     <LinearLayout

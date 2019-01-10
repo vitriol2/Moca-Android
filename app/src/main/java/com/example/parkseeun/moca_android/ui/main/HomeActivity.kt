@@ -14,6 +14,7 @@ import com.example.parkseeun.moca_android.model.get.GetHomeHotplaceResponse
 import com.example.parkseeun.moca_android.model.get.GetMocaplusResponse
 import com.example.parkseeun.moca_android.model.get.HomeHotplaceData
 import com.example.parkseeun.moca_android.model.get.MocaplusData
+import com.example.parkseeun.moca_android.ui.main.search.SearchActivity
 import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import com.example.parkseeun.moca_android.util.SharedPreferenceController
@@ -78,7 +79,14 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home2)
-
+        sl_refresh_home
+        // swipe refresh
+        sl_refresh_home.setColorSchemeColors(resources.getColor(R.color.colorPrimaryDark))
+        sl_refresh_home.setOnRefreshListener {
+            setHomeNetwork()
+            // refresh할 시 갱신할 통신 추가
+            sl_refresh_home.isRefreshing = false
+        }
         recyclerView()
 
         setHomeNetwork()

@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main
+package com.example.parkseeun.moca_android.ui.main.search
 
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -7,22 +7,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.KeyEvent
 import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.activity_search.*
-import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.widget.*
-import java.security.Key
-import android.R.attr.host
 import android.content.Context
 import android.widget.TextView
-import android.support.v4.view.MarginLayoutParamsCompat.setMarginEnd
-import android.support.v4.view.MarginLayoutParamsCompat.setMarginStart
-import android.os.Build
-import android.view.ViewGroup
-import android.support.design.widget.TabLayout
 import android.util.Log
 import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.network.ApplicationController
-import com.example.parkseeun.moca_android.ui.community.follow.FollowData
+import com.example.parkseeun.moca_android.ui.main.BeforeSearchPopularCafeAdapter
+import com.example.parkseeun.moca_android.ui.main.BeforeSearchRecommendPlaceAdapter
 import com.example.parkseeun.moca_android.util.User
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -44,7 +37,7 @@ class SearchActivity : AppCompatActivity() {
 
     // RecyclerView 설정
     lateinit var searchResultAdapter : SearchAdapater
-    lateinit var beforeSearchPopularCafeAdapter: BeforeSearchPopularCafeAdapter
+    var beforeSearchPopularCafeAdapter: BeforeSearchPopularCafeAdapter = BeforeSearchPopularCafeAdapter(this, ArrayList())
     lateinit var beforeSearchRecommendPlaceAdapter: BeforeSearchRecommendPlaceAdapter
 
     // 통신
@@ -73,20 +66,18 @@ class SearchActivity : AppCompatActivity() {
 
 
         // 엔터키 처리
-        et_search.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
-                //Enter key Action
-                return if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    linear_before_search_all.visibility = View.GONE
-                    linear_before_search_cafe.visibility = View.GONE
-                    linear_before_search_location.visibility = View.GONE
+        et_search.setOnKeyListener { v, keyCode, event ->
+            //Enter key Action
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                linear_before_search_all.visibility = View.GONE
+                linear_before_search_cafe.visibility = View.GONE
+                linear_before_search_location.visibility = View.GONE
 
-                    getSearchResult(v.context, et_search.text.toString())
+                getSearchResult(v.context, et_search.text.toString())
 
-                    true
-                } else false
-            }
-        })
+                true
+            } else false
+        }
 
         // 검색 전 인기 카페, 모카 추천 핫플레이스 설정
         getBestCafe(this)
