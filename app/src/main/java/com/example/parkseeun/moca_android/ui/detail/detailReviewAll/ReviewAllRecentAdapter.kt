@@ -11,11 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.get.ReviewData
+import com.example.parkseeun.moca_android.ui.community.review_comment.ReviewCommentActivity
 import com.example.parkseeun.moca_android.ui.community.review_detail.ReviewDetailActivity
 import kotlinx.android.synthetic.main.category_picks_rv_item.view.*
 import org.jetbrains.anko.startActivity
 
-class ReviewAllRecentAdapter(val ctx : Context, val dataList: ArrayList<ReviewAllRecentData>) : RecyclerView.Adapter<ReviewAllRecentAdapter.Holder>(){
+class ReviewAllRecentAdapter(val ctx : Context, val dataList: ArrayList<ReviewData>) : RecyclerView.Adapter<ReviewAllRecentAdapter.Holder>(){
     override fun onCreateViewHolder(container: ViewGroup, p1: Int): ReviewAllRecentAdapter.Holder {
         val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_act_review_all_recent_item, container, false)
 
@@ -28,7 +30,7 @@ class ReviewAllRecentAdapter(val ctx : Context, val dataList: ArrayList<ReviewAl
         val width = getScreenWidth()
         holder.photo.layoutParams.width = (width-dpToPx(18.toFloat())).toInt()
 
-        Glide.with(ctx).load(dataList[position].photo).into(holder.photo)
+        Glide.with(ctx).load(dataList[position].review_img_url).into(holder.photo)
         holder.photo.setOnClickListener {
             ctx.startActivity<ReviewDetailActivity>()
         }
