@@ -75,7 +75,7 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
     }
 
     private fun getMypageEditprofileResponse() {
-        val getMypageEditprofileResponse = networkService.getMypageEditprofileResponse(User.token, User.user_id)
+        val getMypageEditprofileResponse = networkService.getMypageEditprofileResponse(User.token)
 
         getMypageEditprofileResponse.enqueue(object : Callback<GetMypageEditprofileResponse> {
             override fun onFailure(call: Call<GetMypageEditprofileResponse>, t: Throwable) {

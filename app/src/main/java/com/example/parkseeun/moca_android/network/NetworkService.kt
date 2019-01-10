@@ -253,10 +253,9 @@ interface NetworkService {
     ): Call<GetMypageCouponResponse>
 
     //<마이페이지 프로필조회>
-    @GET("/user/{user_id}/mypage")
+    @GET("/user/mypage")
     fun getMypageEditprofileResponse(
-        @Header("Authorization") token : String,
-        @Path("user_id") user_id : String
+        @Header("Authorization") token : String
     ): Call<GetMypageEditprofileResponse>
 
     //<마이페이지 프로필수정>

@@ -1,6 +1,5 @@
 package com.example.parkseeun.moca_android.ui.main.coupon
 
-import android.app.Application
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -11,7 +10,6 @@ import com.example.parkseeun.moca_android.model.get.GetMypageCouponResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_coupon.*
-import kotlinx.android.synthetic.main.rv_coupon_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +18,7 @@ class CouponActivity : AppCompatActivity() {
     val TAG = "CouponActivity"
 
     private val dataList = ArrayList<String>()
-    private val couponList = ArrayList<CouponData>()
+    private var couponList = ArrayList<CouponData>()
 
     val networkService by lazy {
         ApplicationController.instance.networkService
@@ -30,11 +28,7 @@ class CouponActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coupon)
 
-        //setNetwork()
-
-        makeList()
-
-        setRecyclerView()
+        setNetwork()
 
         setOnBtnClickListeners()
 
@@ -47,36 +41,29 @@ class CouponActivity : AppCompatActivity() {
     private fun getMypageCouponResponse() {
         val getMypageCouponResponse = networkService.getMypageCouponResponse(User.token)
 
-        getMypageCouponResponse.enqueue(object : Callback<GetMypageCouponResponse>{
+        getMypageCouponResponse.enqueue(object : Callback<GetMypageCouponResponse> {
             override fun onFailure(call: Call<GetMypageCouponResponse>, t: Throwable) {
                 Log.e(TAG, "load failed")
             }
 
             override fun onResponse(call: Call<GetMypageCouponResponse>, response: Response<GetMypageCouponResponse>) {
-                if(response.isSuccessful) {
-
-                }
+                if (response!!.isSuccessful)
+                    if (response.body()!!.status == 200) {
+                        couponList = response.body()!!.data
+                        setRecyclerView()
+                    }
             }
         })
     }
 
     private fun setRecyclerView() {
         rv_act_coupon.layoutManager = LinearLayoutManager(this)
-        rv_act_coupon.adapter = CouponAdapter(this, dataList)
-    }
-
-    private fun makeList() {
-        for (i in 1..15) {
-            dataList.add("$i$i$i$i.$i$i.$i$i")
-        }
+        rv_act_coupon.adapter = CouponAdapter(this, couponList)
     }
 
     private fun setOnBtnClickListeners() {
         iv_act_coupon_back.setOnClickListener {
             finish()
         }
-
     }
-
-
 }
