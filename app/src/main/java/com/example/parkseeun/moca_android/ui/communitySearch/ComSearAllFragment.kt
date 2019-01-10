@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.network.ApplicationController
@@ -31,9 +32,24 @@ class ComSearAllFragment : Fragment() {
     private lateinit var getBestUserResponse : Call<GetBestUserResponse>
     private var getBestUserData = ArrayList<GetBestUserData>()
     // 전체
-    private lateinit var getCommunitySearchListResponse : Call<GetCommunitySearchListResponse>
     private var popularReviewList = ArrayList<ReviewData>()
     private var searchUserList = ArrayList<SearchUserData>()
+
+    companion object {
+        private var instance : ComSearAllFragment? = null
+        @Synchronized
+        fun getInstance(popularReviewList: ArrayList<ReviewData>, searchUserList: ArrayList<SearchUserData>) : ComSearAllFragment{
+            if(instance == null){
+                instance = ComSearAllFragment().apply{
+                    arguments = Bundle().apply{
+                        putParcelableArrayList("popularReviewList", popularReviewList)
+                        putParcelableArrayList("searchUserList", searchUserList)
+                    }
+                }
+            }
+            return instance!!
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View = inflater.inflate(R.layout.fragment_com_sear_all, container, false)
@@ -44,33 +60,35 @@ class ComSearAllFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setScreenConvert()
+
+        arguments?.let {
+            popularReviewList = it.getParcelableArrayList("popularReviewList")
+            searchUserList = it.getParcelableArrayList("searchUserList") }
+
 
         // 검색 전 화면
         getBestReviewCafe()
         getBestUser()
+
+        // 검색 전 화면 - 이번주 리뷰 많은 카페 RecyclerView 설정
+        rv_frag_com_sear_all_reviewtop.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        rv_frag_com_sear_all_reviewtop.adapter = ComSearAllReviewTopAdapter(activity!!, getBestCafeListData)
+
+        // 이번주 인기 많은 사용자
+        rv_frag_comm_sear_all_popularuser.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        rv_frag_comm_sear_all_popularuser.adapter = ComSearAllPopUserAdapter(activity!!, getBestUserData)
+
+
+        // RecyclerView 설정
+        rv_frag_com_sear_all_review.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        rv_frag_com_sear_all_review.adapter = ReviewAllPopularAdapter(activity!!, popularReviewList)
+
+        rv_frag_com_sear_all_user.layoutManager = LinearLayoutManager(activity)
+        rv_frag_com_sear_all_user.adapter = ComSearUserAdapter(activity!!, searchUserList)
+
     }
 
-    private fun setScreenConvert() {
-        activity!!.et_act_comm_sear.addTextChangedListener(object : TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
 
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s.isNullOrEmpty()) {
-                    ll_frag_com_sear_all_nothing.visibility = View.VISIBLE
-                }else{
-                    ll_frag_com_sear_all_nothing.visibility = View.GONE
-
-                    getAllResult(s.toString())
-                }
-            }
-        })
-    }
 
     // 통신 (이번주 리뷰 많은 카페)
     private fun getBestReviewCafe() {
@@ -94,6 +112,8 @@ class ComSearAllFragment : Fragment() {
         })
     }
 
+
+
     // 통신 (이번주 인기 많은 사용자)
     private fun getBestUser() {
         getBestUserResponse = networkService.getBestUserList(User.token!!)
@@ -116,34 +136,6 @@ class ComSearAllFragment : Fragment() {
         })
     }
 
-    // 통신 (전체 탭)
-    private fun getAllResult(searchString : String) {
-        getCommunitySearchListResponse = networkService.getCommunitySearchResult(User.token!!, searchString)
-        getCommunitySearchListResponse.enqueue(object : Callback<GetCommunitySearchListResponse> {
-            override fun onFailure(call: Call<GetCommunitySearchListResponse>, t: Throwable) {
-                toast(t.message.toString())
-            }
 
-            override fun onResponse(call: Call<GetCommunitySearchListResponse>, response: Response<GetCommunitySearchListResponse>) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.status == 200) {
-                        var communitySearchData = response.body()!!.data
 
-                        popularReviewList = communitySearchData.popularReviewList
-                        searchUserList = communitySearchData.searchUserList
-
-                        // RecyclerView 설정
-                        rv_frag_com_sear_all_review.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-                        rv_frag_com_sear_all_review.adapter = ReviewAllPopularAdapter(activity!!, popularReviewList)
-
-                        rv_frag_com_sear_all_user.layoutManager = LinearLayoutManager(activity)
-                        rv_frag_com_sear_all_user.adapter = ComSearUserAdapter(activity!!, searchUserList)
-                    }
-                }
-                else {
-                    toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
-                }
-            }
-        })
-    }
 }
