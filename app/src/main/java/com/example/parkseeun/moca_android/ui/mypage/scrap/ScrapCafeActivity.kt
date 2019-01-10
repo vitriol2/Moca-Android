@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main
+package com.example.parkseeun.moca_android.ui.mypage.scrap
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

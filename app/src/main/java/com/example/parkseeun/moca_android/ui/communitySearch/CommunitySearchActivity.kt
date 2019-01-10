@@ -1,7 +1,6 @@
 package com.example.parkseeun.moca_android.ui.communitySearch
 
 import android.content.Context
-import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -9,16 +8,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.ui.main.SearchAdapater
-import com.example.parkseeun.moca_android.ui.main.SearchResultData
 import kotlinx.android.synthetic.main.activity_community_search.*
-import kotlinx.android.synthetic.main.activity_search.*
 
 class CommunitySearchActivity : AppCompatActivity() {
 

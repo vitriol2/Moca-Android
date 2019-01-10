@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main
+package com.example.parkseeun.moca_android.ui.main.hot_place
 
 import android.content.Context
 import android.content.Intent
@@ -10,12 +10,10 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetHotPlaceListData
 import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
-import org.jetbrains.anko.find
 
 class HotPlaceAdapter(val context : Context, val dataList : ArrayList<GetHotPlaceListData>) : RecyclerView.Adapter<HotPlaceAdapter.Holder>() {
 

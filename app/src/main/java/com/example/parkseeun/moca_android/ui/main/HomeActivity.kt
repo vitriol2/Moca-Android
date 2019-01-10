@@ -23,7 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeActivity2 : NavigationActivity(), View.OnClickListener {
+class HomeActivity : NavigationActivity(), View.OnClickListener {
     private val TAG = "HomeActivity"
 
     private val pickposts: ArrayList<String> = ArrayList()
@@ -101,7 +101,7 @@ class HomeActivity2 : NavigationActivity(), View.OnClickListener {
 
         // 수민 추가 (홈에서 검색 화면으로)
         home_search_iv.setOnClickListener {
-            val intent: Intent = Intent(this@HomeActivity2, SearchActivity::class.java)
+            val intent: Intent = Intent(this@HomeActivity, SearchActivity::class.java)
 
             startActivity(intent)
         }
