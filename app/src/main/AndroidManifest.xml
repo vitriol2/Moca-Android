@@ -30,7 +30,7 @@
         </activity>
         <activity android:name=".ui.community.follow.FollowActivity"/>
         <activity android:name=".ui.community.review_write.ReviewSearchLocationActivity"/>
-        <activity android:name=".ui.main.HomeActivity2">
+        <activity android:name=".ui.main.HomeActivity">
         </activity>
         <meta-data
                 android:name="com.kakao.sdk.AppKey"
@@ -57,11 +57,11 @@
         <activity android:name=".ui.mocapicks.MocaPicksListActivity"/>
         <activity android:name=".ui.location.LocationSearchActivity"/>
         <activity android:name=".ui.main.SearchActivity"></activity>
-        <activity android:name=".ui.main.ScrapCafeActivity"/>
-        <activity android:name=".ui.main.coupon.CouponActivity"/>
-        <activity android:name=".ui.main.notice.NoticeActivity"/>
+        <activity android:name=".ui.mypage.scrap.ScrapCafeActivity"/>
+        <activity android:name=".ui.mypage.coupon.CouponActivity"/>
+        <activity android:name="com.example.parkseeun.moca_android.ui.mypage.notice.NoticeActivity"/>
         <activity
-                android:name=".ui.main.EditProfileActivity"
+                android:name=".ui.mypage.EditProfileActivity"
                 android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".ui.mocapicks.MocaPicksDetailActivity"/>
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity"/>
@@ -79,7 +79,7 @@
 
         </activity>
         <activity android:name=".ui.community.feed.other_user.OtherUserActivity"/>
-        <activity android:name=".ui.main.HotPlaceActivity"></activity>
+        <activity android:name=".ui.main.hot_place.HotPlaceActivity"></activity>
         <activity android:name=".ui.mypage.coupon.HistoryActivity"/>
         <activity android:name=".ui.detail.detailReviewAll.ReviewAllActivity"/>
         <activity android:name=".ui.detail.nearbyList.NearbyListActivity"/>

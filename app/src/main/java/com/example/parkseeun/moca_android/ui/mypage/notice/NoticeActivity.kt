@@ -1,4 +1,4 @@
-package com.example.parkseeun.moca_android.ui.main.notice
+package com.example.parkseeun.moca_android.ui.mypage.notice
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
