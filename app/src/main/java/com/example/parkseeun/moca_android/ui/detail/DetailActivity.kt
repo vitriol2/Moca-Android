@@ -41,7 +41,7 @@ class DetailActivity : AppCompatActivity() {
 
     private val TAG = "DetailActivity"
 
-    private var cafe_id: Int = 1
+    private var cafe_id: Int = 0
 
     lateinit var cafename: TextView
     lateinit var phone: TextView
@@ -57,10 +57,9 @@ class DetailActivity : AppCompatActivity() {
     lateinit var hour: ImageView
     lateinit var reservation: ImageView
 
-    private var latitude : Double = 0.toDouble()
-    private var longitude : Double = 0.toDouble()
-    private var id : Int = 220
-
+    private var latitude: Double = 0.toDouble()
+    private var longitude: Double = 0.toDouble()
+    private var id: Int = 220
 
 
     var urlList = ArrayList<String?>()
@@ -72,12 +71,15 @@ class DetailActivity : AppCompatActivity() {
 
     lateinit var detailSignitureAdapter: DetailSignitureAdapter
     lateinit var reviewRecyclerViewAdapter: ReviewRecyclerViewAdapter
-    lateinit var detailNearbyAdapter : DetailNearbyAdapter
+    lateinit var detailNearbyAdapter: DetailNearbyAdapter
 
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        cafe_id = intent.getIntExtra("cafe_id", 0)
+
 
         setNetwork()
 
@@ -93,13 +95,13 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setNetwork() {
-        getCafeDetailResponse(this)
+        getCafeDetailResponse(id)
 
-        getCafeDetailImageResponse()
+        getCafeDetailImageResponse(id)
 
-        getCafeSignitureResponse()
+        getCafeSignitureResponse(id)
 
-        getCafePopReviewResponse()
+        getCafePopReviewResponse(id)
 
     }
 
@@ -122,7 +124,6 @@ class DetailActivity : AppCompatActivity() {
         option.add(smoking)
         option.add(hour)
         option.add(reservation)
-
 
 
     }
@@ -273,9 +274,6 @@ class DetailActivity : AppCompatActivity() {
         */
 
 
-
-
-
     }
 
     private fun pageChangeListener(num: Int) {
@@ -316,8 +314,8 @@ class DetailActivity : AppCompatActivity() {
         rv_act_detail_nearby.layoutManager = GridLayoutManager(this, 2)
     }
 
-    private fun getCafeDetailResponse(context : Context) {
-        val getCafeDetailResponse = networkService.getCafeDetailResponse(User.token, 1)
+    private fun getCafeDetailResponse(id : Int) {
+        val getCafeDetailResponse = networkService.getCafeDetailResponse(User.token, id)
 
         getCafeDetailResponse.enqueue(object : Callback<GetCafeDetailResponse> {
             override fun onFailure(call: Call<GetCafeDetailResponse>, t: Throwable) {
@@ -369,9 +367,8 @@ class DetailActivity : AppCompatActivity() {
 
                     latitude = temp.cafe_latitude
                     longitude = temp.cafe_longitude
-                    id = temp.cafe_id
 
-                    postCafeNearbyResponse()
+                    postCafeNearbyResponse(id)
 
 
                 }
@@ -379,8 +376,8 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun getCafeDetailImageResponse() {
-        val getCafeDetailResponse = networkService.getCafeDetailImageResponse(User.token, 1)
+    private fun getCafeDetailImageResponse(id : Int) {
+        val getCafeDetailResponse = networkService.getCafeDetailImageResponse(User.token, id)
 
         getCafeDetailResponse.enqueue(object : Callback<GetCafeDetailImageResponse> {
             override fun onFailure(call: Call<GetCafeDetailImageResponse>, t: Throwable) {
@@ -393,19 +390,21 @@ class DetailActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val temp: ArrayList<CafeDetailImageData> = response.body()!!.data
-                    if (temp.size > 0) {
-                        for (i in 0..temp.size - 1)
-                            urlList.add(temp[i].cafe_img_url)
+                    if(temp != null) {
+                        if (temp.size > 0) {
+                            for (i in 0..temp.size - 1)
+                                urlList.add(temp[i].cafe_img_url)
 
-                        pageChangeListener(urlList.size)
+                            pageChangeListener(urlList.size)
+                        }
                     }
                 }
             }
         })
     }
 
-    private fun getCafeSignitureResponse() {
-        val getCafeSignitureResponse = networkService.getCafeSignitureResponse(User.token, 3)
+    private fun getCafeSignitureResponse(id : Int) {
+        val getCafeSignitureResponse = networkService.getCafeSignitureResponse(User.token, id)
 
         getCafeSignitureResponse.enqueue(object : Callback<GetCafeSignitureResponse> {
             override fun onFailure(call: Call<GetCafeSignitureResponse>, t: Throwable) {
@@ -430,20 +429,26 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun getCafePopReviewResponse(){
-        val getCafePopReviewResponse = networkService.getCafePopReviewResponse("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY29jbyIsImlzcyI6IkRvSVRTT1BUIn0.Rplge4ISuuCrFzrddjOl55TCeRQ2QUD9yuwSMmOZ5X0", 1)
+    private fun getCafePopReviewResponse(id : Int) {
+        val getCafePopReviewResponse = networkService.getCafePopReviewResponse(
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY29jbyIsImlzcyI6IkRvSVRTT1BUIn0.Rplge4ISuuCrFzrddjOl55TCeRQ2QUD9yuwSMmOZ5X0",
+            id
+        )
 
-        Log.v("token", "---"+User.token)
+        Log.v("token", "---" + User.token)
 
-        getCafePopReviewResponse.enqueue(object : Callback<GetCafePopReviewResponse>{
+        getCafePopReviewResponse.enqueue(object : Callback<GetCafePopReviewResponse> {
             override fun onFailure(call: Call<GetCafePopReviewResponse>, t: Throwable) {
                 Log.e("cafePopReview", t.toString())
             }
 
-            override fun onResponse(call: Call<GetCafePopReviewResponse>, response: Response<GetCafePopReviewResponse>) {
-                if(response.isSuccessful) {
-                    val temp : ArrayList<GetFeedResponseData> = response.body()!!.data
-                    if(temp.size>0){
+            override fun onResponse(
+                call: Call<GetCafePopReviewResponse>,
+                response: Response<GetCafePopReviewResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val temp: ArrayList<GetFeedResponseData> = response.body()!!.data
+                    if (temp.size > 0) {
                         val position = reviewRecyclerViewAdapter.itemCount
                         reviewRecyclerViewAdapter.dataList.addAll(temp)
                         reviewRecyclerViewAdapter.notifyItemInserted(position)
@@ -456,22 +461,22 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun postCafeNearbyResponse() {
-        val nearbyData : PostNearByCafeData = PostNearByCafeData(latitude.toString(), longitude.toString(), 220, 1)
+    private fun postCafeNearbyResponse(id : Int) {
+        val nearbyData: PostNearByCafeData = PostNearByCafeData(latitude.toString(), longitude.toString(), id, 1)
         Log.v("postNearby", latitude.toString())
 
         val postCafeNearbyResponse = networkService.postCafeNearbyResponse(User.token, nearbyData)
 
-        postCafeNearbyResponse.enqueue(object : Callback<PostNearByCafeResponse>{
+        postCafeNearbyResponse.enqueue(object : Callback<PostNearByCafeResponse> {
             override fun onFailure(call: Call<PostNearByCafeResponse>, t: Throwable) {
                 Log.e(TAG, t.toString())
             }
 
             override fun onResponse(call: Call<PostNearByCafeResponse>, response: Response<PostNearByCafeResponse>) {
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     Log.v("nearbyResponse", "load success123")
 
-                    if(response.body()!!.data!=null) {
+                    if (response.body()!!.data != null) {
                         val temp: ArrayList<PostNearByCafeResponseData> = response.body()!!.data
 
                         if (temp.size > 0) {
@@ -479,10 +484,6 @@ class DetailActivity : AppCompatActivity() {
                             val position = detailNearbyAdapter.itemCount
                             detailNearbyAdapter.dataList.addAll(temp)
                             detailNearbyAdapter.notifyItemInserted(position)
-
-
-
-
 
 
                         }
