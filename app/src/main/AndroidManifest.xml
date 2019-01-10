@@ -67,7 +67,8 @@
         <activity android:name=".ui.main.notice.NoticeActivity"/>
         <activity
                 android:name=".ui.main.EditProfileActivity"
-                android:windowSoftInputMode="stateVisible|adjustResize"/>
+                android:windowSoftInputMode="stateVisible|adjustResize">
+        </activity>
         <activity android:name=".ui.mocapicks.MocaPicksDetailActivity"/>
         <activity android:name=".ui.mocapicks.MocaPicksBaristaActivity"/>
         <activity android:name=".ui.loginJoin.JoinActivity"/>

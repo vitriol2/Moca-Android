@@ -1,30 +1,26 @@
 package com.example.parkseeun.moca_android.ui.loginJoin
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.util.Log
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.example.parkseeun.moca_android.R
-import com.example.parkseeun.moca_android.model.post.PostJoinData
 import com.example.parkseeun.moca_android.model.post.PostJoinResponse
-import com.example.parkseeun.moca_android.model.post.PostLoginData
-import com.example.parkseeun.moca_android.model.post.PostLoginResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
-import com.example.parkseeun.moca_android.ui.main.HomeActivity2
-import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_join.*
-import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.jetbrains.anko.imageURI
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,33 +32,36 @@ import java.io.InputStream
 import java.util.regex.Pattern
 
 class JoinActivity : AppCompatActivity() {
-
+    //권한 요청을 위한 코드
+    private val My_READ_STORAGE_REQUEST_CODE = 1004
+    private val REQUEST_CODE_SELECT_IMAGE = 2004
     //앨범에서 사진 가져오기
     private val REQ_CODE_SELECT_IMAGE = 100
     var data: Uri? = null
     var path: String = ""
     lateinit var requestManager: RequestManager
-    private var image : MultipartBody.Part? = null
+    private var image: MultipartBody.Part? = null
 
     // 통신
-    val networkService  = ApplicationController.instance.networkService
-    lateinit var postProjResponse : Call<PostJoinResponse>
+    val networkService = ApplicationController.instance.networkService
+    lateinit var postProjResponse: Call<PostJoinResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join)
 
-        requestManager = Glide.with(this)
+        requestManager =
+
+                Glide.with(this)
 
         // 프로필 사진 선택 버튼
         ib_join_selectProfile.setOnClickListener {
-            changeImage()
+            requestReadExternalStoragePermission()
         }
-
         // 회원가입 버튼 (통신)
         btn_join.setOnClickListener {
             if (checkValidation()) {
-                if(data!=null)
+                if (data != null)
                     path = data!!.path
 
                 // RequestBody 생성
@@ -78,10 +77,10 @@ class JoinActivity : AppCompatActivity() {
                     }
 
                     override fun onResponse(call: Call<PostJoinResponse>?, response: Response<PostJoinResponse>?) {
-                        if(response!!.isSuccessful)
-                            if(response.body()!!.status==201) {
+                        if (response!!.isSuccessful)
+                            if (response.body()!!.status == 201) {
                                 finish()
-                            }else{
+                            } else {
                                 toast(response.body()!!.message)
                             }
                     }
@@ -94,31 +93,67 @@ class JoinActivity : AppCompatActivity() {
             finish()
         }
     }
+    private fun requestReadExternalStoragePermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            ) {
+
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    My_READ_STORAGE_REQUEST_CODE
+                )
+            }
+        } else {
+
+            showAlbum()
+        }
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == My_READ_STORAGE_REQUEST_CODE) {
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showAlbum()
+            } else {
+
+            }
+        }
+    }
 
     // 유효성 검사
     private fun checkValidation(): Boolean {
         if (et_join_id.text.toString() != "" && et_join_name.text.toString() != "" && et_join_phone.text.toString() != "" && et_join_pw.text.toString() != "" && et_join_pwCheck.text.toString() != "") {
-            if(!Pattern.compile("^[a-zA-Z0-9]{3,10}$").matcher(et_join_id.text.toString()).matches()){
+            if (!Pattern.compile("^[a-zA-Z0-9]{3,10}$").matcher(et_join_id.text.toString()).matches()) {
                 toast("아이디는 영어, 숫자로 3~10글자로 입력해주세요")
 
                 return false
             }
-            if(!Pattern.compile("^[a-zA-Z0-9가-힇]{2,10}$").matcher(et_join_name.text.toString()).matches()){
+            if (!Pattern.compile("^[a-zA-Z0-9가-힇]{2,10}$").matcher(et_join_name.text.toString()).matches()) {
                 toast("이름은 한글, 영어, 숫자로 2~10글자로 입력해주세요")
 
                 return false
             }
-            if(!Pattern.compile("^[a-zA-Z0-9]{6,15}$").matcher(et_join_pwCheck.text.toString()).matches()){
+            if (!Pattern.compile("^[a-zA-Z0-9]{6,15}$").matcher(et_join_pwCheck.text.toString()).matches()) {
                 toast("비밀번호는 영어, 숫자로 6~15글자로 입력해주세요")
 
                 return false
-            } else if(et_join_pwCheck.text.toString() != et_join_pw.text.toString()) {
+            } else if (et_join_pwCheck.text.toString() != et_join_pw.text.toString()) {
                 toast("비밀번호가 다릅니다")
 
                 return false
             }
-        }
-        else {
+        } else {
             toast("모두 입력해주세요")
 
             return false
@@ -128,7 +163,7 @@ class JoinActivity : AppCompatActivity() {
     }
 
     // 프로필 사진 선택
-    fun changeImage() {
+    fun showAlbum() {
         var intent = Intent(Intent.ACTION_PICK)
         intent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
         intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI

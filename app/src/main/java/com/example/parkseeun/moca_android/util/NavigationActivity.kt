@@ -20,6 +20,7 @@ import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.category.CategoryActivity
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
+import com.example.parkseeun.moca_android.ui.location.LocationMainActivity
 import com.example.parkseeun.moca_android.ui.main.*
 import com.example.parkseeun.moca_android.ui.location.LocationSearchActivity
 import com.example.parkseeun.moca_android.ui.main.EditProfileActivity
@@ -87,7 +88,7 @@ abstract class NavigationActivity : AppCompatActivity(), NavigationView.OnNaviga
 
         val location: ImageView = headerView.findViewById(R.id.iv_mypage_tab_location) as ImageView
         location.setOnClickListener {
-            val intent = Intent(this, LocationSearchActivity::class.java)
+            val intent = Intent(this, LocationMainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
