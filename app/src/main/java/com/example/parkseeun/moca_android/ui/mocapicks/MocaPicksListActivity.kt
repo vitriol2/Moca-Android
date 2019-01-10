@@ -36,7 +36,7 @@ class MocaPicksListActivity : AppCompatActivity() {
         }
 
         getMocaPicksList()
-        setRecyclerView() // RecyclerView 설정
+
     }
 
     // 통신
@@ -51,6 +51,7 @@ class MocaPicksListActivity : AppCompatActivity() {
                 if(response.isSuccessful) {
                     if(response.body()!!.status==200) {
                         dataList = response.body()!!.data
+                        setRecyclerView() // RecyclerView 설정
                     }
                     else {
                         toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
