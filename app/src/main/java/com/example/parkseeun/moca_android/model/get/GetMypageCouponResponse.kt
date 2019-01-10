@@ -8,5 +8,6 @@ data class GetMypageCouponResponse(
 
 data class CouponData(
     val coupon_id : Int,
-    val coupon_authentication_number : String
+    val coupon_authentication_number : String,
+    val coupon_create_date : String
 )

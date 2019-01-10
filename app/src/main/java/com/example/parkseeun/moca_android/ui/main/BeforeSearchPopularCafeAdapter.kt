@@ -2,6 +2,7 @@ package com.example.parkseeun.moca_android.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class BeforeSearchPopularCafeAdapter(val context : Context, val dataList : Array
         // 클릭
         holder.rv_item_search_popular_cafe_relative.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
-
+            intent.putExtra("cafe_id", dataList[position].cafe_id)
             context.startActivity(intent)
         }
 
@@ -46,7 +47,7 @@ class BeforeSearchPopularCafeAdapter(val context : Context, val dataList : Array
 
     // View Holder
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val rv_item_search_popular_cafe_relative : RelativeLayout = itemView.findViewById(R.id.rv_item_search_popular_cafe_relative) as RelativeLayout
+        val rv_item_search_popular_cafe_relative : CardView = itemView.findViewById(R.id.rv_item_search_popular_cafe_relative) as CardView
         val iv_popular_cafe : ImageView = itemView.findViewById(R.id.iv_popular_cafe) as ImageView
         val tv_popular_cafe_name : TextView = itemView.findViewById(R.id.tv_popular_cafe_name) as TextView
         val btn_popular_cafe_scrap : ImageButton = itemView.findViewById(R.id.btn_popular_cafe_scrap) as ImageButton
