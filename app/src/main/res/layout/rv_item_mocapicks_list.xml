@@ -9,10 +9,10 @@
         android:id="@+id/iv_mocaPicksList_cafeImage"
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:layout_marginLeft="40dp"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="#111111"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <ToggleButton
         android:id="@+id/tb_mocaPicksList"
