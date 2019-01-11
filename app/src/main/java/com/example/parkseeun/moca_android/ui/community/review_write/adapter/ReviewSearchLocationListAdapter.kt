@@ -40,14 +40,11 @@ class ReviewSearchLocationListAdapter(
         holder.img_common_yellowcircle.visibility = View.INVISIBLE
         if (dataList[position].dot == true) {
             holder.img_common_yellowcircle.visibility = View.VISIBLE
-            //totalButton!!.isEnabled = true
+            totalButton!!.isEnabled = true
             totalButton!!.backgroundResource = R.drawable.round_square_point_pink
             totalButton!!.textColorResource =R.color.white
         } else {
             holder.img_common_yellowcircle.visibility = View.INVISIBLE
-            //totalButton!!.isEnabled = false
-            totalButton!!.backgroundResource = R.drawable.round_square_lightgray
-            totalButton!!.textColorResource = R.color.dark_gray
         }
 
     }
