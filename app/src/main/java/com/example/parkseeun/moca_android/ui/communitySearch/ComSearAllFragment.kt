@@ -43,12 +43,22 @@ class ComSearAllFragment : Fragment() {
                 instance = ComSearAllFragment().apply{
                     arguments = Bundle().apply{
                         putParcelableArrayList("popularReviewList", popularReviewList)
-                        putParcelableArrayList("searchUserList", searchUserList)
+                        putSerializable("searchUserList", searchUserList)
                     }
                 }
             }
             return instance!!
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let{
+            popularReviewList = it.getParcelableArrayList("popularReviewList")!!
+            searchUserList = it.getParcelableArrayList("searchUserList")!!
+        }
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -61,14 +71,11 @@ class ComSearAllFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        arguments?.let {
-            popularReviewList = it.getParcelableArrayList("popularReviewList")
-            searchUserList = it.getParcelableArrayList("searchUserList") }
-
 
         // 검색 전 화면
         getBestReviewCafe()
         getBestUser()
+
 
         // 검색 전 화면 - 이번주 리뷰 많은 카페 RecyclerView 설정
         rv_frag_com_sear_all_reviewtop.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -90,7 +97,7 @@ class ComSearAllFragment : Fragment() {
 
 
 
-    // 통신 (이번주 리뷰 많은 카페)
+    //통신 (이번주 리뷰 많은 카페)
     private fun getBestReviewCafe() {
         getBestCafeListResponse = networkService.getBestCafeList(User.token!!, 1)
         getBestCafeListResponse.enqueue(object : Callback<GetBestCafeListResponse> {
@@ -135,6 +142,7 @@ class ComSearAllFragment : Fragment() {
             }
         })
     }
+
 
 
 

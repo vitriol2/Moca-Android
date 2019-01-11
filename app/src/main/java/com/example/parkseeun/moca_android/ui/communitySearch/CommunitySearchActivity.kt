@@ -131,27 +131,9 @@ class CommunitySearchActivity : AppCompatActivity() {
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-
-        val bundle = Bundle()
-        bundle.putParcelableArrayList("popularReviewList", popularReviewList)
-        bundle.putParcelableArrayList("searchUserList", searchUserList)
-        val fragobj = ComSearAllFragment()
-        fragobj.setArguments(bundle)
-        adapter.addFragment(fragobj, "")
-
-        val bundle2 = Bundle()
-        bundle2.putParcelableArrayList("popularReviewList", popularReviewList)
-        bundle2.putParcelableArrayList("reviewListOrderByLatest", reviewListOrderByLatest)
-        val fragobj2 = ComSearCafeFragment()
-        fragobj2.setArguments(bundle2)
-        adapter.addFragment(fragobj2, "")
-
-        val bundle3 = Bundle()
-        bundle3.putParcelableArrayList("popularReviewList", popularReviewList)
-        bundle3.putParcelableArrayList("reviewListOrderByLatest", reviewListOrderByLatest)
-        val fragobj3 = ComSearUserFragment()
-        fragobj3.setArguments(bundle3)
-        adapter.addFragment(fragobj3, "")
+        adapter.addFragment(ComSearAllFragment.getInstance(popularReviewList, searchUserList), "popularReviewList")
+        adapter.addFragment(ComSearCafeFragment(), "")
+        adapter.addFragment(ComSearUserFragment(), "")
         viewPager.adapter = adapter
     }
 
