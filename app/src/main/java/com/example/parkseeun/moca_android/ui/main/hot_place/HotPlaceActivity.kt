@@ -31,7 +31,6 @@ class HotPlaceActivity : AppCompatActivity() {
             finish()
         }
         tv_hot_place_title.text = intent.getStringExtra("hot_place_name")
-
         getHotPlaceList()
     }
 
