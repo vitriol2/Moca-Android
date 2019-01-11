@@ -266,7 +266,6 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         } else {
             flag = false
             changeButtonColor(flag)
-            toast("모든 항목을 채워주세요")
         }
 
     }
