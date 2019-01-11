@@ -50,9 +50,6 @@ class LocationSearchAdapter(
             totalButton.textColorResource = R.color.white
         } else {
             holder.img_common_yellowcircle.visibility = View.INVISIBLE
-            totalButton.isEnabled = false
-            totalButton.setBackgroundResource(R.drawable.round_square_lightgray)
-            totalButton.textColorResource = R.color.dark_gray
         }
     }
 
