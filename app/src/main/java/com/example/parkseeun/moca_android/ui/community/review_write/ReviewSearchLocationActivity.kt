@@ -99,7 +99,6 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
                         }
 
                     } else if (response!!.body()!!.status == 204) {
-                        toast("인기 카페가 존재하지 않습니다")
                     }
             }
         })

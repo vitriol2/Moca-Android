@@ -185,23 +185,33 @@
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <View
+        <!--<View-->
+        <!--android:id="@+id/img_addreview_complete"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:background="@drawable/round_square_white"-->
+        <!--android:backgroundTint="@color/more_light_gray"-->
+        <!--android:layout_marginHorizontal="10dp"-->
+        <!--android:src="@drawable/community_addreview_beforefinish"-->
+        <!--android:layout_centerHorizontal="true"/>-->
+        <Button
                 android:id="@+id/img_addreview_complete"
-                android:layout_width="match_parent" android:layout_height="48dp"
-                android:background="@drawable/round_square_white"
-                android:backgroundTint="@color/more_light_gray"
-                android:layout_marginHorizontal="10dp"
-                android:src="@drawable/community_addreview_beforefinish"
-                android:layout_centerHorizontal="true"/>
-
-        <TextView
-                android:id="@+id/txt_complete_addreview"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/dark_gray"
+                android:layout_marginHorizontal="10dp"
+                android:layout_centerHorizontal="true"
                 android:text="완료"
-                style="@style/Bold15"/>
+                style="@style/Bold15"
+                android:textColor="@color/dark_gray"
+                android:background="@drawable/round_square_lightgray"/>
+        <!--<TextView-->
+        <!--android:id="@+id/txt_complete_addreview"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:textColor="@color/dark_gray"-->
+        <!--android:text="완료"-->
+        <!--style="@style/Bold15"/>-->
     </RelativeLayout>
 </RelativeLayout>
