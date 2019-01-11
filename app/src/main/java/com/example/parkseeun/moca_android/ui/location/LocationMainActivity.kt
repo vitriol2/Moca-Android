@@ -52,6 +52,7 @@ import retrofit2.Response
 import java.io.IOException
 import java.util.Locale
 import kotlinx.android.synthetic.main.app_bar_location.*
+import kotlinx.android.synthetic.main.rv_item_nearby_cafe.*
 
 
 class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
@@ -116,12 +117,9 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_main)
-        setOnBtnClickListener()
 
         setHeader(nav_view_location)
-
         nav_view_location.setNavigationItemSelectedListener(this)
-
         rv_act_location_main.setOnClickListener(this)
 //        window.setFlags(
 //            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
@@ -130,19 +128,14 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         mLayout = findViewById(R.id.rl_location_main_toolbar)
         Log.d(TAG, "onCreate")
         createLocationRequest()
-
+        setOnBtnClickListener()
         val builder = LocationSettingsRequest.Builder()
-
         builder.addLocationRequest(locationRequest!!)
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         val mapFragment = supportFragmentManager// 프래그먼트에 구글 맵 띄우기
             .findFragmentById(R.id.map) as SupportMapFragment?
-        //mapFragment!!.view!!.findViewById<ImageView>(2 as Int).setImageDrawable(resources.getDrawable(R.drawable.location_location_pink))
         mapFragment!!.getMapAsync(this)
-
-//        postNearByCafeResponse(currentMarker!!.position) 여기가 원래 되던거!!
     }
 
     private fun setOnBtnClickListener() {
@@ -153,9 +146,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         img_location_main_hamberger.setOnClickListener {
             drawer_layout_location.openDrawer(nav_view_location)
         }
-
     }
-
 
     fun setLocationTitle(markerTitle: String) {
         txt_location_main_address.text = markerTitle
@@ -208,7 +199,6 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         }
     }
 
-
     private fun setRvColorandMarkerTitle(idx: Int, markerTitle: String): Boolean {
         if (!dataList[idx].selected) {
             for (i in dataList) {
@@ -217,9 +207,9 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
             locationMainAdapter.notifyDataSetChanged()
             lngList[idx].setmarker(true)
             dataList[idx].selected = true
-
             setLocationTitle(markerTitle)
-            rv_act_location_main.smoothScrollToPosition(idx)
+            rv_act_location_main.scrollToPosition(idx)
+
             return true
         }
         return false
@@ -297,14 +287,13 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
         setDefaultLocation()
-        // postNearByCafeResponse()
         getLocationPermission()
         mMap!!.uiSettings.isMyLocationButtonEnabled = false //커스텀 현재위치 버튼을 사용하기 위해 기능이 불가하게 함
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f), 500, null)
         mMap!!.setOnMapClickListener { Log.d(TAG, "onMapClick :") }
         setMarkerClickListener(mMap!!)
-
+        setLocationTitle("아직 위치 정보가 설정되지 않았습니다")
     }
 
     private fun setMarkerClickListener(mMap: GoogleMap) {
@@ -315,36 +304,22 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
 
             for (i in 0 until markerlist.size) {
                 markerlist[i].tag = markerlist[i] == it
-                if (markerlist[i].tag == true) {
-                    idx = i
-                }
+                if (markerlist[i].tag == true) idx = i
                 Log.v("마커 클릭 ", i.toString() + " 는 " + markerlist[i].tag)
             }
             var markerTitle: String = getCurrentAddress(markerlist[idx].position)
-
             setMarkerIcon(-1)
             setRvColorandMarkerTitle(idx, markerTitle)
             return@setOnMarkerClickListener false
-
         }
     }
 
     private fun getLocationPermission() {
         //런타임 퍼미션 처리
-        // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
-        val hasFineLocationPermission = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        )
-        val hasCoarseLocationPermission = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-
-
-
+        //위치 퍼미션을 가지고 있는지 체크
+        val hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        val hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
             startLocationUpdates() // 3. 위치 업데이트 시작
@@ -364,8 +339,6 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                         PERMISSIONS_REQUEST_CODE
                     )
                 }.show()
-
-
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
@@ -374,10 +347,8 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                     PERMISSIONS_REQUEST_CODE
                 )
             }
-
         }
     }
-
 
     fun setMarkerIcon(idx: Int) {
         var idx: Int = idx
@@ -387,9 +358,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                 if (markerlist[i].tag as Boolean) {
                     markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_big))
                 } else {
-                    markerlist[i].setIcon(
-                        BitmapDescriptorFactory.fromResource(R.drawable.location_point)
-                    )
+                    markerlist[i].setIcon(BitmapDescriptorFactory.fromResource(R.drawable.location_point))
                 }
             }
         } else {
@@ -405,11 +374,8 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
 
     override fun onStart() {
         super.onStart()
-
         Log.d(TAG, "onStart")
-
         if (checkPermission()) {
-
             Log.d(TAG, "onStart : call mFusedLocationClient.requestLocationUpdates")
             mFusedLocationClient!!.requestLocationUpdates(locationRequest, locationCallback, null)
             if (mMap != null)
@@ -428,8 +394,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
 
     private fun postNearByCafeResponse(latlng: LatLng) {
 
-        val postNearByCafeResponse = networkService.postNearByCafeResponse( //나중에 쉐어드프리퍼런스에 저장된 토큰값으로 바꿔놓기!
-             User.token, PostNearByCafeData(latlng.latitude.toString(), latlng.longitude.toString(), 0, 0))
+        val postNearByCafeResponse = networkService.postNearByCafeResponse(User.token, PostNearByCafeData(latlng.latitude.toString(), latlng.longitude.toString(), 0, 0))
         postNearByCafeResponse.enqueue(object : Callback<PostNearByCafeResponse> {
             override fun onFailure(call: Call<PostNearByCafeResponse>, t: Throwable) {
                 toast(t.message.toString())
@@ -458,6 +423,8 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                                 )
                             )
 
+                                this@LocationMainActivity.txt_near_cafe.visibility = View.VISIBLE
+
                             lngList.add(
                                 MarkerItem(
                                     value.cafe_latitude.toDouble(),
@@ -478,8 +445,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                         rv_act_location_main.layoutManager =
                                 LinearLayoutManager(this@LocationMainActivity, LinearLayoutManager.HORIZONTAL, false)
                         setRvColorandMarkerTitle(0, markerTitle)// 제일 가까운 리사이클러뷰에 포커스
-                        setMarkerIcon(0) // 제일 가까운 마커 크게하기
-                        //cameraToMarker(0)
+                        cameraToMarker(0) // 제일 가까운 마커 크게하기
 
                         for (i in 0 until lngList.size) { //마커 생성
                             Log.d("LngList size2 :", lngList.size.toString() + " ," + i.toString())
@@ -504,10 +470,11 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                         markerlist.clear()
                         lngList.clear()
                         drawCircleAfterSearch(mMap!!, latlng)
+                            this@LocationMainActivity.txt_near_cafe.visibility = View.VISIBLE
 
-                        if (response.body()!!.status == 404)
+                        if (response.body()!!.status == 404){
                             toast("주변에 가까운 카페가 존재하지 않습니다")
-
+                        this@LocationMainActivity.txt_near_cafe.visibility = View.INVISIBLE}
                         Log.v(
                             TAG,
                             response.body()!!.status.toString() + ": " + response.body()!!.message
@@ -536,15 +503,15 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
             )
         } catch (ioException: IOException) {
             //네트워크 문제
-            Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show()
+            Log.v("LocationMainActivity","지오코더 서비스 사용 불가")
             return "지오코더 서비스 사용불가"
         } catch (illegalArgumentException: IllegalArgumentException) {
-            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "잘못된 GPS 좌표입니다", Toast.LENGTH_LONG).show()
             return "잘못된 GPS 좌표"
 
         }
         if (addresses == null || addresses.size == 0) {
-            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show()
+            Log.v("LocationMainActivity","주소 미발견")
             return "주소 미발견"
         } else {
             val address = addresses[0]
@@ -569,7 +536,6 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         markerOptions.snippet(markerSnippet)
         markerOptions.draggable(true)
         markerOptions.visible(false)
-//        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_now))
 
         currentMarker = mMap!!.addMarker(markerOptions)
 
@@ -595,13 +561,11 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                 setLocationTitle(markerTitle)
                 postNearByCafeResponse(currentMarker!!.position)
                 drawCircle(mMap!!, currentMarker!!.position)
+                if(markerlist.size>0) setMarkerIcon(0)
             }else toast("현재 위치가 설정되지 않았습니다. 잠시만 기다려 주세요.")
-
-
             flag = true
         }
     }
-
 
     fun setDefaultLocation() { // gps꺼둔 상태일 때
         //디폴트 위치, Seoul
@@ -704,7 +668,6 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                     var searchLat = data!!.getDoubleExtra("lat", 0.0)
                     var searchLon = data!!.getDoubleExtra("lon", 0.0)
                     var latlng: LatLng = LatLng(searchLat, searchLon)
-
                     drawCircleAfterSearch(mMap!!, latlng)
                     postNearByCafeResponse(latlng)
 
