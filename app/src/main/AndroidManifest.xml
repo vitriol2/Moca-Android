@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.parkseeun.moca_android">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.parkseeun.moca_android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -9,22 +9,22 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-            android:name=".network.ApplicationController"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher_n"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_n_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:usesCleartextTraffic="true"
-            tools:node="replace">
+        android:name=".network.ApplicationController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_n"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_n_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:node="replace">
         <activity android:name=".ui.community.review_comment.ReviewCommentActivity"/>
         <activity android:name=".ui.plus.plusDetail.PlusDetailActivity"/>
         <activity android:name=".ui.community.feed.FeedActivity"/>
 
         <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA"/>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA"/>
 
         <activity android:name=".ui.community.review_write.WriteReviewActivity">
         </activity>
@@ -33,19 +33,19 @@
         <activity android:name=".ui.main.HomeActivity">
         </activity>
         <meta-data
-                android:name="com.kakao.sdk.AppKey"
-                android:value="cb620091669ce5936f0fd4dd2766a760"/>
+            android:name="com.kakao.sdk.AppKey"
+            android:value="cb620091669ce5936f0fd4dd2766a760"/>
 
         <uses-library
-                android:name="org.apache.http.legacy"
-                android:required="false"/>
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
 
         <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA"/>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDY9Zw1kSMIV0wcHxM9JSI7ZnW5QqO4TWA"/>
         <meta-data
-                android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version"/>
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
 
         <activity android:name=".ui.plus.PlusActivity"/>
         <activity android:name=".ui.community.feed.image.ImageActivity"/>
@@ -56,11 +56,12 @@
         </activity>
         <activity android:name=".ui.mocapicks.MocaPicksListActivity"/>
         <activity android:name=".ui.location.LocationSearchActivity"/>
-        <activity android:name=".ui.main.SearchActivity"></activity>
+        <activity android:name=".ui.main.search.SearchActivity"></activity>
         <activity android:name=".ui.mypage.scrap.ScrapCafeActivity"/>
         <activity android:name=".ui.mypage.coupon.CouponActivity"/>
         <activity android:name="com.example.parkseeun.moca_android.ui.mypage.notice.NoticeActivity"/>
         <activity
+
                 android:name=".ui.mypage.EditProfileActivity"
                 android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".ui.mocapicks.MocaPicksDetailActivity"/>

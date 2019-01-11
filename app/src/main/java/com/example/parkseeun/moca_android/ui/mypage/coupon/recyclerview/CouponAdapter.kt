@@ -22,7 +22,7 @@ class CouponAdapter(val ctx : Context, val dataList : ArrayList<CouponData>) : R
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.date.text = "2018.12.22"             // 임시 date 세팅
+        holder.date.text = dataList[position].coupon_create_date.substring(0,10).replace("-",".")
         holder.coupon.setOnClickListener {
             setDialog(dataList[position].coupon_authentication_number)
         }

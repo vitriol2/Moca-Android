@@ -38,6 +38,7 @@ class HomeHotplaceAdapter(val ctx : Context, val dataList: ArrayList<HomeHotplac
         holder.relative_home_hot_place.setOnClickListener {
             val intent = Intent(ctx, HotPlaceActivity::class.java)
             intent.putExtra("hot_place_id", dataList[position].hot_place_id)
+            intent.putExtra("hot_place_name", dataList[position].hot_place_name)
 
             ctx.startActivity(intent)
         }

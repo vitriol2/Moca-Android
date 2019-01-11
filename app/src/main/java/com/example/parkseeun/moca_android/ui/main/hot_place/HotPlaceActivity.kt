@@ -17,7 +17,6 @@ import retrofit2.Response
 class HotPlaceActivity : AppCompatActivity() {
 
     lateinit var hotPlaceAdapter: HotPlaceAdapter
-    var hot_place_id = -1
 
     // 통신
     private val networkService  = ApplicationController.instance.networkService
@@ -28,20 +27,16 @@ class HotPlaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hot_place)
 
-        setUpRecyclerView()
-
         ib_hot_place_back.setOnClickListener {
             finish()
         }
-
-        var hot_place_id = this.intent.getIntExtra("hot_place_id", hot_place_id)
-
-        getHotPlaceList(hot_place_id)
+        tv_hot_place_title.text = intent.getStringExtra("hot_place_name")
+        getHotPlaceList()
     }
 
     // 핫플레이스 통신
-    private fun getHotPlaceList(hot_place_id : Int) {
-        getHotPlaceListResponse = networkService.getHotPlaceListResponse(User.token, hot_place_id)
+    private fun getHotPlaceList() {
+        getHotPlaceListResponse = networkService.getHotPlaceListResponse(User.token!!, intent.getIntExtra("hot_place_id", 1))
         getHotPlaceListResponse.enqueue(object : Callback<GetHotPlaceListResponse> {
             override fun onFailure(call: Call<GetHotPlaceListResponse>, t: Throwable) {
                 toast(t.message.toString())
@@ -51,7 +46,6 @@ class HotPlaceActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
                         getHotPlaceListData = response.body()!!.data
-
                         setUpRecyclerView()
                     }
                 }

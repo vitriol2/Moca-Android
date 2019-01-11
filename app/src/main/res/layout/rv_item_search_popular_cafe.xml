@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/rv_item_search_popular_cafe_relative"
+<android.support.v7.widget.CardView android:id="@+id/rv_item_search_popular_cafe_relative"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="150dp"
     android:layout_height="200dp"
-    android:orientation="vertical">
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="140dp"
@@ -15,6 +16,7 @@
             android:id="@+id/iv_popular_cafe"
             android:layout_width="match_parent"
             android:layout_height="140dp"
+            android:layout_margin="0.1dp"
             android:background="@drawable/rounded_top_radius_5"/>
 
         <TextView
@@ -58,4 +60,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</android.support.v7.widget.CardView>
