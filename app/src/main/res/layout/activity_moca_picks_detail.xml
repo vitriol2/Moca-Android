@@ -115,7 +115,7 @@
                     android:id="@+id/vp_mocaPicksDetail"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
-                    android:background="#101010"/>
+                    />
 
                 <ProgressBar
                     android:id="@+id/progressBar_mocaPicksDetail"

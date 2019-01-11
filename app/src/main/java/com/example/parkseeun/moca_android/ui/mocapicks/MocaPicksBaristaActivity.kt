@@ -86,11 +86,11 @@ class MocaPicksBaristaActivity : AppCompatActivity() {
                         Glide.with(applicationContext).load(response.body()!!.data.barista_img_url).into(civ_barista_profile)
                         tv_barista_baristaName!!.text = response.body()!!.data.barista_name
                         tv_barista_baristaSpec!!.text = response.body()!!.data.barista_title
-                        tv_barista_baristaGrade!!.text = ((response.body()!!.data.evaluation_bean_condition +
-                                                           response.body()!!.data.evaluation_roasting +
-                                                           response.body()!!.data.evaluation_creativity +
-                                                           response.body()!!.data.evaluation_reasonable +
-                                                           response.body()!!.data.evaluation_consistancy)/5).toString()
+                        tv_barista_baristaGrade!!.text =  String.format("%.1f",((response.body()!!.data.evaluation_bean_condition.toFloat() +
+                                                           response.body()!!.data.evaluation_roasting.toFloat() +
+                                                           response.body()!!.data.evaluation_creativity.toFloat() +
+                                                           response.body()!!.data.evaluation_reasonable.toFloat() +
+                                                           response.body()!!.data.evaluation_consistancy.toFloat())/5))
                         rating_barista_evaluateItem1!!.rating = response.body()!!.data.evaluation_bean_condition.toFloat()
                         tv_barista_evaluateItem1!!.text =response.body()!!.data.evaluation_bean_condition_comment
                         rating_barista_evaluateItem2!!.rating = response.body()!!.data.evaluation_roasting.toFloat()
