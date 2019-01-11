@@ -136,122 +136,182 @@
         android:background="#707070" />
 
 
-    <RelativeLayout
-        android:id="@+id/ll_act_com_sear_all"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 첫번째-->
 
         <LinearLayout
-            android:id="@+id/ll_act_com_sear_all_nothing"
+            android:id="@+id/ll_act_com_sear_all"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이번주 리뷰 많은 카페"
-                android:textColor="#101010"
-                android:textSize="15sp"
-                android:fontFamily="@font/nanum_b"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_act_com_sear_all_reviewtop"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="16dp">
-
-            </android.support.v7.widget.RecyclerView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이번주 인기 많은 사용자"
-                android:textColor="#101010"
-                android:textSize="15sp"
-                android:fontFamily="@font/nanum_b"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_act_comm_sear_all_popularuser"
-                android:layout_width="match_parent"
-                android:layout_height="173dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="16dp"
-                android:paddingRight="10dp"></android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_act_com_sear_all_all"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
+            <!-- 검색전 -->
             <LinearLayout
+                android:id="@+id/ll_act_com_sear_all_nothing"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp">
-
-                    <TextView
-                        style="@style/Bold15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:text="인기 리뷰" />
-                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번주 리뷰 많은 카페"
+                    android:textColor="#101010"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_b"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_act_com_sear_all_review"
+                    android:id="@+id/rv_act_com_sear_all_reviewtop"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp">
-
-                    <TextView
-                        style="@style/Bold15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:text="사용자" />
-                </RelativeLayout>
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_act_com_sear_all_user"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp">
 
                 </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번주 인기 많은 사용자"
+                    android:textColor="#101010"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_b"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_act_comm_sear_all_popularuser"
+                    android:layout_width="match_parent"
+                    android:layout_height="173dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingRight="10dp"></android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <!--검색후 -->
+            <LinearLayout
+                android:id="@+id/ll_act_com_sear_all_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp">
+
+                        <TextView
+                            style="@style/Bold15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:text="인기 리뷰" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_act_com_sear_all_cafe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp">
+
+                        <TextView
+                            style="@style/Bold15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:text="사용자" />
+                    </RelativeLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_act_com_sear_all_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nv_act_com_sear_cafetab"
+        <!-- 두번재 탭 -->
+
+        <LinearLayout
+            android:id="@+id/ll_act_com_sear_cafe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:visibility="gone">
-
+            <!-- 검색 전 -->
             <LinearLayout
+                android:id="@+id/ll_act_com_sear_cafe_nothing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번주 리뷰 많은 카페"
+                    android:textColor="#101010"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_b"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_act_com_sear_cafe_reviewtop"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번주 인기 많은 사용자"
+                    android:textColor="#101010"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_b"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_act_comm_sear_cafe_popularuser"
+                    android:layout_width="match_parent"
+                    android:layout_height="173dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingRight="10dp"></android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
+
+            <!-- 검색 후 -->
+            <LinearLayout
+                android:id="@+id/ll_act_com_sear_cafe_cafe"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -305,18 +365,66 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        <!-- 세번째 탭 -->
+        <LinearLayout
+            android:id="@+id/ll_act_com_sear_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/nv_act_com_sear_usertab"
-            android:visibility="gone">
-
+            android:orientation="vertical">
+            <!-- 검색전 -->
             <LinearLayout
+                android:id="@+id/ll_act_com_sear_user_nothing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번주 리뷰 많은 카페"
+                    android:textColor="#101010"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_b"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_act_com_sear_user_reviewtop"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번주 인기 많은 사용자"
+                    android:textColor="#101010"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_b"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_act_comm_sear_user_popularuser"
+                    android:layout_width="match_parent"
+                    android:layout_height="173dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingRight="10dp"></android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_act_com_sear_user_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_act_com_sear_user"
@@ -326,13 +434,8 @@
                 </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-
-    </RelativeLayout>
-
-
-
-
+        </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

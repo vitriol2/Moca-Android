@@ -37,15 +37,8 @@ import retrofit2.Response
 class CommunitySearchActivity : AppCompatActivity() {
     private val TAG = "CommunitySearchActivity"
 
-    private val allData = ArrayList<CommunitySearchAllData>()
-    private val cafeData = ArrayList<CommunitySearchAllData>()
-    private val userData = ArrayList<CommunitySearchAllData>()
-
     // 통신
     private val networkService = ApplicationController.instance.networkService
-
-    private var tabLayout: TabLayout? = null
-    var viewPager: ViewPager? = null
 
     // 이번주 리뷰 많은 카페
     private lateinit var getBestCafeListResponse: Call<GetBestCafeListResponse>
@@ -62,77 +55,22 @@ class CommunitySearchActivity : AppCompatActivity() {
     private lateinit var getCommunitySearchListResponse: Call<GetCommunitySearchListResponse>
     //인기 리뷰
     private var popularReviewList = ArrayList<ReviewData>()
-    lateinit var reviewAllPopularAdapter : ReviewAllPopularAdapter
+    lateinit var reviewAllPopularAdapter: ReviewAllPopularAdapter
     //최신 리뷰
     private var reviewListOrderByLatest = ArrayList<ReviewData>()
-    lateinit var reviewAllRecentAdapter : ReviewAllRecentAdapter
+    lateinit var reviewAllRecentAdapter: ReviewAllRecentAdapter
     //사용자
     private var searchUserList = ArrayList<SearchUserData>()
-    lateinit var comSearUserAdapter : ComSearUserAdapter
+    lateinit var comSearUserAdapter: ComSearUserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_search)
 
-        setRecyclerView()
+        setOnBtnClickListeners()
 
         setNetwork()
 
-        setScreenConvert()
-
-        setOnBtnClickListeners()
-
-    }
-
-    private fun setOnBtnClickListeners() {
-        ib_act_com_sear_back.setOnClickListener {
-            finish()
-        }
-
-        btn_act_com_sear_all.setOnClickListener {
-            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#e1b2a3"))
-            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#707070"))
-            btn_act_com_sear_user.setTextColor(Color.parseColor("#707070"))
-
-            view_all.setBackgroundColor(Color.parseColor("#e1b2a3"))
-            view_cafe.setBackgroundColor(Color.parseColor("#ffffff"))
-            view_location.setBackgroundColor(Color.parseColor("#ffffff"))
-
-            ll_act_com_sear_all_all.visibility = View.VISIBLE
-            nv_act_com_sear_cafetab.visibility = View.GONE
-            nv_act_com_sear_usertab.visibility = View.GONE
-        }
-
-        btn_act_com_sear_cafe.setOnClickListener {
-            btn_act_com_sear_all.setTextColor(Color.parseColor("#707070"))
-            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#e1b2a3"))
-            btn_act_com_sear_user.setTextColor(Color.parseColor("#707070"))
-
-            view_all.setBackgroundColor(Color.parseColor("#ffffff"))
-            view_cafe.setBackgroundColor(Color.parseColor("#e1b2a3"))
-            view_location.setBackgroundColor(Color.parseColor("#ffffff"))
-
-            ll_act_com_sear_all_all.visibility = View.GONE
-            nv_act_com_sear_cafetab.visibility = View.VISIBLE
-            nv_act_com_sear_usertab.visibility = View.GONE
-        }
-
-        btn_act_com_sear_user.setOnClickListener {
-            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#707070"))
-            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#707070"))
-            btn_act_com_sear_user.setTextColor(Color.parseColor("#e1b2a3"))
-
-            view_all.setBackgroundColor(Color.parseColor("#ffffff"))
-            view_cafe.setBackgroundColor(Color.parseColor("#ffffff"))
-            view_location.setBackgroundColor(Color.parseColor("#e1b2a3"))
-
-            ll_act_com_sear_all_all.visibility = View.GONE
-            nv_act_com_sear_cafetab.visibility = View.GONE
-            nv_act_com_sear_usertab.visibility = View.VISIBLE
-        }
-    }
-
-    private fun setScreenConvert() {
         et_act_com_sear_search.addTextChangedListener(object : TextWatcher {
 
             //val layoutNothing : View = findViewById(R.id.ll_frag_com_sear_all_nothing)
@@ -145,20 +83,105 @@ class CommunitySearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                if (s.toString() == "") {
+                if (et_act_com_sear_search.text.toString() == "") {
                     ll_act_com_sear_all_nothing.visibility = View.VISIBLE
-                    ll_act_com_sear_all_all.visibility = View.GONE
-                    nv_act_com_sear_cafetab.visibility = View.GONE
-                    nv_act_com_sear_usertab.visibility = View.GONE
+                    ll_act_com_sear_cafe_nothing.visibility = View.VISIBLE
+                    ll_act_com_sear_user_nothing.visibility = View.VISIBLE
                 } else {
                     ll_act_com_sear_all_nothing.visibility = View.GONE
-                    ll_act_com_sear_all_all.visibility = View.VISIBLE
+                    ll_act_com_sear_cafe_nothing.visibility = View.GONE
+                    ll_act_com_sear_user_nothing.visibility = View.GONE
+
                     getAllResult(et_act_com_sear_search.text.toString())
                 }
             }
         })
+
+    }
+    // 통신 (전체 탭)
+    private fun getAllResult(searchString: String) {
+        getCommunitySearchListResponse = networkService.getCommunitySearchResult(User.token!!, searchString)
+        getCommunitySearchListResponse.enqueue(object : Callback<GetCommunitySearchListResponse> {
+            override fun onFailure(call: Call<GetCommunitySearchListResponse>, t: Throwable) {
+                toast(t.message.toString())
+            }
+
+            override fun onResponse(
+                call: Call<GetCommunitySearchListResponse>,
+                response: Response<GetCommunitySearchListResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        var temp = response.body()!!.data
+                        popularReviewList = temp.popularReviewList
+                        reviewListOrderByLatest = temp.reviewListOrderByLatest
+                        searchUserList = temp.searchUserList
+
+                        //전체 검색통신
+                        ll_act_com_sear_all_all.visibility = View.VISIBLE
+
+                        reviewAllPopularAdapter= ReviewAllPopularAdapter(this@CommunitySearchActivity, popularReviewList)
+                        rv_act_com_sear_all_cafe.layoutManager = LinearLayoutManager(this@CommunitySearchActivity, LinearLayoutManager.HORIZONTAL, false)
+                        rv_act_com_sear_all_cafe.adapter = reviewAllPopularAdapter
+
+                        comSearUserAdapter= ComSearUserAdapter(this@CommunitySearchActivity, searchUserList)
+                        rv_act_com_sear_all_user.layoutManager = LinearLayoutManager(this@CommunitySearchActivity)
+                        rv_act_com_sear_all_user.adapter =comSearUserAdapter
+
+                        //카페명 검색통신
+                        ll_act_com_sear_cafe_cafe.visibility = View.VISIBLE
+
+                        rv_act_com_sear_cafe_popular.layoutManager = LinearLayoutManager(this@CommunitySearchActivity, LinearLayoutManager.HORIZONTAL,false)
+                        rv_act_com_sear_cafe_popular.adapter = reviewAllPopularAdapter
+
+                        reviewAllRecentAdapter= ReviewAllRecentAdapter(this@CommunitySearchActivity, reviewListOrderByLatest)
+                        rv_act_com_sear_cafe_recent.layoutManager = GridLayoutManager(this@CommunitySearchActivity, 3)
+                        rv_act_com_sear_cafe_recent.adapter = reviewAllRecentAdapter
+
+                        //사용자명 검색통신
+                        ll_act_com_sear_user_user.visibility = View.VISIBLE
+                        rv_act_com_sear_user.layoutManager = LinearLayoutManager(this@CommunitySearchActivity)
+                        rv_act_com_sear_user.adapter = comSearUserAdapter
+
+
+
+/*
+                        popularReviewList = temp.popularReviewList
+                        reviewListOrderByLatest = temp.reviewListOrderByLatest
+                        searchUserList = temp.searchUserList
+
+                        Log.v("popReviewList", popularReviewList.size.toString())
+                        Log.v("latestReview", reviewListOrderByLatest.size.toString())
+                        Log.v("searchUserList", searchUserList.size.toString())
+
+
+                        val positionPopCafe = reviewAllPopularAdapter.itemCount
+                        val positionRecCafe = reviewAllRecentAdapter.itemCount
+                        val positionUser = comSearUserAdapter.itemCount
+
+                        reviewAllPopularAdapter.dataList = popularReviewList
+                        reviewAllPopularAdapter.notifyItemChanged(positionPopCafe)
+
+                        reviewAllRecentAdapter.dataList = reviewListOrderByLatest
+                        reviewAllRecentAdapter.notifyItemChanged(positionRecCafe)
+
+                        comSearUserAdapter.dataList = searchUserList
+                        comSearUserAdapter.notifyItemChanged(positionUser)
+                        */
+
+
+                    }else {
+                        ll_act_com_sear_all_all.visibility = View.GONE
+                        ll_act_com_sear_cafe_cafe.visibility = View.GONE
+                        ll_act_com_sear_user_user.visibility = View.GONE
+                    }
+                }
+
+            }
+        })
     }
 
+/*
     private fun setRecyclerView() {
         // 검색 전 화면 - 이번주 리뷰 많은 카페 RecyclerView 설정
         comSearAllReviewTopAdapter = ComSearAllReviewTopAdapter(this, getBestCafeListData)
@@ -196,6 +219,60 @@ class CommunitySearchActivity : AppCompatActivity() {
         rv_act_com_sear_all_user.adapter = comSearUserAdapter
 
     }
+    */
+
+    private fun setOnBtnClickListeners() {
+        ib_act_com_sear_back.setOnClickListener {
+            finish()
+        }
+
+        btn_act_com_sear_all.setOnClickListener {
+            btn_act_com_sear_all.setTextColor(Color.parseColor("#e1b2a3"))
+            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#707070"))
+            btn_act_com_sear_user.setTextColor(Color.parseColor("#707070"))
+
+            view_all.setBackgroundColor(Color.parseColor("#e1b2a3"))
+            view_cafe.setBackgroundColor(Color.parseColor("#ffffff"))
+            view_location.setBackgroundColor(Color.parseColor("#ffffff"))
+
+            ll_act_com_sear_all.visibility = View.VISIBLE
+            ll_act_com_sear_cafe.visibility = View.GONE
+            ll_act_com_sear_user.visibility = View.GONE
+
+
+        }
+
+        btn_act_com_sear_cafe.setOnClickListener {
+            btn_act_com_sear_all.setTextColor(Color.parseColor("#707070"))
+            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#e1b2a3"))
+            btn_act_com_sear_user.setTextColor(Color.parseColor("#707070"))
+
+            view_all.setBackgroundColor(Color.parseColor("#ffffff"))
+            view_cafe.setBackgroundColor(Color.parseColor("#e1b2a3"))
+            view_location.setBackgroundColor(Color.parseColor("#ffffff"))
+
+            ll_act_com_sear_all.visibility = View.GONE
+            ll_act_com_sear_cafe.visibility = View.VISIBLE
+            ll_act_com_sear_user.visibility = View.GONE
+        }
+
+        btn_act_com_sear_user.setOnClickListener {
+            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#707070"))
+            btn_act_com_sear_cafe.setTextColor(Color.parseColor("#707070"))
+            btn_act_com_sear_user.setTextColor(Color.parseColor("#e1b2a3"))
+
+            view_all.setBackgroundColor(Color.parseColor("#ffffff"))
+            view_cafe.setBackgroundColor(Color.parseColor("#ffffff"))
+            view_location.setBackgroundColor(Color.parseColor("#e1b2a3"))
+
+            ll_act_com_sear_all.visibility = View.GONE
+            ll_act_com_sear_cafe.visibility = View.GONE
+            ll_act_com_sear_user.visibility = View.VISIBLE
+        }
+    }
+
+
+
 
     private fun setNetwork() {
         getBestReviewCafe()
@@ -247,48 +324,6 @@ class CommunitySearchActivity : AppCompatActivity() {
                         }
                     }
                 }
-            }
-        })
-    }
-
-
-    // 통신 (전체 탭)
-    private fun getAllResult(searchString: String) {
-        getCommunitySearchListResponse = networkService.getCommunitySearchResult(User.token!!, searchString)
-        getCommunitySearchListResponse.enqueue(object : Callback<GetCommunitySearchListResponse> {
-            override fun onFailure(call: Call<GetCommunitySearchListResponse>, t: Throwable) {
-                toast(t.message.toString())
-            }
-
-            override fun onResponse(
-                call: Call<GetCommunitySearchListResponse>,
-                response: Response<GetCommunitySearchListResponse>
-            ) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.status == 200) {
-                        var temp = response.body()!!.data
-
-                        popularReviewList = temp.popularReviewList
-                        reviewListOrderByLatest = temp.reviewListOrderByLatest
-                        searchUserList = temp.searchUserList
-
-                        val positionPopCafe = reviewAllPopularAdapter.itemCount
-                        val positionRecCafe = reviewAllRecentAdapter.itemCount
-                        val positionUser = comSearUserAdapter.itemCount
-
-                        reviewAllPopularAdapter.dataList=popularReviewList
-                        reviewAllPopularAdapter.notifyItemChanged(positionPopCafe)
-
-                        reviewAllRecentAdapter.dataList=reviewListOrderByLatest
-                        reviewAllRecentAdapter.notifyItemChanged(positionRecCafe)
-
-                        comSearUserAdapter.dataList=searchUserList
-                        comSearUserAdapter.notifyItemChanged(positionUser)
-
-
-                    }
-                }
-
             }
         })
     }
