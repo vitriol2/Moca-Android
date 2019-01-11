@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+        android:id="@+id/rl_location_search_total"
+        xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
     <LinearLayout
+            android:layout_above="@+id/img_location_search_complete"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -27,7 +30,7 @@
 
         <android.support.constraint.ConstraintLayout
                 android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:descendantFocusability="beforeDescendants"
                 android:focusableInTouchMode="true"
@@ -39,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/common_search_field"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="fitCenter"/>
 
             <EditText
                     android:maxLines="1"
@@ -62,32 +65,19 @@
                 android:layout_height="match_parent"
                 android:id="@+id/rv_act_location_search"
         ></android.support.v7.widget.RecyclerView>
+
     </LinearLayout>
-    <RelativeLayout
-            android:id="@+id/img_location_search_ok"
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="10dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp">
-
-        <View
-                android:background="@drawable/round_square_white"
-                android:backgroundTint="@color/point_pink"
-                android:layout_width="wrap_content"
+        <Button
+                android:layout_marginHorizontal="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/img_location_search_complete"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:src="@drawable/community_addreview_beforefinish"
-        />
-        <TextView
-                android:id="@+id/tv_location_search_ok"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:text="완료"
                 style="@style/Bold15"
-                android:text="입력"
-                android:layout_centerVertical="true"
-                android:textColor="@color/white"
-                android:layout_centerHorizontal="true"/>
+                android:textColor="@color/dark_gray"
+                android:background="@drawable/round_square_lightgray"/>
 
-    </RelativeLayout>
 </RelativeLayout>

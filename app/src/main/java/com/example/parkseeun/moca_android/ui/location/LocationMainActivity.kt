@@ -572,7 +572,8 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         markerOptions.title(markerTitle)
         markerOptions.snippet(markerSnippet)
         markerOptions.draggable(true)
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_now))
+        markerOptions.visible(false)
+//        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_now))
 
         currentMarker = mMap!!.addMarker(markerOptions)
 
@@ -586,7 +587,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         }
 
         img_mylocation_btn.setOnClickListener {
-            if(location != null) {
+            if(currentLatLng != null) {
                 val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
                 mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
                 mMap!!.animateCamera(CameraUpdateFactory.zoomIn(), 500, null)
