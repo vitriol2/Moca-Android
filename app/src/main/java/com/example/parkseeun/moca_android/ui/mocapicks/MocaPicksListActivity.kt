@@ -60,6 +60,11 @@ class MocaPicksListActivity : AppCompatActivity() {
             }
         })
     }
+    override fun onRestart() {
+        super.onRestart()
+        getMocaPicksList()
+        setRecyclerView()
+    }
 
     // RecyclerView 설정
     private fun setRecyclerView() {

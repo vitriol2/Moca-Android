@@ -94,7 +94,7 @@
                 </LinearLayout>
 
                 <ToggleButton
-                    android:id="@+id/tb_mocaPicksList"
+                    android:id="@+id/tb_mocaPicksScrab"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:background="@drawable/like_toggle_button_gray"
@@ -169,6 +169,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/baristaContainer1"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginTop="10dp"
@@ -244,6 +245,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/baristaContainer2"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_marginLeft="20dp"
@@ -318,6 +320,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/baristaContainer3"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_marginLeft="20dp"

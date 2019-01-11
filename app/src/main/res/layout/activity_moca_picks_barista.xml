@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(카페 이름)"
+            android:text="Moca Picks"
             android:textColor="#101010"
             android:textSize="15sp"
             android:fontFamily="@font/nanum_b"
@@ -170,6 +170,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_barista_evaluateItem1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="댓글은 여기까지 이렇게 쓸 수 있고 길어지면 같은 너비로 쭉 늘어나면 되고 되고되고되고되"
@@ -211,6 +212,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_barista_evaluateItem2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="댓글은 여기까지 이렇게 쓸 수 있고 길어지면 같은 너비로 쭉 늘어나면 되고 되고되고되고되"
@@ -252,6 +254,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_barista_evaluateItem3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="댓글은 여기까지 이렇게 쓸 수 있고 길어지면 같은 너비로 쭉 늘어나면 되고 되고되고되고되"
@@ -271,6 +274,7 @@
                 android:layout_marginTop="14dp">
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="가격에 합당한 가치"
@@ -293,6 +297,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_barista_evaluateItem4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="댓글은 여기까지 이렇게 쓸 수 있고 길어지면 같은 너비로 쭉 늘어나면 되고 되고되고되고되"
@@ -334,6 +339,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_barista_evaluateItem5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="댓글은 여기까지 이렇게 쓸 수 있고 길어지면 같은 너비로 쭉 늘어나면 되고 되고되고되고되"
@@ -363,6 +369,7 @@
                 android:layout_marginLeft="20dp"/>
 
             <TextView
+                android:id="@+id/tv_barista_evaluation_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
