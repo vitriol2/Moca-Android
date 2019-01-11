@@ -177,10 +177,10 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                     Log.v(TAG, "picks load success")
                     if(temp!=null) {
                         if(temp.size>0) {
-                            val position = homeMocapicksAdapter.itemCount
+                            homeMocapicksAdapter.dataList.removeAll(homeMocapicksAdapter.dataList)
                             homeMocapicksAdapter.dataList.addAll(temp)
                             Log.v(TAG, "picks data size : ${temp.size}")
-                            homeMocapicksAdapter.notifyItemInserted(position)
+                            homeMocapicksAdapter.notifyDataSetChanged()
                         }
                     }
                 }
@@ -204,9 +204,9 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                     Log.v("hotplace", "load")
                     val temp: ArrayList<HomeHotplaceData> = response.body()!!.data
                     if (temp.size > 0) {
-                        val position = homeHotplaceAdapter.itemCount
+                        homeHotplaceAdapter.dataList.removeAll(homeHotplaceAdapter.dataList)
                         homeHotplaceAdapter.dataList.addAll(temp)
-                        homeHotplaceAdapter.notifyItemInserted(position)
+                        homeHotplaceAdapter.notifyDataSetChanged()
                     }
 
                 }
@@ -227,6 +227,7 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                     Log.v(TAG, "getHomeMocaplusResponse success")
                     val temp: ArrayList<MocaplusData> = response.body()!!.data
 
+                    homeMocaplusAdapter.dataList.removeAll(homeMocaplusAdapter.dataList)
                     if (temp != null) {
                         if (temp.size > 0) {
                             if (temp.size >= 3) {
@@ -263,6 +264,7 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                     if(temp != null) {
                         if(temp.size>0) {
                             val position = homeRankingAdapter.itemCount
+                            homeRankingAdapter.dataList.removeAll(homeRankingAdapter.dataList)
                             homeRankingAdapter.dataList.addAll(temp)
                             homeRankingAdapter.notifyItemChanged(position)
                         }
