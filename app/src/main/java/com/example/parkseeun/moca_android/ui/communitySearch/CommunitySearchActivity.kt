@@ -292,11 +292,34 @@ class CommunitySearchActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
                         val temp = response.body()!!.data
+                        if (temp.size > 0) {
+                            // 검색 전 화면 - 이번주 리뷰 많은 카페 RecyclerView 설정
+                            rv_act_com_sear_all_reviewtop.layoutManager = LinearLayoutManager(
+                                this@CommunitySearchActivity,
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                            rv_act_com_sear_all_reviewtop.adapter =
+                                    ComSearAllReviewTopAdapter(this@CommunitySearchActivity, temp)
 
-                        // 검색 전 화면 - 이번주 리뷰 많은 카페 RecyclerView 설정
-                        val position = comSearAllReviewTopAdapter.itemCount
-                        comSearAllReviewTopAdapter.dataList.addAll(temp)
-                        comSearAllReviewTopAdapter.notifyItemInserted(position)
+                            rv_act_com_sear_cafe_reviewtop.layoutManager = LinearLayoutManager(
+                                this@CommunitySearchActivity,
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                            rv_act_com_sear_cafe_reviewtop.adapter =
+                                    ComSearAllReviewTopAdapter(this@CommunitySearchActivity, temp)
+
+                            rv_act_com_sear_user_reviewtop.layoutManager = LinearLayoutManager(
+                                this@CommunitySearchActivity,
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                            rv_act_com_sear_user_reviewtop.adapter =
+                                    ComSearAllReviewTopAdapter(this@CommunitySearchActivity, temp)
+                        } else if (response.body()!!.status == 204) {
+                            toast("리뷰 많은 카페가 존재하지 않습니다!")
+                        }
                     }
                 }
             }
@@ -318,9 +341,15 @@ class CommunitySearchActivity : AppCompatActivity() {
                         val temp = response.body()!!.data
                         if (temp.size > 0) {
                             // 이번주 인기 많은 사용자
-                            val position = comSearAllPopUserAdapter.itemCount
-                            comSearAllPopUserAdapter.dataList.addAll(temp)
-                            comSearAllPopUserAdapter.notifyItemInserted(position)
+
+                            rv_act_comm_sear_all_popularuser.layoutManager = LinearLayoutManager(this@CommunitySearchActivity, LinearLayoutManager.HORIZONTAL, false)
+                            rv_act_comm_sear_all_popularuser.adapter = ComSearAllPopUserAdapter(this@CommunitySearchActivity, temp)
+
+                            rv_act_comm_sear_cafe_popularuser.layoutManager = LinearLayoutManager(this@CommunitySearchActivity, LinearLayoutManager.HORIZONTAL, false)
+                            rv_act_comm_sear_cafe_popularuser.adapter = ComSearAllPopUserAdapter(this@CommunitySearchActivity, temp)
+
+                            rv_act_comm_sear_user_popularuser.layoutManager = LinearLayoutManager(this@CommunitySearchActivity, LinearLayoutManager.HORIZONTAL, false)
+                            rv_act_comm_sear_user_popularuser.adapter = ComSearAllPopUserAdapter(this@CommunitySearchActivity, temp)
                         }
                     }
                 }
