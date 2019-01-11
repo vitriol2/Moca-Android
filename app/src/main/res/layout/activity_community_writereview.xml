@@ -8,6 +8,13 @@
             android:id="@+id/rl_community_addreview"
             android:layout_width="match_parent"
             android:layout_height="54dp">
+        <ImageView
+                android:id="@+id/img_addreview_cancel"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/common_cancel_black"
+                android:layout_width="24dp"
+                   android:layout_height="24dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -192,6 +199,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_centerHorizontal="true"
                 android:text="완료"
+                android:stateListAnimator="@null"
                 style="@style/Bold15"
                 android:textColor="@color/dark_gray"
                 android:background="@drawable/round_square_lightgray"/>
