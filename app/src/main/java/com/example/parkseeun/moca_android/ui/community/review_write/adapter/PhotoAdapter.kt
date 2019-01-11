@@ -28,6 +28,7 @@ class PhotoAdapter(private var photoItems : ArrayList<PhotoData>, var requestMan
             .load(photoItems[position].review_img)
             //.centerCrop()
             .into(holder.review_photo)
+        holder.review_photo.setBackgroundResource(R.drawable.round_square_white)
         if (photoItems.size > 9) {
             mView.img_addreview_image.visibility = View.GONE
         } else {
@@ -49,4 +50,6 @@ class PhotoAdapter(private var photoItems : ArrayList<PhotoData>, var requestMan
             notifyDataSetChanged()
         }
     }
+
+
 }

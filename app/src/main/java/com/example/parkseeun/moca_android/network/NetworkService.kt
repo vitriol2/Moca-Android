@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.network
 
+import android.support.annotation.NonNull
 import com.example.parkseeun.moca_android.model.delete.DeleteScrapResponse
 import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
@@ -235,7 +236,7 @@ interface NetworkService {
 
     // 리뷰 작성 -소희
     @Multipart
-    @POST("/review")
+    @POST("/review/")
     fun postReviewWriteResponse(
         @Header("Authorization") token: String,
         @Part("cafe_id") cafe_id: Int,
@@ -244,6 +245,9 @@ interface NetworkService {
         @Part("rating") rating : Int,
         @Part image: ArrayList<MultipartBody.Part>
     ): Call<PostReviewWriteResponse>
+
+    // 사진 관련
+
 
     //Community Search
     //Community Search - user

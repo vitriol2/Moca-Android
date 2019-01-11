@@ -28,6 +28,8 @@ import retrofit2.Response
 
 class MocaPicksDetailActivity : AppCompatActivity() {
 
+    private val TAG = "MocaPicksDetailActivity"
+
     private var cafe_id : Int  = 0
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getEvaluatedCafeDetailResponse: Call<GetEvaluatedCafeDetailResponse> // 검증카페 상세 정보 조회
@@ -54,7 +56,7 @@ class MocaPicksDetailActivity : AppCompatActivity() {
     private lateinit var rl_baristaContainer2:RelativeLayout
     private lateinit var rl_baristaContainer3:RelativeLayout
 
-    lateinit var tb_scarb:ToggleButton
+    lateinit var tb_scrab:ToggleButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,10 +92,10 @@ class MocaPicksDetailActivity : AppCompatActivity() {
 
 
 
-        tb_scarb = findViewById(R.id.tb_mocaPicksScrab)
-        tb_scarb.isChecked = scrab_is
-        tb_scarb.setOnClickListener {
-            if(tb_scarb.isChecked)
+        tb_scrab = findViewById(R.id.tb_mocaPicksScrab)
+        tb_scrab.isChecked = scrab_is
+        tb_scrab.setOnClickListener {
+            if(tb_scrab.isChecked)
             {
                 PostScrap()
 
@@ -350,16 +352,14 @@ class MocaPicksDetailActivity : AppCompatActivity() {
         postScrapResponse.enqueue(object: Callback<PostScrapResponse>{
 
             override fun onFailure(call: Call<PostScrapResponse>, t: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
-
+               Log.e(TAG, "post scrab load failed")
             }
 
             override fun onResponse(call: Call<PostScrapResponse>, response: Response<PostScrapResponse>) {
                 if(response.isSuccessful) {
                     if(response.body()!!.status==200) {
                         Log.d("tb" ,"true")
-                        tb_scarb.isChecked = true
+                        tb_scrab.isChecked = true
                     }
                     else {
                         toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
@@ -394,7 +394,7 @@ class MocaPicksDetailActivity : AppCompatActivity() {
                         if(response.isSuccessful) {
                             if(response.body()!!.status==200) {
                                 Log.d("tb" ,"false")
-                                tb_scarb.isChecked = false
+                                tb_scrab.isChecked = false
                             }
                             else {
                                 toast(response.body()!!.status.toString() + " : " + response.body()!!.message)

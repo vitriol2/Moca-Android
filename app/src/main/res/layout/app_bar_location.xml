@@ -86,6 +86,7 @@
         android:scaleType="centerCrop" />
 
     <TextView
+            android:id="@+id/txt_near_cafe"
         style="@style/Bold15"
         android:layout_above="@+id/rv_act_location_main"
         android:layout_width="wrap_content"

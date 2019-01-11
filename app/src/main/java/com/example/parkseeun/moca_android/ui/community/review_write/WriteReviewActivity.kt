@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.NonNull
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -41,6 +42,7 @@ import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Multipart
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -179,9 +181,9 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
 
                     val bitmap = BitmapFactory.decodeStream(input, null, options) // InputStream 으로부터 Bitmap 을 만들어 준다.
                     val baos = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG , 20, baos)
+                    val photo = File(data.data.toString()) // 가져온 파일의 이름을 알아내려고 사용합니다
                     val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())
-                    val photo = File(this.data.toString()) // 가져온 파일의 이름을 알아내려고 사용합니다
                     //RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
                     // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
                     images.add(
@@ -193,7 +195,7 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
                     photoItems.add(PhotoData(data.data))
                     reviewImageItems.add(ReviewImageData(data.data.toString()))
                     PhotoAdapter =
-                            PhotoAdapter(photoItems, requestManager, images, this.findViewById(R.id.rl_all_addreview))
+                            PhotoAdapter(photoItems, requestManager, images!!, this.findViewById(R.id.rl_all_addreview))
                     rv_photo_review.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     rv_photo_review.adapter = PhotoAdapter
                     setBtnEnable()
@@ -236,21 +238,13 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
             val intent = Intent(this, ReviewSearchLocationActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE)
         }
-//
-//        if(photoItems.size >0) {
-//            btn_cancel_photo.setOnClickListener {
-//                val idx: Int = rv_photo_review.getChildAdapterPosition(it)
-//                photoItems.removeAt(idx)
-//                Log.v("포토아이템 사이즈", photoItems.size.toString())
-//                PhotoAdapter.notifyDataSetChanged()
-//            }
-//        }
+        img_addreview_cancel.setOnClickListener {
+            finish()
+        }
 
         img_addreview_image.setOnClickListener {
             requestReadExternalStoragePermission()
         }
-
-//        iv_cancel_addreview.setOnClickListener { finish() }
 
         val input_cafeid = cafe_id
         val input_title = et_addreview_oneline.text.toString()//한줄 설명
@@ -262,7 +256,7 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
             cafe_id.toString() + "  " + input_rating.toString() + " " + input_title + " " + input_content + " " + images.toString()
         )
 
-        if (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0) { //Multipart 형식은 String을 RequestBody 타입으로 바꿔줘야 합니다
+        if (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && images.size > 0) { //Multipart 형식은 String을 RequestBody 타입으로 바꿔줘야 합니다
             flag = true
             changeButtonColor(flag)
             Log.v("postReviewWriteResponse", "다 널 아니다")
@@ -333,12 +327,14 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         input_rating: Int,
         input_title: String
     ) {
+
         var content = RequestBody.create(MediaType.parse("text/plain"), input_content)
         var title = RequestBody.create(MediaType.parse("text/plain"), input_title)
+
+        Log.v("postReviewWriteResponse",User.token+" "+input_cafeid.toString()+" "+ title.toString()+" "+ content.toString()+" "+ input_rating.toString()+" "+ images.toString())
         postReviewWriteResponse =
                 networkService.postReviewWriteResponse(User.token,input_cafeid, title, content, input_rating, images)
         postReviewWriteResponse.enqueue(object : Callback<PostReviewWriteResponse> {
-
             override fun onFailure(call: Call<PostReviewWriteResponse>?, t: Throwable?) {
                 Log.v("fail..", t.toString())
             }
@@ -349,15 +345,13 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
             ) {
                 if (response!!.isSuccessful)
                     if (response.body()!!.status == 201) {
-                        toast("수고해써 소희얌")
                         finish()
                         Log.v("success..", images.toString())
                     } else {
-                        Log.v("WriteReviewResponse", response.body()!!.message)
+                        Log.v("postReviewWriteResponse", response.body()!!.message)
                     }
             }
         })
-        Log.v("postReviewWriteResponse", "여기는 리스폰스 밖..")
     }
 
     fun setBtnEnable(){
@@ -368,7 +362,7 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         var flag: Boolean = false
         Log.v(
             "postReviewWriteResponse",
-            cafe_id.toString() + "  " + input_rating.toString() + " " + input_title + " " + input_content + " " + images.toString()
+            input_cafeid.toString() + "  " + input_rating.toString() + " " + input_title + " " + input_content + " " + images.toString()
         )
         img_addreview_complete.isEnabled =
                 (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0)
@@ -376,8 +370,8 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         changeButtonColor(flag)
         Log.v("postReviewWriteResponse", "다 널 아니다")
         img_addreview_complete.setOnClickListener {
-            toast("toucH!")
             postReviewWriteResponse(input_cafeid!!, input_content, input_rating, input_title)
+            finish()
         }
         if (!(input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0)) {
             flag = false
@@ -385,6 +379,8 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
             img_addreview_complete.isEnabled = false
         }
     }
+//
+//    fun prepareFilePart(partName : String, fileUri : Uri) : MultipartBody.Part {
 }
 
 //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
