@@ -1,11 +1,15 @@
 package com.example.parkseeun.moca_android.ui.community.review_write
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -17,6 +21,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.example.parkseeun.moca_android.model.post.PostReviewWriteResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.network.NetworkService
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
@@ -24,9 +29,15 @@ import com.example.parkseeun.moca_android.ui.community.review_write.adapter.Phot
 import com.example.parkseeun.moca_android.ui.community.review_write.data.PhotoData
 import com.example.parkseeun.moca_android.ui.community.review_write.data.ReviewImageData
 import okhttp3.MediaType
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
+import org.jetbrains.anko.textColorResource
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -36,17 +47,26 @@ class WriteReviewActivity : AppCompatActivity() {
     //    var PICK_IMAGE_MULTIPLE = 1
 //    var imageEncoded: String? = null
 //    var imagesEncodedList = ArrayList<String>()
-    val networkService: NetworkService by lazy { ApplicationController.instance.networkService }
+    private val My_READ_STORAGE_REQUEST_CODE = 1004
+    private val REQUEST_CODE_SELECT_IMAGE = 2004
     private val REQ_CODE_SELECT_IMAGE = 100
     lateinit var data: Uri
     var REQUEST_CODE: Int = 1007
+    private var mImage: MultipartBody.Part? = null
     var btn_num = 0
-
+    private var cafe_id: Int? = null
+    private var currentProgress: Int = 0
+    //통신
+    private val networkService by lazy {
+        ApplicationController.instance.networkService
+    }
+    lateinit var postReviewWriteResponse: Call<PostReviewWriteResponse>
+    var images = ArrayList<MultipartBody.Part>()
     lateinit var photoItems: ArrayList<PhotoData>
     lateinit var totalItems: ArrayList<PhotoData>
     lateinit var PhotoAdapter: PhotoAdapter
     lateinit var requestManager: RequestManager
-    lateinit var reviewImageItems: ArrayList<ReviewImageData>
+    lateinit var reviewImageItems: ArrayList<ReviewImageData>  //서버로 보낼 이미지 스트링 배열
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_writereview)
@@ -58,10 +78,25 @@ class WriteReviewActivity : AppCompatActivity() {
         var displayMetrics = applicationContext.resources.displayMetrics //화면 해상도를 구함
         //var width = displayMetrics.widthPixels
         //var height = displayMetrics.heightPixels
-
+        Log.v("onCreate", "아아")
         setUnderlineColor()
         SetOnClickListener()
         ratingBar()
+
+        var wherefrom : Boolean = false
+        var cafe_id_default = intent.getIntExtra("cafe_id_default",0)
+        var cafename = intent.getStringExtra("cafename")
+        var cafeaddress = intent.getStringExtra("cafeaddress")
+        Log.v("디테일에서 넘어온거",cafe_id_default.toString()+" "+cafename+" "+cafeaddress)
+        if(cafename!=null){
+            cafe_id=cafe_id_default
+            Log.v("디테일에서 넘어온 거 넣음 ",cafe_id.toString())
+            et_addreview_cafename.text=cafename
+            et_addreview_cafeaddress.text=cafeaddress
+            et_addreview_cafename.isEnabled = false
+            et_addreview_cafename.isClickable = false
+            wherefrom = true
+        }
     }
 
     private fun setUnderlineColor() {
@@ -73,16 +108,16 @@ class WriteReviewActivity : AppCompatActivity() {
                 else v_write_review_cafename.backgroundResource = R.color.dark_gray
             }
         }
-        //카페장소
+        //카페주소
         et_addreview_cafeaddress.textChangedListener {
-            onTextChanged {s, start, before, count ->
+            onTextChanged { s, start, before, count ->
                 if (et_addreview_cafeaddress.text.toString().isNotEmpty())
                     v_write_review_cafeaddress.backgroundResource = R.color.point_pink
                 else v_write_review_cafeaddress.backgroundResource = R.color.dark_gray
             }
         }
         //레이팅
-        if(ratingBarCustom.rating>=0) v_write_review_rating.backgroundResource= R.color.point_pink
+        if (ratingBarCustom.rating >= 0) v_write_review_rating.backgroundResource = R.color.point_pink
 
         //한줄 설명
         et_addreview_oneline.textChangedListener {
@@ -102,11 +137,16 @@ class WriteReviewActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        var cafe_id_default = data!!.getIntExtra("cafe_id_default",0)
+        Log.v("cafe_id_default =",cafe_id_default.toString())
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 1007 -> {
-                    et_addreview_cafeaddress.setText(data!!.getStringExtra("cafe_name"))
+                    et_addreview_cafename.text = data!!.getStringExtra("cafe_name")
+                    cafe_id = data!!.getIntExtra("cafe_id", 0)
+                    et_addreview_cafeaddress.text = data!!.getStringExtra("cafe_address")
                 }
             }
         }
@@ -132,21 +172,21 @@ class WriteReviewActivity : AppCompatActivity() {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos)
                     val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())
                     val photo = File(this.data.toString()) // 가져온 파일의 이름을 알아내려고 사용합니다
-
-                    ///RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
+                    //RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
                     // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
-
-                    //이거 서버에 보내줄때 필요 image = MultipartBody.Part.createFormData("photo", photo.name, photoBody) //여기의 photo는 키값의 이름하고 같아야함
-
+                    images.add(
+                        MultipartBody.Part.createFormData(
+                            "image",
+                            photo.name,
+                            photoBody
+                        )
+                    )//여기의 image는 키값의 이름하고 같아야함
+                    Log.v("images size", images.size.toString())
                     //body = MultipartBody.Part.createFormData("image", photo.getName(), profile_pic);
-                    if (photoItems.size > 9) {
-                        img_addreview_image.visibility = View.GONE
-                    } else {
-                        img_addreview_image.visibility = View.VISIBLE
-                        photoItems.add(PhotoData(data.data))
-                        reviewImageItems.add(ReviewImageData(data.data.toString()))
-                    }
-                    PhotoAdapter = PhotoAdapter(photoItems, requestManager)
+
+                    photoItems.add(PhotoData(data.data))
+                    reviewImageItems.add(ReviewImageData(data.data.toString()))
+                    PhotoAdapter = PhotoAdapter(photoItems, requestManager,images, this.findViewById(R.id.rl_all_addreview))
                     rv_photo_review.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     rv_photo_review.adapter = PhotoAdapter
 
@@ -157,7 +197,6 @@ class WriteReviewActivity : AppCompatActivity() {
             }
         }
     }
-
 
     fun changeImage() {
         var intent = Intent(Intent.ACTION_PICK)
@@ -171,7 +210,7 @@ class WriteReviewActivity : AppCompatActivity() {
         ratingBarCustom.onRatingBarChangeListener = object : RatingBar.OnRatingBarChangeListener {
             var ratingBarCustomInfo = findViewById<View>(R.id.ratingBarCustomInfo) as TextView
             override fun onRatingChanged(ratingBar: RatingBar, ratingValue: Float, fromUser: Boolean) {
-                val currentProgress = ratingBarCustom.progress
+                currentProgress = ratingBarCustom.progress
                 ratingBarCustomInfo.text = "Current start number is $ratingValue, Progress number is $currentProgress"
             }
         }
@@ -179,28 +218,137 @@ class WriteReviewActivity : AppCompatActivity() {
     }
 
     fun SetOnClickListener() {
-        et_addreview_cafeaddress.setOnClickListener {
+        et_addreview_cafename.setOnClickListener {
             val intent = Intent(this, ReviewSearchLocationActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE)
         }
-        img_addreview_complete.setOnClickListener {
-            postReviewWriteResponse()
-            startActivity<FeedActivity>()
-        }
+//
+//        if(photoItems.size >0) {
+//            btn_cancel_photo.setOnClickListener {
+//                val idx: Int = rv_photo_review.getChildAdapterPosition(it)
+//                photoItems.removeAt(idx)
+//                Log.v("포토아이템 사이즈", photoItems.size.toString())
+//                PhotoAdapter.notifyDataSetChanged()
+//            }
+//        }
+
         img_addreview_image.setOnClickListener {
-            changeImage()
+            requestReadExternalStoragePermission()
         }
+
 //        iv_cancel_addreview.setOnClickListener { finish() }
+        img_addreview_complete.setOnClickListener {
+            val input_cafeid = cafe_id
+            val input_title = et_addreview_oneline.text.toString()//한줄 설명
+            val input_content = et_addreview_multiline.text.toString() //상세 설명
+            val input_rating = currentProgress// 별점
+            var flag: Boolean = false
+            Log.v(
+                "postReviewWriteResponse",
+                cafe_id.toString() + "  " + input_rating.toString() + " " + input_title + " " + input_content + " " + images.toString()
+            )
+
+            if (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0) { //Multipart 형식은 String을 RequestBody 타입으로 바꿔줘야 합니다
+                flag = true
+                changeButtonColor(flag)
+                Log.v("postReviewWriteResponse", "다 널 아니다")
+                postReviewWriteResponse(input_cafeid, input_content, input_rating, input_title)
+
+            } else {
+                flag = false
+                changeButtonColor(flag)
+                toast("모든 항목을 채워주세요")
+            }
+        }
     }
 
-    private fun postReviewWriteResponse() {
+    private fun requestReadExternalStoragePermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            ) {
+
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    My_READ_STORAGE_REQUEST_CODE
+                )
+            }
+        } else {
+
+            changeImage()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == My_READ_STORAGE_REQUEST_CODE) {
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                changeImage()
+            } else {
+
+            }
+        }
+    }
+
+    private fun changeButtonColor(flag: Boolean) {
+        if (flag == true) {
+            img_addreview_complete.setBackgroundResource(R.color.point_pink)
+            txt_complete_addreview.textColorResource = R.color.white
+        } else {
+            img_addreview_complete.setBackgroundResource(R.color.light_gray)
+            txt_complete_addreview.textColorResource = R.color.dark_gray
+        }
+    }
+
+
+    private fun postReviewWriteResponse(input_cafeid: Int, input_content: String, input_rating: Int, input_title: String) {
+        var content = RequestBody.create(MediaType.parse("text/plain"), input_content)
+        var title = RequestBody.create(MediaType.parse("text/plain"), input_title)
+        postReviewWriteResponse =
+                networkService.postReviewWriteResponse(
+                    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
+                    input_cafeid, title, content, input_rating, images
+                )
+        postReviewWriteResponse.enqueue(object : Callback<PostReviewWriteResponse> {
+
+            override fun onFailure(call: Call<PostReviewWriteResponse>?, t: Throwable?) {
+                Log.v("fail..",t.toString())
+            }
+
+            override fun onResponse(
+                call: Call<PostReviewWriteResponse>?,
+                response: Response<PostReviewWriteResponse>?
+            ) {
+                if (response!!.isSuccessful)
+                    if (response.body()!!.status == 201) {
+                        toast("수고해써 소희얌")
+                        finish()
+                        Log.v("success..",images.toString())
+                    } else {
+                        Log.v("WriteReviewResponse",response.body()!!.message)
+                    }
+            }
+        })
+        Log.v("postReviewWriteResponse","여기는 리스폰스 밖..")
+    }
+}
 // val postReviewWriteResponse = networkService.postReviewWriteResponse(
 //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
 //     PostReviewWriteData(1,)
 // )
-    }
 
-    //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        try {
 //            // When an Image is picked
 //            if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == Activity.RESULT_OK && null != data) {
@@ -228,6 +376,7 @@ class WriteReviewActivity : AppCompatActivity() {
 //                else {
 ////                    imagesEncodedList = ArrayList<String>()
 //                    if (data.clipData != null) {
+
 //                        val mClipData = data.clipData
 //                        val mArrayUri = ArrayList<Uri>()
 //                        for (i in 0 until mClipData!!.itemCount) {
@@ -262,5 +411,5 @@ class WriteReviewActivity : AppCompatActivity() {
 //
 //        super.onActivityResult(requestCode, resultCode, data)
 //    }
-    //  }
-}
+//  }
+

@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.view.GravityCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -31,6 +32,7 @@ import com.example.parkseeun.moca_android.network.NetworkService
 import com.example.parkseeun.moca_android.ui.location.adapter.LocationMainAdapter
 import com.example.parkseeun.moca_android.ui.location.data.LocationCafeDetailData
 import com.example.parkseeun.moca_android.ui.location.data.MarkerItem
+import com.example.parkseeun.moca_android.ui.mypage.NavigationActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -39,6 +41,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
+import kotlinx.android.synthetic.main.activity_feed2.*
 import kotlinx.android.synthetic.main.activity_location_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -47,13 +50,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 import java.util.Locale
+import kotlinx.android.synthetic.main.app_bar_location.*
 
 
-class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
+class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
     View.OnClickListener {
 
     private val REQUEST_CODE = 1004
-    val networkService: NetworkService by lazy { ApplicationController.instance.networkService }
     // RecyclerView 설정
     lateinit var locationMainAdapter: LocationMainAdapter
     private var mMap: GoogleMap? = null
@@ -114,6 +117,10 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         setContentView(R.layout.activity_location_main)
         setOnBtnClickListener()
 
+        setHeader(nav_view_location)
+
+        nav_view_location.setNavigationItemSelectedListener(this)
+
         rv_act_location_main.setOnClickListener(this)
 //        window.setFlags(
 //            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
@@ -142,6 +149,10 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
             val intent = Intent(this, LocationSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE)
         }
+        img_location_main_hamberger.setOnClickListener {
+            drawer_layout_location.openDrawer(nav_view_location)
+        }
+
     }
 
 
@@ -555,7 +566,7 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
 
     fun setCurrentLocation(location: Location?, markerTitle: String, markerSnippet: String) {
         if (currentMarker != null) currentMarker!!.remove()
-        val currentLatLng = LatLng(location!!.latitude, location.longitude)
+        val currentLatLng = LatLng(location!!.latitude, location!!.longitude)
         val markerOptions = MarkerOptions()
         markerOptions.position(currentLatLng)
         markerOptions.title(markerTitle)
@@ -732,5 +743,12 @@ class LocationMainActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCo
         private val PERMISSIONS_REQUEST_CODE = 100
     }
 
+    override fun onBackPressed() {
+        if (drawer_layout_location.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout_location.closeDrawer(GravityCompat.START)
+        } else {
+            finishAfterTransition()
+        }
+    }
 
 }

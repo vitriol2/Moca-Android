@@ -13,18 +13,11 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ_hot_place"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toRightOf="@id/civ_hot_place"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp">
+            android:layout_centerVertical="true">
 
             <TextView
                 android:id="@+id/tv_hot_place_name"
@@ -59,7 +52,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="망원역에서 도보 3분"
                         android:textColor="#707070"
                         android:textSize="11sp"
                         android:fontFamily="@font/nanum_r"

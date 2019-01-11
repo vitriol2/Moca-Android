@@ -14,9 +14,12 @@ import com.example.parkseeun.moca_android.model.get.GetHomeHotplaceResponse
 import com.example.parkseeun.moca_android.model.get.GetMocaplusResponse
 import com.example.parkseeun.moca_android.model.get.HomeHotplaceData
 import com.example.parkseeun.moca_android.model.get.MocaplusData
+import com.example.parkseeun.moca_android.ui.main.search.SearchActivity
+import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.ui.mocapicks.MocaPicksListActivity
 import com.example.parkseeun.moca_android.ui.plus.PlusActivity
 import com.example.parkseeun.moca_android.util.SharedPreferenceController
+import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_home2.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import retrofit2.Call
@@ -26,14 +29,15 @@ import retrofit2.Response
 class HomeActivity : NavigationActivity(), View.OnClickListener {
     private val TAG = "HomeActivity"
 
-    private val pickposts: ArrayList<String> = ArrayList()
+    private val pickposts: ArrayList<GetMocaPicksListData> = ArrayList()
     val hotList: ArrayList<HomeHotplaceData>by lazy {
         ArrayList<HomeHotplaceData>()
     }
-    val rankingPosts: ArrayList<CategoryRankData> = ArrayList<CategoryRankData>()
+    private val rankingPosts: ArrayList<GetRankingResponseData> = ArrayList()
     val plusData: ArrayList<MocaplusData> = ArrayList<MocaplusData>()
 
-
+    lateinit var homeMocapicksAdapter: CategoryPickAdapter
+    lateinit var homeRankingAdapter : CategoryRankingAdapter
     lateinit var homeHotplaceAdapter: HomeHotplaceAdapter
     lateinit var homeMocaplusAdapter: HomeMocaplusAdapter
 
@@ -78,7 +82,14 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home2)
-
+        sl_refresh_home
+        // swipe refresh
+        sl_refresh_home.setColorSchemeColors(resources.getColor(R.color.colorPrimaryDark))
+        sl_refresh_home.setOnRefreshListener {
+            setHomeNetwork()
+            // refresh할 시 갱신할 통신 추가
+            sl_refresh_home.isRefreshing = false
+        }
         recyclerView()
 
         setHomeNetwork()
@@ -87,11 +98,6 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
         home_ranking_tv.setOnClickListener(this)
         home_plus_tv.setOnClickListener(this)
         home_menu_iv.setOnClickListener(this)
-
-        makeData()
-
-
-
 
 
         setHeader(nav_view)
@@ -116,15 +122,23 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
     }
 
     private fun setHomeNetwork() {
+
+        getHomeMocapicksResponse()
+
+        getHomeRankingResponse()
+
         getHomeHotplaceResponse()
 
         getHomeMocaplusResponse()
+
+
     }
 
     private fun recyclerView() {
         //cafecloud pick
+        homeMocapicksAdapter = CategoryPickAdapter(this, pickposts)
         rv_act_home_picks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rv_act_home_picks.adapter = CategoryPickAdapter(this, pickposts)
+        rv_act_home_picks.adapter = homeMocapicksAdapter
 
         //hotplace
         homeHotplaceAdapter = HomeHotplaceAdapter(this, hotList)
@@ -132,8 +146,9 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
         rv_act_home_concept.adapter = homeHotplaceAdapter
 
         //ranking
+        homeRankingAdapter = CategoryRankingAdapter(this, rankingPosts)
         rv_act_home_ranking.layoutManager = LinearLayoutManager(this)
-        rv_act_home_ranking.adapter = CategoryRankingAdapter(this, rankingPosts)
+        rv_act_home_ranking.adapter = homeRankingAdapter
 
         //plus
         homeMocaplusAdapter = HomeMocaplusAdapter(this, plusData)
@@ -143,16 +158,37 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
         //
     }
 
-    private fun makeData() {
-        for (i in 1..12) {
-            pickposts.add("카페 $i")
-        }
-        for (i in 1..3) {
-            rankingPosts.add(CategoryRankData("cafe $i", "location $i"))
 
 
-        }
+    private fun getHomeMocapicksResponse() {
+        val getHomeMocapicksResponse = networkService.getMocaPicksList(User.token, 3)
+
+        getHomeMocapicksResponse.enqueue(object : Callback<GetMocaPicksListResponse>{
+            override fun onFailure(call: Call<GetMocaPicksListResponse>, t: Throwable) {
+                Log.e(TAG, t.toString())
+            }
+
+            override fun onResponse(
+                call: Call<GetMocaPicksListResponse>,
+                response: Response<GetMocaPicksListResponse>
+            ) {
+                if(response.isSuccessful) {
+                    val temp : ArrayList<GetMocaPicksListData> = response.body()!!.data
+                    Log.v(TAG, "picks load success")
+                    if(temp!=null) {
+                        if(temp.size>0) {
+                            val position = homeMocapicksAdapter.itemCount
+                            homeMocapicksAdapter.dataList.addAll(temp)
+                            Log.v(TAG, "picks data size : ${temp.size}")
+                            homeMocapicksAdapter.notifyItemInserted(position)
+                        }
+                    }
+                }
+            }
+        })
     }
+
+
 
     private fun getHomeHotplaceResponse() {
         val token = SharedPreferenceController.getAuthorization(this)
@@ -211,4 +247,30 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
             }
         })
     }
+    private fun getHomeRankingResponse() {
+        val getHomeRankingResponse = networkService.getRanking(User.token, 3)
+
+        getHomeRankingResponse.enqueue(object: Callback<GetRankingResponse>{
+            override fun onFailure(call: Call<GetRankingResponse>, t: Throwable) {
+                Log.e(TAG, "load failed")
+            }
+
+            override fun onResponse(call: Call<GetRankingResponse>, response: Response<GetRankingResponse>) {
+                if(response.isSuccessful) {
+                    val temp : ArrayList<GetRankingResponseData> = response.body()!!.data
+
+                    Log.v(TAG, "home ranking load success")
+                    if(temp != null) {
+                        if(temp.size>0) {
+                            val position = homeRankingAdapter.itemCount
+                            homeRankingAdapter.dataList.addAll(temp)
+                            homeRankingAdapter.notifyItemInserted(position)
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+
 }

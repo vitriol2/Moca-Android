@@ -68,7 +68,7 @@
                     android:id="@+id/civ_barista_profile"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="#000000"
+                    android:src="@drawable/common_defaultimage"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="18dp"/>
 
