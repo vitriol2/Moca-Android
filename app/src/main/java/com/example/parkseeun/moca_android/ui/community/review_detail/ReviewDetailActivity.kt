@@ -13,6 +13,8 @@ import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetReviewCommentResponse
 import com.example.parkseeun.moca_android.model.get.GetReviewDetailResponse
 import com.example.parkseeun.moca_android.model.post.PostFollowResponse
+import com.example.parkseeun.moca_android.model.post.PostWriteCommentData
+import com.example.parkseeun.moca_android.model.post.PostWriteCommentResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.community.feed.other_user.OtherUserActivity
@@ -26,10 +28,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ReviewDetailActivity : AppCompatActivity() {
+
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getReviewResponse : Call<GetReviewDetailResponse>
     private lateinit var getCommentResponse : Call<GetReviewCommentResponse>
     private lateinit var postLikeResponse : Call<PostFollowResponse>
+    private lateinit var postWriteCommentResponse: Call<PostWriteCommentResponse>
     lateinit var reviewCommentViewAdapter : ReviewCommentViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +55,10 @@ class ReviewDetailActivity : AppCompatActivity() {
 
         // 통신
         communicate()
+
+        review_detail_submit_btn.setOnClickListener {
+            writeComment()
+        }
     }
 
     private fun communicate() {
@@ -134,6 +142,7 @@ class ReviewDetailActivity : AppCompatActivity() {
                     }
             }
         })
+
         // 댓글 통신
         getCommentResponse = networkService.getReviewComment(User.token, intent.getIntExtra("review_id", 1))
         getCommentResponse.enqueue(object : Callback<GetReviewCommentResponse>{
@@ -152,6 +161,29 @@ class ReviewDetailActivity : AppCompatActivity() {
                     } else if (response.body()!!.status != 204) {
                         toast(response.body()!!.status.toString() + ": " + response.body()!!.message)
                     }
+            }
+
+        })
+    }
+
+    // 댓글 달기
+    private fun writeComment() {
+        postWriteCommentResponse = networkService.postWriteComment(User.token, PostWriteCommentData(intent.getIntExtra("review_id", 1), review_detail_submit_btn.text.toString()))
+        postWriteCommentResponse.enqueue(object : Callback<PostWriteCommentResponse> {
+            override fun onFailure(call: Call<PostWriteCommentResponse>, t: Throwable) {
+                toast(t.message!!.toString())
+            }
+
+            override fun onResponse(call: Call<PostWriteCommentResponse>, response: Response<PostWriteCommentResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 201) {
+                        toast("댓글 달기에 성공했습니다.")
+                        communicate()
+                    }
+                    else {
+                        toast(response.body()!!.message + " : " + response.body()!!.status.toString())
+                    }
+                }
             }
 
         })

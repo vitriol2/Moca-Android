@@ -106,8 +106,10 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         if (selectPic) {
             val file = File(imageURI ?: "")
             val requestfile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            data = MultipartBody.Part.createFormData("user_img", "photo", requestfile)
+            data = MultipartBody.Part.createFormData("user_img", file.name, requestfile)
         }
+        if(imageURI!!.substring(0,4)=="http")
+            data = null
 
 
         val putMypageEditprofileResponse =

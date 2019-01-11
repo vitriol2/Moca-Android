@@ -25,7 +25,7 @@
                 android:id="@+id/tv_plus_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="게시물 제목"
+                android:text="Moca Plus"
                 android:textColor="#101010"
                 android:textSize="15sp"
                 android:fontFamily="@font/nanum_b"
@@ -51,7 +51,9 @@
                     <ImageView
                         android:id="@+id/rv_plus_detail_background"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:background="#fff"/>
 
                     <TextView
                             android:id="@+id/tv_plus_detail_contentsTitle"

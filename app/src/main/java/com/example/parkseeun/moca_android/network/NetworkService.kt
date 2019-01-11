@@ -205,6 +205,13 @@ interface NetworkService {
         @Path("review_id") id: Int
     ): Call<GetReviewCommentResponse>
 
+    // 리뷰 댓글 달기
+    @POST("/review/comment")
+    fun postWriteComment(
+        @Header("Authorization") token: String,
+        @Body postWriteCommentData: PostWriteCommentData
+    ) : Call<PostWriteCommentResponse>
+
     // 팔로워 조회 - 수민
     @GET("/user/{user_id}/follower")
     fun getFollower(
