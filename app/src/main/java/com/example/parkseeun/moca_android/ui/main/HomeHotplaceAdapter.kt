@@ -32,7 +32,7 @@ class HomeHotplaceAdapter(val ctx : Context, val dataList: ArrayList<HomeHotplac
             .load(dataList[position].hot_place_img)
             .into(holder.image)
 
-        holder.cafename.text = dataList[position].hot_place_name
+        holder.cafename.text = "#" + dataList[position].hot_place_name
 
         // 클릭하면 액티비티 이동
         holder.relative_home_hot_place.setOnClickListener {

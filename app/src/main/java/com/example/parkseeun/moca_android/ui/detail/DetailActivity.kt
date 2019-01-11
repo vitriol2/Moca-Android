@@ -135,9 +135,7 @@ class DetailActivity : AppCompatActivity() {
             startActivity<ReviewAllActivity>()
         }
 
-        ll_act_detail_nearbyList.setOnClickListener {
-            startActivity<NearbyListActivity>()
-        }
+
 
         ib_detail_back.setOnClickListener {
             finish()
@@ -375,6 +373,16 @@ class DetailActivity : AppCompatActivity() {
 
                     postCafeNearbyResponse(id)
 
+                    ll_act_detail_nearbyList.setOnClickListener {
+                        val intent = Intent(this@DetailActivity, NearbyListActivity::class.java)
+                        intent.putExtra("cafe_id", temp.cafe_id)
+                        intent.putExtra("cafe_latitude", temp.cafe_latitude)
+                        intent.putExtra("cafe_longitude", temp.cafe_longitude)
+                        Log.v("DetailAct lati", temp.cafe_latitude.toString())
+                        startActivity(intent)
+
+                    }
+
 
                 }
             }
@@ -422,12 +430,13 @@ class DetailActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val temp: ArrayList<SignitureData> = response.body()!!.data
-                    if (temp.size > 0) {
+                    if(temp != null) {
+                        if (temp.size > 0) {
+                            val position = detailSignitureAdapter.itemCount
+                            detailSignitureAdapter.dataList.addAll(temp)
+                            detailSignitureAdapter.notifyItemInserted(position)
 
-                        val position = detailSignitureAdapter.itemCount
-                        detailSignitureAdapter.dataList.addAll(temp)
-                        detailSignitureAdapter.notifyItemInserted(position)
-
+                        }
                     }
                 }
             }
