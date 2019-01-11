@@ -23,21 +23,24 @@ import retrofit2.Response
 
 class ComSearUserFragment : Fragment() {
     // 통신
+    lateinit var fView : View
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getCommunitySearchListResponse : Call<GetCommunitySearchListResponse>
     private var searchUserList = ArrayList<SearchUserData>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_com_sear_user, container, false)
+        fView = inflater.inflate(R.layout.fragment_com_sear_user, container, false)
+
+        return fView
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setScreenConvert()
+        //setScreenConvert()
     }
-
+/*
     private fun setScreenConvert() {
         activity!!.et_act_comm_sear.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -50,30 +53,31 @@ class ComSearUserFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
                 getAllResult(s.toString())
-        setNetwork()
+//                setNetwork()
 
-        makeList()
+//                makeList()
 
-        setRecyclerView()
-    }
+//                setRecyclerView()
+            }
 
-    private fun setNetwork() {
+//            private fun setNetwork() {
+//
+//            }
 
-    }
-
-    private fun makeList() {
+            private fun makeList() {
 //        userList.add(ComSearUserData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "하정우", "좋다", true))
 //        userList.add(ComSearUserData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "하정우", "좋다", false))
 //        userList.add(ComSearUserData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "하정우", "좋다", true))
 //        userList.add(ComSearUserData("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "하정우", "좋다", false))
 
 
-    }
+            }
         })
     }
+    */
 
     private fun setRecyclerView() {
-        val RvUser : RecyclerView = view!!.findViewById(R.id.rv_frag_com_sear_user)
+        val RvUser : RecyclerView = fView!!.findViewById(R.id.rv_frag_com_sear_user)
         RvUser.layoutManager =  LinearLayoutManager(activity)
         RvUser.adapter = ComSearUserAdapter(activity!!, searchUserList)
     }

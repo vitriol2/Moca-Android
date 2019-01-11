@@ -36,21 +36,21 @@ class ComSearCafeFragment : Fragment() {
     private var popularReviewList = ArrayList<ReviewData>()
     private var reviewListOrderByLatest = ArrayList<ReviewData>()
 
-    companion object {
-        private var instance : ComSearCafeFragment? = null
-        @Synchronized
-        fun getInstance(popularReviewList: ArrayList<ReviewData>, reviewListOrderByLatest : ArrayList<ReviewData>) : ComSearCafeFragment{
-            if(instance == null){
-                instance = ComSearCafeFragment().apply{
-                    arguments = Bundle().apply{
-                        putParcelableArrayList("popularReviewList", popularReviewList)
-                        putParcelableArrayList("reviewListOrderByLatest", reviewListOrderByLatest)
-                    }
-                }
-            }
-            return instance!!
-        }
-    }
+//    companion object {
+//        private var instance : ComSearCafeFragment? = null
+//        @Synchronized
+//        fun getInstance(popularReviewList: ArrayList<ReviewData>, reviewListOrderByLatest : ArrayList<ReviewData>) : ComSearCafeFragment{
+//            if(instance == null){
+//                instance = ComSearCafeFragment().apply{
+//                    arguments = Bundle().apply{
+//                        putParcelableArrayList("popularReviewList", popularReviewList)
+//                        putParcelableArrayList("reviewListOrderByLatest", reviewListOrderByLatest)
+//                    }
+//                }
+//            }
+//            return instance!!
+//        }
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_com_sear_cafe, container, false)
@@ -60,15 +60,15 @@ class ComSearCafeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        arguments?.let {
-            popularReviewList = it.getParcelableArrayList("popularReviewList")
-            reviewListOrderByLatest = it.getParcelableArrayList("reviewListOrderByLatest") }
+//        arguments?.let {
+//            popularReviewList = it.getParcelableArrayList("popularReviewList")
+//            reviewListOrderByLatest = it.getParcelableArrayList("reviewListOrderByLatest") }
 
         setRecyclerView()
 
-//        setScreenConvert()
+        //setScreenConvert()
     }
-
+/*
     private fun setScreenConvert() {
         activity!!.et_act_comm_sear.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -85,6 +85,7 @@ class ComSearCafeFragment : Fragment() {
             }
         })
     }
+    */
 
     private fun setRecyclerView() {
         rv_frag_com_sear_cafe_popular!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)

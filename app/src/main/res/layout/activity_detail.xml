@@ -46,107 +46,116 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <RelativeLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="360dp">
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_act_detail"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/rl_act_detail_top"
                     android:layout_width="match_parent"
-                    android:layout_height="360dp"
-                    android:background="#101010" />
+                    android:layout_height="360dp">
 
-                <ProgressBar
-                    android:id="@+id/pb_act_detail"
-                    style="?android:attr/progressBarStyleHorizontal"
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vp_act_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="360dp"
+                        android:background="#101010" />
+
+                    <ProgressBar
+                        android:id="@+id/pb_act_detail"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="340dp"
+                        android:layout_marginRight="20dp"
+                        android:max="5"
+                        android:progress="1"
+                        android:progressDrawable="@drawable/custom_progressbar" />
+
+                </RelativeLayout>
+                <View
+                    android:id="@+id/view_act_detail_blank"
                     android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="340dp"
-                    android:layout_marginRight="20dp"
-                    android:max="5"
-                    android:progress="1"
-                    android:progressDrawable="@drawable/custom_progressbar" />
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="95dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="20dp">
+                    android:layout_height="354dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                    android:layout_height="95dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/view_act_detail_blank"
+                    android:background="@drawable/round_top_square_white"
+                    android:paddingHorizontal="20dp">
 
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:scaleX="2"
-                        android:src="@drawable/common_location" />
-
-                    <TextView
-                        style="@style/Light11"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="서울 강남구"
-                        android:textColor="@color/dark_gray" />
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:scaleX="2"
+                            android:src="@drawable/common_location" />
+
+                        <TextView
+                            style="@style/Light11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="서울 강남구"
+                            android:textColor="@color/dark_gray" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_act_detail_cafename_below"
+                            style="@style/Extrabold20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="서울리즘" />
+
+                        <RatingBar
+                            android:id="@+id/rb_act_detail_rating"
+                            style="@style/SmallRatingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="6dp"
+                            android:layout_marginTop="6dp"
+                            android:numStars="5"
+                            android:rating="3"
+                            android:stepSize="1"
+                            android:progressDrawable="@drawable/small_rating_bar_layer"
+                            android:isIndicator="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_detail_review_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/detailview_review" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/mypage_tab_divider"></RelativeLayout>
+
                 </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:id="@+id/tv_act_detail_cafename_below"
-                        style="@style/Extrabold20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="서울리즘" />
-
-                    <RatingBar
-                        android:id="@+id/rb_act_detail_rating"
-                        style="@style/SmallRatingBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginTop="6dp"
-                        android:numStars="5"
-                        android:rating="3"
-                        android:stepSize="1"
-                        android:progressDrawable="@drawable/small_rating_bar_layer"
-                        android:isIndicator="true" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/iv_detail_review_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="5dp"
-                        android:src="@drawable/detailview_review" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.3dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/mypage_tab_divider"></RelativeLayout>
-
-            </LinearLayout>
-
+            </android.support.constraint.ConstraintLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

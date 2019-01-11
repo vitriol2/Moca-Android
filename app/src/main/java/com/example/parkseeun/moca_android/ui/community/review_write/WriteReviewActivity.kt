@@ -12,22 +12,22 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import com.example.parkseeun.moca_android.R
-import kotlinx.android.synthetic.main.activity_community_writereview.*
-import org.jetbrains.anko.startActivity
 import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.post.PostReviewWriteResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
-import com.example.parkseeun.moca_android.network.NetworkService
-import com.example.parkseeun.moca_android.ui.community.feed.FeedActivity
 import com.example.parkseeun.moca_android.ui.community.review_write.adapter.PhotoAdapter
 import com.example.parkseeun.moca_android.ui.community.review_write.data.PhotoData
 import com.example.parkseeun.moca_android.ui.community.review_write.data.ReviewImageData
+import com.example.parkseeun.moca_android.util.User
+import kotlinx.android.synthetic.main.activity_community_writereview.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -43,12 +43,11 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream
 
-class WriteReviewActivity : AppCompatActivity() {
+class WriteReviewActivity : AppCompatActivity(), TextWatcher {
     //    var PICK_IMAGE_MULTIPLE = 1
 //    var imageEncoded: String? = null
 //    var imagesEncodedList = ArrayList<String>()
     private val My_READ_STORAGE_REQUEST_CODE = 1004
-    private val REQUEST_CODE_SELECT_IMAGE = 2004
     private val REQ_CODE_SELECT_IMAGE = 100
     lateinit var data: Uri
     var REQUEST_CODE: Int = 1007
@@ -82,20 +81,25 @@ class WriteReviewActivity : AppCompatActivity() {
         setUnderlineColor()
         SetOnClickListener()
         ratingBar()
+        whenFromDetailActivity()
+        et_addreview_cafename.addTextChangedListener(this)
+        et_addreview_cafeaddress.addTextChangedListener(this)
+        et_addreview_oneline.addTextChangedListener(this)
+        et_addreview_multiline.addTextChangedListener(this)
+    }
 
-        var wherefrom : Boolean = false
-        var cafe_id_default = intent.getIntExtra("cafe_id_default",0)
+    private fun whenFromDetailActivity() {
+        var cafe_id_default = intent.getIntExtra("cafe_id_default", 0)
         var cafename = intent.getStringExtra("cafename")
         var cafeaddress = intent.getStringExtra("cafeaddress")
-        Log.v("디테일에서 넘어온거",cafe_id_default.toString()+" "+cafename+" "+cafeaddress)
-        if(cafename!=null){
-            cafe_id=cafe_id_default
-            Log.v("디테일에서 넘어온 거 넣음 ",cafe_id.toString())
-            et_addreview_cafename.text=cafename
-            et_addreview_cafeaddress.text=cafeaddress
+        Log.v("디테일에서 넘어온거", cafe_id_default.toString() + " " + cafename + " " + cafeaddress)
+        if (cafename != null) {
+            cafe_id = cafe_id_default
+            Log.v("디테일에서 넘어온 거 넣음 ", cafe_id.toString())
+            et_addreview_cafename.text = cafename
+            et_addreview_cafeaddress.text = cafeaddress
             et_addreview_cafename.isEnabled = false
             et_addreview_cafename.isClickable = false
-            wherefrom = true
         }
     }
 
@@ -103,9 +107,11 @@ class WriteReviewActivity : AppCompatActivity() {
         //카페이름
         et_addreview_cafename.textChangedListener {
             onTextChanged { s, start, before, count ->
-                if (et_addreview_cafename.text.toString().isNotEmpty())
+                if (et_addreview_cafename.text.toString().isNotEmpty()) {
                     v_write_review_cafename.backgroundResource = R.color.point_pink
-                else v_write_review_cafename.backgroundResource = R.color.dark_gray
+                } else {
+                    v_write_review_cafename.backgroundResource = R.color.dark_gray
+                }
             }
         }
         //카페주소
@@ -127,6 +133,7 @@ class WriteReviewActivity : AppCompatActivity() {
                 else v_write_review_oneline.backgroundResource = R.color.dark_gray
             }
         }
+
         //상세 설명
         et_addreview_multiline.textChangedListener {
             onTextChanged { s, start, before, count ->
@@ -139,8 +146,6 @@ class WriteReviewActivity : AppCompatActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        var cafe_id_default = data!!.getIntExtra("cafe_id_default",0)
-        Log.v("cafe_id_default =",cafe_id_default.toString())
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 1007 -> {
@@ -175,20 +180,18 @@ class WriteReviewActivity : AppCompatActivity() {
                     //RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
                     // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
                     images.add(
-                        MultipartBody.Part.createFormData(
-                            "image",
-                            photo.name,
-                            photoBody
-                        )
+                        MultipartBody.Part.createFormData("image", photo.name, photoBody)
                     )//여기의 image는 키값의 이름하고 같아야함
                     Log.v("images size", images.size.toString())
                     //body = MultipartBody.Part.createFormData("image", photo.getName(), profile_pic);
 
                     photoItems.add(PhotoData(data.data))
                     reviewImageItems.add(ReviewImageData(data.data.toString()))
-                    PhotoAdapter = PhotoAdapter(photoItems, requestManager,images, this.findViewById(R.id.rl_all_addreview))
+                    PhotoAdapter =
+                            PhotoAdapter(photoItems, requestManager, images, this.findViewById(R.id.rl_all_addreview))
                     rv_photo_review.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     rv_photo_review.adapter = PhotoAdapter
+                    setBtnEnable()
 
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -217,6 +220,12 @@ class WriteReviewActivity : AppCompatActivity() {
 
     }
 
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+    override fun afterTextChanged(s: Editable?) { setBtnEnable()   }
+
     fun SetOnClickListener() {
         et_addreview_cafename.setOnClickListener {
             val intent = Intent(this, ReviewSearchLocationActivity::class.java)
@@ -237,29 +246,29 @@ class WriteReviewActivity : AppCompatActivity() {
         }
 
 //        iv_cancel_addreview.setOnClickListener { finish() }
-        img_addreview_complete.setOnClickListener {
-            val input_cafeid = cafe_id
-            val input_title = et_addreview_oneline.text.toString()//한줄 설명
-            val input_content = et_addreview_multiline.text.toString() //상세 설명
-            val input_rating = currentProgress// 별점
-            var flag: Boolean = false
-            Log.v(
-                "postReviewWriteResponse",
-                cafe_id.toString() + "  " + input_rating.toString() + " " + input_title + " " + input_content + " " + images.toString()
-            )
 
-            if (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0) { //Multipart 형식은 String을 RequestBody 타입으로 바꿔줘야 합니다
-                flag = true
-                changeButtonColor(flag)
-                Log.v("postReviewWriteResponse", "다 널 아니다")
+        val input_cafeid = cafe_id
+        val input_title = et_addreview_oneline.text.toString()//한줄 설명
+        val input_content = et_addreview_multiline.text.toString() //상세 설명
+        val input_rating = currentProgress// 별점
+        var flag: Boolean = false
+        Log.v(
+            "postReviewWriteResponse",
+            cafe_id.toString() + "  " + input_rating.toString() + " " + input_title + " " + input_content + " " + images.toString()
+        )
+
+        if (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0) { //Multipart 형식은 String을 RequestBody 타입으로 바꿔줘야 합니다
+            flag = true
+            changeButtonColor(flag)
+            Log.v("postReviewWriteResponse", "다 널 아니다")
+            img_addreview_complete.setOnClickListener {
                 postReviewWriteResponse(input_cafeid, input_content, input_rating, input_title)
-
-            } else {
-                flag = false
-                changeButtonColor(flag)
-                toast("모든 항목을 채워주세요")
             }
+        } else {
+            flag = false
+            changeButtonColor(flag)
         }
+
     }
 
     private fun requestReadExternalStoragePermission() {
@@ -273,7 +282,7 @@ class WriteReviewActivity : AppCompatActivity() {
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 )
             ) {
-
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), My_READ_STORAGE_REQUEST_CODE)
             } else {
                 ActivityCompat.requestPermissions(
                     this,
@@ -286,6 +295,7 @@ class WriteReviewActivity : AppCompatActivity() {
             changeImage()
         }
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -303,27 +313,29 @@ class WriteReviewActivity : AppCompatActivity() {
 
     private fun changeButtonColor(flag: Boolean) {
         if (flag == true) {
-            img_addreview_complete.setBackgroundResource(R.color.point_pink)
-            txt_complete_addreview.textColorResource = R.color.white
+            img_addreview_complete.setBackgroundResource(R.drawable.round_square_point_pink)
+            img_addreview_complete.textColorResource = R.color.white
         } else {
-            img_addreview_complete.setBackgroundResource(R.color.light_gray)
-            txt_complete_addreview.textColorResource = R.color.dark_gray
+            img_addreview_complete.setBackgroundResource(R.drawable.round_square_lightgray)
+            img_addreview_complete.textColorResource = R.color.dark_gray
         }
     }
 
 
-    private fun postReviewWriteResponse(input_cafeid: Int, input_content: String, input_rating: Int, input_title: String) {
+    private fun postReviewWriteResponse(
+        input_cafeid: Int,
+        input_content: String,
+        input_rating: Int,
+        input_title: String
+    ) {
         var content = RequestBody.create(MediaType.parse("text/plain"), input_content)
         var title = RequestBody.create(MediaType.parse("text/plain"), input_title)
         postReviewWriteResponse =
-                networkService.postReviewWriteResponse(
-                    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
-                    input_cafeid, title, content, input_rating, images
-                )
+                networkService.postReviewWriteResponse(User.token,input_cafeid, title, content, input_rating, images)
         postReviewWriteResponse.enqueue(object : Callback<PostReviewWriteResponse> {
 
             override fun onFailure(call: Call<PostReviewWriteResponse>?, t: Throwable?) {
-                Log.v("fail..",t.toString())
+                Log.v("fail..", t.toString())
             }
 
             override fun onResponse(
@@ -334,19 +346,41 @@ class WriteReviewActivity : AppCompatActivity() {
                     if (response.body()!!.status == 201) {
                         toast("수고해써 소희얌")
                         finish()
-                        Log.v("success..",images.toString())
+                        Log.v("success..", images.toString())
                     } else {
-                        Log.v("WriteReviewResponse",response.body()!!.message)
+                        Log.v("WriteReviewResponse", response.body()!!.message)
                     }
             }
         })
-        Log.v("postReviewWriteResponse","여기는 리스폰스 밖..")
+        Log.v("postReviewWriteResponse", "여기는 리스폰스 밖..")
+    }
+
+    fun setBtnEnable(){
+        val input_cafeid = cafe_id
+        val input_title = et_addreview_oneline.text.toString()//한줄 설명
+        val input_content = et_addreview_multiline.text.toString() //상세 설명
+        val input_rating = currentProgress// 별점
+        var flag: Boolean = false
+        Log.v(
+            "postReviewWriteResponse",
+            cafe_id.toString() + "  " + input_rating.toString() + " " + input_title + " " + input_content + " " + images.toString()
+        )
+        img_addreview_complete.isEnabled =
+                (input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0)
+        flag = true
+        changeButtonColor(flag)
+        Log.v("postReviewWriteResponse", "다 널 아니다")
+        img_addreview_complete.setOnClickListener {
+            toast("toucH!")
+            postReviewWriteResponse(input_cafeid!!, input_content, input_rating, input_title)
+        }
+        if (!(input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0)) {
+            flag = false
+            changeButtonColor(flag)
+            img_addreview_complete.isEnabled = false
+        }
     }
 }
-// val postReviewWriteResponse = networkService.postReviewWriteResponse(
-//     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
-//     PostReviewWriteData(1,)
-// )
 
 //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        try {

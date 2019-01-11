@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,33 +24,21 @@ import retrofit2.Response
 
 class ComSearAllFragment : Fragment() {
 
+    private val TAG = "ComSearAllFragment"
     // 통신
     private val networkService  = ApplicationController.instance.networkService
     // 이번주 리뷰 많은 카페
     private lateinit var getBestCafeListResponse : Call<GetBestCafeListResponse>
     private var getBestCafeListData = ArrayList<GetBestCafeListData>()
+    lateinit var comSearAllReviewTopAdapter: ComSearAllReviewTopAdapter
+
     // 이번주 인기 많은 사용자
     private lateinit var getBestUserResponse : Call<GetBestUserResponse>
     private var getBestUserData = ArrayList<GetBestUserData>()
+    lateinit var comSearAllPopUserAdapter : ComSearAllPopUserAdapter
     // 전체
     private var popularReviewList = ArrayList<ReviewData>()
     private var searchUserList = ArrayList<SearchUserData>()
-
-    companion object {
-        private var instance : ComSearAllFragment? = null
-        @Synchronized
-        fun getInstance(popularReviewList: ArrayList<ReviewData>, searchUserList: ArrayList<SearchUserData>) : ComSearAllFragment{
-            if(instance == null){
-                instance = ComSearAllFragment().apply{
-                    arguments = Bundle().apply{
-                        putParcelableArrayList("popularReviewList", popularReviewList)
-                        putParcelableArrayList("searchUserList", searchUserList)
-                    }
-                }
-            }
-            return instance!!
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View = inflater.inflate(R.layout.fragment_com_sear_all, container, false)
@@ -61,22 +50,21 @@ class ComSearAllFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        arguments?.let {
-            popularReviewList = it.getParcelableArrayList("popularReviewList")
-            searchUserList = it.getParcelableArrayList("searchUserList") }
-
 
         // 검색 전 화면
         getBestReviewCafe()
         getBestUser()
 
+
         // 검색 전 화면 - 이번주 리뷰 많은 카페 RecyclerView 설정
+        comSearAllReviewTopAdapter = ComSearAllReviewTopAdapter(activity!!, getBestCafeListData)
         rv_frag_com_sear_all_reviewtop.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        rv_frag_com_sear_all_reviewtop.adapter = ComSearAllReviewTopAdapter(activity!!, getBestCafeListData)
+        rv_frag_com_sear_all_reviewtop.adapter = comSearAllReviewTopAdapter
 
         // 이번주 인기 많은 사용자
+        comSearAllPopUserAdapter = ComSearAllPopUserAdapter(activity!!, getBestUserData)
         rv_frag_comm_sear_all_popularuser.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        rv_frag_comm_sear_all_popularuser.adapter = ComSearAllPopUserAdapter(activity!!, getBestUserData)
+        rv_frag_comm_sear_all_popularuser.adapter = comSearAllPopUserAdapter
 
 
         // RecyclerView 설정
@@ -90,28 +78,28 @@ class ComSearAllFragment : Fragment() {
 
 
 
-    // 통신 (이번주 리뷰 많은 카페)
+    //통신 (이번주 리뷰 많은 카페)
     private fun getBestReviewCafe() {
         getBestCafeListResponse = networkService.getBestCafeList(User.token!!, 1)
         getBestCafeListResponse.enqueue(object : Callback<GetBestCafeListResponse> {
             override fun onFailure(call: Call<GetBestCafeListResponse>, t: Throwable) {
-                toast(t.message.toString())
+                Log.e(TAG, t.message.toString())
             }
 
             override fun onResponse(call: Call<GetBestCafeListResponse>, response: Response<GetBestCafeListResponse>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
-                        getBestCafeListData = response.body()!!.data
+                        val temp = response.body()!!.data
 
                         // 검색 전 화면 - 이번주 리뷰 많은 카페 RecyclerView 설정
-                        rv_frag_com_sear_all_reviewtop.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-                        rv_frag_com_sear_all_reviewtop.adapter = ComSearAllReviewTopAdapter(activity!!, getBestCafeListData)
+                        val position = comSearAllReviewTopAdapter.itemCount
+                        comSearAllReviewTopAdapter.dataList.addAll(temp)
+                        comSearAllReviewTopAdapter.notifyItemInserted(position)
                     }
                 }
             }
         })
     }
-
 
 
     // 통신 (이번주 인기 많은 사용자)
@@ -125,16 +113,17 @@ class ComSearAllFragment : Fragment() {
             override fun onResponse(call: Call<GetBestUserResponse>, response: Response<GetBestUserResponse>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
-                        getBestUserData = response.body()!!.data
+                        val temp = response.body()!!.data
+                        if(temp.size>0) {
+                            // 이번주 인기 많은 사용자
 
-                        // 이번주 인기 많은 사용자
-                        rv_frag_comm_sear_all_popularuser.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-                        rv_frag_comm_sear_all_popularuser.adapter = ComSearAllPopUserAdapter(activity!!, getBestUserData)
+                            val position = comSearAllPopUserAdapter.itemCount
+                            comSearAllPopUserAdapter.dataList.addAll(temp)
+                            comSearAllPopUserAdapter.notifyItemInserted(position)
+                        }
                     }
                 }
             }
         })
     }
-
-
 }

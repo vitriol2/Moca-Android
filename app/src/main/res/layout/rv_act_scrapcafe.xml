@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="147dp"
     android:layout_centerHorizontal="true"
-    android:layout_marginHorizontal="20dp">
+    android:layout_marginHorizontal="20dp"
+    android:background="@drawable/rv_act_scrapcafe_bg">
 
         <ImageView
             android:id="@+id/iv_rv_act_scrapcafe_cafeimage"
             android:layout_width="match_parent"
             android:layout_height="141dp"
-            android:src="@drawable/ic_launcher_background"
             android:scaleType="centerCrop" />
 
         <ImageButton
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="서울리즘"
                 style="@style/Bold15"
-                android:textColor="@color/black"/>
+                android:textColor="@color/white"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                     android:id="@+id/iv_rv_act_scrapcafe_location_image"
                     android:layout_width="12dp"
                     android:layout_height="13dp"
-                    android:src="@drawable/common_location"/>
+                    android:src="@drawable/common_location_white" />
 
                 <TextView
                     android:id="@+id/tv_rv_act_scrapcafe_location"
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="서울시 강동구 명일동"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     style="@style/Light11"/>
 
                 <RatingBar

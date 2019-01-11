@@ -33,6 +33,7 @@ import com.example.parkseeun.moca_android.ui.location.adapter.LocationMainAdapte
 import com.example.parkseeun.moca_android.ui.location.data.LocationCafeDetailData
 import com.example.parkseeun.moca_android.ui.location.data.MarkerItem
 import com.example.parkseeun.moca_android.ui.mypage.NavigationActivity
+import com.example.parkseeun.moca_android.util.User
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -428,12 +429,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
     private fun postNearByCafeResponse(latlng: LatLng) {
 
         val postNearByCafeResponse = networkService.postNearByCafeResponse( //나중에 쉐어드프리퍼런스에 저장된 토큰값으로 바꿔놓기!
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
-            PostNearByCafeData(
-                latlng.latitude.toString(), latlng.longitude.toString(), //현재위치로 바꿔야해 ㅠㅠ
-                0, 0
-            )
-        )
+             User.token, PostNearByCafeData(latlng.latitude.toString(), latlng.longitude.toString(), 0, 0))
         postNearByCafeResponse.enqueue(object : Callback<PostNearByCafeResponse> {
             override fun onFailure(call: Call<PostNearByCafeResponse>, t: Throwable) {
                 toast(t.message.toString())
@@ -572,7 +568,8 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         markerOptions.title(markerTitle)
         markerOptions.snippet(markerSnippet)
         markerOptions.draggable(true)
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_now))
+        markerOptions.visible(false)
+//        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_now))
 
         currentMarker = mMap!!.addMarker(markerOptions)
 
@@ -586,7 +583,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
         }
 
         img_mylocation_btn.setOnClickListener {
-            if(location != null) {
+            if(currentLatLng != null) {
                 val cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng)
                 mMap!!.moveCamera(CameraUpdateFactory.zoomTo(15f))
                 mMap!!.animateCamera(CameraUpdateFactory.zoomIn(), 500, null)

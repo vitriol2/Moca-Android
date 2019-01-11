@@ -33,7 +33,6 @@ class LocationMainDialog(val ctx: Context, val data: LocationCafeDetailData, val
 
     override fun onBackPressed() {
         super.onBackPressed()
-
         data.selected = false
         dismiss()
     }

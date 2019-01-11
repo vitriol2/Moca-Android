@@ -104,7 +104,7 @@ class JoinActivity : AppCompatActivity() {
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 )
             ) {
-
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), My_READ_STORAGE_REQUEST_CODE)
             } else {
                 ActivityCompat.requestPermissions(
                     this,
