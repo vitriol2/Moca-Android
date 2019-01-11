@@ -51,7 +51,7 @@ class LocationMainDialog(val ctx: Context, val data: LocationCafeDetailData, val
             intent.putExtra("cafe_id", data.cafe_id)
             ctx.startActivity(intent)
             this.dismiss()
-
+        }
 
             btn_dialog_location_navi.setOnClickListener {
                 if (currentLatLng != null) {
@@ -95,4 +95,3 @@ class LocationMainDialog(val ctx: Context, val data: LocationCafeDetailData, val
             }
         }
     }
-}
