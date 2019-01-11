@@ -35,6 +35,7 @@ class CategoryPickAdapter(val ctx : Context, val dataList: ArrayList<GetMocaPick
             val intent = Intent(ctx, MocaPicksDetailActivity::class.java)
 
             intent.putExtra("cafe_id", dataList[position].cafe_id)
+            intent.putExtra("scrab_is", dataList[position].scrab_is)
 
             ctx.startActivity(intent)
         }
@@ -45,5 +46,6 @@ class CategoryPickAdapter(val ctx : Context, val dataList: ArrayList<GetMocaPick
         val cafeImage : ImageView = itemView.findViewById(R.id.iv_cat_pic_rv_item_image) as ImageView
         val cafename : TextView = itemView.findViewById(R.id.tv_cat_pic_rv_item_cafe_name) as TextView
         val location : TextView = itemView.findViewById(R.id.tv_cat_pic_rv_item_cafe_location) as TextView
+
     }
 }

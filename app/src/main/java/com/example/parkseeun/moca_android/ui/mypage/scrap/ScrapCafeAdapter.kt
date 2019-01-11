@@ -24,6 +24,8 @@ class ScrapCafeAdapter(val ctx : Context, val dataList : ArrayList<ScrapCafeData
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
+        holder.cafeimage.clipToOutline = true
+
         holder.item.setOnClickListener {
             val intent = Intent(ctx, DetailActivity::class.java)
             ctx.startActivity(intent)

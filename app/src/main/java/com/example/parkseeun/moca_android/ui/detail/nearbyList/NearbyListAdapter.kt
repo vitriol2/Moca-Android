@@ -3,6 +3,7 @@ package com.example.parkseeun.moca_android.ui.detail.nearbyList
 import android.content.Context
 import android.graphics.Point
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,9 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
+import com.example.parkseeun.moca_android.model.post.PostNearByCafeResponseData
 
-class NearbyListAdapter(val context : Context, val dataList : ArrayList<NearbyListData>) : RecyclerView.Adapter<NearbyListAdapter.Holder>() {
+class NearbyListAdapter(val context : Context, val dataList : ArrayList<PostNearByCafeResponseData>) : RecyclerView.Adapter<NearbyListAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NearbyListAdapter.Holder {
         // 뷰 인플레이트
@@ -30,10 +32,13 @@ class NearbyListAdapter(val context : Context, val dataList : ArrayList<NearbyLi
         holder.pic.layoutParams.width = ((width-dpToPx(40.toFloat()))).toInt()
         holder.pic.layoutParams.height = holder.pic.layoutParams.width-20
         holder.pic.clipToOutline = true
-        Glide.with(context).load(dataList[position].photo).into(holder.pic)
-        holder.cafename.text = dataList[position].cafename
-        holder.location.text = dataList[position].location
-        holder.rating.rating = dataList[position].rating.toFloat()
+
+        Glide.with(context).load(dataList[position].cafe_img_url).into(holder.pic)
+
+        holder.cafename.text = dataList[position].cafe_name
+        Log.v("nearcafename", holder.cafename.text.toString())
+        holder.location.text = dataList[position].address_district_name
+        holder.rating.rating = dataList[position].cafe_rating_avg.toFloat()
     }
 
     // View Holder
