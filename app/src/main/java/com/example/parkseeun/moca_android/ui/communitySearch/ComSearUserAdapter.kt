@@ -27,7 +27,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ComSearUserAdapter(val context: Context, val dataList: ArrayList<SearchUserData>) :
+class ComSearUserAdapter(val context: Context, var dataList: ArrayList<SearchUserData>) :
     RecyclerView.Adapter<ComSearUserAdapter.Holder>() {
 
     private val networkService  = ApplicationController.instance.networkService

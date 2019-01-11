@@ -98,7 +98,7 @@ class CommunitySearchActivity : AppCompatActivity() {
             view_cafe.setBackgroundColor(Color.parseColor("#ffffff"))
             view_location.setBackgroundColor(Color.parseColor("#ffffff"))
 
-            ll_act_com_sear_all.visibility = View.VISIBLE
+            ll_act_com_sear_all_all.visibility = View.VISIBLE
             nv_act_com_sear_cafetab.visibility = View.GONE
             nv_act_com_sear_usertab.visibility = View.GONE
         }
@@ -112,7 +112,7 @@ class CommunitySearchActivity : AppCompatActivity() {
             view_cafe.setBackgroundColor(Color.parseColor("#e1b2a3"))
             view_location.setBackgroundColor(Color.parseColor("#ffffff"))
 
-            ll_act_com_sear_all.visibility = View.GONE
+            ll_act_com_sear_all_all.visibility = View.GONE
             nv_act_com_sear_cafetab.visibility = View.VISIBLE
             nv_act_com_sear_usertab.visibility = View.GONE
         }
@@ -126,7 +126,7 @@ class CommunitySearchActivity : AppCompatActivity() {
             view_cafe.setBackgroundColor(Color.parseColor("#ffffff"))
             view_location.setBackgroundColor(Color.parseColor("#e1b2a3"))
 
-            ll_act_com_sear_all.visibility = View.GONE
+            ll_act_com_sear_all_all.visibility = View.GONE
             nv_act_com_sear_cafetab.visibility = View.GONE
             nv_act_com_sear_usertab.visibility = View.VISIBLE
         }
@@ -147,9 +147,13 @@ class CommunitySearchActivity : AppCompatActivity() {
 
                 if (s.toString() == "") {
                     ll_act_com_sear_all_nothing.visibility = View.VISIBLE
+                    ll_act_com_sear_all_all.visibility = View.GONE
+                    nv_act_com_sear_cafetab.visibility = View.GONE
+                    nv_act_com_sear_usertab.visibility = View.GONE
                 } else {
                     ll_act_com_sear_all_nothing.visibility = View.GONE
-                    getAllResult(s.toString())
+                    ll_act_com_sear_all_all.visibility = View.VISIBLE
+                    getAllResult(et_act_com_sear_search.text.toString())
                 }
             }
         })
@@ -190,10 +194,6 @@ class CommunitySearchActivity : AppCompatActivity() {
         comSearUserAdapter = ComSearUserAdapter(this, searchUserList)
         rv_act_com_sear_all_user.layoutManager = LinearLayoutManager(this)
         rv_act_com_sear_all_user.adapter = comSearUserAdapter
-
-        rv_act_com_sear_user.layoutManager = LinearLayoutManager(this)
-        rv_act_com_sear_user.adapter = comSearUserAdapter
-
 
     }
 
@@ -276,13 +276,13 @@ class CommunitySearchActivity : AppCompatActivity() {
                         val positionRecCafe = reviewAllRecentAdapter.itemCount
                         val positionUser = comSearUserAdapter.itemCount
 
-                        reviewAllPopularAdapter.dataList.addAll(popularReviewList)
+                        reviewAllPopularAdapter.dataList=popularReviewList
                         reviewAllPopularAdapter.notifyItemChanged(positionPopCafe)
 
-                        reviewAllRecentAdapter.dataList.addAll(reviewListOrderByLatest)
+                        reviewAllRecentAdapter.dataList=reviewListOrderByLatest
                         reviewAllRecentAdapter.notifyItemChanged(positionRecCafe)
 
-                        comSearUserAdapter.dataList.addAll(searchUserList)
+                        comSearUserAdapter.dataList=searchUserList
                         comSearUserAdapter.notifyItemChanged(positionUser)
 
 

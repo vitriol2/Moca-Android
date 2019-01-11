@@ -59,7 +59,7 @@
                 android:layout_height="41dp"
                 android:background="#FFFFFF"
                 android:text="전체"
-                android:textColor="#e1b2a3"
+                android:textColor="#707070"
                 android:textSize="13sp"
                 android:fontFamily="@font/nanum_r" />
 
@@ -136,11 +136,10 @@
         android:background="#707070" />
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_act_com_sear_all"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/ll_act_com_sear_all_nothing"
@@ -188,10 +187,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_frag_com_sear_all_all"
+            android:id="@+id/ll_act_com_sear_all_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -245,90 +245,94 @@
             </LinearLayout>
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nv_act_com_sear_cafetab"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nv_act_com_sear_cafetab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="48dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <TextView
-                        style="@style/Bold15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:text="인기 리뷰" />
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_act_com_sear_cafe_popular"
+                        <TextView
+                            style="@style/Bold15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:text="인기 리뷰" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_act_com_sear_cafe_popular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            style="@style/Bold15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:text="최신 리뷰" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_act_com_sear_cafe_recent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
             </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp">
-
-                    <TextView
-                        style="@style/Bold15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:text="최신 리뷰" />
-                </RelativeLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_act_com_sear_cafe_recent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/nv_act_com_sear_usertab"
-        android:visibility="gone">
-
-        <RelativeLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/nv_act_com_sear_usertab"
+            android:visibility="gone">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_act_com_sear_user"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_act_com_sear_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+
+
+
 
 
 </LinearLayout>
