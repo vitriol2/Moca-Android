@@ -41,7 +41,10 @@ class DetailActivity : AppCompatActivity() {
 
     private val TAG = "DetailActivity"
 
-    private var cafe_id: Int = 0
+    private var id: Int = 0
+    private var latitude: Double = 0.toDouble()
+    private var longitude: Double = 0.toDouble()
+
 
     lateinit var cafename: TextView
     lateinit var cafename_below : TextView
@@ -57,10 +60,6 @@ class DetailActivity : AppCompatActivity() {
     lateinit var smoking: ImageView
     lateinit var hour: ImageView
     lateinit var reservation: ImageView
-
-    private var latitude: Double = 0.toDouble()
-    private var longitude: Double = 0.toDouble()
-    private var id: Int = 220
 
 
     var urlList = ArrayList<String?>()
@@ -79,7 +78,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        cafe_id = intent.getIntExtra("cafe_id", 0)
+        id = intent.getIntExtra("cafe_id", 0)
 
 
         setNetwork()
@@ -151,10 +150,9 @@ class DetailActivity : AppCompatActivity() {
         // 리뷰 쓰기
         tv_detail_write_review.setOnClickListener {
             val intent = Intent(this@DetailActivity, WriteReviewActivity::class.java)
-            intent.putExtra("cafe_id_default",cafe_id)
+            intent.putExtra("cafe_id_default",id)
             intent.putExtra("cafename",cafename.text)
             intent.putExtra("cafeaddress",address.text)
-            intent
             startActivity(intent)
         }
 
@@ -333,10 +331,11 @@ class DetailActivity : AppCompatActivity() {
                     Log.v(TAG, "load success123 || getCafeDetailResponse")
                     val temp: CafeDetailData = response.body()!!.data
                     cafename.text = temp.cafe_name
+                    cafename_below.text = temp.cafe_name
                     rating.rating = temp.cafe_rating_avg.toFloat()
                     Log.v("rating", rating.numStars.toString())
                     Log.v("rating temp", temp.cafe_rating_avg.toString())
-                    address.text = temp.address_distrival + temp.cafe_address_detail
+                    address.text = temp.cafe_address_detail
                     phone.text = temp.cafe_phone
                     day.text = temp.cafe_days
                     time.text = temp.cafe_times
@@ -437,7 +436,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getCafePopReviewResponse(id: Int) {
         val getCafePopReviewResponse = networkService.getCafePopReviewResponse(
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY29jbyIsImlzcyI6IkRvSVRTT1BUIn0.Rplge4ISuuCrFzrddjOl55TCeRQ2QUD9yuwSMmOZ5X0",
+            User.token,
             id
         )
 
