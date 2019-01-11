@@ -26,6 +26,7 @@ import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.review_write.adapter.PhotoAdapter
 import com.example.parkseeun.moca_android.ui.community.review_write.data.PhotoData
 import com.example.parkseeun.moca_android.ui.community.review_write.data.ReviewImageData
+import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_community_writereview.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -330,10 +331,7 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         var content = RequestBody.create(MediaType.parse("text/plain"), input_content)
         var title = RequestBody.create(MediaType.parse("text/plain"), input_title)
         postReviewWriteResponse =
-                networkService.postReviewWriteResponse(
-                    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
-                    input_cafeid, title, content, input_rating, images
-                )
+                networkService.postReviewWriteResponse(User.token,input_cafeid, title, content, input_rating, images)
         postReviewWriteResponse.enqueue(object : Callback<PostReviewWriteResponse> {
 
             override fun onFailure(call: Call<PostReviewWriteResponse>?, t: Throwable?) {
@@ -383,10 +381,6 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         }
     }
 }
-// val postReviewWriteResponse = networkService.postReviewWriteResponse(
-//     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZmlyc3QiLCJpc3MiOiJEb0lUU09QVCJ9.0wvtXq58-W8xkndwb_3GYiJJEbq8zNEXzm6fnHA6xRM",
-//     PostReviewWriteData(1,)
-// )
 
 //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        try {
