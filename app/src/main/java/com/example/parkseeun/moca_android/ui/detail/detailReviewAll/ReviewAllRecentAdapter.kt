@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.detail.detailReviewAll
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -17,7 +18,7 @@ import com.example.parkseeun.moca_android.ui.community.review_detail.ReviewDetai
 import kotlinx.android.synthetic.main.category_picks_rv_item.view.*
 import org.jetbrains.anko.startActivity
 
-class ReviewAllRecentAdapter(val ctx : Context, val dataList: ArrayList<ReviewData>) : RecyclerView.Adapter<ReviewAllRecentAdapter.Holder>(){
+class ReviewAllRecentAdapter(val ctx : Context, var dataList: ArrayList<ReviewData>) : RecyclerView.Adapter<ReviewAllRecentAdapter.Holder>(){
     override fun onCreateViewHolder(container: ViewGroup, p1: Int): ReviewAllRecentAdapter.Holder {
         val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_act_review_all_recent_item, container, false)
 
@@ -32,7 +33,10 @@ class ReviewAllRecentAdapter(val ctx : Context, val dataList: ArrayList<ReviewDa
 
         Glide.with(ctx).load(dataList[position].review_img_url).into(holder.photo)
         holder.photo.setOnClickListener {
-            ctx.startActivity<ReviewDetailActivity>()
+            val review_id = dataList[position].review_id
+            val intent = Intent(ctx, ReviewDetailActivity::class.java)
+            intent.putExtra("review_id", review_id)
+            ctx.startActivity(intent)
         }
 
     }
