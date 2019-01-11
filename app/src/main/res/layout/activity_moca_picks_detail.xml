@@ -94,7 +94,7 @@
                 </LinearLayout>
 
                 <ToggleButton
-                    android:id="@+id/tb_mocaPicksList"
+                    android:id="@+id/tb_mocaPicksScrab"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:background="@drawable/like_toggle_button_gray"
@@ -115,7 +115,7 @@
                     android:id="@+id/vp_mocaPicksDetail"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
-                    android:background="#101010"/>
+                    />
 
                 <ProgressBar
                     android:id="@+id/progressBar_mocaPicksDetail"
@@ -169,6 +169,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/baristaContainer1"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginTop="10dp"
@@ -185,7 +186,7 @@
                         android:id="@+id/civ_baristaImage1"
                         android:layout_width="46dp"
                         android:layout_height="46dp"
-                        android:src="#111111"
+                        android:src="@drawable/common_defaultimage"
                         android:layout_centerVertical="true"/>
 
                     <LinearLayout
@@ -244,6 +245,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/baristaContainer2"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_marginLeft="20dp"
@@ -259,7 +261,7 @@
                         android:id="@+id/civ_baristaImage2"
                         android:layout_width="46dp"
                         android:layout_height="46dp"
-                        android:src="#111111"
+                        android:src="@drawable/common_defaultimage"
                         android:layout_centerVertical="true"/>
 
                     <LinearLayout
@@ -318,6 +320,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/baristaContainer3"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_marginLeft="20dp"
@@ -333,7 +336,7 @@
                         android:id="@+id/civ_baristaImage3"
                         android:layout_width="46dp"
                         android:layout_height="46dp"
-                        android:src="#111111"
+                        android:src="@drawable/common_defaultimage"
                         android:layout_centerVertical="true"/>
 
                     <LinearLayout

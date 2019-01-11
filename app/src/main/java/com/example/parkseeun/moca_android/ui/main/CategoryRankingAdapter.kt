@@ -1,16 +1,19 @@
 package com.example.parkseeun.moca_android.ui.main
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetRankingResponseData
+import com.example.parkseeun.moca_android.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.category_picks_rv_item.view.*
 
 class CategoryRankingAdapter(val ctx : Context, val dataList: ArrayList<GetRankingResponseData>) : RecyclerView.Adapter<CategoryRankingAdapter.Holder>(){
@@ -32,9 +35,17 @@ class CategoryRankingAdapter(val ctx : Context, val dataList: ArrayList<GetRanki
 
         holder.rating.rating = dataList[position].cafe_rating_avg.toFloat()
 
+        holder.relative_home_ranking.setOnClickListener {
+            val intent = Intent(ctx, DetailActivity::class.java)
+
+            intent.putExtra("cafe_id", dataList[position].cafe_id)
+
+            ctx.startActivity(intent)
+        }
     }
 
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        val relative_home_ranking : RelativeLayout = itemView.findViewById(R.id.relative_home_ranking) as RelativeLayout
         val cafeImage : ImageView = itemView.findViewById(R.id.iv_cat_ran_rv_item_cafeimage) as ImageView
         val cafeName : TextView = itemView.findViewById(R.id.tv_cat_ran_rv_item_cafename) as TextView
         val location : TextView = itemView.findViewById(R.id.tv_cat_ran_rv_item_location) as TextView

@@ -5,12 +5,17 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.util.Log
+import android.view.View
 import android.widget.RatingBar
+import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.ToggleButton
 import com.bumptech.glide.Glide
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.EvaluationViewItem
+import com.example.parkseeun.moca_android.model.delete.DeleteScrapResponse
 import com.example.parkseeun.moca_android.model.get.*
+import com.example.parkseeun.moca_android.model.post.PostScrapResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.util.ImageAdapter
 import com.example.parkseeun.moca_android.util.User
@@ -23,11 +28,14 @@ import retrofit2.Response
 
 class MocaPicksDetailActivity : AppCompatActivity() {
 
-    private var cafe_id : Int?=null
+    private var cafe_id : Int  = 0
     private val networkService  = ApplicationController.instance.networkService
     private lateinit var getEvaluatedCafeDetailResponse: Call<GetEvaluatedCafeDetailResponse> // 검증카페 상세 정보 조회
     private lateinit var getEvaluatedCafeImgListResponse: Call<GetEvaluatedCafeImgListResponse> // 검증 카페 이미지 리스트 조회
     private lateinit var getEvaluationListResponse :Call<GetEvaluationListResponse> // 검증 평가 리스트 조회
+    private lateinit var postScrapResponse:Call<PostScrapResponse> //스크랩 하기
+    private lateinit var deleteScrapResponse:Call<DeleteScrapResponse>// 스크랩 취소 하기
+
 
 
     //view 요소
@@ -42,12 +50,23 @@ class MocaPicksDetailActivity : AppCompatActivity() {
     private  var rb_reasonable:RatingBar ?= null
     private  var rb_consistancy:RatingBar ?= null
 
+    private lateinit var rl_baristaContainer1:RelativeLayout
+    private lateinit var rl_baristaContainer2:RelativeLayout
+    private lateinit var rl_baristaContainer3:RelativeLayout
+
+    lateinit var tb_scarb:ToggleButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_moca_picks_detail)
-
+        var scrab_is: Boolean = false
         var intent:Intent  =  getIntent()
+
+        cafe_id = intent.getIntExtra("cafe_id",-1)
+        scrab_is = intent.getBooleanExtra("scrab_is",false)
+        Log.v("cafe_id", ""+cafe_id)
+        Log.v("scrab_is",scrab_is.toString())
         cafe_name = findViewById(R.id.tv_mocaPicksDetail_cafeName)
         cafe_location = findViewById(R.id.tv_mocaPicksDetail_cafeLocation)
         total_rating = findViewById(R.id.rating_mocaPicksList_total)
@@ -64,8 +83,27 @@ class MocaPicksDetailActivity : AppCompatActivity() {
         rb_consistancy = findViewById(R.id.rating_mocaPicksList_item5)
 
 
-        cafe_id = intent.getIntExtra("cafe_id",-1)
-        Log.v("cafe_id", ""+cafe_id)
+        rl_baristaContainer1 = findViewById(R.id.baristaContainer1)
+        rl_baristaContainer2 = findViewById(R.id.baristaContainer2)
+        rl_baristaContainer3 = findViewById(R.id.baristaContainer3)
+
+
+
+
+        tb_scarb = findViewById(R.id.tb_mocaPicksScrab)
+        tb_scarb.isChecked = scrab_is
+        tb_scarb.setOnClickListener {
+            if(tb_scarb.isChecked)
+            {
+                PostScrap()
+
+
+            }
+            else
+            {
+                DeleteScrap()
+            }
+        }
        // var urlList: Array<String?> = arrayOf("http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG","http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG", "http://img.hani.co.kr/imgdb/resize/2017/1222/151381249807_20171222.JPG")
 
         getEvaluatedCafeDetail()
@@ -113,6 +151,7 @@ class MocaPicksDetailActivity : AppCompatActivity() {
     }
 
 
+
     /**
      * 검증 카페 상세 정보 조회 통신
      */
@@ -130,6 +169,7 @@ class MocaPicksDetailActivity : AppCompatActivity() {
                         cafe_location!!.text = response.body()!!.data.cafe_address_detail
                         total_rating!!.rating = response.body()!!.data.evaluated_cafe_rating.toFloat()
                         summary!!.text = response.body()!!.data.evaluated_cafe_total_evaluation
+
                     }
                     else {
                         toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
@@ -216,8 +256,8 @@ class MocaPicksDetailActivity : AppCompatActivity() {
                             var evaluationViewItem:EvaluationViewItem =  EvaluationViewItem(findViewById(barista_img+i),findViewById(barista_name+i),findViewById(barista_title+i))
                             evaluationViewItems.add(evaluationViewItem)
 
-                            evaluationViewItems.get(i).baristaName!!.text = evaluationList.get(i).barista_name
-                            evaluationViewItems.get(i).baristaTitle!!.text = evaluationList.get(i).barista_title
+                            evaluationViewItems.get(i).baristaName!!.text = evaluationList.get(i).barista_title
+                            evaluationViewItems.get(i).baristaTitle!!.text = evaluationList.get(i).barista_name
                             Glide.with(applicationContext).load(evaluationList.get(i).barista_img_url).into(evaluationViewItems.get(i).baristaImage)
 
                             /**** 평가 평균 *******/
@@ -227,6 +267,21 @@ class MocaPicksDetailActivity : AppCompatActivity() {
                             reasonable_price += evaluationList.get(i).evaluation_reasonable
                             consistant_taste += evaluationList.get(i).evaluation_consistancy
                         }
+                        if(evaluationList.size == 1)
+                        {
+                            baristaContainer2.visibility = View.INVISIBLE
+                            baristaContainer3.visibility = View.INVISIBLE
+
+                        }
+                        else if(evaluationList.size == 2)
+                        {
+                            baristaContainer3.visibility = View.INVISIBLE
+                        }
+
+
+
+
+
                         if(evaluationList.size >0) {
 
 
@@ -246,6 +301,34 @@ class MocaPicksDetailActivity : AppCompatActivity() {
                             rb_consistancy!!.rating = consistant_taste.toFloat()
                         }
 
+                        rl_baristaContainer1.setOnClickListener {
+                            val intent : Intent = Intent(applicationContext, MocaPicksBaristaActivity::class.java)
+                            intent.putExtra("cafe_id",cafe_id)
+                            intent.putExtra("barista_id",evaluationList.get(0).barista_id)
+
+                            startActivity(intent)
+                        }
+                        rl_baristaContainer2.setOnClickListener {
+                            val intent : Intent = Intent(applicationContext, MocaPicksBaristaActivity::class.java)
+                            intent.putExtra("cafe_id",cafe_id)
+                            intent.putExtra("barista_id",evaluationList.get(1).barista_id)
+
+                            startActivity(intent)
+                        }
+                        rl_baristaContainer3.setOnClickListener {
+                            val intent : Intent = Intent(applicationContext, MocaPicksBaristaActivity::class.java)
+                            intent.putExtra("cafe_id",cafe_id)
+                            intent.putExtra("barista_id",evaluationList.get(2).barista_id)
+
+                            startActivity(intent)
+                        }
+
+
+
+
+
+
+
                     }
                     else {
                         toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
@@ -256,4 +339,76 @@ class MocaPicksDetailActivity : AppCompatActivity() {
         })
 
     }
+
+    /**
+     *스크랩 하기
+     *
+     */
+    private  fun PostScrap()
+    {
+    postScrapResponse = networkService.postScrap(User.token!!, cafe_id!!)
+        postScrapResponse.enqueue(object: Callback<PostScrapResponse>{
+
+            override fun onFailure(call: Call<PostScrapResponse>, t: Throwable?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+
+            }
+
+            override fun onResponse(call: Call<PostScrapResponse>, response: Response<PostScrapResponse>) {
+                if(response.isSuccessful) {
+                    if(response.body()!!.status==200) {
+                        Log.d("tb" ,"true")
+                        tb_scarb.isChecked = true
+                    }
+                    else {
+                        toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
+                    }
+                }
+
+            }
+        })
+
+
+
+    }
+
+    /**
+     * 스크랩 취소
+     *
+     */
+    private  fun DeleteScrap()
+    {
+        deleteScrapResponse = networkService.deleteScrap(User.token!!, cafe_id!!)
+        deleteScrapResponse.enqueue(object: Callback<DeleteScrapResponse>{
+
+                    override fun onFailure(call: Call<DeleteScrapResponse>, t: Throwable?) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+
+
+
+                    }
+
+                    override fun onResponse(call: Call<DeleteScrapResponse>, response: Response<DeleteScrapResponse>) {
+                        if(response.isSuccessful) {
+                            if(response.body()!!.status==200) {
+                                Log.d("tb" ,"false")
+                                tb_scarb.isChecked = false
+                            }
+                            else {
+                                toast(response.body()!!.status.toString() + " : " + response.body()!!.message)
+                            }
+                        }
+
+                    }
+                })
+
+    }
+
+
+
+
+
+
 }
