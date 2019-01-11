@@ -43,6 +43,8 @@ class CommunitySearchActivity : AppCompatActivity() {
     private var reviewListOrderByLatest = ArrayList<ReviewData>()
     private var searchUserList = ArrayList<SearchUserData>()
 
+    private var view = View(this)
+
     /* override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_search)
@@ -74,10 +76,12 @@ class CommunitySearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_search)
 
-        viewPager = findViewById(R.id.vp_act_comm_sear) as ViewPager
+
+
+        viewPager = findViewById(R.id.vp_act_comm_sear)
         setupViewPager(viewPager!!)
 
-        tabLayout = findViewById(R.id.tl_act_comm_sear) as TabLayout
+        tabLayout = findViewById(R.id.tl_act_comm_sear)
         tabLayout!!.setupWithViewPager(viewPager)
         tabLayout!!.setTabTextColors(Color.parseColor("#e1b2a3"), Color.parseColor("#707070"))
 
