@@ -13,5 +13,5 @@ data class GetBestUserData(
     val user_img_url : String,
     val user_status_comment : String,
     val auth : Boolean,
-    val follow : Boolean
+    var follow : Boolean
 )

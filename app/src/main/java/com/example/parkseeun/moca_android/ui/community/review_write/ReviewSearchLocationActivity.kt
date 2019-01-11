@@ -1,6 +1,5 @@
 package com.example.parkseeun.moca_android.ui.community.review_write
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -14,8 +13,7 @@ import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetHomeSearchResponse
 import com.example.parkseeun.moca_android.model.get.GetHomeSearchResponseData
 import com.example.parkseeun.moca_android.network.ApplicationController
-import com.example.parkseeun.moca_android.network.NetworkService
-import com.example.parkseeun.moca_android.ui.community.review_write.adapter.SearchLocationListAdapter
+import com.example.parkseeun.moca_android.ui.community.review_write.adapter.ReviewSearchLocationListAdapter
 import kotlinx.android.synthetic.main.activity_community_search_address.*
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -23,21 +21,26 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ReviewSearchLocationActivity : AppCompatActivity() {
-    private val networkService  = ApplicationController.instance.networkService
+    private val networkService = ApplicationController.instance.networkService
     // 검색
-    private lateinit var getHomeSearchResponse : Call<GetHomeSearchResponse>
-    var dataList : ArrayList<GetHomeSearchResponseData> = ArrayList()
+    private lateinit var getHomeSearchResponse: Call<GetHomeSearchResponse>
+    var dataList: ArrayList<GetHomeSearchResponseData> = ArrayList()
     private var getHomeSearchResponseData = ArrayList<GetHomeSearchResponseData>()
     // RecyclerView 설정
-    lateinit var searchLocationListAdapter: SearchLocationListAdapter
-    private var cafe_name : String? =null
-    private var cafe_id : Int? = null
-    private var cafe_address : String? = null
+    lateinit var reviewSearchLocationListAdapter: ReviewSearchLocationListAdapter
+    private var cafe_name: String? = null
+    private var cafe_id: Int? = null
+    private var cafe_address: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_search_address)
         setOnClickListener()
+        recyclerVisible()
+        img_addreview_location_complete.isEnabled= false// 맨 처음 실행시 확인 버튼 비활성화
+    }
+
+    private fun recyclerVisible() {
 
         et_addreview_search_address.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -56,6 +59,7 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
             }
         })
     }
+
     // 검색 통신
     private fun getSearchResult(context: Context, searchString: String) {
         getHomeSearchResponse = networkService.getHomeSearch(searchString)
@@ -69,8 +73,6 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
                     if (response.body()!!.status == 200) {
                         getHomeSearchResponseData = response.body()!!.data
 
-                        searchLocationListAdapter = SearchLocationListAdapter(context, dataList)
-
                         Log.v("검색결과", getHomeSearchResponseData.toString())
 
                         // 카페 탭
@@ -81,8 +83,8 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
                                 cafeList.add(value)
                             }
 
-                            searchLocationListAdapter = SearchLocationListAdapter(context, cafeList)
-                            searchLocationListAdapter.setOnItemClickListener(View.OnClickListener { v ->
+                            reviewSearchLocationListAdapter = ReviewSearchLocationListAdapter(context, cafeList,findViewById(R.id.img_addreview_location_complete))
+                            reviewSearchLocationListAdapter.setOnItemClickListener(View.OnClickListener { v ->
                                 Log.d("asdfg", "clicked")
                                 val idx: Int = search_address_recycler_view.getChildAdapterPosition(v!!) // 선택된 자식뷰
                                 for (value in 0 until cafeList.size) {
@@ -91,31 +93,30 @@ class ReviewSearchLocationActivity : AppCompatActivity() {
                                 cafeList[idx].dot = true
                                 cafe_name = cafeList[idx].cafe_name
                                 cafe_id = cafeList[idx].cafe_id
-                                cafe_address= cafeList[idx].cafe_address_detail
-                                searchLocationListAdapter.notifyDataSetChanged()
+                                cafe_address = cafeList[idx].cafe_address_detail
+                                reviewSearchLocationListAdapter.notifyDataSetChanged()
                             })
-                            search_address_recycler_view.adapter = searchLocationListAdapter
+                            search_address_recycler_view.adapter = reviewSearchLocationListAdapter
                             search_address_recycler_view.layoutManager = LinearLayoutManager(context)
                         }
 
                     } else if (response!!.body()!!.status == 204) {
-                        toast("인기 카페가 존재하지 않습니다")
                     }
             }
         })
     }
 
-    fun setOnClickListener(){
+    fun setOnClickListener() {
         img_addreview_location_complete.setOnClickListener {
-            if(cafe_name != null){
+            if (cafe_name != null) {
                 Log.v("리뷰서치액티비티(cafe_name) ", cafe_name)
-                val intent= Intent(this,WriteReviewActivity::class.java)
-                intent.putExtra("cafe_name",cafe_name)
-                intent.putExtra("cafe_id",cafe_id)
-                intent.putExtra("cafe_address",cafe_address)
-                setResult(RESULT_OK,intent)
-            finish()
-            }else toast("카페 장소를 설정해 주세요")
+                val intent = Intent(this, WriteReviewActivity::class.java)
+                intent.putExtra("cafe_name", cafe_name)
+                intent.putExtra("cafe_id", cafe_id)
+                intent.putExtra("cafe_address", cafe_address)
+                setResult(RESULT_OK, intent)
+                finish()
+            } else toast("카페 장소를 설정해 주세요")
         }
         img_search_location_back.setOnClickListener {
             finish()
