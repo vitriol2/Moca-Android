@@ -1,6 +1,7 @@
 package com.example.parkseeun.moca_android.ui.communitySearch
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +42,10 @@ class ComSearAllPopUserAdapter(val context : Context, val dataList : ArrayList<G
 
     override fun onBindViewHolder(holder: ComSearAllPopUserAdapter.Holder, position: Int) {
         holder.item.setOnClickListener {
-            context!!.startActivity<OtherUserActivity>()
+            val user_id = dataList[position].user_id
+            val intent = Intent(context, OtherUserActivity::class.java)
+            intent.putExtra("user_id", user_id)
+            context.startActivity(intent)
         }
         Glide.with(context).load(dataList[position].user_img_url).into(holder.image)
         holder.username.text = dataList[position].user_name

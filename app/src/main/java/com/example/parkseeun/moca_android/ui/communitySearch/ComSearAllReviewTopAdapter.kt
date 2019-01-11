@@ -1,6 +1,8 @@
 package com.example.parkseeun.moca_android.ui.communitySearch
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -28,8 +30,11 @@ class ComSearAllReviewTopAdapter(val context : Context, val dataList : ArrayList
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: ComSearAllReviewTopAdapter.Holder, position: Int) {
+        val cafe_id = dataList[position].cafe_id
         holder.item.setOnClickListener {
-            context.startActivity<DetailActivity>()
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("cafe_id", cafe_id)
+            context.startActivity(intent)
         }
         Glide.with(context).load(dataList[position].cafe_img_url!!).into(holder.image!!)
         holder.cafename.text = dataList[position].cafe_name

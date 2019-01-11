@@ -66,9 +66,9 @@ class ComSearCafeFragment : Fragment() {
 
         setRecyclerView()
 
-        setScreenConvert()
+        //setScreenConvert()
     }
-
+/*
     private fun setScreenConvert() {
         activity!!.et_act_comm_sear.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -85,6 +85,7 @@ class ComSearCafeFragment : Fragment() {
             }
         })
     }
+    */
 
     private fun setRecyclerView() {
         rv_frag_com_sear_cafe_popular!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)

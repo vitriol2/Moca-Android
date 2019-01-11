@@ -38,9 +38,9 @@ class ComSearUserFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setScreenConvert()
+        //setScreenConvert()
     }
-
+/*
     private fun setScreenConvert() {
         activity!!.et_act_comm_sear.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -74,6 +74,7 @@ class ComSearUserFragment : Fragment() {
             }
         })
     }
+    */
 
     private fun setRecyclerView() {
         val RvUser : RecyclerView = fView!!.findViewById(R.id.rv_frag_com_sear_user)
