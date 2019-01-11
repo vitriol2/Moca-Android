@@ -132,6 +132,7 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
                 else v_write_review_oneline.backgroundResource = R.color.dark_gray
             }
         }
+
         //상세 설명
         et_addreview_multiline.textChangedListener {
             onTextChanged { s, start, before, count ->
@@ -144,8 +145,6 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        var cafe_id_default = data!!.getIntExtra("cafe_id_default", 0)
-        Log.v("cafe_id_default =", cafe_id_default.toString())
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 1007 -> {
@@ -358,8 +357,8 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         })
         Log.v("postReviewWriteResponse", "여기는 리스폰스 밖..")
     }
-    fun setBtnEnable(){
 
+    fun setBtnEnable(){
         val input_cafeid = cafe_id
         val input_title = et_addreview_oneline.text.toString()//한줄 설명
         val input_content = et_addreview_multiline.text.toString() //상세 설명
@@ -381,7 +380,6 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         if (!(input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0)) {
             flag = false
             changeButtonColor(flag)
-            toast("모든 항목을 채워주세요")
             img_addreview_complete.isEnabled = false
         }
     }
