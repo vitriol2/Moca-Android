@@ -102,11 +102,11 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         val name = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_nick.text.toString())
         val status = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_status.text.toString())
         val phone = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_phone.text.toString())
-        val data: MultipartBody.Part? = null
+        var data: MultipartBody.Part? = null
         if (selectPic) {
-            val file: File = File(imageURI ?: "")
+            val file = File(imageURI ?: "")
             val requestfile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            val data: MultipartBody.Part = MultipartBody.Part.createFormData("photo", file.name, requestfile)
+            data = MultipartBody.Part.createFormData("user_img", "photo", requestfile)
         }
 
 
@@ -124,6 +124,8 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
             ) {
                 if (response.isSuccessful) {
                     toast("프로필이 수정되었습니다.")
+                }else{
+                    Log.d("asdf",response.raw().toString())
                 }
             }
         })

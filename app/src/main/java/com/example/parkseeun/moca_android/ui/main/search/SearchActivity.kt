@@ -90,13 +90,11 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (et_search.text.toString() == "") {
                     linear_before_search_all.visibility = View.VISIBLE
-                    linear_before_search_cafe.visibility = View.VISIBLE
-                    linear_before_search_location.visibility = View.VISIBLE
+                    rv_searchResult_list_all.visibility = View.GONE
+                    rv_searchResult_list_cafe.visibility = View.GONE
+                    rv_searchResult_list_location.visibility = View.GONE
                 } else {
                     linear_before_search_all.visibility = View.GONE
-                    linear_before_search_cafe.visibility = View.GONE
-                    linear_before_search_location.visibility = View.GONE
-
                     getSearchResult(this@SearchActivity, et_search.text.toString())
                 }
             }
@@ -176,12 +174,6 @@ class SearchActivity : AppCompatActivity() {
 
                         rv_search_popularCafe_all.adapter = BeforeSearchPopularCafeAdapter(context, getBestCafeListData)
                         rv_search_popularCafe_all.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-                        rv_search_popularCafe_cafe.adapter = BeforeSearchPopularCafeAdapter(context, getBestCafeListData)
-                        rv_search_popularCafe_cafe.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-                        rv_search_popularCafe_location.adapter = BeforeSearchPopularCafeAdapter(context, getBestCafeListData)
-                        rv_search_popularCafe_location.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     } else if (response.body()!!.status == 204) {
                         toast("인기 카페가 존재하지 않습니다!")
                     }
@@ -204,12 +196,6 @@ class SearchActivity : AppCompatActivity() {
 
                         rv_search_recommendPlace_all.adapter = BeforeSearchRecommendPlaceAdapter(context, recommendList)
                         rv_search_recommendPlace_all.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-                        rv_search_recommendPlace_cafe.adapter = BeforeSearchRecommendPlaceAdapter(context, recommendList)
-                        rv_search_recommendPlace_cafe.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-                        rv_search_recommendPlace_location.adapter = BeforeSearchRecommendPlaceAdapter(context, recommendList)
-                        rv_search_recommendPlace_location.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     }
                 }
             }
