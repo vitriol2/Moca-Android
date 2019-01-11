@@ -340,7 +340,6 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
             ) {
                 if (response!!.isSuccessful)
                     if (response.body()!!.status == 201) {
-                        toast("수고해써 소희얌")
                         finish()
                         Log.v("success..", images.toString())
                     } else {
@@ -366,8 +365,8 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         changeButtonColor(flag)
         Log.v("postReviewWriteResponse", "다 널 아니다")
         img_addreview_complete.setOnClickListener {
-            toast("toucH!")
             postReviewWriteResponse(input_cafeid!!, input_content, input_rating, input_title)
+            finish()
         }
         if (!(input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0)) {
             flag = false
