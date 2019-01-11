@@ -6,6 +6,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
     <LinearLayout
+            android:layout_above="@+id/img_location_search_complete"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -64,23 +65,19 @@
                 android:layout_height="match_parent"
                 android:id="@+id/rv_act_location_search"
         ></android.support.v7.widget.RecyclerView>
+
     </LinearLayout>
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="10dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp">
         <Button
+                android:layout_marginHorizontal="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
                 android:id="@+id/img_location_search_complete"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_centerHorizontal="true"
                 android:text="완료"
                 style="@style/Bold15"
                 android:textColor="@color/dark_gray"
                 android:background="@drawable/round_square_lightgray"/>
 
-    </RelativeLayout>
 </RelativeLayout>
