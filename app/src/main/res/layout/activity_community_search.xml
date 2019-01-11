@@ -55,6 +55,7 @@
         android:background="@drawable/community_search_tab_bg"
         app:tabIndicatorColor="@color/point_pink"
         app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="4dp"
         app:tabPaddingStart="35dp"
         app:tabPaddingEnd="35dp"
         app:tabTextAppearance="@style/tab_text_comm_sear_act"

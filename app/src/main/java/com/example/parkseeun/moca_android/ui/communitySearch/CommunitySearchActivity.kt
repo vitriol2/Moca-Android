@@ -46,24 +46,15 @@ class CommunitySearchActivity : AppCompatActivity() {
     /* override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_search)
-
         setNavigation()
-
     }
-
     private fun setNavigation() {
-
         vp_act_comm_sear.adapter = CommunitySearchPagerAdapter(supportFragmentManager, 3)
-
         tl_act_comm_sear.setupWithViewPager(vp_act_comm_sear)
-
         val naviLayout : View = this.layoutInflater.inflate(R.layout.navigation_community_search, null, false)
-
         tl_act_comm_sear.getTabAt(0)!!.customView = naviLayout.findViewById(R.id.rl_navi_comm_sear_all) as RelativeLayout
         tl_act_comm_sear.getTabAt(1)!!.customView = naviLayout.findViewById(R.id.rl_navi_comm_sear_cafe) as RelativeLayout
         tl_act_comm_sear.getTabAt(2)!!.customView = naviLayout.findViewById(R.id.rl_navi_comm_sear_user) as RelativeLayout
-
-
     }
     */
 
@@ -80,7 +71,7 @@ class CommunitySearchActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.tl_act_comm_sear) as TabLayout
         tabLayout!!.setupWithViewPager(viewPager)
         tabLayout!!.setTabTextColors(Color.parseColor("#e1b2a3"), Color.parseColor("#707070"))
-        
+
 
         setScreenConvert()
 
@@ -115,6 +106,7 @@ class CommunitySearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
                 val LlNothing : LinearLayout = findViewById(R.id.ll_frag_com_sear_all_nothing)
 
                 if (s.toString() == "") {
@@ -131,8 +123,14 @@ class CommunitySearchActivity : AppCompatActivity() {
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(ComSearAllFragment.getInstance(popularReviewList, searchUserList), "popularReviewList")
+
+
+        adapter.addFragment(ComSearAllFragment(), "")
+
+
         adapter.addFragment(ComSearCafeFragment(), "")
+
+
         adapter.addFragment(ComSearUserFragment(), "")
         viewPager.adapter = adapter
     }
