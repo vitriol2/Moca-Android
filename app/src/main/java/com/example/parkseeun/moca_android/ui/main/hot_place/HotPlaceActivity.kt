@@ -30,6 +30,7 @@ class HotPlaceActivity : AppCompatActivity() {
         ib_hot_place_back.setOnClickListener {
             finish()
         }
+        tv_hot_place_title.text = intent.getStringExtra("hot_place_name")
         getHotPlaceList()
     }
 

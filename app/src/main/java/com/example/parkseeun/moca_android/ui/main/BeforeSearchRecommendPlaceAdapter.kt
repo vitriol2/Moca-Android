@@ -28,7 +28,7 @@ class BeforeSearchRecommendPlaceAdapter(val context : Context, val dataList : Ar
     override fun onBindViewHolder(holder: BeforeSearchRecommendPlaceAdapter.Holder, position: Int) {
         holder.iv_search_recommend_place_image.clipToOutline = true
         Glide.with(context).load(dataList[position].hot_place_img).into(holder.iv_search_recommend_place_image)
-        holder.tv_search_recommend_place_tag.text = dataList[position].hot_place_name
+        holder.tv_search_recommend_place_tag.text = "#${dataList[position].hot_place_name}"
 
         // 클릭
         holder.rv_item_search_recommend_place_relative.setOnClickListener {
