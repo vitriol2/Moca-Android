@@ -1,5 +1,6 @@
 package com.example.parkseeun.moca_android.network
 
+import com.example.parkseeun.moca_android.model.delete.DeleteScrapResponse
 import com.example.parkseeun.moca_android.model.get.*
 import com.example.parkseeun.moca_android.model.get.GetCafeListResponse
 import com.example.parkseeun.moca_android.model.get.GetFollowerResponse
@@ -277,7 +278,7 @@ interface NetworkService {
 
 
 
-    //<선필 : 검증 카페>
+    //<선필 : 검증 카페,스크랩>
 
 
     /**
@@ -310,6 +311,41 @@ interface NetworkService {
             @Header("Authorization") token :String,
             @Path("cafe_id") cafe_id :Int
     ): Call<GetEvaluationListResponse>
+
+    /**
+     * 1/11
+     * 스크랩 하기
+     */
+    @POST("/user/{cafe_id}/scrap")
+    fun postScrap(
+            @Header("Authorization") token :String,
+            @Path("cafe_id") cafe_id :Int
+    ): Call<PostScrapResponse>
+
+
+    /**
+     * 1/11
+     * 스크랩 취소
+     */
+    @DELETE("/user/{cafe_id}/scrap")
+    fun deleteScrap(
+            @Header("Authorization") token:String,
+            @Path("cafe_id")cafe_id: Int
+    ): Call<DeleteScrapResponse>
+
+
+    /**
+     * 1/11
+     *
+     */
+    @GET("/cafe/pick/{cafe_id}/" +
+            "evaluate/barista/{barista_id}")
+    fun getBaristaEvaluation(
+      @Header("Authorization") token: String,
+      @Path("cafe_id")cafe_id: Int,
+      @Path("barista_id")barista_id: Int
+    ):Call<GetBaristaEvaluationResponse>
+
 
 
 }
