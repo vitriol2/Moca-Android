@@ -102,11 +102,11 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         val name = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_nick.text.toString())
         val status = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_status.text.toString())
         val phone = RequestBody.create(MediaType.parse("text/plain"), et_ect_edit_prof_phone.text.toString())
-        val data: MultipartBody.Part? = null
+        var data: MultipartBody.Part? = null
         if (selectPic) {
-            val file: File = File(imageURI ?: "")
+            val file = File(imageURI ?: "")
             val requestfile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            val data: MultipartBody.Part = MultipartBody.Part.createFormData("photo", file.name, requestfile)
+            data = MultipartBody.Part.createFormData("user_img", "photo", requestfile)
         }
 
 
@@ -124,6 +124,8 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
             ) {
                 if (response.isSuccessful) {
                     toast("프로필이 수정되었습니다.")
+                }else{
+                    Log.d("asdf",response.raw().toString())
                 }
             }
         })
@@ -186,32 +188,23 @@ class EditProfileActivity : AppCompatActivity(), KeyboardVisibilityEventListener
         et_ect_edit_prof_status.addTextChangedListener(this)
         et_ect_edit_prof_phone.addTextChangedListener(this)
 
-        rl_act_editprofile_photo.setOnClickListener {
+        btn_act_editprofile_changeprofile.setOnClickListener {
             requestReadExternalStoragePermission()
         }
     }
 
     private fun requestReadExternalStoragePermission() {
-        if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            this,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-            ) {
-
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // 권한이 없을 경우
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // 사용자가 임의로 권한을 취소시킨 경우
+                // 권한 재요청
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), My_READ_STORAGE_REQUEST_CODE)
             } else {
-                ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        My_READ_STORAGE_REQUEST_CODE
-                )
+                // 권한 요청 (최초 요청)
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), My_READ_STORAGE_REQUEST_CODE)
             }
         } else {
-
             showAlbum()
         }
     }

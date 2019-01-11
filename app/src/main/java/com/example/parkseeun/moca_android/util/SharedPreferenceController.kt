@@ -42,10 +42,24 @@ object SharedPreferenceController {
         return pref.getString("PW", "")
     }
 
+    fun setFlag(ctx : Context, flag: Boolean){
+        val pref = ctx.getSharedPreferences("FLAG", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putBoolean("FLAG", flag)
+        editor.apply()
+    }
+
+    fun getFlag(ctx : Context) : Boolean{
+        val pref = ctx.getSharedPreferences("FLAG", Context.MODE_PRIVATE)
+        return pref.getBoolean("FLAG", false)
+    }
+
     fun clearSPC (ctx : Context) {
         val pref = ctx.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE)
         val editor = pref.edit()
         editor.clear()
         editor.apply()
+        // 앱 시작에 대한 Flag는 유지
+        setFlag(ctx, getFlag(ctx))
     }
 }
