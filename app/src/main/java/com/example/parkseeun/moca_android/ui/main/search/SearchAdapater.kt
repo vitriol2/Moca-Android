@@ -34,6 +34,7 @@ class SearchAdapater(val context : Context, val dataList : ArrayList<GetHomeSear
         // 클릭 리스너
         holder.relative_search_result.setOnClickListener {
             val intent : Intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("cafe_id", dataList[position].cafe_id)
 
             context.startActivity(intent)
         }

@@ -264,7 +264,7 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                         if(temp.size>0) {
                             val position = homeRankingAdapter.itemCount
                             homeRankingAdapter.dataList.addAll(temp)
-                            homeRankingAdapter.notifyItemInserted(position)
+                            homeRankingAdapter.notifyItemChanged(position)
                         }
                     }
                 }
