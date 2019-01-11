@@ -7,7 +7,6 @@
     android:background="#ffffff"
     android:orientation="vertical"
     tools:context=".ui.main.search.SearchActivity">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -38,249 +37,22 @@
             android:singleLine="true"
             android:textColor="#101010"
             android:textSize="13sp" />
-
     </RelativeLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
         android:background="#707070" />
-
-    <TabHost
-        android:id="@+id/tabHost"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TabWidget
-                    android:id="@android:id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="#ffffff" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:background="#707070" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-
-                <!-- 첫 번째 탭(전체) -->
-                <LinearLayout
-                    android:id="@+id/content1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/linear_before_search_all"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/nanum_b"
-                            android:text="이번주 인기 카페"
-                            android:textColor="#101010"
-                            android:textSize="15sp" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_search_popularCafe_all"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_marginTop="16dp"
-                            android:clipToPadding="false"
-                            android:paddingStart="20dp">
-
-                        </android.support.v7.widget.RecyclerView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/nanum_b"
-                            android:text="모카 추천 플레이스"
-                            android:textColor="#101010"
-                            android:textSize="15sp" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_search_recommendPlace_all"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_marginTop="16dp"
-                            android:clipToPadding="false"
-                            android:paddingRight="10dp"
-                            android:paddingStart="20dp"></android.support.v7.widget.RecyclerView>
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_searchResult_list_all"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </android.support.v7.widget.RecyclerView>
-
-                </LinearLayout>
-
-                <!-- 두 번째 탭(카페명) -->
-                <LinearLayout
-                    android:id="@+id/content2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/linear_before_search_cafe"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/nanum_b"
-                            android:text="이번주 인기 카페"
-                            android:textColor="#101010"
-                            android:textSize="15sp" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_search_popularCafe_cafe"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="16dp">
-
-                        </android.support.v7.widget.RecyclerView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/nanum_b"
-                            android:text="모카 추천 플레이스"
-                            android:textColor="#101010"
-                            android:textSize="15sp" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_search_recommendPlace_cafe"
-                            android:layout_width="match_parent"
-                            android:layout_height="172dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="16dp"
-                            android:paddingRight="10dp"></android.support.v7.widget.RecyclerView>
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_searchResult_list_cafe"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </android.support.v7.widget.RecyclerView>
-
-
-                </LinearLayout>
-
-                <!-- 세 번째 탭(위치) -->
-                <LinearLayout
-                    android:id="@+id/content3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/linear_before_search_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/nanum_b"
-                            android:text="이번주 인기 카페"
-                            android:textColor="#101010"
-                            android:textSize="15sp" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_search_popularCafe_location"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="16dp">
-
-                        </android.support.v7.widget.RecyclerView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/nanum_b"
-                            android:text="모카 추천 플레이스"
-                            android:textColor="#101010"
-                            android:textSize="15sp" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_search_recommendPlace_location"
-                            android:layout_width="match_parent"
-                            android:layout_height="172dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="16dp"
-                            android:paddingRight="10dp"></android.support.v7.widget.RecyclerView>
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_searchResult_list_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </android.support.v7.widget.RecyclerView>
-                </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
     <android.support.design.widget.TabLayout
-        android:id="@+id/tl_act_comm_sear"
+        android:id="@+id/search_tab"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/community_search_tab_bg"
+        android:layout_height="45dp"
+        app:tabIndicatorHeight="4dp"
         app:tabIndicatorColor="@color/point_pink"
+        app:tabSelectedTextColor="@color/point_pink"
         app:tabTextAppearance="@style/tab_text_comm_sear_act"
-        app:tabTextColor="@color/dark_gray"
-        app:tabSelectedTextColor="@color/point_pink">
-    </android.support.design.widget.TabLayout>
-
+        app:tabTextColor="@color/dark_gray" />
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_act_comm_sear"
+        android:id="@+id/search_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -23,7 +23,7 @@ import retrofit2.Response
 class HotPlaceAdapter(val context: Context, val dataList: ArrayList<GetHotPlaceListData>) : RecyclerView.Adapter<HotPlaceAdapter.Holder>() {
     lateinit var hotPlaceImgAdapter: HotPlaceImgAdapter
     private val networkService = ApplicationController.instance.networkService
-    private lateinit var getCafeImageResponse: Call<GetCafeDetailImageResponse> // 인기 카페 리스트
+    private lateinit var getCafeImageResponse: Call<GetCafeDetailImageResponse>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 뷰 인플레이트
@@ -37,6 +37,8 @@ class HotPlaceAdapter(val context: Context, val dataList: ArrayList<GetHotPlaceL
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // 뷰 바인딩
         holder.tv_hot_place_name.text = dataList[position].cafe_name
+        holder.tv_hot_place_explain.text = dataList[position].cafe_subway
+        holder.rating_rv_item_hot_place.rating = dataList[position].cafe_rating_avg.toFloat()
 
         // RecyclerView 설정
         getCafeImageResponse = networkService.getCafeDetailImageResponse(User.token, dataList[position].cafe_id)
