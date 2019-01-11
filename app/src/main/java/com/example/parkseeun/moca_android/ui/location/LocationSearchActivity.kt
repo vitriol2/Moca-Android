@@ -80,7 +80,7 @@ class LocationSearchActivity : AppCompatActivity() {
 
                     Log.v("asdf", locationSearchItems.toString())
 
-                    locationSearchAdapter = LocationSearchAdapter(context, locationSearchItems)
+                    locationSearchAdapter = LocationSearchAdapter(context, locationSearchItems, findViewById(R.id.img_location_search_complete))
                     locationSearchAdapter.setOnItemClickListener(View.OnClickListener { v ->
                         Log.d("asdfg", "clicked")
                         val idx: Int = rv_act_location_search.getChildAdapterPosition(v!!) // 선택된 자식뷰
@@ -92,6 +92,7 @@ class LocationSearchActivity : AppCompatActivity() {
                         lon = locationSearchItems[idx].x!!.toDouble()
                         locationSearchAdapter.notifyDataSetChanged()
                     })
+
                     rv_act_location_search.adapter = locationSearchAdapter
                     rv_act_location_search.layoutManager = LinearLayoutManager(context)
                     // locationSearchAdapter.setOnItemClickListener(this@LocationSearchActivity)
@@ -107,7 +108,7 @@ class LocationSearchActivity : AppCompatActivity() {
         img_location_common_backbtn_black.setOnClickListener {
             finish()
         }
-        img_location_search_ok.setOnClickListener {
+        img_location_search_complete.setOnClickListener {
             if(lat!=null&&lon!=null) {
                 Log.v("lat 과 lon은 ", lat.toString()+" "+lon.toString())
                 val intent = Intent(this, LocationMainActivity::class.java)
