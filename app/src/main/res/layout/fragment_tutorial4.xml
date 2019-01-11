@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/tutorial_4"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/nanum_b"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="한 번에 통합 적립되는 모카 멤버십"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/nanum_r"
+        android:textSize="15sp"
+        android:lineSpacingExtra="11sp"
+        android:textColor="@color/black"
+        android:text="여기저기 하나씩 적립
+결국 무료 쿠폰은 안녕..
+하지만 모카라면 괜찮아요!"/>
+    <TextView
+        android:id="@+id/tutorial4_start_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="26dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/nanum_b"
+        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:text="시작하기"
+        />
+</android.support.constraint.ConstraintLayout>
