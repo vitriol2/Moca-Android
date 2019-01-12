@@ -31,6 +31,12 @@
                 android:fontFamily="@font/nanum_b"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"/>
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_alignParentBottom="true"
+                android:background="#707070"/>
 
         </RelativeLayout>
 
@@ -48,12 +54,25 @@
                         android:layout_height="360dp"
                         android:background="@color/dark_gray">
 
-                    <ImageView
-                        android:id="@+id/rv_plus_detail_background"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:background="#fff"/>
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/rv_plus_detail_background"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:background="#fff"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradation"/>
+
+                    </FrameLayout>
+
+
 
                     <TextView
                             android:id="@+id/tv_plus_detail_contentsTitle"

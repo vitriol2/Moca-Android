@@ -6,13 +6,25 @@
     android:layout_height="165dp"
     android:layout_marginHorizontal="20dp">
 
-    <ImageView
-        android:id="@+id/iv_rv_act_home_mocaplus_image"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher_background"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="12dp" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_rv_act_home_mocaplus_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="12dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/gradation"/>
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
