@@ -4,13 +4,15 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.support.annotation.NonNull
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.CursorLoader
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
@@ -35,11 +37,9 @@ import okhttp3.RequestBody
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColorResource
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Multipart
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -52,6 +52,7 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
     private val My_READ_STORAGE_REQUEST_CODE = 1004
     private val REQ_CODE_SELECT_IMAGE = 100
     lateinit var data: Uri
+    lateinit var imageURI : String
     var REQUEST_CODE: Int = 1007
     private var mImage: MultipartBody.Part? = null
     var btn_num = 0
@@ -160,12 +161,14 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
+                    if(data != null){
+                        val selectedImageUri : Uri = data.data
+                        imageURI = getRealPathFromURI(selectedImageUri)
+                    }
                     //if(ApplicationController.getInstance().is)
                     this.data = data!!.data //그이미지의Uri를 가져옴
                     Log.v("이미지1", this.data.toString())
-
                     val options = BitmapFactory.Options()
-
                     var input: InputStream? = null // here, you need to get your context.
                     try {
                         input = contentResolver.openInputStream(this.data)
@@ -176,14 +179,14 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
 
                     val bitmap = BitmapFactory.decodeStream(input, null, options) // InputStream 으로부터 Bitmap 을 만들어 준다.
                     val baos = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG , 20, baos)
-                    val photo = File(data.data.toString()) // 가져온 파일의 이름을 알아내려고 사용합니다
-                    val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos)
+
+                    //이미지 파일을 서버로 보내기 위한 코드들
+                    val file = File(imageURI) // 가져온 파일의 이름을 알아내려고 사용합니다
+                    val requestfile = RequestBody.create(MediaType.parse("multipart/form-data"), file)//baos.toByteArray()
                     //RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
                     // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
-                    images.add(
-                        MultipartBody.Part.createFormData("image", photo.name, photoBody)
-                    )//여기의 image는 키값의 이름하고 같아야함
+                    images.add(MultipartBody.Part.createFormData("image", file.name, requestfile))//여기의 image는 키값의 이름하고 같아야함
                     Log.v("images size", images.size.toString())
                     //body = MultipartBody.Part.createFormData("image", photo.getName(), profile_pic);
 
@@ -194,7 +197,6 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
                     rv_photo_review.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     rv_photo_review.adapter = PhotoAdapter
                     setBtnEnable()
-
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -226,7 +228,9 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-    override fun afterTextChanged(s: Editable?) { setBtnEnable()   }
+    override fun afterTextChanged(s: Editable?) {
+        setBtnEnable()
+    }
 
     fun SetOnClickListener() {
         et_addreview_cafename.setOnClickListener {
@@ -257,6 +261,7 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
             Log.v("postReviewWriteResponse", "다 널 아니다")
             img_addreview_complete.setOnClickListener {
                 postReviewWriteResponse(input_cafeid, input_content, input_rating, input_title)
+            finish()
             }
         } else {
             flag = false
@@ -276,7 +281,11 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 )
             ) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), My_READ_STORAGE_REQUEST_CODE)
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    My_READ_STORAGE_REQUEST_CODE
+                )
             } else {
                 ActivityCompat.requestPermissions(
                     this,
@@ -326,30 +335,35 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         var content = RequestBody.create(MediaType.parse("text/plain"), input_content)
         var title = RequestBody.create(MediaType.parse("text/plain"), input_title)
 
-        Log.v("postReviewWriteResponse",User.token+" "+input_cafeid.toString()+" "+ title.toString()+" "+ content.toString()+" "+ input_rating.toString()+" "+ images.toString())
+        Log.v(
+            "postReviewWriteResponse",
+            User.token + " " + input_cafeid.toString() + " " + title.toString() + " " + content.toString() + " " + input_rating.toString() + " " + images.toString()
+        )
         postReviewWriteResponse =
-                networkService.postReviewWriteResponse(User.token,input_cafeid, title, content, input_rating, images)
+                networkService.postReviewWriteResponse(User.token, input_cafeid, title, content, input_rating, images)
         postReviewWriteResponse.enqueue(object : Callback<PostReviewWriteResponse> {
             override fun onFailure(call: Call<PostReviewWriteResponse>?, t: Throwable?) {
-                Log.v("fail..", t.toString())
+                Log.v("postReviewWriteResponse", t.toString())
             }
 
             override fun onResponse(
                 call: Call<PostReviewWriteResponse>?,
                 response: Response<PostReviewWriteResponse>?
             ) {
-                if (response!!.isSuccessful)
+                if (response!!.isSuccessful) {
                     if (response.body()!!.status == 201) {
                         finish()
-                        Log.v("success..", images.toString())
+                        Log.v("postReviewWriteResponse", response.body()!!.message)
                     } else {
                         Log.v("postReviewWriteResponse", response.body()!!.message)
                     }
+                    Log.v("postReviewWriteResponse",response.body()!!.status.toString())
+                }
             }
         })
     }
 
-    fun setBtnEnable(){
+    fun setBtnEnable() {
         val input_cafeid = cafe_id
         val input_title = et_addreview_oneline.text.toString()//한줄 설명
         val input_content = et_addreview_multiline.text.toString() //상세 설명
@@ -366,17 +380,29 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
         Log.v("postReviewWriteResponse", "다 널 아니다")
         img_addreview_complete.setOnClickListener {
             postReviewWriteResponse(input_cafeid!!, input_content, input_rating, input_title)
-            finish()
+//            finish()
         }
         if (!(input_title.isNotEmpty() && input_content.isNotEmpty() && input_cafeid != null && photoItems.size > 0)) {
             flag = false
             changeButtonColor(flag)
             img_addreview_complete.isEnabled = false
         }
+
+    }
+
+    fun getRealPathFromURI(content: Uri): String {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader: CursorLoader = CursorLoader(this, content, proj, null, null, null)
+        val cursor: Cursor? = loader.loadInBackground()
+        val column_idx = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor . moveToFirst ()
+        val result = cursor.getString(column_idx)
+        cursor.close()
+        return result
     }
 //
 //    fun prepareFilePart(partName : String, fileUri : Uri) : MultipartBody.Part {
-}
+    }
 
 //   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        try {
