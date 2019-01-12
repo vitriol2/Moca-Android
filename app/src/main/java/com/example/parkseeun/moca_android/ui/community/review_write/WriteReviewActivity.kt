@@ -23,12 +23,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.post.PostReviewWriteResponse
+import com.example.parkseeun.moca_android.model.post.PostWriteCommentData
+import com.example.parkseeun.moca_android.model.post.PostWriteCommentResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.community.review_write.adapter.PhotoAdapter
 import com.example.parkseeun.moca_android.ui.community.review_write.data.PhotoData
 import com.example.parkseeun.moca_android.ui.community.review_write.data.ReviewImageData
 import com.example.parkseeun.moca_android.util.User
 import kotlinx.android.synthetic.main.activity_community_writereview.*
+import kotlinx.android.synthetic.main.activity_review_detail.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -57,10 +60,12 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
     var btn_num = 0
     private var cafe_id: Int? = null
     private var currentProgress: Int = 0
+
     //통신
     private val networkService by lazy {
         ApplicationController.instance.networkService
     }
+
     lateinit var postReviewWriteResponse: Call<PostReviewWriteResponse>
     var images = ArrayList<MultipartBody.Part>()
     lateinit var photoItems: ArrayList<PhotoData>
@@ -68,6 +73,7 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
     lateinit var PhotoAdapter: PhotoAdapter
     lateinit var requestManager: RequestManager
     lateinit var reviewImageItems: ArrayList<ReviewImageData>  //서버로 보낼 이미지 스트링 배열
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community_writereview)
@@ -145,7 +151,6 @@ class WriteReviewActivity : AppCompatActivity(), TextWatcher {
             }
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK) {

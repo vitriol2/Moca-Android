@@ -135,4 +135,3 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
 
 
 }
-
