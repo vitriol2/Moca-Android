@@ -445,7 +445,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                         rv_act_location_main.layoutManager =
                                 LinearLayoutManager(this@LocationMainActivity, LinearLayoutManager.HORIZONTAL, false)
                         setRvColorandMarkerTitle(0, markerTitle)// 제일 가까운 리사이클러뷰에 포커스
-                        cameraToMarker(0) // 제일 가까운 마커 크게하기
+
 
                         for (i in 0 until lngList.size) { //마커 생성
                             Log.d("LngList size2 :", lngList.size.toString() + " ," + i.toString())
@@ -462,6 +462,7 @@ class LocationMainActivity : NavigationActivity(), OnMapReadyCallback, ActivityC
                                 )
                             )
                             markerlist.add(i, marker)
+                            cameraToMarker(0) // 제일 가까운 마커 크게하기
                         }
                         Log.d("markerlist size : ", markerlist.size.toString())
                     } else {
