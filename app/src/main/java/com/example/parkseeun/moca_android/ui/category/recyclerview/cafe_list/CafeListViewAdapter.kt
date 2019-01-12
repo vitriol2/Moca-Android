@@ -37,7 +37,7 @@ class CafeListViewAdapter(val context: Context, val dataList: ArrayList<GetCafeL
 
         holder.constraint_cafe_list.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
-
+            intent.putExtra("cafe_id", dataList[position].cafe_id)
             context.startActivity(intent)
         }
     }
