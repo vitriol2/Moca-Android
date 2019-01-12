@@ -35,6 +35,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
+    var menu_visibility = false
+
     private val networkService by lazy {
         ApplicationController.instance.networkService
     }
@@ -133,7 +135,10 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setOnBtnClickListeners() {
         btn_act_detail_review_all.setOnClickListener {
-            startActivity<ReviewAllActivity>()
+            Intent(this, ReviewAllActivity::class.java).apply{
+                putExtra("cafe_id", intent.getIntExtra("cafe_id", 0))
+                startActivity(this)
+            }
         }
 
 
@@ -143,15 +148,12 @@ class DetailActivity : AppCompatActivity() {
         }
 
         rl_act_detail_menu.setOnClickListener {
-            var menu_visibility: Int = 0
-
-            if (menu_visibility == 0) {
+            if (!menu_visibility) {
                 iv_act_detail_menu.visibility = View.VISIBLE
-                menu_visibility == 1
-
+                menu_visibility = true
             } else {
                 iv_act_detail_menu.visibility = View.GONE
-                menu_visibility == 0
+                menu_visibility = false
             }
         }
 
@@ -349,7 +351,7 @@ class DetailActivity : AppCompatActivity() {
                     time.text = temp.cafe_times
                     val cOptions = ArrayList<Boolean>()
 
-                    Glide.with(this@DetailActivity).load(temp.cafe_menu_img_url).into(menuImage)
+//                    Glide.with(this@DetailActivity).load(temp.cafe_menu_img_url).into(menuImage)
 
                     cOptions.add(temp.cafe_option_parking)
                     cOptions.add(temp.cafe_option_wifi)
