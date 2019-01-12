@@ -64,6 +64,8 @@ class HotPlaceAdapter(val context: Context, val dataList: ArrayList<GetHotPlaceL
         holder.relative_rv_item_hot_place.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
 
+            intent.putExtra("cafe_id", dataList[position].cafe_id)
+
             context.startActivity(intent)
         }
     }
