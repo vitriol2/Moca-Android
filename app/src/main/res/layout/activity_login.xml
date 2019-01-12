@@ -1,156 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#fff"
-    tools:context=".ui.loginJoin.LoginActivity"
+    android:fillViewport="true"
+    android:id="@+id/scroll_view"
+    android:scrollbars="none"
     >
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:src="@drawable/login_bg"
-            app:layout_constraintDimensionRatio="360:284"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="36dp"
-        android:text="아이디"
-        android:textSize="11sp"
-        android:textColor="#707070"
-        android:fontFamily="@font/nanum_b"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="1dp">
-
-        <EditText
-            android:id="@+id/et_login_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="moca"
-            android:textSize="13sp"
-            android:textColor="#101010"
-            android:fontFamily="@font/nanum_b"
-            android:background="#00000000"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/iv_id_yellowCircle"/>
-
-        <ImageView
-            android:id="@+id/iv_id_yellowCircle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/common_yellowcircle"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:visibility="invisible"/>
-
-    </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="8dp"
-        android:background="#e1b2a3"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="33dp"
-        android:text="비밀번호"
-        android:textSize="11sp"
-        android:textColor="#707070"
-        android:fontFamily="@font/nanum_b"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="1dp">
-
-        <EditText
-            android:id="@+id/et_login_pw"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="*************"
-            android:fontFamily="@font/nanum_b"
-            android:inputType="textPassword"
-            android:background="#00000000"
-            android:textSize="13sp"
-            android:textColor="#101010"
-            android:maxLines="1"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/iv_pw_yellowCircle"/>
-
-        <ImageView
-            android:id="@+id/iv_pw_yellowCircle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/common_yellowcircle"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:visibility="invisible"/>
-
-    </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="8dp"
-        android:background="#e1b2a3"/>
-
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginTop="55dp"
-        android:text="로그인"
-        style="?android:attr/borderlessButtonStyle"
-        android:textColor="#ffffff"
-        android:textSize="13sp"
-        android:fontFamily="@font/nanum_b"
-        android:background="@drawable/button_pink_radius"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="13dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+        tools:context=".ui.loginJoin.LoginActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:src="@drawable/login_bg"
+                app:layout_constraintDimensionRatio="360:284" />
+        </android.support.constraint.ConstraintLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="계정이 없으시다구요?"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="36dp"
+            android:text="아이디"
             android:textSize="11sp"
             android:textColor="#707070"
-            android:fontFamily="@font/nanum_r"/>
+            android:fontFamily="@font/nanum_b" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="1dp">
+
+            <EditText
+                android:id="@+id/et_login_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="moca"
+                android:textSize="13sp"
+                android:textColor="#101010"
+                android:fontFamily="@font/nanum_b"
+                android:background="#00000000"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_id_yellowCircle" />
+
+            <ImageView
+                android:id="@+id/iv_id_yellowCircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/common_yellowcircle"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="8dp"
+            android:background="#e1b2a3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="33dp"
+            android:text="비밀번호"
+            android:textSize="11sp"
+            android:textColor="#707070"
+            android:fontFamily="@font/nanum_b" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="1dp">
+
+            <EditText
+                android:id="@+id/et_login_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="*************"
+                android:fontFamily="@font/nanum_b"
+                android:inputType="textPassword"
+                android:background="#00000000"
+                android:textSize="13sp"
+                android:textColor="#101010"
+                android:maxLines="1"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_pw_yellowCircle" />
+
+            <ImageView
+                android:id="@+id/iv_pw_yellowCircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/common_yellowcircle"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="8dp"
+            android:background="#e1b2a3" />
 
         <Button
+            android:id="@+id/btn_login"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginTop="55dp"
+            android:text="로그인"
+            android:textSize="13sp"
+            android:fontFamily="@font/nanum_b"
+            android:background="@drawable/login_btn_bg"
+            android:textColor="@drawable/login_btn_color"/>
+
+        <LinearLayout
             android:id="@+id/btn_goToJoin"
-            android:layout_width="50dp"
-            android:layout_height="14dp"
-            android:background="#00000000"
-            android:text="회원가입 >"
-            android:textSize="11sp"
-            android:textColor="#707070"
-            android:fontFamily="@font/nanum_b"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="13dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="계정이 없으시다구요?"
+                android:textSize="11sp"
+                android:textColor="#707070"
+                android:fontFamily="@font/nanum_r" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="14dp"
+                android:background="#00000000"
+                android:text="회원가입 >"
+                android:textSize="11sp"
+                android:textColor="#707070"
+                android:fontFamily="@font/nanum_b" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
