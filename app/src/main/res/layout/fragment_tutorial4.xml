@@ -31,9 +31,7 @@
         android:textSize="15sp"
         android:lineSpacingExtra="11sp"
         android:textColor="@color/black"
-        android:text="여기저기 하나씩 적립
-결국 무료 쿠폰은 안녕..
-하지만 모카라면 괜찮아요!"/>
+        android:text="@string/tutorial4"/>
     <TextView
         android:id="@+id/tutorial4_start_tv"
         android:layout_width="wrap_content"

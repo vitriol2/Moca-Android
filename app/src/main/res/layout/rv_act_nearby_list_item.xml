@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="310dp"
     android:paddingHorizontal="25dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:id="@+id/rl_rv_act_nearby_list_item">
     <ImageView
         android:id="@+id/iv_rv_act_nearby_list_item"
         android:layout_width="match_parent"

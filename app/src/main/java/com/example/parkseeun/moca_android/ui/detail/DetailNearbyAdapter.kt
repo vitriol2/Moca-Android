@@ -35,9 +35,13 @@ class DetailNearbyAdapter(val context : Context, val dataList : ArrayList<PostNe
 
         holder.item.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("cafe_id", dataList[position].cafe_id)
             context.startActivity(intent)
         }
 
+        val width = getScreenWidth()
+        holder.pic.layoutParams.width = ((width-dpToPx(40.toFloat()))/2).toInt()
+        holder.pic.layoutParams.height = holder.pic.layoutParams.width
         Glide.with(context).load(dataList[position].cafe_img_url).into(holder.pic)
 
 

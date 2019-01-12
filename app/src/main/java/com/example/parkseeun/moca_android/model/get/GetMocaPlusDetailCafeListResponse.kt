@@ -17,5 +17,6 @@ data class GetMocaPlusDetailCafeListData (
 )
 
 data class GetMocaContentImagesData (
-    val plus_default_img_url : String
+    val plus_default_img_url : String,
+    val plus_tagging_img_url : String
 )

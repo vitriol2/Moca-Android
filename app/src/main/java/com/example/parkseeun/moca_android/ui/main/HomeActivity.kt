@@ -121,6 +121,10 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        getHomeMocapicksResponse()
+    }
     private fun setHomeNetwork() {
 
         getHomeMocapicksResponse()
@@ -204,9 +208,10 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                     Log.v("hotplace", "load")
                     val temp: ArrayList<HomeHotplaceData> = response.body()!!.data
                     if (temp.size > 0) {
+                        Log.v("homeHotplace", temp.size.toString())
                         homeHotplaceAdapter.dataList.removeAll(homeHotplaceAdapter.dataList)
                         homeHotplaceAdapter.dataList.addAll(temp)
-                        homeHotplaceAdapter.notifyDataSetChanged()
+                        homeHotplaceAdapter.notifyItemInserted(temp.size)
                     }
 
                 }

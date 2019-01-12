@@ -39,6 +39,7 @@ class DetailActivity : AppCompatActivity() {
         ApplicationController.instance.networkService
     }
 
+
     private val TAG = "DetailActivity"
 
     private var id: Int = 0
@@ -47,7 +48,7 @@ class DetailActivity : AppCompatActivity() {
 
 
     lateinit var cafename: TextView
-    lateinit var cafename_below : TextView
+    lateinit var cafename_below: TextView
     lateinit var phone: TextView
     lateinit var address: TextView
     lateinit var menuImage: ImageView
@@ -135,24 +136,31 @@ class DetailActivity : AppCompatActivity() {
             startActivity<ReviewAllActivity>()
         }
 
-        ll_act_detail_nearbyList.setOnClickListener {
-            startActivity<NearbyListActivity>()
-        }
+
 
         ib_detail_back.setOnClickListener {
             finish()
         }
 
         rl_act_detail_menu.setOnClickListener {
-            iv_act_detail_menu.visibility = View.VISIBLE
+            var menu_visibility: Int = 0
+
+            if (menu_visibility == 0) {
+                iv_act_detail_menu.visibility = View.VISIBLE
+                menu_visibility == 1
+
+            } else {
+                iv_act_detail_menu.visibility = View.GONE
+                menu_visibility == 0
+            }
         }
 
         // 리뷰 쓰기
         tv_detail_write_review.setOnClickListener {
             val intent = Intent(this@DetailActivity, WriteReviewActivity::class.java)
-            intent.putExtra("cafe_id_default",id)
-            intent.putExtra("cafename",cafename.text)
-            intent.putExtra("cafeaddress",address.text)
+            intent.putExtra("cafe_id_default", id)
+            intent.putExtra("cafename", cafename.text)
+            intent.putExtra("cafeaddress", address.text)
             startActivity(intent)
         }
 
@@ -375,6 +383,16 @@ class DetailActivity : AppCompatActivity() {
 
                     postCafeNearbyResponse(id)
 
+                    ll_act_detail_nearbyList.setOnClickListener {
+                        val intent = Intent(this@DetailActivity, NearbyListActivity::class.java)
+                        intent.putExtra("cafe_id", temp.cafe_id)
+                        intent.putExtra("cafe_latitude", temp.cafe_latitude)
+                        intent.putExtra("cafe_longitude", temp.cafe_longitude)
+                        Log.v("DetailAct lati", temp.cafe_latitude.toString())
+                        startActivity(intent)
+
+                    }
+
 
                 }
             }
@@ -422,12 +440,13 @@ class DetailActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val temp: ArrayList<SignitureData> = response.body()!!.data
-                    if (temp.size > 0) {
+                    if (temp != null) {
+                        if (temp.size > 0) {
+                            val position = detailSignitureAdapter.itemCount
+                            detailSignitureAdapter.dataList.addAll(temp)
+                            detailSignitureAdapter.notifyItemInserted(position)
 
-                        val position = detailSignitureAdapter.itemCount
-                        detailSignitureAdapter.dataList.addAll(temp)
-                        detailSignitureAdapter.notifyItemInserted(position)
-
+                        }
                     }
                 }
             }

@@ -126,8 +126,4 @@ class ComSearAllFragment : Fragment() {
             }
         })
     }
-
-
-
-
 }

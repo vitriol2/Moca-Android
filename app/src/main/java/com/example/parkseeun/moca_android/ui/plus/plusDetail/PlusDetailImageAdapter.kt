@@ -18,7 +18,7 @@ class PlusDetailImageAdapter(private val mContext : Context, private var mImgIte
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         var img = ImageView(mContext)
         img.scaleType = ImageView.ScaleType.CENTER_CROP
-        Glide.with(mContext).load(mImgItem[position]).into(img)
+        Glide.with(mContext).load(mImgItem[position].plus_default_img_url).into(img)
         container.addView(img, 0)
         if(clickable)
             img.setOnClickListener {

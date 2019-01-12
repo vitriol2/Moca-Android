@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.View
 import com.example.parkseeun.moca_android.R
 import com.example.parkseeun.moca_android.model.get.GetRankingResponse
@@ -23,7 +24,7 @@ class RankingActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         val nextIntent = Intent(this, DetailActivity::class.java)
-
+        nextIntent.putExtra("cafe_id", rankingViewAdapter.dataList[ranking_cafe_rv.getChildAdapterPosition(v!!)].cafe_id)
         startActivity(nextIntent)
     }
 
