@@ -356,6 +356,7 @@
                             android:id="@+id/iv_act_detail_menu_arrow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:layout_alignParentRight="true"
                             android:src="@drawable/mypage_arrow_down" />
                     </RelativeLayout>
@@ -363,9 +364,8 @@
                     <ImageView
                         android:id="@+id/iv_act_detail_menu"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/common_emptydata"
+                        android:layout_height="550dp"
+                        android:src="@drawable/cafe_menu"
                         android:visibility="gone"/>
 
 
@@ -430,7 +430,8 @@
                     android:layout_marginHorizontal="15dp"
                     android:background="@drawable/community_addreview_beforefinish"
                     android:text="카페 리뷰 전체보기"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/light_gray"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
