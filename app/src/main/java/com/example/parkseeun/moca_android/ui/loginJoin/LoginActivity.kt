@@ -9,12 +9,17 @@ import com.example.parkseeun.moca_android.R
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import android.os.Build
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.WindowManager
 import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
 import com.example.parkseeun.moca_android.network.ApplicationController
 import com.example.parkseeun.moca_android.ui.main.HomeActivity
 import com.example.parkseeun.moca_android.util.SharedPreferenceController
 import com.example.parkseeun.moca_android.util.User
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -22,13 +27,18 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class LoginActivity : AppCompatActivity() {
-    val networkService  = ApplicationController.instance.networkService
-    lateinit var postProjResponse : Call<PostLoginResponse>
+class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, TextWatcher {
+
+    val networkService = ApplicationController.instance.networkService
+    lateinit var postProjResponse: Call<PostLoginResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        KeyboardVisibilityEvent.setEventListener(this, this)
 
         if (Build.VERSION.SDK_INT >= 21) {
             // 21 버전 이상일 때
@@ -37,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 회원가입 > 버튼
         btn_goToJoin.setOnClickListener {
-            val intent : Intent = Intent(this@LoginActivity, JoinActivity::class.java)
+            val intent: Intent = Intent(this@LoginActivity, JoinActivity::class.java)
 
             startActivity(intent)
         }
@@ -47,8 +57,7 @@ class LoginActivity : AppCompatActivity() {
             onTextChanged { s, start, before, count ->
                 if (et_login_id.text.toString().isNotEmpty()) {
                     iv_id_yellowCircle.visibility = View.VISIBLE
-                }
-                else {
+                } else {
                     iv_id_yellowCircle.visibility = View.INVISIBLE
                 }
             }
@@ -58,23 +67,26 @@ class LoginActivity : AppCompatActivity() {
             onTextChanged { s, start, before, count ->
                 if (et_login_pw.text.toString().isNotEmpty()) {
                     iv_pw_yellowCircle.visibility = View.VISIBLE
-                }
-                else {
+                } else {
                     iv_pw_yellowCircle.visibility = View.INVISIBLE
                 }
             }
         }
+        btn_login.isEnabled = false
+        et_login_id.addTextChangedListener(this)
+        et_login_pw.addTextChangedListener(this)
 
         btn_login.setOnClickListener {
-            postProjResponse = networkService.postLogin(PostLoginData(et_login_id.text.toString(),et_login_pw.text.toString()))
+            postProjResponse =
+                    networkService.postLogin(PostLoginData(et_login_id.text.toString(), et_login_pw.text.toString()))
             postProjResponse.enqueue(object : Callback<PostLoginResponse> {
                 override fun onFailure(call: Call<PostLoginResponse>?, t: Throwable?) {
                     toast(t.toString())
                 }
 
                 override fun onResponse(call: Call<PostLoginResponse>?, response: Response<PostLoginResponse>?) {
-                    if(response!!.isSuccessful)
-                        if(response!!.body()!!.status==200) {
+                    if (response!!.isSuccessful)
+                        if (response!!.body()!!.status == 200) {
                             val token = response.body()!!.data.token!!
                             User.token = token
                             SharedPreferenceController.setAuthorization(this@LoginActivity, token)
@@ -91,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //에뮬돌릴때 로그인 한번 해놓으면 다음에 킬때 바로 홈화면으로, 뒤로가기누르면 LoginActivity로 돌아갈 수 있다.
-        if(SharedPreferenceController.getAuthorization(this).isNotEmpty()) {
+        if (SharedPreferenceController.getAuthorization(this).isNotEmpty()) {
             startActivity<HomeActivity>()
             finish()
             User.token = SharedPreferenceController.getAuthorization(this)
@@ -99,4 +111,28 @@ class LoginActivity : AppCompatActivity() {
             User.user_password = SharedPreferenceController.getPw(this)
         }
     }
+
+    override fun onVisibilityChanged(isOpen: Boolean) {
+        if (isOpen) {
+            scroll_view.scrollTo(0, scroll_view.bottom)
+            btn_goToJoin.visibility = View.GONE
+        } else
+            scroll_view.scrollTo(0, scroll_view.top)
+        btn_goToJoin.visibility = View.GONE
+    }
+
+    override fun afterTextChanged(s: Editable?) {
+        btn_login.isEnabled = et_login_id.text.isNotEmpty() && et_login_pw.text.isNotEmpty()
+
+    }
+
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    }
+
+
 }
+
