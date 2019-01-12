@@ -178,6 +178,7 @@ class ReviewDetailActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 201) {
                         toast("댓글 달기에 성공했습니다.")
+                        et_comment_act.setText("")
                         communicate()
                     }
                     else {
