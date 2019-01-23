@@ -63,8 +63,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_yellowcircle"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="20dp"
-                android:visibility="invisible" />
+                android:layout_marginRight="20dp"/>
 
         </RelativeLayout>
 
@@ -140,7 +139,6 @@
             android:textColor="@drawable/login_btn_color"/>
 
         <LinearLayout
-            android:id="@+id/btn_goToJoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -156,6 +154,7 @@
                 android:fontFamily="@font/nanum_r" />
 
             <Button
+                android:id="@+id/btn_goToJoin"
                 android:layout_width="50dp"
                 android:layout_height="14dp"
                 android:background="#00000000"
