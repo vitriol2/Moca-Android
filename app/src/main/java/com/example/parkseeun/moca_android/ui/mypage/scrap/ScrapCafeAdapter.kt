@@ -28,6 +28,8 @@ class ScrapCafeAdapter(val ctx : Context, val dataList : ArrayList<ScrapCafeData
 
         holder.item.setOnClickListener {
             val intent = Intent(ctx, DetailActivity::class.java)
+            intent.putExtra("cafe_id", dataList[position].cafe_id)
+
             ctx.startActivity(intent)
         }
         Glide.with(ctx).load( if (dataList[position].cafe_img_url.size==0) "https://s3.ap-northeast-2.amazonaws.com/project-sopt/commonDefaultimage%403x.png" else dataList[position].cafe_img_url[0].cafe_img_url ).into(holder.cafeimage)

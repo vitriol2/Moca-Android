@@ -113,12 +113,12 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
     }
 
     override fun onVisibilityChanged(isOpen: Boolean) {
-        if (isOpen) {
-            scroll_view.scrollTo(0, scroll_view.bottom)
-            btn_goToJoin.visibility = View.GONE
-        } else
-            scroll_view.scrollTo(0, scroll_view.top)
-        btn_goToJoin.visibility = View.GONE
+//        if (isOpen) {
+//            scroll_view.scrollTo(0, scroll_view.bottom)
+//            btn_goToJoin.visibility = View.GONE
+//        } else
+//            scroll_view.scrollTo(0, scroll_view.top)
+//        btn_goToJoin.visibility = View.GONE
     }
 
     override fun afterTextChanged(s: Editable?) {
