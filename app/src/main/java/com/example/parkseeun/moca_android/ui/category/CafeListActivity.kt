@@ -33,7 +33,7 @@ class CafeListActivity : AppCompatActivity() {
         cafelist_back_iv.setOnClickListener { finish() }
 
         setRecyclerView()
-
+        
         communicate()
     }
 
