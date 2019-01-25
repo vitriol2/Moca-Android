@@ -21,7 +21,6 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }else{
-                SharedPreferenceController.setFlag(this, true)
                 startActivity(Intent(this, TutorialActivity::class.java))
                 finish()
             }
