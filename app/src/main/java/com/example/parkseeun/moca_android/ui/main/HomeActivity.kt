@@ -123,7 +123,8 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        getHomeMocapicksResponse()
+
+        setHomeNetwork()
     }
     private fun setHomeNetwork() {
 
@@ -134,8 +135,6 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
         getHomeHotplaceResponse()
 
         getHomeMocaplusResponse()
-
-
     }
 
     private fun recyclerView() {
@@ -181,10 +180,11 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                     Log.v(TAG, "picks load success")
                     if(temp!=null) {
                         if(temp.size>0) {
+
                             homeMocapicksAdapter.dataList.removeAll(homeMocapicksAdapter.dataList)
                             homeMocapicksAdapter.dataList.addAll(temp)
                             Log.v(TAG, "picks data size : ${temp.size}")
-                            homeMocapicksAdapter.notifyDataSetChanged()
+                            homeMocapicksAdapter.notifyDataSetChanged()//어댑터 데이터추가 업데이트방법1
                         }
                     }
                 }
@@ -211,7 +211,7 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                         Log.v("homeHotplace", temp.size.toString())
                         homeHotplaceAdapter.dataList.removeAll(homeHotplaceAdapter.dataList)
                         homeHotplaceAdapter.dataList.addAll(temp)
-                        homeHotplaceAdapter.notifyItemInserted(temp.size)
+                        homeHotplaceAdapter.notifyItemInserted(temp.size)//어댑터 데이터추가 업데이트방법2
                     }
 
                 }
@@ -271,7 +271,7 @@ class HomeActivity : NavigationActivity(), View.OnClickListener {
                             val position = homeRankingAdapter.itemCount
                             homeRankingAdapter.dataList.removeAll(homeRankingAdapter.dataList)
                             homeRankingAdapter.dataList.addAll(temp)
-                            homeRankingAdapter.notifyItemChanged(position)
+                            homeRankingAdapter.notifyItemChanged(position)//어댑터 데이터추가 업데이트방법2
                         }
                     }
                 }

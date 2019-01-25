@@ -11,6 +11,10 @@ import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.text.method.TransformationMethod
+import android.util.Log
 import android.view.WindowManager
 import com.example.parkseeun.moca_android.model.post.PostLoginData
 import com.example.parkseeun.moca_android.model.post.PostLoginResponse
@@ -29,6 +33,8 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, TextWatcher {
 
+    private val TAG = "LoginActivity"
+
     val networkService = ApplicationController.instance.networkService
     lateinit var postProjResponse: Call<PostLoginResponse>
 
@@ -39,6 +45,8 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         KeyboardVisibilityEvent.setEventListener(this, this)
+
+        et_login_pw.transformationMethod = PasswordTransformationMethod.getInstance()
 
         if (Build.VERSION.SDK_INT >= 21) {
             // 21 버전 이상일 때
@@ -116,9 +124,12 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
         if (isOpen) {
             scroll_view.scrollTo(0, scroll_view.bottom)
             btn_goToJoin.visibility = View.GONE
-        } else
+            Log.v(TAG, "open ${btn_goToJoin.visibility}")
+        } else {
             scroll_view.scrollTo(0, scroll_view.top)
-        btn_goToJoin.visibility = View.GONE
+            btn_goToJoin.visibility = View.VISIBLE
+            Log.v(TAG, "closed ${btn_goToJoin.visibility}")
+        }
     }
 
     override fun afterTextChanged(s: Editable?) {

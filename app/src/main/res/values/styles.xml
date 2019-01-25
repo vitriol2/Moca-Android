@@ -207,5 +207,11 @@
     <style name="tab_text_comm_sear_act" parent="Regular13">
         <item name="android:color">@color/dark_gray</item>
     </style>
+    
+    <style name="login_btn">
+        <item name="android:background">@drawable/login_btn_bg</item>
+        <item name="android:textColor">@drawable/login_btn_color</item>
+        <item name="android:stateListAnimator">@animator/login_btn_animator</item>
+    </style>
 
 </resources>

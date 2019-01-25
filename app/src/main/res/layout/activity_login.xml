@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,6 +14,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#fff"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         tools:context=".ui.loginJoin.LoginActivity">
 
         <android.support.constraint.ConstraintLayout
@@ -47,6 +49,7 @@
                 android:id="@+id/et_login_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
                 android:hint="moca"
                 android:textSize="13sp"
                 android:textColor="#101010"
@@ -72,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="8dp"
             android:background="#e1b2a3" />
 
         <TextView
@@ -88,8 +90,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:descendantFocusability="beforeDescendants"
-            android:focusableInTouchMode="true"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="1dp">
 
@@ -97,14 +97,14 @@
                 android:id="@+id/et_login_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="*************"
-                android:fontFamily="@font/nanum_b"
-                android:inputType="textPassword"
+                android:paddingVertical="8dp"
+                android:hint="**********"
                 android:background="#00000000"
                 android:textSize="13sp"
                 android:textColor="#101010"
                 android:maxLines="1"
-                android:layout_centerVertical="true"
+                android:inputType="textPassword"
+                android:gravity="center_vertical"
                 android:layout_toLeftOf="@id/iv_pw_yellowCircle" />
 
             <ImageView
@@ -122,12 +122,12 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="8dp"
             android:background="#e1b2a3" />
+
 
         <Button
             android:id="@+id/btn_login"
-            style="?android:attr/borderlessButtonStyle"
+            style="@style/login_btn"
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:layout_marginLeft="48dp"
@@ -136,8 +136,7 @@
             android:text="로그인"
             android:textSize="13sp"
             android:fontFamily="@font/nanum_b"
-            android:background="@drawable/login_btn_bg"
-            android:textColor="@drawable/login_btn_color"/>
+            />
 
         <LinearLayout
             android:id="@+id/btn_goToJoin"
@@ -167,4 +166,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
